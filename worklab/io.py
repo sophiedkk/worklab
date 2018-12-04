@@ -29,7 +29,7 @@ def pick_file():
     return filename
 
 
-def load(filename="", object=True, sfreq=200):
+def load(filename="", obj=True, sfreq=200):
     """ Input: full file path or file in existing path from any source
         Output: will try to detect file type and choose the right load function"""
     if not filename:
@@ -55,7 +55,7 @@ def load(filename="", object=True, sfreq=200):
         return data
     else:
         raise Exception("Could not identify data source with load")
-    if "right" in data and object:
+    if "right" in data and obj:
         data = formats.Kinetics(filename=filename, data=data)
     print("Data loaded!")
     print("-" * 50)
