@@ -87,7 +87,7 @@ def load_HSB(filename):
                 data[side]["time"] *= 0.01
         else:
             print("No right module detected!")
-            data["right"] = {key: np.zeros(data["left"]["time"].size) for key in data["right"].keys()}
+            data["right"] = {key: np.zeros(data["left"]["time"].size) for key in data["right"]}
     for side in data:
         if np.mean(data[side]["force"]) < 0:
             data[side]["force"] *= -1  # Flip force direction

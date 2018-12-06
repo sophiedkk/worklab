@@ -150,6 +150,9 @@ def find_peaks(data, cutoff=1.0, minpeak=5.0, neg=False):
 
     data_slice = np.nonzero(data > minpeak)
     for prom in np.nditer(data_slice):
+        if peaks["end"]:
+            if prom < peaks["end"][-1]:
+                continue  # skip if a push has already been found for that index
         tmp["end"] = next((index for index, value in enumerate(data[prom:-1]) if value < cutoff), None)
         tmp["start"] = next((index for index, value in enumerate(reversed(data[0:prom])) if value < cutoff), None)
         if tmp["end"] and tmp["start"]:
