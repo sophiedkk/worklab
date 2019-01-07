@@ -12,6 +12,14 @@ import matplotlib.pyplot as plt
 from . import formats
 
 
+# def auto_plot(data):
+#     if isinstance(data, formats.Kinetics):
+#
+#
+#
+#     return fig, ax
+
+
 def plot_multiple_vars(data, dvars=None):
     with plt.style.context("seaborn"):
         if not dvars:

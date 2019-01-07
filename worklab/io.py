@@ -34,7 +34,7 @@ def load(filename="", obj=True, sfreq=200):
         Output: will try to detect file type and choose the right load function"""
     if not filename:
         filename = pick_file()
-    print("\n", "-" * 50)
+    print("\n" + "-" * 50)
     print(f"Loading data from {filename} ...")
     if "HSB" in filename:  # HSBlogger for Esseda
         data = load_HSB(filename)
@@ -54,7 +54,7 @@ def load(filename="", obj=True, sfreq=200):
         data, _ = load_n3d(filename)
         return data
     else:
-        raise Exception("Could not identify data source with load")
+        raise Exception("No file name given or could not identify data source with load")
     if "right" in data and obj:
         data = formats.Kinetics(filename=filename, data=data)
     print("Data loaded!")
@@ -193,18 +193,22 @@ def load_LEM_spline(filename):
 
 
 def dt_to_s(dt):
-    h, m, s = dt.split(":")
-    time = int(h) * 3600 + int(m) * 60 + int(s)
+    if isinstance(dt, datetime.time):
+        time = (dt.hour * 60 + dt.minute) * 60 + dt.second
+    else:
+        h, m, s = dt.split(":")
+        time = int(h) * 3600 + int(m) * 60 + int(s)
     return time
 
 
 def load_spiro(filename):
     """ Input: full file path or file in existing path from COSMED spirometer
         Output: pandas dataframe with breath by breath data"""
-    data = excel.read_excel(filename, skiprows=[1, 2], usecols="J:DX")
+    data = excel.read_excel(filename, skiprows=[1, 2], usecols="J:XX")
     data["time"], data["power"] = np.zeros(data.shape[0]), np.zeros(data.shape[0])
     data["time"] = data.apply(lambda row: dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
+    data = data[["time", "HR", "power", "VO2", "VCO2"]]
     return data
 
 

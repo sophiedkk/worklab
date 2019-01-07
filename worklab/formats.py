@@ -10,10 +10,10 @@ License:    GNU GPLv3.0
 Date:       26/03/2018
 """
 
-import copy
+from copy import deepcopy
 
 
-class Kinetics(object):
+class Kinetics:
     """"Dataclass with behavior of nested dict, but can also store some additional data"""
     def __init__(self, filename="", wheelsize=0.31, rimsize=0.27, sfreq=100, data=None):
         self.filename = filename
@@ -21,7 +21,7 @@ class Kinetics(object):
         self.handrimsize = rimsize
         self.samplefreq = sfreq
         self.rawdata = data
-        self.data = copy.deepcopy(self.rawdata)
+        self.data = deepcopy(self.rawdata)
         self.pbp = None
         self.summary = None
 
@@ -35,7 +35,7 @@ class Kinetics(object):
         return self.data[index]
 
     def reset(self):
-        self.data = copy.deepcopy(self.rawdata)
+        self.data = deepcopy(self.rawdata)
 
     def set_variables(self, wheelsize=0.31, rimsize=0.27, sfreq=100):
         self.wheelsize = wheelsize

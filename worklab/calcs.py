@@ -11,7 +11,7 @@ Date:       26/03/2018
 
 
 import numpy as np
-from scipy import interpolate
+from scipy.interpolate import InterpolatedUnivariateSpline
 from scipy.integrate import cumtrapz
 from scipy.signal import butter, filtfilt
 from .formats import get_pbp_format, get_sum_format
@@ -44,7 +44,7 @@ def slice_data(data, start=0, end=100):
         - data: sliced data file from start *till* end"""
 
     if "right" in data:  # ergometer data
-        for side in data.keys():
+        for side in data:
             data[side] = {dkey: data[side][dkey][start:end] for dkey in data[side]}
     else:
         data = {dkey: data[dkey][start:end] for dkey in data}
@@ -66,7 +66,7 @@ def process_data(data, wheelsize=0.31, rimsize=0.27, sfreq=200):
     if "right" in data:  # ergometer data
         sfreq = 100  # overrides default; ergometer is always 100Hz
         for side in data:
-            if "uforce" in data[side].keys():  # LEM
+            if "uforce" in data[side]:  # LEM
                 data[side]["force"] = data[side]["uforce"] / (wheelsize/rimsize)
             data[side]["torque"] = data[side]["force"] * wheelsize
             data[side]["acc"] = np.gradient(data[side]["speed"]) / (1/sfreq)
@@ -232,13 +232,13 @@ def push_by_push(data, pushes):
                     pbp[side]["ctime"].append(pbp[side]["tstart"][-1] - tmp)
                     pbp[side]["reltime"].append(pbp[side]["ptime"][-2] / pbp[side]["ctime"][-1] * 100)
                 tmp = pbp[side]["tstart"][-1]  # hold for cycle time calc
-                if "startneg" in pushes[side].keys():
+                if "startneg" in pushes[side]:
                     pbp[side]["neg"].append((np.cumsum(data[side]["work"][pushes[side]["startneg"][ind]:
                                                                           pushes[side]["start"][ind]])[-1]))
                     pbp[side]["neg"][ind] += np.cumsum(data[side]["work"][pushes[side]["end"][ind]:
                                                                           pushes[side]["endneg"][ind]])[-1]
             pbp[side] = {dkey: np.asarray(pbp[side][dkey]) for dkey in pbp[side]}
-    else:
+    else:  # measurement wheel data
         pbp = get_pbp_format()
         pbp["start"] = pushes["start"]
         pbp["stop"] = pushes["end"]
@@ -272,7 +272,7 @@ def make_calibration_spline(calibration_points):
     spl_line = {"left": [], "right": []}
     for side in spl_line:
         x = np.arange(0, 10)
-        spl = interpolate.InterpolatedUnivariateSpline(x, calibration_points[side], k=2)
+        spl = InterpolatedUnivariateSpline(x, calibration_points[side], k=2)
         spl_line[side] = spl(np.arange(0, 9.01, 0.01))  # Spline with 0.01 increments
         spl_line[side] = np.append(spl_line[side], np.full(99, spl_line[side][-1]))
     return spl_line
@@ -289,9 +289,8 @@ def summary_statistics(pbp):
     if "right" in pbp:  # ergometer data
         summary = {"left": get_sum_format(), "right": get_sum_format()}
         for side in pbp:
-            summary[side] = {dkey: [np.mean(pbp[side][dkey]), np.std(pbp[side][dkey])]
-                             for dkey in summary[side].keys()}
+            summary[side] = {dkey: [np.mean(pbp[side][dkey]), np.std(pbp[side][dkey])] for dkey in summary[side]}
     else:
         summary = get_sum_format()
-        summary = {dkey: [np.mean(pbp[dkey]), np.std(pbp[dkey])] for dkey in summary.keys()}
+        summary = {dkey: [np.mean(pbp[dkey]), np.std(pbp[dkey])] for dkey in summary}
     return summary
