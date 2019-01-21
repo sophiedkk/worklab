@@ -22,9 +22,11 @@ from struct import unpack
 def pick_file():
     from tkinter import Tk
     from tkinter.filedialog import askopenfilename
-    Tk().withdraw()  # no root window
+    root = Tk()
+    root.withdraw()  # no root window
     filename = askopenfilename(title="Open data file or files",
-                               filetypes=[("Data files", "*.csv;*.xlsx;*.data")])  # return path to selected file
+                               filetypes=[("Data files", "*.csv;*.xlsx;*.xls;*.data")])  # return path to selected file
+    root.destroy()
     print("You selected: ", filename)
     return filename
 
@@ -271,14 +273,3 @@ def export_pushes(pbp):
 def merge_chars(chars):
     """Merges list of binary characters to single string"""
     return ''.join([x.decode("utf-8") for x in chars])
-
-
-if __name__ == "__main__":  # Some test functions
-    # pick_file()
-    # testdata = load("C:/Users/rick_/Data/20180312_Coast_down_tests/20180312_155033_HSB.csv")
-    # report_missing(testdata)
-    # load_opti("opti.data")
-    # testdata = load_sw("SW.txt")
-    # testdata = load_opti("C:\\Users\\rick_\\Development\\analysis\\example_data\\opti.data")
-    testdata = load("C:\\Users\\rick_\\Development\\analysis\\example_data\\COSMED_example.xls")
-    print(testdata.head())
