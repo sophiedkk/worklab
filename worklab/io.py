@@ -210,8 +210,8 @@ def load_spiro(filename):
     data["time"], data["power"] = np.zeros(data.shape[0]), np.zeros(data.shape[0])
     data["time"] = data.apply(lambda row: dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
-    data = data[["time", "HR", "power", "VO2", "VCO2"]]
-    return data
+    data["weights"] = np.insert(np.diff(data["time"]), 0, 0)
+    return data[["time", "HR", "power", "VO2", "VCO2", "weights"]]
 
 
 def load_n3d(filename, verbose=True):

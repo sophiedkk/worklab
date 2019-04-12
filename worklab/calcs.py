@@ -11,6 +11,7 @@ Date:       26/03/2018
 
 
 import numpy as np
+import pandas as pd
 from scipy.interpolate import InterpolatedUnivariateSpline
 from scipy.integrate import cumtrapz
 from scipy.signal import butter, filtfilt
@@ -205,7 +206,6 @@ def push_by_push(data, pushes):
     Returns
         - push-by-push nested dictionary with outcome parameters in arrays"""
 
-    tmp = 0  # needed for cycle time
     if "right" in data:  # ergometer data
         pbp = {"left": [], "right": []}
         for side in data:  # left and right side
@@ -229,17 +229,19 @@ def push_by_push(data, pushes):
                 pbp[side]["slope"].append(pbp[side]["maxtorque"][-1] /
                                           (pbp[side]["tstop"][-1] - pbp[side]["tstart"][-1]))
                 if start != pushes[side]["start"][0]:  # only after first push
-                    pbp[side]["ctime"].append(pbp[side]["tstart"][-1] - tmp)
+                    pbp[side]["ctime"].append(pbp[side]["tstart"][-1] - pbp[side]["tstart"][-2])
                     pbp[side]["reltime"].append(pbp[side]["ptime"][-2] / pbp[side]["ctime"][-1] * 100)
-                tmp = pbp[side]["tstart"][-1]  # hold for cycle time calc
                 if "startneg" in pushes[side]:
                     pbp[side]["neg"].append((np.cumsum(data[side]["work"][pushes[side]["startneg"][ind]:
                                                                           pushes[side]["start"][ind]])[-1]))
                     pbp[side]["neg"][ind] += np.cumsum(data[side]["work"][pushes[side]["end"][ind]:
                                                                           pushes[side]["endneg"][ind]])[-1]
+            pbp[side]["ctime"].append(np.NaN)
+            pbp[side]["reltime"].append(np.NaN)
             pbp[side] = {dkey: np.asarray(pbp[side][dkey]) for dkey in pbp[side]}
     else:  # measurement wheel data
         pbp = get_pbp_format()
+        pbp["feff"] = []
         pbp["start"] = pushes["start"]
         pbp["stop"] = pushes["end"]
         if "startneg" in pushes:
@@ -256,16 +258,19 @@ def push_by_push(data, pushes):
             pbp["work"].append(np.cumsum(data["work"][start:stop])[-1])
             pbp["fpeak"].append(np.max(data["uforce"][start:stop]))
             pbp["fmean"].append(np.mean(data["uforce"][start:stop]))
+            pbp["feff"].append(np.mean(data["uforce"][start:stop] / ((data["fx"][start:stop]**2 +
+                                                                      data["fy"][start:stop]**2 +
+                                                                      data["fz"][start:stop]**2)**0.5)) * 100)
             pbp["slope"].append(pbp["maxtorque"][-1]/(pbp["tstop"][-1]-pbp["tstart"][-1]))
             if start != pushes["start"][0]:  # only after first push
-                pbp["ctime"].append(pbp["tstart"][-1] - tmp)
+                pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
                 pbp["reltime"].append(pbp["ptime"][-2]/pbp["ctime"][-1] * 100)
-            tmp = pbp["tstart"][-1]  # hold for cycle time calc
             if "startneg" in pushes:
                 pbp["neg"].append((np.cumsum(data["work"][pushes["startneg"][ind]:pushes["start"][ind]])[-1]))
                 pbp["neg"][ind] += np.cumsum(data["work"][pushes["end"][ind]:pushes["endneg"][ind]])[-1]
-        pbp = {dkey: np.asarray(pbp[dkey]) for dkey in pbp}
-    return pbp
+        pbp["ctime"].append(np.NaN)
+        pbp["reltime"].append(np.NaN)
+    return pd.DataFrame(pbp)
 
 
 def make_calibration_spline(calibration_points):
