@@ -11,8 +11,7 @@ Date:       26/03/2018
 """
 
 import numpy as np
-from pandas import DataFrame, to_numeric
-from pandas.io import excel
+import pandas as pd
 import csv
 import datetime
 from . import formats
@@ -68,7 +67,7 @@ def load_HSB(filename):
     """ Input: full file path or file in existing path from HSBtool
         Output: dictionary with ergometer data in numpy arrays"""
     print("Loading from HSB data file")
-    data = formats.get_erg_format()
+    data = formats.get_erg_format()  # TODO: replace with defaultdict
     with open(filename, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         next(reader, None)  # skip header
@@ -102,15 +101,15 @@ def load_LEM(filename):
     """ Input: full file path or file in existing path from LEM excel sheet
         Output: dictionary with ergometer data in numpy arrays"""
     print("Loading from LEM data file")
-    df = excel.read_excel(filename, sheet_name="HSB")
+    df = pd.read_excel(filename, sheet_name="HSB")
     df = df.dropna(axis=1, how='all')  # remove empty columns
-    df = df.apply(lambda col: to_numeric(col.str.replace(',', '.')) if isinstance(col[0], str) else col, axis=0)
+    df = df.apply(lambda col: pd.to_numeric(col.str.replace(',', '.')) if isinstance(col[0], str) else col, axis=0)
 
     cols = len(df.columns) / 5  # LEM does this annoying thing where it starts in new columns
-    mats = np.split(df.as_matrix(), int(cols), axis=1)
+    mats = np.split(df.values, int(cols), axis=1)
     dmat = np.concatenate(tuple(mats), axis=0)
 
-    data = formats.get_lem_format()
+    data = formats.get_lem_format()  # TODO: replace with defaultdict
     data["left"]["time"] = dmat[:, 0]
     data["left"]["uforce"] = dmat[:, 1]
     data["left"]["speed"] = dmat[:, 3]
@@ -123,11 +122,18 @@ def load_LEM(filename):
     return data
 
 
+def load_wheelchair(filename):  # TODO: implement wheelchair settings in io
+    wc = pd.read_excel(filename, sheet_name="Wheelchair Settings", index_col=0).T
+    wc["Weight"] = wc["Weight"].str.replace(",", ".")
+    wc_dict = {"rimsize": float(wc["Rim"]), "wheelsize": float(wc["Wheel"]), "weight": float(wc["Weight"])}
+    return wc_dict
+
+
 def load_LEM_bike(filename):
-    pp_info = excel.read_excel(filename, sheet_name=0)  # subject information
-    pp_data = excel.read_excel(filename, sheet_name=2)  # 5 Hz data
+    pp_info = pd.read_excel(filename, sheet_name=0)  # subject information
+    pp_data = pd.read_excel(filename, sheet_name=2)  # 5 Hz data
     pp_data = pp_data.rename(columns=lambda x: x.strip())  # remove spaces from header
-    pp_prot = excel.read_excel(filename, sheet_name=3, skiprows=2)  # skip to header
+    pp_prot = pd.read_excel(filename, sheet_name=3, skiprows=2)  # skip to header
     return pp_data, pp_info, pp_prot
 
 
@@ -172,9 +178,29 @@ def load_sw(filename, sfreq=200):
             data["torque"].append(float(row[23]))
             data["angle"].append(float(row[3]))
     data = {dkey: np.asarray(data[dkey]) for dkey in data}
-    data["time"] *= (1/sfreq)
-    data["angle"] = np.unwrap(data["angle"] * (np.pi/180)) * - 1  # in radians
+    data["time"] *= (1 / sfreq)
+    data["angle"] = np.unwrap(data["angle"] * (np.pi / 180)) * - 1  # in radians
     return data
+
+
+# def load_opti_pd(filename):  # TODO: implement dataframe approach
+#     names = ["time", "fx", "fy", "fz", "tx", "ty", "torque", "angle"]
+#     dtypes = {name: np.float64 for name in names}
+#     usecols = [0, 3, 4, 5, 6, 7, 8, 9]
+#     opti_df = pd.read_csv(filename, names=names, delimiter="\t", usecols=usecols, dtype=dtypes, skiprows=12)
+#     opti_df["angle"] *= (np.pi / 180)
+#     opti_df["angle"] -= opti_df["angle"][0]  # remove angle offset
+#     return opti_df
+#
+#
+# def load_sw_pd(filename, sfreq=200):
+#     names = ["time", "fx", "fy", "fz", "tx", "ty", "torque", "angle"]
+#     dtypes = {name: np.float64 for name in names}
+#     usecols = [1, 18, 19, 20, 21, 22, 23, 3]
+#     sw_df = pd.read_csv(filename, names=names, usecols=usecols, dtype=dtypes)
+#     sw_df["time"] *= (1 / sfreq)
+#     sw_df["angle"] = np.unwrap(sw_df["angle"] * (np.pi / 180)) * - 1  # in radians
+#     return sw_df
 
 
 def load_LEM_spline(filename):
@@ -182,7 +208,7 @@ def load_LEM_spline(filename):
         Output: spline value dictionary"""
     gear_ratio = 4  # Roller to loadcell
     data = {"left": [], "right": []}
-    df = excel.read_excel(filename, sheet_name="Devices", header=5, skiprows=0)
+    df = pd.read_excel(filename, sheet_name="Devices", header=5, skiprows=0)
     df = df.iloc[:, [1, 2]]  # Remove random columns
     df = df[8:88:8]  # Remove random rows
     data["left"] = df.values[:, 0]
@@ -206,8 +232,7 @@ def dt_to_s(dt):
 def load_spiro(filename):
     """ Input: full file path or file in existing path from COSMED spirometer
         Output: pandas dataframe with breath by breath data"""
-    data = excel.read_excel(filename, skiprows=[1, 2], usecols="J:XX")
-    data["time"], data["power"] = np.zeros(data.shape[0]), np.zeros(data.shape[0])
+    data = pd.read_excel(filename, skiprows=[1, 2], usecols="J:XX")
     data["time"] = data.apply(lambda row: dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)
@@ -254,18 +279,17 @@ def load_n3d(filename, verbose=True):
 
 
 def report_missing(data):
-    if "right" in data:
-        for side in data:
-            boolarray = np.diff(data[side]["time"]) > 0.011  # 0.001 higher because floats
-            if np.sum(boolarray) or np.isnan(np.min(data[side]["speed"])):
-                print("\n", "-" * 50)
-                print(f"Number of missing datapoints for {side} module = {np.sum(boolarray)}")
+    for side in data:
+        boolarray = np.diff(data[side]["time"]) > 0.011  # 0.001 higher because floats
+        if np.sum(boolarray) or np.isnan(np.min(data[side]["speed"])):
+            print("\n", "-" * 50)
+            print(f"Number of missing datapoints for {side} module = {np.sum(boolarray)}")
 
 
 def export_pushes(pbp):
     now = datetime.datetime.now()
     now = now.strftime("%Y%m%d_%H%M")
-    df = DataFrame.from_dict(pbp, orient="index")
+    df = pd.DataFrame.from_dict(pbp, orient="index")
     df = df.transpose()
     df.to_csv(f"{now}_pbp.tsv", sep="\t", index=False)
 

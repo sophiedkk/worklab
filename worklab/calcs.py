@@ -154,13 +154,13 @@ def find_peaks(data, cutoff=1.0, minpeak=5.0, neg=False):
         if peaks["end"]:
             if prom < peaks["end"][-1]:
                 continue  # skip if a push has already been found for that index
-        tmp["end"] = next((index for index, value in enumerate(data[prom:-1]) if value < cutoff), None)
-        tmp["start"] = next((index for index, value in enumerate(reversed(data[0:prom])) if value < cutoff), None)
+        tmp["end"] = next((index for index, value in enumerate(data[prom:]) if value < cutoff), None)
+        tmp["start"] = next((index for index, value in enumerate(reversed(data[:prom])) if value < cutoff), None)
         if tmp["end"] and tmp["start"]:
             if neg:  # optionally
-                tmp["endneg"] = next((index for index, value in enumerate(data[tmp["end"]+prom:-1])
+                tmp["endneg"] = next((index for index, value in enumerate(data[tmp["end"]+prom:])
                                       if value > cutoff), None)
-                tmp["startneg"] = next((index for index, value in enumerate(reversed(data[0:prom-tmp["start"]-1]))
+                tmp["startneg"] = next((index for index, value in enumerate(reversed(data[:prom-tmp["start"]-1]))
                                         if value > cutoff), None)
                 if tmp["endneg"] and tmp["startneg"]:
                     peaks["end"].append(tmp["end"] + prom - 1)
@@ -209,12 +209,13 @@ def push_by_push(data, pushes):
     if "right" in data:  # ergometer data
         pbp = {"left": [], "right": []}
         for side in data:  # left and right side
-            pbp[side] = get_pbp_format()
+            pbp[side] = get_pbp_format()  # TODO: defaultdict from collections
             pbp[side]["start"] = pushes[side]["start"]
             pbp[side]["stop"] = pushes[side]["end"]
             if "startneg" in pushes[side]:
-                pbp[side]["neg"] = []
+                pbp[side]["neg"] = []  # TODO: remove with defaultdict
             for ind, (start, stop) in enumerate(zip(pbp[side]["start"], pbp[side]["stop"])):  # for each push
+                stop += 1  # inclusive of last sample
                 pbp[side]["tstart"].append(data[side]["time"][start])
                 pbp[side]["tstop"].append(data[side]["time"][stop])
                 pbp[side]["ptime"].append(pbp[side]["tstop"][-1] - pbp[side]["tstart"][-1])
@@ -238,15 +239,16 @@ def push_by_push(data, pushes):
                                                                           pushes[side]["endneg"][ind]])[-1]
             pbp[side]["ctime"].append(np.NaN)
             pbp[side]["reltime"].append(np.NaN)
-            pbp[side] = {dkey: np.asarray(pbp[side][dkey]) for dkey in pbp[side]}
+            return {dkey: np.asarray(pbp[side][dkey]) for dkey in pbp[side]}
     else:  # measurement wheel data
-        pbp = get_pbp_format()
+        pbp = get_pbp_format()  # TODO: replace with defaultdict
         pbp["feff"] = []
         pbp["start"] = pushes["start"]
         pbp["stop"] = pushes["end"]
         if "startneg" in pushes:
             pbp["neg"] = []
         for ind, (start, stop) in enumerate(zip(pbp["start"], pbp["stop"])):  # for each push
+            stop += 1  # inclusive of last sample
             pbp["tstart"].append(data["time"][start])
             pbp["tstop"].append(data["time"][stop])
             pbp["ptime"].append(pbp["tstop"][-1]-pbp["tstart"][-1])
