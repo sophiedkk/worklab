@@ -9,6 +9,9 @@ Company:    University Medical Center Groningen
 License:    GNU GPLv3.0
 Date:       26/03/2018
 """
+import re
+from glob import glob
+from os import listdir, path
 
 import numpy as np
 import pandas as pd
@@ -111,13 +114,13 @@ def load_LEM(filename):
 
     data = formats.get_lem_format()  # TODO: replace with defaultdict
     data["left"]["time"] = dmat[:, 0]
-    data["left"]["uforce"] = dmat[:, 1]
+    data["left"]["force"] = dmat[:, 1]
     data["left"]["speed"] = dmat[:, 3]
     data["right"]["time"] = dmat[:, 0]
-    data["right"]["uforce"] = dmat[:, 2]
+    data["right"]["force"] = dmat[:, 2]
     data["right"]["speed"] = dmat[:, 4]
 
-    data = {idx: {dkey: data[idx][dkey][~np.isnan(data[idx]["uforce"])] for dkey in side}
+    data = {idx: {dkey: data[idx][dkey][~np.isnan(data[idx]["force"])] for dkey in side}
             for (idx, side) in data.items()}  # remove NaNs created by empty rows in excel
     return data
 
@@ -297,3 +300,42 @@ def export_pushes(pbp):
 def merge_chars(chars):
     """Merges list of binary characters to single string"""
     return ''.join([x.decode("utf-8") for x in chars])
+
+
+def load_session(root_dir: str, filenames: list = None) -> dict:
+    """Imports NGIMU session in nested dictionary with all devices and sensors. Translated from xio-Technologies.
+    https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
+
+    :param root_dir: directory where session is located
+    :param filenames: Optional - list of sensor names or single sensor name that you would like to include
+    :return: returns nested object sensordata[device][sensor][dataframe]
+    """
+    directory_contents = listdir(root_dir)  # all content in directory
+    if not directory_contents:
+        raise Exception("No contents in directory")
+    if "Session.xml" not in directory_contents:
+        raise Exception("Session.xml not found.")
+    directories = glob(f"{root_dir}/*/")  # folders of all devices
+    session_data = dict()
+
+    for sensordir in directories:  # loop through all sensor directories
+        sensor_files = glob(f"{sensordir}/*.csv")
+        device_name = path.split(path.split(sensordir)[0])[-1].split(" ")[3]
+        device_name = "Left" if "Links" in device_name or "Left" in device_name else device_name
+        device_name = "Right" if "Rechts" in device_name or "Right" in device_name else device_name
+        device_name = "Frame" if "Frame" in device_name else device_name
+        session_data[device_name] = dict()
+
+        for sensor_file in sensor_files:  # loop through all csv files
+            sensor_name = path.split(sensor_file)[-1].split(".csv")[0]  # sensor without path or extension
+
+            if filenames and sensor_name not in filenames:
+                continue  # skip if filenames is given and sensor not in filenames
+
+            session_data[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
+            session_data[device_name][sensor_name].rename(columns=lambda x: re.sub("[(\[].*?[)\]]", "", x)
+                                                          .replace(" ", ""), inplace=True)  # remove units from name
+
+        if not session_data[device_name]:
+            raise Exception("No data was imported")
+    return session_data

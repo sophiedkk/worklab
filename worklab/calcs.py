@@ -8,14 +8,16 @@ Company:    University Medical Center Groningen
 License:    GNU GPLv3.0
 Date:       26/03/2018
 """
-
+from collections import defaultdict
+from warnings import warn
 
 import numpy as np
 import pandas as pd
-from scipy.interpolate import InterpolatedUnivariateSpline
 from scipy.integrate import cumtrapz
+from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.signal import butter, filtfilt
-from .formats import get_pbp_format, get_sum_format
+
+from .formats import get_sum_format
 
 
 def autoprocess(data, wheelsize=0.31, rimsize=0.27, co_f=15, ord_f=2, sfreq=200, cutoff=1.0, minpeak=5.0):
@@ -67,8 +69,6 @@ def process_data(data, wheelsize=0.31, rimsize=0.27, sfreq=200):
     if "right" in data:  # ergometer data
         sfreq = 100  # overrides default; ergometer is always 100Hz
         for side in data:
-            if "uforce" in data[side]:  # LEM
-                data[side]["force"] = data[side]["uforce"] / (wheelsize/rimsize)
             data[side]["torque"] = data[side]["force"] * wheelsize
             data[side]["acc"] = np.gradient(data[side]["speed"]) / (1/sfreq)
             data[side]["power"] = data[side]["speed"] * data[side]["force"]
@@ -209,15 +209,15 @@ def push_by_push(data, pushes):
     if "right" in data:  # ergometer data
         pbp = {"left": [], "right": []}
         for side in data:  # left and right side
-            pbp[side] = get_pbp_format()  # TODO: defaultdict from collections
+            pbp[side] = defaultdict(list)
             pbp[side]["start"] = pushes[side]["start"]
             pbp[side]["stop"] = pushes[side]["end"]
-            if "startneg" in pushes[side]:
-                pbp[side]["neg"] = []  # TODO: remove with defaultdict
-            for ind, (start, stop) in enumerate(zip(pbp[side]["start"], pbp[side]["stop"])):  # for each push
+            pbp[side]["peak"] = pushes[side]["peak"]
+            for ind, (start, stop, peak) in enumerate(zip(pbp[side]["start"], pbp[side]["stop"], pbp[side]["peak"])):
                 stop += 1  # inclusive of last sample
                 pbp[side]["tstart"].append(data[side]["time"][start])
                 pbp[side]["tstop"].append(data[side]["time"][stop])
+                pbp[side]["tpeak"].append(data[side]["time"][peak])
                 pbp[side]["ptime"].append(pbp[side]["tstop"][-1] - pbp[side]["tstart"][-1])
                 pbp[side]["pout"].append(np.mean(data[side]["power"][start:stop]))
                 pbp[side]["maxpout"].append(np.max(data[side]["power"][start:stop]))
@@ -228,29 +228,29 @@ def push_by_push(data, pushes):
                 pbp[side]["fpeak"].append(np.max(data[side]["uforce"][start:stop]))
                 pbp[side]["fmean"].append(np.mean(data[side]["uforce"][start:stop]))
                 pbp[side]["slope"].append(pbp[side]["maxtorque"][-1] /
-                                          (pbp[side]["tstop"][-1] - pbp[side]["tstart"][-1]))
+                                          (pbp[side]["tpeak"][-1] - pbp[side]["tstart"][-1]))
                 if start != pushes[side]["start"][0]:  # only after first push
                     pbp[side]["ctime"].append(pbp[side]["tstart"][-1] - pbp[side]["tstart"][-2])
                     pbp[side]["reltime"].append(pbp[side]["ptime"][-2] / pbp[side]["ctime"][-1] * 100)
+                    pbp[side]["negwork/cycle"].append(np.cumsum(data[side]["work"][pbp[side]["start"][-2]:
+                                                                                   pbp[side]["stop"][-1] + 1])[-1])
                 if "startneg" in pushes[side]:
                     pbp[side]["neg"].append((np.cumsum(data[side]["work"][pushes[side]["startneg"][ind]:
                                                                           pushes[side]["start"][ind]])[-1]))
                     pbp[side]["neg"][ind] += np.cumsum(data[side]["work"][pushes[side]["end"][ind]:
                                                                           pushes[side]["endneg"][ind]])[-1]
-            pbp[side]["ctime"].append(np.NaN)
-            pbp[side]["reltime"].append(np.NaN)
-            return {dkey: np.asarray(pbp[side][dkey]) for dkey in pbp[side]}
+            pbp[side] = pd.DataFrame.from_dict(pbp[side], orient='index').T
+        return pbp
     else:  # measurement wheel data
-        pbp = get_pbp_format()  # TODO: replace with defaultdict
-        pbp["feff"] = []
+        pbp = defaultdict(list)
         pbp["start"] = pushes["start"]
         pbp["stop"] = pushes["end"]
-        if "startneg" in pushes:
-            pbp["neg"] = []
-        for ind, (start, stop) in enumerate(zip(pbp["start"], pbp["stop"])):  # for each push
+        pbp["peak"] = pushes["peak"]
+        for ind, (start, stop, peak) in enumerate(zip(pbp["start"], pbp["stop"], pbp["peak"])):  # for each push
             stop += 1  # inclusive of last sample
             pbp["tstart"].append(data["time"][start])
             pbp["tstop"].append(data["time"][stop])
+            pbp["tpeak"].append(data["time"][peak])
             pbp["ptime"].append(pbp["tstop"][-1]-pbp["tstart"][-1])
             pbp["pout"].append(np.mean(data["power"][start:stop]))
             pbp["maxpout"].append(np.max(data["power"][start:stop]))
@@ -263,16 +263,15 @@ def push_by_push(data, pushes):
             pbp["feff"].append(np.mean(data["uforce"][start:stop] / ((data["fx"][start:stop]**2 +
                                                                       data["fy"][start:stop]**2 +
                                                                       data["fz"][start:stop]**2)**0.5)) * 100)
-            pbp["slope"].append(pbp["maxtorque"][-1]/(pbp["tstop"][-1]-pbp["tstart"][-1]))
+            pbp["slope"].append(pbp["maxtorque"][-1]/(pbp["tpeak"][-1]-pbp["tstart"][-1]))
             if start != pushes["start"][0]:  # only after first push
                 pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
                 pbp["reltime"].append(pbp["ptime"][-2]/pbp["ctime"][-1] * 100)
+                pbp["negwork/cycle"].append(np.cumsum(data["work"][pbp["start"][-2]:pbp["stop"][-1] + 1])[-1])
             if "startneg" in pushes:
                 pbp["neg"].append((np.cumsum(data["work"][pushes["startneg"][ind]:pushes["start"][ind]])[-1]))
                 pbp["neg"][ind] += np.cumsum(data["work"][pushes["end"][ind]:pushes["endneg"][ind]])[-1]
-        pbp["ctime"].append(np.NaN)
-        pbp["reltime"].append(np.NaN)
-    return pd.DataFrame(pbp)
+    return pd.DataFrame.from_dict(pbp, orient='index').T
 
 
 def make_calibration_spline(calibration_points):
@@ -301,3 +300,106 @@ def summary_statistics(pbp):
         summary = get_sum_format()
         summary = {dkey: [np.mean(pbp[dkey]), np.std(pbp[dkey])] for dkey in summary}
     return summary
+
+
+def pd_interp(df, interp_column, at):
+    """
+    Resamples DataFrame with Scipy's interp1d
+    :param df: original sessiondata structure
+    :param interp_column: column to interpolate on
+    :param at: column to interpolate on
+    :return: interpolated DataFrame
+    """
+    interp_df = pd.DataFrame()
+    for col in df:
+        f = interp1d(df[interp_column], df[col], bounds_error=False, fill_value="extrapolate")
+        interp_df[col] = f(at)
+    interp_df[interp_column] = at
+    return interp_df
+
+
+def resample_imu(sessiondata, samplefreq=400):
+    """
+    Resample all devices and sensors to new sample frequency. Translated from xio-Technologies.
+    :param sessiondata: original sessiondata structure
+    :param samplefreq: new intended sample frequency
+    :return: resampled sessiondata
+    """
+    end_time = 0
+    for device in sessiondata:
+        for sensor in sessiondata[device]:
+            max_time = sessiondata[device][sensor]["Time"].max()
+            end_time = max_time if max_time > end_time else end_time
+
+    new_time = np.arange(0, end_time, 1/samplefreq)
+
+    for device in sessiondata:
+        for sensor in sessiondata[device]:
+            if sensor == "quaternion":  # TODO: xio-tech has TODO here to replace this part with slerp
+                sessiondata[device][sensor] = pd_interp(sessiondata[device][sensor], "Time", new_time)
+                sessiondata[device][sensor] *= (1 / np.linalg.norm(sessiondata[device][sensor], axis=0))
+            elif sensor == "matrix":
+                sessiondata[device].pop(sensor)
+                warn("Rotation matrix cannot be resampled. This dataframe has been removed")
+            else:
+                sessiondata[device][sensor] = pd_interp(sessiondata[device][sensor], "Time", new_time)
+    return sessiondata
+
+
+def lowpass_butter(array, sfreq, co=20, order=2):
+    """Butterworth filter that takes sample-freq, cutoff, and order as input."""
+    # noinspection PyTupleAssignmentBalance
+    b, a = butter(order, co / (0.5 * sfreq), 'low')
+    return filtfilt(b, a, array)
+
+
+def calc_wheelspeed(sessiondata, camber=15, wsize=0.31, wbase=0.60, sfreq=400):
+    """
+    Calculate wheelchair velocity based on NGIMU data, modifies dataframes inplace.
+    :param sessiondata: original sessiondata structure
+    :param camber: camber angle in degrees
+    :param wsize: radius of the wheels
+    :param wbase: width of wheelbase
+    :param sfreq: sample frequency
+    """
+    frame = sessiondata["Frame"]["sensors"]  # view into dataframe, edits will be inplace
+    left = sessiondata["Left"]["sensors"]  # most variables will be added to df except for some temp variables
+    right = sessiondata["Right"]["sensors"]
+
+    # Wheelchair camber correction
+    deg2rad = np.pi / 180
+    right["GyroCor"] = right["GyroscopeY"] + np.tan(camber * deg2rad) * (frame["GyroscopeZ"] * np.cos(camber * deg2rad))
+    left["GyroCor"] = left["GyroscopeY"] - np.tan(camber * deg2rad) * (frame["GyroscopeZ"] * np.cos(camber * deg2rad))
+    frame["GyroCor"] = (right["GyroCor"] + left["GyroCor"]) / 2
+
+    # Calculation of wheelspeed and displacement
+    right["GyroVel"] = right["GyroCor"] * wsize * deg2rad  # angular velocity to linear velocity
+    right["GyroDist"] = cumtrapz(right["GyroVel"] / sfreq, initial=0.0)  # integral of velocity gives distance
+
+    left["GyroVel"] = left["GyroCor"] * wsize * deg2rad
+    left["GyroDist"] = cumtrapz(left["GyroVel"] / sfreq, initial=0.0)
+
+    frame["CombVel"] = (right["GyroVel"] + left["GyroVel"]) / 2  # mean velocity
+    frame["CombDist"] = (right["GyroDist"] + left["GyroDist"]) / 2  # mean velocity
+
+    """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
+    Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
+    Procedia Engineering, 112, 207-212."""
+    frame["CombVelRight"] = np.gradient(right["GyroDist"]) * sfreq  # Calculate frame centre displacement
+    frame["CombVelRight"] -= np.tan(np.deg2rad(frame["GyroscopeZ"]/sfreq)) * wbase/2 * sfreq
+    frame["CombVelLeft"] = np.gradient(left["GyroDist"]) * sfreq
+    frame["CombVelLeft"] += np.tan(np.deg2rad(frame["GyroscopeZ"]/sfreq)) * wbase/2 * sfreq
+
+    r_ratio0 = np.abs(right["GyroVel"]) / (np.abs(right["GyroVel"]) + np.abs(left["GyroVel"]))  # Ratio left and right
+    l_ratio0 = np.abs(left["GyroVel"]) / (np.abs(right["GyroVel"]) + np.abs(left["GyroVel"]))
+    r_ratio1 = np.abs(np.gradient(left["GyroVel"])) / (np.abs(np.gradient(right["GyroVel"]))
+                                                        + np.abs(np.gradient(left["GyroVel"])))
+    l_ratio1 = np.abs(np.gradient(right["GyroVel"])) / (np.abs(np.gradient(right["GyroVel"]))
+                                                        + np.abs(np.gradient(left["GyroVel"])))
+
+    comb_ratio = (r_ratio0 * r_ratio1) / ((r_ratio0 * r_ratio1) + (l_ratio0 * l_ratio1))  # Combine speed ratios
+    comb_ratio = lowpass_butter(comb_ratio, sfreq=sfreq, co=20)  # Filter the signal
+    comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combratio values, not in df
+    frame["CombSkidVel"] = (frame["CombVelRight"] * comb_ratio) + (frame["CombVelLeft"] * (1-comb_ratio))
+    frame["CombSkidDist"] = cumtrapz(frame["CombSkidVel"], initial=0.0) / sfreq  # Combined skid displacement
+    return sessiondata

@@ -55,3 +55,4 @@ Thumbs.db
 /worklab.egg-info
 /build
 /dist
+tests.py
