@@ -1,0 +1,43 @@
+File ETO2_PP1_TM_Drag1.txt 
+08-03-2019 10:53:28
+
+POWER TABLE
+
+Velocity(Km/Hour) = 4.00
+Slope(Newton/Degree) = 21.22
+Intercept(Newton) = 12.94
+
+Angle(Display) Angle(Degrees) Force(Newton)  Power(Watt)    
+0              0.60           25.68          28.53          
+1              0.73           28.43          31.59          
+2              1.00           34.16          37.96          
+3              1.24           39.26          43.62          
+4              1.46           43.92          48.80          
+5              1.77           50.50          56.11          
+6              2.07           56.87          63.19          
+7              2.38           63.45          70.49          
+8              2.64           68.96          76.62          
+9              2.94           75.33          83.70          
+10             3.29           82.75          91.95          
+11             3.48           86.79          96.43          
+12             3.67           90.82          100.91         
+
+
+CALIBRATION FORCE SENSOR
+
+Slope(Newton/LSB) = 0.026334
+Intercept(Newton) = -1289.948869
+
+MEASUREMENT DATA FOR POWER TABLE
+
+Angle(Degrees) Force(Newton)  
+1.24           38.79          
+1.46           43.76          
+1.77           50.17          
+2.07           58.11          
+2.38           63.71          
+2.64           68.57          
+2.94           75.76          
+3.29           82.33          
+3.48           87.04          
+3.67           90.40          

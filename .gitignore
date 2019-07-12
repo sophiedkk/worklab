@@ -51,8 +51,8 @@ Thumbs.db
 
 # Directories #
 ############
-/test_functions
 /worklab.egg-info
 /build
 /dist
+/examples/.ipynb_checkpoints
 tests.py

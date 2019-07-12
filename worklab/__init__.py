@@ -1,10 +1,12 @@
 """Worklab data processing package"""
 
-__version__ = "0.0.1 (2018/10/18)"
+__version__ = "1.0.0 (2019/07/08)"
 
-__all__ = ['calcs', 'formats', 'io', 'plots']
+__all__ = ['com', 'kin', 'move', 'physio', 'utils', 'plots']
 
-from . import calcs
-from . import formats
-from . import io
+from . import com
+from . import kin
+from . import move
+from . import physio
+from . import utils
 from . import plots
