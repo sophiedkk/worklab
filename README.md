@@ -1,5 +1,5 @@
 # Worklab: a wheelchair biomechanics mini-package
-![DOI](badge.svg)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3268671.svg)](https://doi.org/10.5281/zenodo.3268671)
 
 Essential data analysis and (pre-)processing scripts used in my project researching the [Lode Esseda](https://www.lode.nl/en/product/esseda-wheelchair-ergometer/637) 
 wheelchair ergometer in the worklab at the University Medical Centre Groningen. Includes all basic io and calculations for the equipment in the worklab, which means:
