@@ -1,32 +1,34 @@
 # Worklab: a wheelchair biomechanics mini-package
+![DOI](badge.svg)
+
 Essential data analysis and (pre-)processing scripts used in my project researching the [Lode Esseda](https://www.lode.nl/en/product/esseda-wheelchair-ergometer/637) 
 wheelchair ergometer in the worklab at the University Medical Centre Groningen. Includes all basic io and calculations for the equipment in the worklab, which means:
 
-* Measurement wheel and ergometer data processing
+* Measurement wheel (Optipush and SMARTwheel) and ergometer (Esseda) data processing
 * Push-by-push analysis
-* Spirometer data processing
-* NGIMU data processing
-* Optotrak data processing
+* Spirometer (COSMED) data processing
+* IMU (NGIMU) data processing
+* Kinamatics (Optotrak) data processing
 * more(?)
 
 ## Rationale
 This is an attempt to make analysis of wheelchair biomechanics data more accessible and transparent. Previously all 
 analyses were performed with commercial software that is not available to everyone, especially to people not associated 
-with a university. Having the analysis in Python makes it accessible and readable (hopefully) for everyone.
-By sharing the code I hope to be transparent and to reduce the amount of time this code has to be written by other people.
+with a university. Having the analysis in Python makes it accessible and more readable (hopefully) for everyone.
+By sharing the code I hope to be transparent and to reduce the amount of times this code has to be written by other people.
 
 ## Target audience
 People working in our lab that want to work with data from any of our instruments. It can, of course, also be used by other
 people, provided that you have similar equipment. Most of the time you will only need one or two functions which you can 
 just take from the source code or you can just install the package as it has very little overhead anyways and only uses
 packages that you probably already have installed. Also have a look at the 
-[examples](https://gitlab.com/Rickdkk/worklab/tree/master/worklab/examples).
+[examples](https://gitlab.com/Rickdkk/worklab/tree/master/examples).
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-You need a valid version of Python 3.6+ because I use some f-strings. This project has a bunch of dependencies for *reasons* so you will also need the scipy ecosystem
+You need a valid version of Python 3.6+ (because f-strings). This project has a bunch of dependencies for *reasons* so you will also need the scipy ecosystem
 , which you probably already have.
 
 ### Installing
@@ -41,7 +43,7 @@ Option 2: installing with pip is even easier:
 pip install git+https://gitlab.com/Rickdkk/worklab
 ```
 
-Option 3: don't install it and just include the scripts in your working directory.
+Option 3: don't install it and just include the scripts in your working directory (why though?).
 
 To verify if everything works simply try to import worklab:
 
@@ -69,7 +71,7 @@ That's it.
 The return of a function is a Pandas DataFrame in 9/10 cases. This means that you can also use all Pandas goodness.
 
 ## Examples
-You can find some Jupyter Notebook examples [here](https://gitlab.com/Rickdkk/worklab/tree/master/worklab/examples).
+You can find some Jupyter Notebook examples [here](https://gitlab.com/Rickdkk/worklab/tree/master/examples).
 
 ## Projects using same code
 * Viewer (built with PyQt) - source unfortunately was lost when my laptop was stolen	
@@ -83,7 +85,7 @@ If you find an error or mistake, which entirely possible, please contact me or s
 
 ## License
 This project is licensed under the GNU GPLv3 - see the [LICENSE](LICENSE) file for details. If you want to refer to this 
-package please use this DOI (10.5281/zenodo.3268671).
+package please use this DOI: 10.5281/zenodo.3268671, or cite: R.de Klerk. (2019, July 4). Worklab: a wheelchair biomechanics mini-package (Version 1.0.0). Zenodo. http://doi.org/10.5281/zenodo.3268671
 
 ## Acknowledgments
 * Thanks to [R.J.K. Vegter](https://www.rug.nl/staff/r.j.k.vegter/) for providing information on the Optipush and SMARTwheel systems.
