@@ -211,7 +211,7 @@ def nonlinear_fit_coast_down(time: np.array, vel: np.array, total_weight: float)
     # try to determine c1 and c2 with curve_fit for non-linear approach
     initial_velocity = vel[0]
     vel_func = lambda t, c1, c2: coast_down_velocity(t, initial_velocity, c1, c2, total_weight)  # lock variables
-    (coef1, coef2), pcov = curve_fit(vel_func, time, vel, bounds=(0, [1, 10]))  # 'trf' method but 'lm' would also work
+    (coef1, coef2), pcov = curve_fit(vel_func, time, vel, bounds=(0, [1, 20]))  # 'trf' method but 'lm' would also work
     return coef1, coef2
 
 

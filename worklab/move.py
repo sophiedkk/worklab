@@ -8,6 +8,7 @@ Company:    University Medical Center Groningen
 License:    GNU GPLv3.0
 Date:       27/06/2019
 """
+import copy
 from warnings import warn
 
 import numpy as np
@@ -16,11 +17,10 @@ from scipy.integrate import cumtrapz
 from .utils import lowpass_butter, pd_interp
 
 
-def resample_imu(sessiondata, samplefreq=400):
-    """
-    Resample all devices and sensors to new sample frequency. Translated from xio-Technologies.
+def resample_imu(sessiondata, sfreq: float = 400.) -> dict:
+    """Resample all devices and sensors to new sample frequency. Translated from xio-Technologies.
     :param sessiondata: original sessiondata structure
-    :param samplefreq: new intended sample frequency
+    :param sfreq: new intended sample frequency
     :return: resampled sessiondata
     """
     end_time = 0
@@ -29,7 +29,7 @@ def resample_imu(sessiondata, samplefreq=400):
             max_time = sessiondata[device][sensor]["Time"].max()
             end_time = max_time if max_time > end_time else end_time
 
-    new_time = np.arange(0, end_time, 1/samplefreq)
+    new_time = np.arange(0, end_time, 1 / sfreq)
 
     for device in sessiondata:
         for sensor in sessiondata[device]:
@@ -44,18 +44,21 @@ def resample_imu(sessiondata, samplefreq=400):
     return sessiondata
 
 
-def calc_wheelspeed(sessiondata, camber=15, wsize=0.31, wbase=0.60, sfreq=400):
-    """
-    Calculate wheelchair velocity based on NGIMU data, modifies dataframes inplace.
+def calc_wheelspeed(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace: bool = False) -> dict:
+    """Calculate wheelchair velocity based on NGIMU data.
     :param sessiondata: original sessiondata structure
     :param camber: camber angle in degrees
     :param wsize: radius of the wheels
     :param wbase: width of wheelbase
-    :param sfreq: sample frequency
+    :param inplace: performs operation inplace
     """
-    frame = sessiondata["Frame"]["sensors"]  # view into dataframe, edits will be inplace
-    left = sessiondata["Left"]["sensors"]  # most variables will be added to df except for some temp variables
-    right = sessiondata["Right"]["sensors"]
+    if not inplace:
+        sessiondata = copy.deepcopy(sessiondata)
+    frame = sessiondata["Frame"] = sessiondata["Frame"]["sensors"]  # view into dataframe, ditch sensors
+    left = sessiondata["Left"] = sessiondata["Left"]["sensors"]
+    right = sessiondata["Right"] = sessiondata["Right"]["sensors"]
+
+    sfreq = 1 / frame["Time"].diff().mean()
 
     # Wheelchair camber correction
     deg2rad = np.pi / 180
@@ -96,18 +99,18 @@ def calc_wheelspeed(sessiondata, camber=15, wsize=0.31, wbase=0.60, sfreq=400):
     return sessiondata
 
 
-def change_imu_orientation(sessiondata: dict) -> dict:
+def change_imu_orientation(sessiondata: dict, inplace: bool = False) -> dict:
     """Changes IMU orientation from in-wheel to on-wheel
 
     :param sessiondata: original sessiondata structure
+    :param inplace: perform operation inplace
     :return: sessiondata with reoriented gyroscope data
     """
-    left_copy = sessiondata["Left"]["sensors"][["GyroscopeX", "GyroscopeZ", "GyroscopeY"]].copy()
-    sessiondata["Left"]["sensors"]["GyroscopeZ"] = left_copy["GyroscopeX"]
-    sessiondata["Left"]["sensors"]["GyroscopeY"] = left_copy["GyroscopeZ"]
-    sessiondata["Left"]["sensors"]["GyroscopeX"] = left_copy["GyroscopeY"]
-    right_copy = sessiondata["Right"]["sensors"][["GyroscopeX", "GyroscopeZ", "GyroscopeY"]].copy()
-    sessiondata["Right"]["sensors"]["GyroscopeZ"] = right_copy["GyroscopeX"]
-    sessiondata["Right"]["sensors"]["GyroscopeY"] = right_copy["GyroscopeZ"] * -1
-    sessiondata["Right"]["sensors"]["GyroscopeX"] = right_copy["GyroscopeY"]
+    if not inplace:
+        sessiondata = copy.deepcopy(sessiondata)
+
+    order = {"GyroscopeX": "GyroscopeZ", "GyroscopeZ": "GyroscopeY", "GyroscopeY": "GyroscopeX"}
+    sessiondata["Left"]["sensors"].rename(columns=order, inplace=True)
+    sessiondata["Right"]["sensors"].rename(columns=order, inplace=True)
+    sessiondata["Right"]["sensors"]["GyroscopeY"] *= -1
     return sessiondata

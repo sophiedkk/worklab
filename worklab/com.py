@@ -261,10 +261,10 @@ def load_session(root_dir: str, filenames: list = None) -> dict:
 
     for sensordir in directories:  # loop through all sensor directories
         sensor_files = glob(f"{sensordir}/*.csv")
-        device_name = path.split(path.split(sensordir)[0])[-1].split(" ")[3]
-        device_name = "Left" if "Links" in device_name or "Left" in device_name else device_name
-        device_name = "Right" if "Rechts" in device_name or "Right" in device_name else device_name
-        device_name = "Frame" if "Frame" in device_name else device_name
+        device_name = path.split(path.split(sensordir)[0])[-1]
+        device_name = "Left" if "links" in device_name.lower() or "left" in device_name.lower() else device_name
+        device_name = "Right" if "rechts" in device_name.lower() or "right" in device_name.lower() else device_name
+        device_name = "Frame" if "frame" in device_name.lower() else device_name
         session_data[device_name] = dict()
 
         for sensor_file in sensor_files:  # loop through all csv files
