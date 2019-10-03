@@ -238,3 +238,46 @@ def calc_inertia(weight: float = 0.8, radius: float = 0.295, length: float = 0.6
     :return: inertia [kgm2]
     """
     return (weight*9.81*radius**2*period**2)/(4*np.pi**2*length)
+
+
+def zerocross1d(x: np.array, y: np.array, indices: bool = False):
+    """
+      Find the zero crossing points in 1d data.
+
+      Find the zero crossing events in a discrete data set. Linear interpolation is used to determine the actual
+      locations of the zero crossing between two data points showing a change in sign. Data point which are zero
+      are counted in as zero crossings if a sign change occurs across them. Note that the first and last data point will
+      not be considered whether or not they are zero.
+      :param x: time variable
+      :param y: y variable
+      :param indices: return indices or not
+      :return: position in time and optionally the index of the sample before the zero-crossing
+    """
+    # Indices of points *before* zero-crossing
+    indi = np.where(y[1:] * y[0:-1] < 0.0)[0]
+
+    # Find the zero crossing by linear interpolation
+    dx = x[indi + 1] - x[indi]
+    dy = y[indi + 1] - y[indi]
+    zc = -y[indi] * (dx / dy) + x[indi]
+
+    # What about the points, which are actually zero
+    zi = np.where(y == 0.0)[0]
+    # Do nothing about the first and last point should they be zero
+    zi = zi[np.where((zi > 0) & (zi < x.size - 1))]
+    # Select those point, where zero is crossed (sign change across the point)
+    zi = zi[np.where(y[zi - 1] * y[zi + 1] < 0.0)]
+
+    # Concatenate indices
+    zeroc_indices = np.concatenate((indi, zi))
+    # Concatenate zc and locations corresponding to zi
+    zeroc_xvalues = np.concatenate((zc, x[zi]))
+
+    # Sort by x-value
+    sind = np.argsort(zeroc_xvalues)
+    zeroc_xvalues, zeroc_indices = zeroc_xvalues[sind], zeroc_indices[sind]
+
+    if not indices:
+        return zeroc_xvalues
+    else:
+        return zeroc_xvalues, zeroc_indices
