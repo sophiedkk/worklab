@@ -114,3 +114,26 @@ def change_imu_orientation(sessiondata: dict, inplace: bool = False) -> dict:
     sessiondata["Right"]["sensors"].rename(columns=order, inplace=True)
     sessiondata["Right"]["sensors"]["GyroscopeY"] *= -1
     return sessiondata
+
+
+def push_detection(acceleration, fs=400):
+
+    minFreq = 1.2
+    f, pxx = periodogram(acceleration-np.mean(acceleration), fs)
+    minFreqf = len(f[f < minFreq])
+    maxFreqIndTemp = np.argmax(pxx[minFreqf:minFreqf*5])
+    maxFreq = f[minFreqf+maxFreqIndTemp]
+    if maxFreq > 3:
+        maxFreq = 3
+    fcP = 1.5*maxFreq
+    FrameAccelerationP = lowpass_butter(acceleration, sample_freq=fs, cutoff=fcP)
+    stdFrAcc = np.std(FrameAccelerationP)
+    pushAccFr, pushAccFrInd = find_peaks(FrameAccelerationP, height=stdFrAcc/2, distance=round(1/(maxFreq*1.5)*fs), prominence=stdFrAcc/2)
+    NPushes = len(pushAccFr)
+    Pushfrequency = NPushes/(len(acceleration)/fs)
+    Cycletime = pd.DataFrame([])
+    
+    for n in range(0, len(pushAccFr)-1):
+        Cycletime = Cycletime.append([(pushAccFr[n+1]/fs) - (pushAccFr[n]/fs)])
+
+    return pushAccFr, FrameAccelerationP, NPushes, Cycletime, Pushfrequency
