@@ -12,7 +12,9 @@ import copy
 from warnings import warn
 
 import numpy as np
+import pandas as pd
 from scipy.integrate import cumtrapz
+from scipy.signal import periodogram, find_peaks
 
 from .utils import lowpass_butter, pd_interp
 
@@ -92,7 +94,7 @@ def calc_wheelspeed(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace: boo
                                                         + np.abs(np.gradient(left["GyroVel"])))
 
     comb_ratio = (r_ratio0 * r_ratio1) / ((r_ratio0 * r_ratio1) + (l_ratio0 * l_ratio1))  # Combine speed ratios
-    comb_ratio = lowpass_butter(comb_ratio, sample_freq=sfreq, cutoff=20)  # Filter the signal
+    comb_ratio = lowpass_butter(comb_ratio, sfreq=sfreq, cutoff=20)  # Filter the signal
     comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combratio values, not in df
     frame["CombSkidVel"] = (frame["CombVelRight"] * comb_ratio) + (frame["CombVelLeft"] * (1-comb_ratio))
     frame["CombSkidDist"] = cumtrapz(frame["CombSkidVel"], initial=0.0) / sfreq  # Combined skid displacement
@@ -116,24 +118,33 @@ def change_imu_orientation(sessiondata: dict, inplace: bool = False) -> dict:
     return sessiondata
 
 
-def push_detection(acceleration, fs=400):
+def push_detection(acceleration: np.array, fs: int = 400):
+    """
+    Push detection based on velocity signal of IMU on a wheelchair.
+    Adapted from: van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair
+    court sport sprinting. Procedia engineering, 147, 730-734.
 
-    minFreq = 1.2
+    :param acceleration:
+    :param fs:
+    :return: push location index,
+    """
+    min_freq = 1.2
     f, pxx = periodogram(acceleration-np.mean(acceleration), fs)
-    minFreqf = len(f[f < minFreq])
-    maxFreqIndTemp = np.argmax(pxx[minFreqf:minFreqf*5])
-    maxFreq = f[minFreqf+maxFreqIndTemp]
-    if maxFreq > 3:
-        maxFreq = 3
-    fcP = 1.5*maxFreq
-    FrameAccelerationP = lowpass_butter(acceleration, sample_freq=fs, cutoff=fcP)
-    stdFrAcc = np.std(FrameAccelerationP)
-    pushAccFr, pushAccFrInd = find_peaks(FrameAccelerationP, height=stdFrAcc/2, distance=round(1/(maxFreq*1.5)*fs), prominence=stdFrAcc/2)
-    NPushes = len(pushAccFr)
-    Pushfrequency = NPushes/(len(acceleration)/fs)
-    Cycletime = pd.DataFrame([])
+    min_freq_f = len(f[f < min_freq])
+    max_freq_ind_temp = np.argmax(pxx[min_freq_f:min_freq_f * 5])
+    max_freq = f[min_freq_f + max_freq_ind_temp]
+    if max_freq > 3:
+        max_freq = 3
+    cutoff_freq = 1.5 * max_freq
+    frame_acceleration_p = lowpass_butter(acceleration, sfreq=fs, cutoff=cutoff_freq)
+    std_fr_acc = np.std(frame_acceleration_p)
+    push_acc_fr, push_acc_fr_ind = find_peaks(frame_acceleration_p, height=std_fr_acc/2,
+                                              distance=round(1/(max_freq*1.5)*fs), prominence=std_fr_acc/2)
+    n_pushes = len(push_acc_fr)
+    push_freq = n_pushes/(len(acceleration)/fs)
+    cycle_time = pd.DataFrame([])
     
-    for n in range(0, len(pushAccFr)-1):
-        Cycletime = Cycletime.append([(pushAccFr[n+1]/fs) - (pushAccFr[n]/fs)])
+    for n in range(0, len(push_acc_fr) - 1):
+        cycle_time = cycle_time.append([(push_acc_fr[n + 1]/fs) - (push_acc_fr[n]/fs)])
 
-    return pushAccFr, FrameAccelerationP, NPushes, Cycletime, Pushfrequency
+    return push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
