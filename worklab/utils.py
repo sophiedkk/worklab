@@ -136,16 +136,16 @@ def pd_dt_to_s(dt):
     return time
 
 
-def lowpass_butter(array: np.array, sample_freq: int, cutoff: int = 20, order: int = 2) -> np.array:
+def lowpass_butter(array: np.array, sfreq: int, cutoff: int = 20, order: int = 2) -> np.array:
     """A simple low-pass Butterworth filter on an array
     :param array: input array
-    :param sample_freq: sample frequency of the signal
+    :param sfreq: sample frequency of the signal
     :param cutoff: cutoff frequency for the filter
     :param order: filter order
     :return: filtered array
     """
     # noinspection PyTupleAssignmentBalance
-    b, a = butter(order, cutoff / (0.5 * sample_freq), 'low')
+    b, a = butter(order, cutoff / (0.5 * sfreq), 'low')
     return filtfilt(b, a, array)
 
 

@@ -62,9 +62,9 @@ def filter_mw_data(data, sfreq=200, co_f=15, ord_f=2, force=True, co_s=6, ord_s=
     if force:
         frel = ["fx", "fy", "fz", "mx", "my", "torque"]
         for var in frel:
-            data[var] = lowpass_butter(data[var], cutoff=co_f, order=ord_f, sample_freq=sfreq)
+            data[var] = lowpass_butter(data[var], cutoff=co_f, order=ord_f, sfreq=sfreq)
     if speed:
-        data["angle"] = lowpass_butter(data["angle"], cutoff=co_s, order=ord_s, sample_freq=sfreq)
+        data["angle"] = lowpass_butter(data["angle"], cutoff=co_s, order=ord_s, sfreq=sfreq)
     return data
 
 
@@ -83,9 +83,9 @@ def filter_ergo_data(data, co_f=15, ord_f=2, force=True, co_s=6, ord_s=2, speed=
     sfreq = 100
     for side in data:
         if force:
-            data[side]["force"] = lowpass_butter(data[side]["force"], cutoff=co_f, order=ord_f, sample_freq=sfreq)
+            data[side]["force"] = lowpass_butter(data[side]["force"], cutoff=co_f, order=ord_f, sfreq=sfreq)
         if speed:
-            data[side]["speed"] = lowpass_butter(data[side]["speed"], cutoff=co_s, order=ord_s, sample_freq=sfreq)
+            data[side]["speed"] = lowpass_butter(data[side]["speed"], cutoff=co_s, order=ord_s, sfreq=sfreq)
     return data
 
 
