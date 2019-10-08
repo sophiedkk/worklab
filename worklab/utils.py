@@ -9,6 +9,7 @@ License:    GNU GPLv3.0
 Date:       27/06/2019
 """
 import datetime
+import re
 from collections import defaultdict
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename, askopenfilenames, asksaveasfilename, askdirectory
@@ -281,3 +282,13 @@ def zerocross1d(x: np.array, y: np.array, indices: bool = False):
         return zeroc_xvalues
     else:
         return zeroc_xvalues, zeroc_indices
+
+
+def camel_to_snake(name: str):
+    """Turns CamelCased text into snake_cased text.
+
+    :param name: StringToConvert
+    :return: converted_string
+    """
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()

@@ -76,7 +76,7 @@ def calc_wheelspeed(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace: boo
     left["GyroDist"] = cumtrapz(left["GyroVel"] / sfreq, initial=0.0)
 
     frame["CombVel"] = (right["GyroVel"] + left["GyroVel"]) / 2  # mean velocity
-    frame["CombDist"] = (right["GyroDist"] + left["GyroDist"]) / 2  # mean velocity
+    frame["CombDist"] = (right["GyroDist"] + left["GyroDist"]) / 2  # mean distance
 
     """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
     Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
@@ -119,8 +119,7 @@ def change_imu_orientation(sessiondata: dict, inplace: bool = False) -> dict:
 
 
 def push_detection(acceleration: np.array, fs: int = 400):
-    """
-    Push detection based on velocity signal of IMU on a wheelchair.
+    """Push detection based on velocity signal of IMU on a wheelchair.
     Adapted from: van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair
     court sport sprinting. Procedia engineering, 147, 730-734.
 
