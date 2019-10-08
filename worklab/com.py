@@ -61,6 +61,8 @@ def load(filename: str = ""):
         data = load_session(path.split(filename)[0], filenames=["sensors"])
     elif "drag" in filename.lower():
         data = load_drag_test(filename)
+    elif ".csv" in filename.lower():
+        data = load_optitrack(filename)
     else:
         raise Exception("No file name given or could not identify data source with load!!")
     print("Data loaded!")
@@ -291,3 +293,44 @@ def load_drag_test(filename):
             dragtest["angle"].append(float(data[0]))
             dragtest["force"].append(float(data[1]))
     return pd.DataFrame(dragtest)
+
+
+def load_optitrack(filename: str):
+    """Loads Optitrack marker data
+
+    :param filename: Full path to filename or filename in current path
+    :return: Marker data in dictionary, metadata in dictionary
+    """
+    # First get all the metadata
+    header = {}
+    with open(filename, 'r') as f:
+        header["metadata"] = f.readline().replace("\n", "").split(",")
+        next(f)
+        header["marker_type"] = f.readline().replace("\n", "").replace(",,", "frame,time,").split(",")
+        header["marker_label"] = f.readline().replace("\n", "").replace(",,", "frame,time,").split(",")
+        header["marker_id"] = f.readline().replace("\n", "").replace(",,", "frame,time,").split(",")
+        header["header_label1"] = f.readline().replace("\n", "").replace(",,", "frame,time,").split(",")
+        header["header_label2"] = f.readline().replace("\n", "").split(",")
+
+    # Split the metadata string into key value pairs
+    metadata_dict = {}
+    for key, value in zip(header["metadata"][0::2], header["metadata"][1::2]):
+        if "Frame" in key:
+            value = float(value)
+        metadata_dict[key] = value
+    header["metadata"] = metadata_dict
+
+    # Get the markers
+    first_marker = header["marker_type"].index("Marker")
+    n_markers = (len(header["marker_type"]) - first_marker) / 3
+
+    marker_data = {}
+    for i in range(int(n_markers)):
+        marker_label = header["marker_label"][first_marker + i * 3]
+        if "Unlabeled" in marker_label:
+            marker_label = "marker_" + str(i)
+        marker_columns = [first_marker + i * 3, first_marker + 1 + i * 3, first_marker + 2 + i * 3]
+        marker_data[marker_label] = pd.read_csv(filename, skiprows=list(range(7)), usecols=marker_columns,
+                                                names=["X", "Y", "Z"])
+        marker_data[marker_label] = marker_data[marker_label].iloc[:-1, :]  # remove last (empty) column
+    return marker_data, header
