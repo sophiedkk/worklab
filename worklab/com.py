@@ -332,5 +332,5 @@ def load_optitrack(filename: str):
         marker_columns = [first_marker + i * 3, first_marker + 1 + i * 3, first_marker + 2 + i * 3]
         marker_data[marker_label] = pd.read_csv(filename, skiprows=list(range(7)), usecols=marker_columns,
                                                 names=["X", "Y", "Z"])
-        marker_data[marker_label] = marker_data[marker_label].iloc[:-1, :]  # remove last (empty) column
+        marker_data[marker_label] = marker_data[marker_label][:-1]  # remove last (empty) row
     return marker_data, header
