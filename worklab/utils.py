@@ -176,7 +176,7 @@ def merge_chars(chars: tuple) -> str:
 
 
 def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0) -> defaultdict:
-    """Finds positive peaks in signal and returns indices
+    """Finds positive peaks in signal and returns indices of start and stop
 
     :param data: any signal that contains peaks above minpeak that dip below cutoff
     :param cutoff: where the peak gets cut off at the bottom, basically a hysteresis band

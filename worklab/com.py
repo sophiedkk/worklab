@@ -322,10 +322,10 @@ def load_optitrack(filename: str):
 
     # Get the markers
     first_marker = header["marker_type"].index("Marker")
-    n_markers = (len(header["marker_type"]) - first_marker) / 3
+    n_markers = (len(header["marker_type"]) - first_marker) // 3
 
     marker_data = {}
-    for i in range(int(n_markers)):
+    for i in range(n_markers):
         marker_label = header["marker_label"][first_marker + i * 3]
         if "Unlabeled" in marker_label:
             marker_label = "marker_" + str(i)

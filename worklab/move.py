@@ -147,3 +147,63 @@ def push_detection(acceleration: np.array, fs: int = 400):
         cycle_time = cycle_time.append([(push_acc_fr[n + 1]/fs) - (push_acc_fr[n]/fs)])
 
     return push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
+
+
+def get_perp_vector(vector2d: np.array, clockwise: bool = True) -> np.array:
+    """Get the vector perpendicular to the input vector. Only works in 2D as 3D has infinite solutions.
+
+    :param vector2d: [n, 3] vector data
+    :param clockwise: clockwise or counterclockwise rotation
+    :return: rotated vector
+    """
+    if clockwise:
+        """Gets 2D vector perpendicular to input vector, rotated clockwise"""
+        perp_vector2d = np.empty(vector2d.shape)
+        perp_vector2d[:, 0] = vector2d[:, 1] * -1
+        perp_vector2d[:, 1] = vector2d[:, 0]
+        perp_vector2d[:, 2] = vector2d[:, 2]
+    else:
+        """Gets 2D vector perpendicular to input vector, rotated counterclockwise"""
+        perp_vector2d = np.empty(vector2d.shape)
+        perp_vector2d[:, 0] = vector2d[:, 1]
+        perp_vector2d[:, 1] = vector2d[:, 0] * -1
+        perp_vector2d[:, 2] = vector2d[:, 2]
+    return perp_vector2d
+
+
+def get_rotation_matrix(new_frame: np.array, local_to_world: bool = True) -> np.array:
+    """Get the rotation matrix between a new reference frame and the global reference frame or the other way around.
+
+    :param new_frame: 3x3 array specifying the new reference frame
+    :param local_to_world: global to local or local to global
+    :return: rotation matrix that can be used to rotate marker data, e.g.: rotation_matrix @ marker
+    """
+    x1 = np.array([1, 0, 0])  # X axis of the world
+    x2 = np.array([0, 1, 0])  # Y axis of the world
+    x3 = np.array([0, 0, 1])  # Z axis of the world
+
+    x1_prime = new_frame[:, 0]  # X axis of the local frame
+    x2_prime = new_frame[:, 1]  # Y axis of the local frame
+    x3_prime = new_frame[:, 2]  # Z axis of the local frame
+
+    if local_to_world:
+        rotation_matrix = np.array([[np.dot(x1, x1_prime), np.dot(x1, x2_prime), np.dot(x1, x3_prime)],
+                                    [np.dot(x2, x1_prime), np.dot(x2, x2_prime), np.dot(x2, x3_prime)],
+                                    [np.dot(x3, x1_prime), np.dot(x3, x2_prime), np.dot(x3, x3_prime)]])
+    else:
+        rotation_matrix = np.array([[np.dot(x1_prime, x1), np.dot(x1_prime, x2), np.dot(x1_prime, x3)],
+                                    [np.dot(x2_prime, x1), np.dot(x2_prime, x2), np.dot(x2_prime, x3)],
+                                    [np.dot(x3_prime, x1), np.dot(x3_prime, x2), np.dot(x3_prime, x3)]])
+    return rotation_matrix
+
+
+def normalize(x):
+    """Normalizes [n, 3] marker data using an l2 norm.
+
+    :param x: marker data to be normalized
+    :return: normalized marker data
+    """
+    if isinstance(x, pd.DataFrame):
+        return x.div(np.linalg.norm(x), axis=0)
+    else:
+        return x / np.linalg.norm(x)
