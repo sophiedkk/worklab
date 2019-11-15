@@ -150,6 +150,19 @@ def lowpass_butter(array: np.array, sfreq: int, cutoff: int = 20, order: int = 2
     return filtfilt(b, a, array)
 
 
+def interpolate_array(x: np.array, y: np.array, kind: str = "linear", assume: bool = True) -> np.array:
+    """Simple function to interpolate an array with Scipy's interp1d. Also extrapolates NaNs.
+
+    :param x: time array (without NaNs)
+    :param y: array with potential NaNs
+    :param kind: look at scipy.interpolate.interp1d for options
+    :param assume: assumes x is sorted and equally spaced
+    :return: interpolated y array
+    """
+    y_fun = interp1d(x[~np.isnan(y)], y[~np.isnan(y)], kind=kind, fill_value="extrapolate", assume_sorted=assume)
+    return y_fun(x)
+
+
 def pd_interp(df: pd.DataFrame, interp_column: str, at: np.array) -> pd.DataFrame:
     """Resamples DataFrame with Scipy's interp1d, this was more performant than the pandas one for some reason
 
@@ -242,8 +255,7 @@ def calc_inertia(weight: float = 0.8, radius: float = 0.295, length: float = 0.6
 
 
 def zerocross1d(x: np.array, y: np.array, indices: bool = False):
-    """
-      Find the zero crossing points in 1d data.
+    """Find the zero crossing points in 1d data.
 
       Find the zero crossing events in a discrete data set. Linear interpolation is used to determine the actual
       locations of the zero crossing between two data points showing a change in sign. Data point which are zero
