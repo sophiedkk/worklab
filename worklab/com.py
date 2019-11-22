@@ -123,7 +123,7 @@ def load_hsb(filename: str) -> dict:
     :return: dictionary with ergometer data in dataframes
     """
     # noinspection PyTypeChecker
-    data = defaultdict(defaultdict(list))
+    data = {"left": defaultdict(list), "right": defaultdict(list)}
     with open(filename, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=';')
         next(reader, None)  # skip header

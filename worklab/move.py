@@ -207,3 +207,18 @@ def normalize(x):
         return x.div(np.linalg.norm(x), axis=0)
     else:
         return x / np.linalg.norm(x)
+
+
+def calc_marker_angles(v_1: np.array, v_2: np.array, deg: bool = False) -> np.array:
+    """Calculates n angles between two [n, 3] markers.
+
+    :param v_1: [n, 3] array or DataFrame for marker 1
+    :param v_2: [n, 3] array or DataFrame for marker 2
+    :param deg: return degrees or radians
+    :return: returns [n, 1] array with the angle for each sample
+    """
+    p1 = np.einsum('ij,ij->i', v_1, v_2)
+    p2 = np.cross(v_1, v_2, axis=1)
+    p3 = np.linalg.norm(p2, axis=1)
+    angles = np.arctan2(p3, p1)
+    return np.rad2deg(angles) if deg else angles
