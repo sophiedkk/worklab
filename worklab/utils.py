@@ -188,28 +188,28 @@ def merge_chars(chars: tuple) -> str:
     return ''.join([char.decode("utf-8") for char in chars])
 
 
-def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0) -> defaultdict:
+def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0, min_dist: int = 5) -> dict:
     """Finds positive peaks in signal and returns indices of start and stop
 
     :param data: any signal that contains peaks above minpeak that dip below cutoff
     :param cutoff: where the peak gets cut off at the bottom, basically a hysteresis band
     :param minpeak: minimum peak height of wave
+    :param min_dist: minimum sample distance between peaks, can be used to speed up algorithm
     :return: nested dictionary with start, end, and peak **index** of each peak
     """
-    peaks = defaultdict(list)
-    tmp = dict()
+    peaks = {"start": [], "stop": [], "peak": []}
+    tmp = {"start": None, "stop": None}
 
     data = np.array(data)  # coercing to an array if necessary
-    data_slice = np.nonzero(data > minpeak)
+    data_slice = np.nonzero(data > minpeak)[0]  # indices of nonzero values
+    data_slice = data_slice[np.diff(data_slice, append=10e100) > min_dist]  # remove duplicate samples from push
     for prom in np.nditer(data_slice):
-        if peaks["stop"]:
-            if prom <= peaks["stop"][-1]:
-                continue  # skip if a push has already been found for that index
         tmp["stop"] = next((idx for idx, value in enumerate(data[prom:]) if value < cutoff), None)
         tmp["start"] = next((idx for idx, value in enumerate(reversed(data[:prom])) if value < cutoff), None)
         if tmp["stop"] and tmp["start"]:  # did we find a start and stop?
             peaks["stop"].append(tmp["stop"] + prom - 1)
             peaks["start"].append(prom - tmp["start"])
+    peaks = {key: np.unique(value) for key, value in peaks.items()}  # remove possible duplicates
     peaks["peak"] = [np.argmax(data[start:stop + 1]) + start for start, stop in zip(peaks["start"], peaks["stop"])]
     return peaks
 
@@ -304,3 +304,16 @@ def camel_to_snake(name: str):
     """
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+
+def find_nearest(array: np.array, value: float, index: bool = False):
+    """Find the nearest value in an array or the index thereof.
+
+    :param array: array which has to be searched
+    :param value: value that you are looking for
+    :param index: whether or not you want the index
+    :return: the closest value or the index of the value
+    """
+    array = np.asarray(array)
+    idx = (np.abs(array - value)).argmin()
+    return idx if index else array[idx]
