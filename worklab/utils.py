@@ -188,7 +188,7 @@ def merge_chars(chars: tuple) -> str:
     return ''.join([char.decode("utf-8") for char in chars])
 
 
-def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0, min_dist: int = 5) -> dict:
+def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0, min_dist: int = 5) -> defaultdict:
     """Finds positive peaks in signal and returns indices of start and stop
 
     :param data: any signal that contains peaks above minpeak that dip below cutoff
@@ -197,7 +197,7 @@ def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0, min_d
     :param min_dist: minimum sample distance between peaks, can be used to speed up algorithm
     :return: nested dictionary with start, end, and peak **index** of each peak
     """
-    peaks = {"start": [], "stop": [], "peak": []}
+    peaks = defaultdict(list)
     tmp = {"start": None, "stop": None}
 
     data = np.array(data)  # coercing to an array if necessary
@@ -209,7 +209,8 @@ def find_peaks(data: pd.Series, cutoff: float = 1.0, minpeak: float = 5.0, min_d
         if tmp["stop"] and tmp["start"]:  # did we find a start and stop?
             peaks["stop"].append(tmp["stop"] + prom - 1)
             peaks["start"].append(prom - tmp["start"])
-    peaks = {key: np.unique(value) for key, value in peaks.items()}  # remove possible duplicates
+    for key, value in peaks.items():
+        peaks[key] = np.unique(value) # remove possible duplicates
     peaks["peak"] = [np.argmax(data[start:stop + 1]) + start for start, stop in zip(peaks["start"], peaks["stop"])]
     return peaks
 

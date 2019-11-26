@@ -242,7 +242,7 @@ def load_n3d(filename: str, verbose: bool = True) -> np.array:
 
     optodata[optodata <= -10e20] = np.nan  # replace NDF nan with nan
     optodata = np.reshape(optodata, (numframes, items, subitems)).T  # row = xyz, column = marker, 3rd = samples
-    return optodata, sfrq
+    return optodata
 
 
 def load_session(root_dir: str, filenames: list = None) -> dict:
@@ -295,10 +295,11 @@ def load_drag_test(filename):
     return pd.DataFrame(dragtest)
 
 
-def load_optitrack(filename: str):
+def load_optitrack(filename: str, include_header: bool = False):
     """Loads Optitrack marker data
 
     :param filename: Full path to filename or filename in current path
+    :param include_header: Whether or not to include the header in the output
     :return: Marker data in dictionary, metadata in dictionary
     """
     # First get all the metadata
@@ -333,4 +334,4 @@ def load_optitrack(filename: str):
         marker_data[marker_label] = pd.read_csv(filename, skiprows=list(range(7)), usecols=marker_columns,
                                                 names=["X", "Y", "Z"])
         marker_data[marker_label] = marker_data[marker_label][:-1]  # remove last (empty) row
-    return marker_data, header
+    return marker_data, header if include_header else marker_data

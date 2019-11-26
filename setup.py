@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
 	name             		= 'worklab',
-	version          		= '1.3.2',
+	version          		= '1.3.3',
 	description      		= 'Basic scripts for worklab devices',
 	author           		= 'Rick de Klerk',
 	author_email     		= 'r.de.klerk@umcg.nl',
