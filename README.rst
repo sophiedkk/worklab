@@ -19,7 +19,7 @@ wheelchair ergometer in the worklab at the University Medical Centre Groningen. 
 * Push-by-push analysis
 * Spirometer (COSMED) data processing
 * IMU (NGIMU) data processing
-* Kinamatics (Optotrak) data processing
+* Kinematics (Optotrak/OptiTrack) data processing
 * more(?)
 
 Rationale
@@ -71,12 +71,13 @@ That's it.
 Breakdown
 =========
 Core files:
-	* com.py: 		Provides functions for reading and writing data, use ``load`` to infer filetype and automatically read it. If you use a different naming scheme you can always call the specific load functions.
-	* kinetics.py: 	Contains all essentials for measurement wheel and ergometer data. You only need the top-level function ``auto_process`` for most use-cases.
-	* move.py: 	    Contains kinematics and movement related functions for NGIMU and some functions for 3D kinematics.
-	* physio.py: 	Contains physiological calculations, which for now is basically nothing as the spirometer does everything for you. Might include EMG and the likes later though.
-	* plots.py:     Contains some basic plotting functionalities for plots that become repetitive, needs some TLC to become really useful.
-	* utils.py:     Contains all functions that are useful for more than one application (e.g. filtering and interpolation).
+
+* com.py: 		Provides functions for reading and writing data, use ``load`` to infer filetype and automatically read it. If you use a different naming scheme you can always call the specific load functions.
+* kinetics.py: 	Contains all essentials for measurement wheel and ergometer data. You only need the top-level function ``auto_process`` for most use-cases.
+* move.py: 	    Contains kinematics and movement related functions for NGIMU and some functions for 3D kinematics.
+* physio.py: 	Contains physiological calculations, which for now is basically nothing as the spirometer does everything for you. Might include EMG and the likes later though.
+* plots.py:     Contains some basic plotting functionalities for plots that become repetitive, needs some TLC to become really useful.
+* utils.py:     Contains all functions that are useful for more than one application (e.g. filtering and interpolation).
 
 The return of a function is a Pandas DataFrame in 9/10 cases. This means that you can also use all Pandas goodness.
 
