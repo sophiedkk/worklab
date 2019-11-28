@@ -1,10 +1,15 @@
+import os
 
 from setuptools import setup
 
 
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+
 setup(
 	name             		= 'worklab',
-	version          		= '1.3.3',
+	version          		= '1.3.4',
 	description      		= 'Basic scripts for worklab devices',
 	author           		= 'Rick de Klerk',
 	author_email     		= 'r.de.klerk@umcg.nl',
@@ -13,9 +18,11 @@ setup(
 	packages         		= ['worklab'],
 	package_data     		= {},
 	include_package_data 	= True,
-	long_description 		= '..',
+	long_description 		= read("README.rst"),
 	license 				= 'GNU GPLv3',
 	keywords         		= ['wheelchair biomechanics', 'ergometry', 'physiology'],
-	classifiers      		= [],
+	classifiers      		= ["Programming Language :: Python",
+							   "Intended Audience :: Science/Research",
+							   "Operating System :: OS Independent"],
 	install_requires 		= ["numpy", "scipy", "pandas", "matplotlib"]
 )

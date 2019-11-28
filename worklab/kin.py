@@ -21,8 +21,8 @@ def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2
     If needed take a look at a specific function to see how it works.
 
         :param data: raw ergometer or measurement wheel data
-        :param wheelsize: wheel diameter in m
-        :param rimsize: rim diameter in m
+        :param wheelsize: wheel radius in m
+        :param rimsize: rim radius in m
         :param sfreq: sample frequency
         :param co_f: cutoff frequency for force filter
         :param ord_f: order for force filter
@@ -93,8 +93,8 @@ def process_ergo_data(data: dict, wheelsize: float = 0.31, rimsize: float = 0.27
     """Basic processing for ergometer data (e.g. speed to distance)
 
     :param data: ergometer data dictionary
-    :param wheelsize: wheel diameter in m
-    :param rimsize: handrim diameter in m
+    :param wheelsize: wheel radius in m
+    :param rimsize: handrim radius in m
     :return: processed ergometer data dictionary
     """
     sfreq = 100  # ergometer is always 100Hz
@@ -114,8 +114,8 @@ def process_mw_data(data, wheelsize: float = 0.31, rimsize: float = 0.275, sfreq
     """Basic processing for measurment wheel data (e.g. speed to distance)
 
     :param data: measurement wheel dataframe
-    :param wheelsize: wheel diameter in m
-    :param rimsize: handrim diameter in m
+    :param wheelsize: wheel radius in m
+    :param rimsize: handrim radius in m
     :param sfreq: sample frequency in Hz
     :return: processed measurement wheel dataframe
     """
