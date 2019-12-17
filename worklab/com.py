@@ -107,9 +107,9 @@ def load_sw(filename: str, sfreq: int = 200) -> pd.DataFrame:
     :param sfreq: samplefreq, this can be changed for a test, default is 200
     :return: dataframe with 3D kinetics data
     """
-    names = ["time", "fx", "fy", "fz", "mx", "my", "torque", "angle"]
+    names = ["time", "angle", "fx", "fy", "fz", "mx", "my", "torque"]
     dtypes = {name: np.float64 for name in names}
-    usecols = [1, 18, 19, 20, 21, 22, 23, 3]
+    usecols = [1, 3, 18, 19, 20, 21, 22, 23]
     sw_df = pd.read_csv(filename, names=names, usecols=usecols, dtype=dtypes)
     sw_df["time"] *= (1 / sfreq)
     sw_df["angle"] = np.unwrap(sw_df["angle"] * (np.pi / 180)) * - 1  # in radians
