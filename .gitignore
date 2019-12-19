@@ -53,7 +53,7 @@ Thumbs.db
 ############
 /worklab.egg-info
 /build
-/docs
+/docs/build
 /dist
 /examples/.ipynb_checkpoints
 tests.py

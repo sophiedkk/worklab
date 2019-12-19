@@ -1,13 +1,27 @@
 """
--Communication module-
-Description: Contains functions for reading data from any worklab device. If you abide by regular naming conventions
+Communication module
+====================
+
+Description
+-----------
+Contains functions for reading data from any worklab device. If you abide by regular naming conventions
 you will only need the load function which will infer the correct function for you. You can also use device-specific
 load functions if needed.
-Author:     Rick de Klerk
-Contact:    r.de.klerk@umcg.nl
-Company:    University Medical Center Groningen
-License:    GNU GPLv3.0
-Date:       27/06/2019
+
+Functions
+---------
+- `load` -- top level load function that identifies data type
+- `load_bike` -- load bicycle ergometer data from LEM
+- `load_esseda` -- load Esseda wheelchair ergometer data from LEM
+- `load_hsb` -- load Esseda wheelchair ergometer data from HSB
+- `load_n3d` -- load Optotrak data from binary file
+- `load_opti` -- load Optipush data from .data file
+- `load_optitrack` -- load markerdata from Optitrack csv
+- `load_session` -- load NGIMU data from a session
+- `load_spiro` -- load COSMED spirometer data from .xlsx file
+- `load_spline` -- load Esseda calibration spline from LEM
+- `load_sw` -- load SMARTwheel data from .txt
+
 """
 import csv
 import re
@@ -22,13 +36,29 @@ import pandas as pd
 from .utils import pick_file, pd_dt_to_s, merge_chars
 
 
-def load(filename: str = ""):
-    """Most important function in the module. Provides high level loading function to load common data formats.
+def load(filename=""):
+    """
+    Attempt to load a common data format.
+
+    Most important function in the module. Provides high level loading function to load common data formats.
     If no filename is given will try to load filename using a file dialog. Will try to infer data source from filename.
     Try to use a specific load function if load cannot infer the datatype.
 
-    :param filename: name or path to file of interest
-    :return: raw data, format depends on source, but is usually a dict or pandas dataframe
+    Parameters
+    ----------
+    filename : str
+        name or path to file of interest
+
+    Returns
+    -------
+    data : pd.DataFrame
+        raw data, format depends on source, but is usually a dict or pandas DataFrame
+
+    See Also
+    --------
+    load_bike, load_esseda, load_hsb, load_n3d, load_opti, load_optitrack, load_session, load_spiro, load_spline,
+    load_sw
+
     """
     filename = pick_file() if not filename else filename
     if not filename:
@@ -70,26 +100,84 @@ def load(filename: str = ""):
     return data
 
 
-def load_spiro(filename: str) -> pd.DataFrame:
-    """Loads COSMED spirometer data from excel file
+def load_spiro(filename):
+    """
+    Loads COSMED spirometer data from Excel file.
 
-    :param filename: full file path or file in existing path from COSMED spirometer
-    :return: Spiro data in pandas dataframe
+    Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes power from the energy
+    expenditure, computes weights from the time difference between samples, if no heart rate data is available it fills
+    the column with np.NaNs, also includes VO2 and VCO2. Returns a DataFrame with:
+
+    - time: time at breath [s]
+    - power: internal power at breath [W]
+    - weights: sample weights [..]
+    - HR: heart rate [bpm]
+    - VO2: [mL/min]
+    - VCO2: [mL/min]
+
+    Parameters
+    ----------
+    filename : str
+        full file path or file in existing path from COSMED spirometer
+
+    Returns
+    -------
+    data : pd.DataFrame
+        Spirometer data in pandas DataFrame
+
     """
     data = pd.read_excel(filename, skiprows=[1, 2], usecols="J:XX")
     data["time"] = data.apply(lambda row: pd_dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
-    data["HR"] = np.zeros(len(data)) if "HR" not in data else data["HR"]  # can be missing when sensor is not detected
+    data["HR"] = np.full(len(data), np.NaN) if "HR" not in data else data["HR"]  # missing when sensor is not detected
     data = data[data["time"] > 0]  # remove "missing" data
-    return data[["time", "Rf", "HR", "power", "VO2", "VCO2", "weights"]]
+    return data[["time", "HR", "power", "VO2", "VCO2", "weights"]]
 
 
-def load_opti(filename: str) -> pd.DataFrame:
-    """Loads Optipush data from .data file
+def load_opti(filename):
+    """
+    Loads Optipush data from .data file.
 
-    :param filename: filename or path to Optipush file
-    :return: dataframe with 3D kinetics data
+    Loads Optipush data to a pandas DataFrame, converts angle to radians, and flips torque (Tz). Returns a DataFrame
+    with:
+
+    +------------+----------------------+-----------+
+    | Column     | Data                 | Unit      |
+    +============+======================+===========+
+    | time       | sample time          | s         |
+    +------------+----------------------+-----------+
+    | fx         | force on local x-axis| N         |
+    +------------+----------------------+-----------+
+    | fy         | force on local y-axis| N         |
+    +------------+----------------------+-----------+
+    | fz         | force on local z-axis| N         |
+    +------------+----------------------+-----------+
+    | mx         | torque around x-axis | Nm        |
+    +------------+----------------------+-----------+
+    | my         | torque around y-axis | Nm        |
+    +------------+----------------------+-----------+
+    | torque     | torque around z-axis | Nm        |
+    +------------+----------------------+-----------+
+    | angle      | unwrapped wheel angle| rad       |
+    +------------+----------------------+-----------+
+
+    .. note:: Optipush uses a local coordinate system
+
+    Parameters
+    ----------
+    filename : str
+        filename or path to Optipush .data (.csv) file
+
+    Returns
+    -------
+    opti_df : pd.DataFrame
+        Raw Optipush data in a pandas DataFrame
+
+    See Also
+    --------
+    load_sw : Load measurement wheel data from a SMARTwheel
+
     """
     names = ["time", "fx", "fy", "fz", "mx", "my", "torque", "angle"]
     dtypes = {name: np.float64 for name in names}
@@ -100,12 +188,50 @@ def load_opti(filename: str) -> pd.DataFrame:
     return opti_df
 
 
-def load_sw(filename: str, sfreq: int = 200) -> pd.DataFrame:
-    """Loads SMARTwheel data from .csv file
+def load_sw(filename, sfreq=200):
+    """
+    Loads SMARTwheel data from .txt file.
 
-    :param filename: filename or path to SMARTwheel data
-    :param sfreq: samplefreq, this can be changed for a test, default is 200
-    :return: dataframe with 3D kinetics data
+    Loads SMARTwheel data to a pandas DataFrame, converts angle to radians and unwraps it. Returns a DataFrame with:
+
+    +------------+-----------------------+-----------+
+    | Column     | Data                  | Unit      |
+    +============+=======================+===========+
+    | time       | sample time           | s         |
+    +------------+-----------------------+-----------+
+    | fx         | force on global x-axis| N         |
+    +------------+-----------------------+-----------+
+    | fy         | force on global y-axis| N         |
+    +------------+-----------------------+-----------+
+    | fz         | force on global z-axis| N         |
+    +------------+-----------------------+-----------+
+    | mx         | torque around x-axis  | Nm        |
+    +------------+-----------------------+-----------+
+    | my         | torque around y-axis  | Nm        |
+    +------------+-----------------------+-----------+
+    | torque     | torque around z-axis  | Nm        |
+    +------------+-----------------------+-----------+
+    | angle      | unwrapped wheel angle | rad       |
+    +------------+-----------------------+-----------+
+
+    .. note:: SMARTwheel uses a global coordinate system
+
+    Parameters
+    ----------
+    filename : str
+        filename or path to SMARTwheel .data (.csv) file
+    sfreq : int
+        sample frequency of SMARTwheel, default is 200Hz
+
+    Returns
+    -------
+    sw_df : pd.DataFrame
+        Raw SMARTwheel data in a pandas DataFrame
+
+    See Also
+    --------
+    load_opti : Load measurement wheel data from an Optipush wheel.
+
     """
     names = ["time", "angle", "fx", "fy", "fz", "mx", "my", "torque"]
     dtypes = {name: np.float64 for name in names}
@@ -116,11 +242,24 @@ def load_sw(filename: str, sfreq: int = 200) -> pd.DataFrame:
     return sw_df
 
 
-def load_hsb(filename: str) -> dict:
-    """Loads HSB ergometer data from HSB datafile
+def load_hsb(filename):
+    """
+    Loads HSB ergometer data from HSB datafile.
 
-    :param filename: full file path or file in existing path from HSB csv file
-    :return: dictionary with ergometer data in dataframes
+    Loads ergometer data measured with the HSBlogger2 and returns the data in a dictionary for the left and right module
+    with a DataFrame each that contains time, force, and speed. HSB files are generally only for troubleshooting and
+    testing that is beyond the scope of LEM.
+
+    Parameters
+    ----------
+    filename : str
+        full file path or file in existing path from HSB .csv file
+
+    Returns
+    -------
+    data : dict
+        dictionary with DataFrame for left and right module
+
     """
     # noinspection PyTypeChecker
     data = {"left": defaultdict(list), "right": defaultdict(list)}
@@ -150,21 +289,39 @@ def load_hsb(filename: str) -> dict:
             data[side]["force"] *= -1  # Flip force direction
         if np.mean(data[side]["speed"]) < 0:
             data[side]["speed"] *= -1  # Flip speed direction
-    return {"left": pd.DataFrame(data["left"]), "right": pd.DataFrame(data["right"])}
+    data = {"left": pd.DataFrame(data["left"]), "right": pd.DataFrame(data["right"])}
+    return data
 
 
-def load_esseda(filename: str) -> dict:
-    """Loads HSB ergometer data from LEM datafile
+def load_esseda(filename):
+    """
+    Loads HSB ergometer data from LEM datafile.
 
-    :param filename: full file path or file in existing path from LEM excel sheet
-    :return: dictionary with ergometer data in dataframes
+    Loads ergometer data measured with LEM and returns the data in a dictionary for the left and right module with a
+    DataFrame each that contains time, force, and speed.
+
+    Parameters
+    ----------
+    filename : str
+        full file path or file in existing path from LEM Excel sheet (.xls)
+
+    Returns
+    -------
+    data : dict
+        dictionary with DataFrame for left and right module
+
+    See Also
+    --------
+    load_spline: Load calibration splines from LEM datafile.
+    load_wheelchair: Load wheelchair information from LEM datafile.
+
     """
     df = pd.read_excel(filename, sheet_name="HSB")
     df = df.dropna(axis=1, how='all')  # remove empty columns
     df = df.apply(lambda col: pd.to_numeric(col.str.replace(',', '.')) if isinstance(col[0], str) else col, axis=0)
 
-    cols = len(df.columns) / 5  # LEM does this annoying thing where it starts in new columns
-    mats = np.split(df.values, int(cols), axis=1)
+    cols = len(df.columns) // 5  # LEM does this annoying thing where it starts in new columns
+    mats = np.split(df.values, cols, axis=1)
     dmat = np.concatenate(tuple(mats), axis=0)
 
     data = {"left": pd.DataFrame(), "right": pd.DataFrame()}
@@ -180,20 +337,86 @@ def load_esseda(filename: str) -> dict:
     return data
 
 
-def load_bike(filename: str) -> pd.DataFrame:
-    """Load bicycle ergometer data from LEM datafile
+def load_wheelchair(filename):
+    """
+    Loads wheelchair from LEM datafile.
 
-    :param filename: path to file for pandas to parse
-    :return: DataFrame with time, load, rpm, and HR data
+    Loads the wheelchair data from a LEM datafile. Note that LEM only recently added this to their exports. Returns:
+
+    +------------+-----------------------+-----------+
+    | Column     | Data                  | Unit      |
+    +============+=======================+===========+
+    | name       | chair name            |           |
+    +------------+-----------------------+-----------+
+    | rimsize    | radius of handrim     | m         |
+    +------------+-----------------------+-----------+
+    | wheelsize  | radius of the wheel   | m         |
+    +------------+-----------------------+-----------+
+    | weight     | weight of the chair   | kg        |
+    +------------+-----------------------+-----------+
+
+    Parameters
+    ----------
+    filename : str
+        full file path or file in existing path from LEM Excel sheet (.xls)
+
+    Returns
+    -------
+    wheelchair : dict
+        dictionary with wheelchair information
+
+    See Also
+    --------
+    load_spline: Load calibration splines from LEM datafile.
+    load_esseda: Load HSB data from LEM datafile.
+
+    """
+    data = pd.read_excel(filename, sheet_name="Wheelchair Settings")
+    wheelchair = {"name": data.iloc[1, 1],
+                  "rimsize": float(data.iloc[7, 1]) / 1000 / 2,
+                  "wheelsize": float(data.iloc[8, 1]) / 1000 / 2,
+                  "wheelbase": float(data.iloc[9, 1]) / 1000,
+                  "weight": float(data.iloc[10, 1])}
+    return wheelchair
+
+
+def load_bike(filename):
+    """
+    Load bicycle ergometer data from LEM datafile.
+
+    Loads bicycle ergometer data from LEM to a pandas DataFrame containing time, load, rpm, and heart rate (HR).
+
+    Parameters
+    ----------
+    filename : str
+        full file path or file in existing path from LEM Excel sheet (.xls)
+
+    Returns
+    -------
+    data : pd.DataFrame
+        DataFrame with time, load, rpm, and HR data
+
     """
     return pd.read_excel(filename, sheet_name=2, names=["time", "load", "rpm", "HR"])  # 5 Hz data
 
 
-def load_spline(filename) -> dict:
-    """Load wheelchair ergometer calibration spline from LEM datafile
+def load_spline(filename):
+    """
+    Load wheelchair ergometer calibration spline from LEM datafile.
 
-    :param filename: full file path or file in existing path from LEM excel file
-    :return: spline value dictionary
+    Loads Esseda calibration spline from LEM which includes all forces (at the roller) at the different calibration
+    points (1:10:1 km/h).
+
+    Parameters
+    ----------
+    filename : object
+        full file path or file in existing path from LEM excel file
+
+    Returns
+    -------
+    data : dict
+        left and right calibration values
+
     """
     gear_ratio = 4  # Roller to loadcell
     data = {"left": None, "right": None}
@@ -209,12 +432,23 @@ def load_spline(filename) -> dict:
     return data
 
 
-def load_n3d(filename: str, verbose: bool = True) -> np.array:
-    """Reads NDI-optotrak data files
+def load_n3d(filename, verbose=True):
+    """
+    Reads NDI-Optotrak data files
 
-    :param filename: *.NDF datafile
-    :param verbose: default is True, disable to disable printouts
-    :return: list with markers with 3D arrays of measurement data in milimeters
+    Parameters
+    ----------
+    filename : str
+        Optotrak data file (.n3d)
+    verbose : bool
+        Print some information about the data from the file.
+        If True (default) it prints the information.
+
+    Returns
+    -------
+    optodata : ndarray
+        Multidimensional numpy array with xyz [in mm], marker, and sample dimensions.
+
     """
     with open(filename, "rb") as f:
         content = f.read()
@@ -245,13 +479,25 @@ def load_n3d(filename: str, verbose: bool = True) -> np.array:
     return optodata
 
 
-def load_session(root_dir: str, filenames: list = None) -> dict:
-    """Imports NGIMU session in nested dictionary with all devices and sensors. Translated from xio-Technologies.
+def load_session(root_dir, filenames=None):
+    """
+    Imports NGIMU session in nested dictionary with all devices and sensors.
+
+    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.
     https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
 
-    :param root_dir: directory where session is located
-    :param filenames: Optional - list of sensor names or single sensor name that you would like to include
-    :return: returns nested object sensordata[device][sensor][dataframe]
+    Parameters
+    ----------
+    root_dir : str
+        directory where session is located
+    filenames : list, optional
+        list of sensor names or single sensor name that you would like to include
+
+    Returns
+    -------
+    session_data : dict
+        returns nested object sensordata[device][sensor][dataframe]
+
     """
     directory_contents = listdir(root_dir)  # all content in directory
     if not directory_contents:
@@ -285,6 +531,21 @@ def load_session(root_dir: str, filenames: list = None) -> dict:
 
 
 def load_drag_test(filename):
+    """
+    Loads a drag test file.
+
+    Loads drag test data (angle and force) from an ADA .txt file.
+
+    Parameters
+    ----------
+    filename : str
+
+    Returns
+    -------
+    dragtest : pd.DataFrame
+        DataFrame with angles and corresponding forces.
+
+    """
     dragtest = defaultdict(list)
     with open(filename, "r") as f:
         [next(f) for _ in range(33)]  # Skip header and junk
@@ -295,12 +556,22 @@ def load_drag_test(filename):
     return pd.DataFrame(dragtest)
 
 
-def load_optitrack(filename: str, include_header: bool = False):
-    """Loads Optitrack marker data
+def load_optitrack(filename, include_header=False):
+    """
+    Loads Optitrack marker data.
 
-    :param filename: Full path to filename or filename in current path
-    :param include_header: Whether or not to include the header in the output
-    :return: Marker data in dictionary, metadata in dictionary
+    Parameters
+    ----------
+    filename : str
+        full path to filename or filename in current path
+    include_header : bool
+        whether or not to include the header in the output default is False
+
+    Returns
+    -------
+    marker_data : dict
+        Marker data in dictionary, metadata in dictionary
+
     """
     # First get all the metadata
     header = {}

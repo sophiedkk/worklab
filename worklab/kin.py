@@ -119,15 +119,15 @@ def process_mw_data(data, wheelsize: float = 0.31, rimsize: float = 0.275, sfreq
     :param sfreq: sample frequency in Hz
     :return: processed measurement wheel dataframe
     """
-    data["aspeed"] = np.gradient(data["angle"]) / (1 / sfreq)
+    data["aspeed"] = np.gradient(data["angle"]) * sfreq
     data["speed"] = data["aspeed"] * wheelsize
-    data["dist"] = cumtrapz(data["speed"], initial=0.0) * (1 / sfreq)
-    data["acc"] = np.gradient(data["speed"]) / (1 / sfreq)
+    data["dist"] = cumtrapz(data["speed"], initial=0.0) / sfreq
+    data["acc"] = np.gradient(data["speed"]) * sfreq
     data["ftot"] = (data["fx"] ** 2 + data["fy"] ** 2 + data["fz"] ** 2) ** 0.5
     data["uforce"] = data["torque"] / rimsize
-    data["force"] = data["uforce"] / (wheelsize / rimsize)
+    data["force"] = data["torque"] / wheelsize
     data["power"] = data["torque"] * data["aspeed"]
-    data["work"] = data["power"] * (1 / sfreq)
+    data["work"] = data["power"] / sfreq
     return data
 
 
@@ -148,6 +148,7 @@ def push_by_push_ergo(data: dict, variable: str = "torque", cutoff: float = 0.0,
             pbp[side]["tstop"].append(data[side]["time"][stop])
             pbp[side]["tpeak"].append(data[side]["time"][peak])
             pbp[side]["cangle"].append(data[side]["angle"][stop] - data[side]["angle"][start])
+            pbp[side]["cangle_deg"].append(np.rad2deg(pbp[side]["cangle"][-1]))
             pbp[side]["ptime"].append(pbp[side]["tstop"][-1] - pbp[side]["tstart"][-1])
             stop += 1  # inclusive of last sample for slicing
             pbp[side]["meanpower"].append(np.mean(data[side]["power"][start:stop]))
@@ -159,7 +160,7 @@ def push_by_push_ergo(data: dict, variable: str = "torque", cutoff: float = 0.0,
             pbp[side]["work"].append(np.cumsum(data[side]["work"][start:stop]).iloc[-1])
             pbp[side]["slope"].append(pbp[side]["maxtorque"][-1] /
                                       (pbp[side]["tpeak"][-1] - pbp[side]["tstart"][-1]))
-            if start != pbp[side]["start"][0]:  # only after first push
+            if ind:  # only after first push
                 pbp[side]["ctime"].append(pbp[side]["tstart"][-1] - pbp[side]["tstart"][-2])
                 pbp[side]["reltime"].append(pbp[side]["ptime"][-2] / pbp[side]["ctime"][-1] * 100)
         pbp[side]["ctime"].append(np.NaN)
@@ -185,6 +186,7 @@ def push_by_push_mw(data, variable: str = "torque", cutoff: float = 0.0, minpeak
         pbp["tstop"].append(data["time"][stop])
         pbp["tpeak"].append(data["time"][peak])
         pbp["cangle"].append(data["angle"][stop] - data["angle"][start])
+        pbp["cangle_deg"].append(np.rad2deg(pbp["cangle"][-1]))
         pbp["ptime"].append(pbp["tstop"][-1] - pbp["tstart"][-1])
         stop += 1  # inclusive of last sample for slices
         pbp["meanpower"].append(np.mean(data["power"][start:stop]))
@@ -196,7 +198,7 @@ def push_by_push_mw(data, variable: str = "torque", cutoff: float = 0.0, minpeak
         pbp["work"].append(np.cumsum(data["work"][start:stop]).iloc[-1])
         pbp["feff"].append(np.mean(data["uforce"][start:stop] / data["ftot"][start:stop]) * 100)
         pbp["slope"].append(pbp["maxtorque"][-1] / (pbp["tpeak"][-1] - pbp["tstart"][-1]))
-        if start != pbp["start"][0]:  # only after first push
+        if ind:  # only after first push
             pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
             pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
     pbp["ctime"].append(np.NaN)
