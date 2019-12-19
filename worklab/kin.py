@@ -1,13 +1,3 @@
-"""
--Kinetics module-
-Description: Contains functions for working with measurement wheel (Optipush and SMARTwheel) and ergometer (Esseda) data
-You will usually only need the top-level function autoprocess.
-Author:     Rick de Klerk
-Contact:    r.de.klerk@umcg.nl
-Company:    University Medical Center Groningen
-License:    GNU GPLv3.0
-Date:       27/06/2019
-"""
 import numpy as np
 import pandas as pd
 from scipy.integrate import cumtrapz
@@ -17,47 +7,96 @@ from .utils import lowpass_butter, find_peaks
 
 def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True,
                  speed=True, variable="torque", cutoff=0.0, minpeak=5.0):
-    """Contains all signal processing steps in fixed order. It is advised to use this function for all (pre-)processing.
+    """
+    Top level processing function that performs all processing steps for mw/ergo data.
+
+    Contains all signal processing steps in fixed order. It is advised to use this function for all (pre-)processing.
     If needed take a look at a specific function to see how it works.
 
-    :param data: raw ergometer or measurement wheel data
-    :param wheelsize: wheel radius in m
-    :param rimsize: rim radius in m
-    :param sfreq: sample frequency
-    :param co_f: cutoff frequency for force filter
-    :param ord_f: order for force filter
-    :param co_s: cutoff frequency for speed filter
-    :param ord_s: order for speed filter
-    :param force: force filter toggle
-    :param speed: speed filter toggle
-    :param variable: variable used for peak (push) detection
-    :param cutoff: noise level for peak (push) detection
-    :param minpeak: min peak for peak (push) detection
-    :return: filtered and processed data, and push-by-push data
+    Parameters
+    ----------
+    data : pd.DataFrame, dict
+        raw ergometer or measurement wheel data
+    wheelsize : float
+        wheel radius [m]
+    rimsize : float
+        handrim radius [m]
+    sfreq : int
+        sample frequency [Hz]
+    co_f : int
+        cutoff frequency force filter [Hz]
+    ord_f : int
+        order force filter [..]
+    co_s : int
+        cutoff frequency force filter [Hz]
+    ord_s : int
+        order speed filter [..]
+    force : bool
+        force filter toggle, default is True
+    speed : bool
+        speed filter toggle, default is True
+    variable : str
+        variable name used for peak (push) detection
+    cutoff : float
+        noise level for peak (push) detection
+    minpeak : float
+        min peak height for peak (push) detection
+
+    Returns
+    -------
+    data : pd.DataFrame, dict
+    pushes : pd.DataFrame, dict
+
+    See Also
+    --------
+    filter_mw, process_mw, push_by_push_mw, filter_ergo, process_ergo, push_by_push_ergo
+
     """
     if "right" in data:
-        data = filter_ergo_data(data, co_f, ord_f, force, co_s, ord_s, speed)
-        data = process_ergo_data(data, wheelsize, rimsize)
+        data = filter_ergo(data, co_f, ord_f, co_s, ord_s, force, speed)
+        data = process_ergo(data, wheelsize, rimsize)
         pushes = push_by_push_ergo(data, variable, cutoff, minpeak)
     else:
-        data = filter_mw_data(data, sfreq, co_f, ord_f, force, co_s, ord_s, speed)
-        data = process_mw_data(data, wheelsize, rimsize, sfreq)
+        data = filter_mw(data, sfreq, co_f, ord_f, co_s, ord_s, force, speed)
+        data = process_mw(data, wheelsize, rimsize, sfreq)
         pushes = push_by_push_mw(data, variable, cutoff, minpeak)
     return data, pushes
 
 
-def filter_mw_data(data, sfreq=200, co_f=15, ord_f=2, force=True, co_s=6, ord_s=2, speed=True):
-    """Filters measurement wheel data; should be used before processing
+def filter_mw(data, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, speed=True):
+    """
+    Filters measurement wheel data.
 
-    :param data: measurement wheel data
-    :param sfreq:  specific sample freq for measurement wheel
-    :param co_f: cut off frequency for force related variables
-    :param ord_f: filter order for force related variables
-    :param force: filter force toggle
-    :param co_s: cut off frequency for speed related variables
-    :param ord_s: filter order for speed related variables
-    :param speed: filter speed toggle
-    :return: same data but filtered
+    Filters raw measurement wheel data. Should be used before further processing.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        raw measurement wheel data
+    sfreq : int
+        sample frequency [Hz]
+    co_f : int
+        cutoff frequency force filter [Hz]
+    ord_f : int
+        order force filter [..]
+    co_s : int
+        cutoff frequency force filter [Hz]
+    ord_s : int
+        order speed filter [..]
+    force : bool
+        force filter toggle, default is True
+    speed : bool
+        speed filter toggle, default is True
+
+    Returns
+    -------
+    data : pd.DataFrame
+    Same data but filtered.
+
+    See Also
+    --------
+    .utils.lowpass_butter
+
     """
     if force:
         frel = ["fx", "fy", "fz", "mx", "my", "torque"]
@@ -68,17 +107,38 @@ def filter_mw_data(data, sfreq=200, co_f=15, ord_f=2, force=True, co_s=6, ord_s=
     return data
 
 
-def filter_ergo_data(data, co_f=15, ord_f=2, force=True, co_s=6, ord_s=2, speed=True):
-    """Filters ergometer data; should be used before processing
+def filter_ergo(data, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, speed=True):
+    """
+    Filters ergometer data.
 
-    :param data: measurement wheel data
-    :param co_f: cut off frequency for force related variables
-    :param ord_f: filter order for force related variables
-    :param force: filter force toggle
-    :param co_s: cut off frequency for speed related variables
-    :param ord_s: filter order for speed related variables
-    :param speed: filter speed toggle
-    :return: same data but filtered
+    Filters raw ergometer data. Should be used before further processing.
+
+    Parameters
+    ----------
+    data : dict
+        raw measurement wheel data
+    co_f : int
+        cutoff frequency force filter [Hz]
+    ord_f : int
+        order force filter [..]
+    co_s : int
+        cutoff frequency force filter [Hz]
+    ord_s : int
+        order speed filter [..]
+    force : bool
+        force filter toggle, default is True
+    speed : bool
+        speed filter toggle, default is True
+
+    Returns
+    -------
+    data : dict
+        Same data but filtered.
+
+    See Also
+    --------
+    .utils.lowpass_butter
+
     """
     sfreq = 100
     for side in data:
@@ -89,35 +149,54 @@ def filter_ergo_data(data, co_f=15, ord_f=2, force=True, co_s=6, ord_s=2, speed=
     return data
 
 
-def process_ergo_data(data: dict, wheelsize: float = 0.31, rimsize: float = 0.275) -> dict:
-    """Basic processing for ergometer data (e.g. speed to distance)
-
-    :param data: ergometer data dictionary
-    :param wheelsize: wheel radius in m
-    :param rimsize: handrim radius in m
-    :return: processed ergometer data dictionary
+def process_mw(data, wheelsize=0.31, rimsize=0.275, sfreq=200):
     """
-    sfreq = 100  # ergometer is always 100Hz
-    for side in data:
-        data[side]["torque"] = data[side]["force"] * wheelsize
-        data[side]["acc"] = np.gradient(data[side]["speed"]) * sfreq
-        data[side]["power"] = data[side]["speed"] * data[side]["force"]
-        data[side]["dist"] = cumtrapz(data[side]["speed"], initial=0.0) / sfreq
-        data[side]["work"] = data[side]["power"] / sfreq
-        data[side]["uforce"] = data[side]["force"] * (wheelsize / rimsize)
-        data[side]["aspeed"] = data[side]["speed"] / wheelsize
-        data[side]["angle"] = cumtrapz(data[side]["aspeed"], initial=0.0) / sfreq
-    return data
+    Basic processing for measurement wheel data.
 
+    Basic processing for measurement wheel data (e.g. speed to distance). Should be performed after filtering.
+    Added columns:
 
-def process_mw_data(data, wheelsize: float = 0.31, rimsize: float = 0.275, sfreq: int = 200) -> pd.DataFrame:
-    """Basic processing for measurment wheel data (e.g. speed to distance)
+    +------------+----------------------+-----------+
+    | Column     | Data                 | Unit      |
+    +============+======================+===========+
+    | aspeed     | angular velocity     | rad/s     |
+    +------------+----------------------+-----------+
+    | speed      | velocity             | m/s       |
+    +------------+----------------------+-----------+
+    | dist       | cumulative distance  | m         |
+    +------------+----------------------+-----------+
+    | acc        | acceleration         | m/s^2     |
+    +------------+----------------------+-----------+
+    | ftot       | total combined force | N         |
+    +------------+----------------------+-----------+
+    | uforce     | effective force      | N         |
+    +------------+----------------------+-----------+
+    | force      | force on wheel       | N         |
+    +------------+----------------------+-----------+
+    | power      | power                | W         |
+    +------------+----------------------+-----------+
+    | work       | instantanious work   | J         |
+    +------------+----------------------+-----------+
 
-    :param data: measurement wheel dataframe
-    :param wheelsize: wheel radius in m
-    :param rimsize: handrim radius in m
-    :param sfreq: sample frequency in Hz
-    :return: processed measurement wheel dataframe
+    Parameters
+    ----------
+    data : pd.DataFrame
+        raw measurement wheel data
+    wheelsize : float
+        wheel radius [m]
+    rimsize : float
+        handrim radius [m]
+    sfreq : int
+        sample frequency [Hz]
+
+    Returns
+    -------
+    data : pd.DataFrame
+
+    See Also
+    --------
+    .com.load_opti, .com.load_sw
+
     """
     data["aspeed"] = np.gradient(data["angle"]) * sfreq
     data["speed"] = data["aspeed"] * wheelsize
@@ -131,14 +210,207 @@ def process_mw_data(data, wheelsize: float = 0.31, rimsize: float = 0.275, sfreq
     return data
 
 
-def push_by_push_ergo(data: dict, variable: str = "torque", cutoff: float = 0.0, minpeak: float = 5.0) -> dict:
-    """Push detection and push-by-push analysis for ergometer data
+def process_ergo(data, wheelsize=0.31, rimsize=0.275):
+    """
+    Basic processing for ergometer data.
 
-    :param data: ergometer data dictionary
-    :param variable: variable used for peak (push) detection
-    :param cutoff: noise level for peak (push) detection
-    :param minpeak: minimum peak (push) height
-    :return: push-by-push data dictionary with left: pd.DataFrame and right: pd.DataFrame
+    Basic processing for ergometer data (e.g. speed to distance). Should be performed after filtering.
+    Added columns:
+
+    +------------+----------------------+-----------+
+    | Column     | Data                 | Unit      |
+    +============+======================+===========+
+    | angle      | angle                | rad       |
+    +------------+----------------------+-----------+
+    | aspeed     | angular velocity     | rad/s     |
+    +------------+----------------------+-----------+
+    | acc        | acceleration         | m/s^2     |
+    +------------+----------------------+-----------+
+    | dist       | cumulative distance  | m         |
+    +------------+----------------------+-----------+
+    | power      | power                | W         |
+    +------------+----------------------+-----------+
+    | work       | instantanious work   | J         |
+    +------------+----------------------+-----------+
+    | uforce     | effective force      | N         |
+    +------------+----------------------+-----------+
+    | torque     | torque around wheel  | Nm        |
+    +------------+----------------------+-----------+
+
+    .. note:: the force column contains force on the wheels, uforce (user force) is force on the handrim
+
+    Parameters
+    ----------
+    data : dict
+        raw ergometer data
+    wheelsize : float
+        wheel radius [m]
+    rimsize : float
+        handrim radius [m]
+
+    Returns
+    -------
+    data : dict
+
+    See Also
+    --------
+    .com.load_esseda
+
+    """
+    sfreq = 100  # ergometer is always 100Hz
+    for side in data:
+        data[side]["aspeed"] = data[side]["speed"] / wheelsize
+        data[side]["angle"] = cumtrapz(data[side]["aspeed"], initial=0.0) / sfreq
+        data[side]["torque"] = data[side]["force"] * wheelsize
+        data[side]["acc"] = np.gradient(data[side]["speed"]) * sfreq
+        data[side]["power"] = data[side]["speed"] * data[side]["force"]
+        data[side]["dist"] = cumtrapz(data[side]["speed"], initial=0.0) / sfreq
+        data[side]["work"] = data[side]["power"] / sfreq
+        data[side]["uforce"] = data[side]["force"] * (wheelsize / rimsize)
+    return data
+
+
+def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
+    """
+    Push-by-push analysis for measurement wheel data.
+
+    Push detection and push-by-push analysis for measurement wheel data. Returns a pandas DataFrame with:
+
+    +--------------------+----------------------+-----------+
+    | Column             | Data                 | Unit      |
+    +====================+======================+===========+
+    | start/stop/peak    | respective indices   |           |
+    +--------------------+----------------------+-----------+
+    | tstart/tstop/tpeak | respective samples   | s         |
+    +--------------------+----------------------+-----------+
+    | cangle             | contact angle        | rad       |
+    +--------------------+----------------------+-----------+
+    | cangle_deg         | contact angle        | degrees   |
+    +--------------------+----------------------+-----------+
+    | meanpower          | power per push       | W         |
+    +--------------------+----------------------+-----------+
+    | maxpower           | peak power per push  | W         |
+    +--------------------+----------------------+-----------+
+    | meantorque         | torque per push      | Nm        |
+    +--------------------+----------------------+-----------+
+    | maxtorque          | peak torque per push | Nm        |
+    +--------------------+----------------------+-----------+
+    | meanforce          | (rim) force per push | N         |
+    +--------------------+----------------------+-----------+
+    | maxforce           | peak force per push  | N         |
+    +--------------------+----------------------+-----------+
+    | work               | work per push        | J         |
+    +--------------------+----------------------+-----------+
+    | feff               | mean feff per push   | %         |
+    +--------------------+----------------------+-----------+
+    | slope              | slope onset to peak  | Nm/s      |
+    +--------------------+----------------------+-----------+
+    | ptime              | push time            | s         |
+    +--------------------+----------------------+-----------+
+    | ctime              | cycle time           | s         |
+    +--------------------+----------------------+-----------+
+    | reltime            | relative push/cycle  | %         |
+    +--------------------+----------------------+-----------+
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+        measurement wheel DataFrame
+    variable : str
+        variable name used for peak (push) detection
+    cutoff : float
+        noise level for peak (push) detection
+    minpeak : float
+        min peak height for peak (push) detection
+
+    Returns
+    -------
+    pbp : pd.DataFrame
+        push-by-push DataFrame
+    """
+    pbp = find_peaks(data[variable], cutoff, minpeak)
+    for ind, (start, stop, peak) in enumerate(zip(pbp["start"], pbp["stop"], pbp["peak"])):  # for each push
+        pbp["tstart"].append(data["time"][start])
+        pbp["tstop"].append(data["time"][stop])
+        pbp["tpeak"].append(data["time"][peak])
+        pbp["cangle"].append(data["angle"][stop] - data["angle"][start])
+        pbp["cangle_deg"].append(np.rad2deg(pbp["cangle"][-1]))
+        pbp["ptime"].append(pbp["tstop"][-1] - pbp["tstart"][-1])
+        stop += 1  # inclusive of last sample for slices
+        pbp["meanpower"].append(np.mean(data["power"][start:stop]))
+        pbp["maxpower"].append(np.max(data["power"][start:stop]))
+        pbp["meantorque"].append(np.mean(data["torque"][start:stop]))
+        pbp["maxtorque"].append(np.max(data["torque"][start:stop]))
+        pbp["meanforce"].append(np.mean(data["uforce"][start:stop]))
+        pbp["maxforce"].append(np.max(data["uforce"][start:stop]))
+        pbp["work"].append(np.cumsum(data["work"][start:stop]).iloc[-1])
+        pbp["feff"].append(np.mean(data["uforce"][start:stop] / data["ftot"][start:stop]) * 100)
+        pbp["slope"].append(pbp["maxtorque"][-1] / (pbp["tpeak"][-1] - pbp["tstart"][-1]))
+        if ind:  # only after first push
+            pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
+            pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
+    pbp["ctime"].append(np.NaN)
+    pbp["reltime"].append(np.NaN)
+    pbp = pd.DataFrame(pbp)
+    print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
+    return pbp
+
+
+def push_by_push_ergo(data: dict, variable: str = "torque", cutoff: float = 0.0, minpeak: float = 5.0) -> dict:
+    """
+    Push-by-push analysis for measurement wheel data.
+
+    Push detection and push-by-push analysis for measurement wheel data. Returns a pandas DataFrame with:
+
+    +--------------------+----------------------+-----------+
+    | Column             | Data                 | Unit      |
+    +====================+======================+===========+
+    | start/stop/peak    | respective indices   |           |
+    +--------------------+----------------------+-----------+
+    | tstart/tstop/tpeak | respective samples   | s         |
+    +--------------------+----------------------+-----------+
+    | cangle             | contact angle        | rad       |
+    +--------------------+----------------------+-----------+
+    | cangle_deg         | contact angle        | degrees   |
+    +--------------------+----------------------+-----------+
+    | meanpower          | power per push       | W         |
+    +--------------------+----------------------+-----------+
+    | maxpower           | peak power per push  | W         |
+    +--------------------+----------------------+-----------+
+    | meantorque         | torque per push      | Nm        |
+    +--------------------+----------------------+-----------+
+    | maxtorque          | peak torque per push | Nm        |
+    +--------------------+----------------------+-----------+
+    | meanforce          | (rim) force per push | N         |
+    +--------------------+----------------------+-----------+
+    | maxforce           | peak force per push  | N         |
+    +--------------------+----------------------+-----------+
+    | work               | work per push        | J         |
+    +--------------------+----------------------+-----------+
+    | slope              | slope onset to peak  | Nm/s      |
+    +--------------------+----------------------+-----------+
+    | ptime              | push time            | s         |
+    +--------------------+----------------------+-----------+
+    | ctime              | cycle time           | s         |
+    +--------------------+----------------------+-----------+
+    | reltime            | relative push/cycle  | %         |
+    +--------------------+----------------------+-----------+
+
+    Parameters
+    ----------
+    data : dict
+        wheelchair ergometer dictionary
+    variable : str
+        variable name used for peak (push) detection
+    cutoff : float
+        noise level for peak (push) detection
+    minpeak : float
+        min peak height for peak (push) detection
+
+    Returns
+    -------
+    pbp : dict
+        dictionary with left and right push-by-push DataFrame
     """
     pbp = {"left": [], "right": []}
     for side in data:
@@ -168,41 +440,4 @@ def push_by_push_ergo(data: dict, variable: str = "torque", cutoff: float = 0.0,
         pbp[side] = pd.DataFrame(pbp[side])
     print("\n" + "=" * 80 + f"\nFound left: {len(pbp['left'])} and right: {len(pbp['right'])} pushes!\n"
           + "=" * 80 + "\n")
-    return pbp
-
-
-def push_by_push_mw(data, variable: str = "torque", cutoff: float = 0.0, minpeak: float = 5.0) -> pd.DataFrame:
-    """Push detection and push-by-push analysis for measurement wheel data
-
-    :param data: measurement wheel dataframe
-    :param variable: variable used for peak (push) detection
-    :param cutoff: noise level for peak (push) detection
-    :param minpeak: minimum peak (push) height
-    :return: push-by-push dataframe
-    """
-    pbp = find_peaks(data[variable], cutoff, minpeak)
-    for ind, (start, stop, peak) in enumerate(zip(pbp["start"], pbp["stop"], pbp["peak"])):  # for each push
-        pbp["tstart"].append(data["time"][start])
-        pbp["tstop"].append(data["time"][stop])
-        pbp["tpeak"].append(data["time"][peak])
-        pbp["cangle"].append(data["angle"][stop] - data["angle"][start])
-        pbp["cangle_deg"].append(np.rad2deg(pbp["cangle"][-1]))
-        pbp["ptime"].append(pbp["tstop"][-1] - pbp["tstart"][-1])
-        stop += 1  # inclusive of last sample for slices
-        pbp["meanpower"].append(np.mean(data["power"][start:stop]))
-        pbp["maxpower"].append(np.max(data["power"][start:stop]))
-        pbp["meantorque"].append(np.mean(data["torque"][start:stop]))
-        pbp["maxtorque"].append(np.max(data["torque"][start:stop]))
-        pbp["meanforce"].append(np.mean(data["uforce"][start:stop]))
-        pbp["maxforce"].append(np.max(data["uforce"][start:stop]))
-        pbp["work"].append(np.cumsum(data["work"][start:stop]).iloc[-1])
-        pbp["feff"].append(np.mean(data["uforce"][start:stop] / data["ftot"][start:stop]) * 100)
-        pbp["slope"].append(pbp["maxtorque"][-1] / (pbp["tpeak"][-1] - pbp["tstart"][-1]))
-        if ind:  # only after first push
-            pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
-            pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
-    pbp["ctime"].append(np.NaN)
-    pbp["reltime"].append(np.NaN)
-    pbp = pd.DataFrame(pbp)
-    print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
     return pbp

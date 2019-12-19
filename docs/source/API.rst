@@ -1,7 +1,6 @@
 Python modules
 ==============
 
-Blablabla
 
 Rationale
 ---------
@@ -20,13 +19,13 @@ packages that you probably already have installed. Also have a look at the
 
 Installation
 ------------
-Option 1: download the package from this page, and run::
-
-    python setup.py install
-
-Option 2: installing with pip is even easier::
+Option 1: the package is now on pip::
 
     pip install worklab
+
+Option 2: download the package from this page, and run::
+
+    python setup.py install
 
 Option 3: don't install it and just include the scripts in your working directory (why though?).
 
@@ -41,35 +40,115 @@ Breakdown
 ---------
 Core files:
 
-* com.py: 		Provides functions for reading and writing data, use ``load`` to infer filetype and automatically read it. If you use a different naming scheme you can always call the specific load functions.
-* kinetics.py: 	Contains all essentials for measurement wheel and ergometer data. You only need the top-level function ``auto_process`` for most use-cases.
-* move.py: 	    Contains kinematics and movement related functions for NGIMU and some functions for 3D kinematics.
-* physio.py: 	Contains physiological calculations, which for now is basically nothing as the spirometer does everything for you. Might include EMG and the likes later though.
-* plots.py:     Contains some basic plotting functionalities for plots that become repetitive, needs some TLC to become really useful.
-* utils.py:     Contains all functions that are useful for more than one application (e.g. filtering and interpolation).
+* com: 		    Provides functions for reading and writing data, use ``load`` to infer filetype and automatically read it. If you use a different naming scheme you can always call the specific load functions.
+* kinetics: 	Contains all essentials for measurement wheel and ergometer data. You only need the top-level function ``auto_process`` for most use-cases.
+* move: 	    Contains kinematics and movement related functions for NGIMU and some functions for 3D kinematics.
+* physio: 	    Contains physiological calculations, which for now is basically nothing as the spirometer does everything for you. Might include EMG and the likes later though.
+* plots:        Contains some basic plotting functionalities for plots that become repetitive, needs some TLC to become really useful.
+* utils:        Contains all functions that are useful for more than one application (e.g. filtering and interpolation).
 
 The return of a function is a Pandas DataFrame in 9/10 cases. This means that you can also use all Pandas goodness.
 
+Communication module
+--------------------
+Contains functions for reading data from any worklab device. If you abide by regular naming conventions
+you will only need the load function which will infer the correct function for you. You can also use device-specific
+load functions if needed.
 
-.. automodule:: worklab.com
-    :members:
+load
+^^^^
+.. autofunction:: worklab.com.load
+
+load_bike
+^^^^^^^^^
+.. autofunction:: worklab.com.load_bike
+
+load_esseda
+^^^^^^^^^^^
+.. autofunction:: worklab.com.load_esseda
+
+load_hsb
+^^^^^^^^
+.. autofunction:: worklab.com.load_hsb
+
+load_n3d
+^^^^^^^^
+.. autofunction:: worklab.com.load_n3d
+
+load_opti
+^^^^^^^^^
+.. autofunction:: worklab.com.load_opti
+
+load_optitrack
+^^^^^^^^^^^^^^
+.. autofunction:: worklab.com.load_optitrack
+
+load_session
+^^^^^^^^^^^^
+.. autofunction:: worklab.com.load_session
+
+load_spiro
+^^^^^^^^^^
+.. autofunction:: worklab.com.load_spiro
+
+load_spline
+^^^^^^^^^^^
+.. autofunction:: worklab.com.load_spline
+
+load_sw
+^^^^^^^
+.. autofunction:: worklab.com.load_sw
 
 
-.. automodule:: worklab.kin
-    :members:
+Kinetics module
+---------------
+Contains functions for working with measurement wheel (Optipush and SMARTwheel) and ergometer (Esseda) data
+You will usually only need the top-level function ``auto_process``.
 
+auto_process
+^^^^^^^^^^^^
+.. autofunction:: worklab.kin.auto_process
 
+filter_mw
+^^^^^^^^^
+.. autofunction:: worklab.kin.filter_mw
+
+filter_ergo
+^^^^^^^^^^^
+.. autofunction:: worklab.kin.filter_ergo
+
+process_mw
+^^^^^^^^^^
+.. autofunction:: worklab.kin.process_mw
+
+process_ergo
+^^^^^^^^^^^^
+.. autofunction:: worklab.kin.process_ergo
+
+push_by_push_mw
+^^^^^^^^^^^^^^^
+.. autofunction:: worklab.kin.push_by_push_mw
+
+push_by_push_ergo
+^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.kin.push_by_push_ergo
+
+Kinematics module
+-----------------
 .. automodule:: worklab.move
     :members:
 
-
+Physiology module
+-----------------
 .. automodule:: worklab.physio
     :members:
 
-
+Plotting module
+---------------
 .. automodule:: worklab.plots
     :members:
 
-
+Utilities module
+----------------
 .. automodule:: worklab.utils
     :members:

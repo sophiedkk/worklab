@@ -1,28 +1,3 @@
-"""
-Communication module
-====================
-
-Description
------------
-Contains functions for reading data from any worklab device. If you abide by regular naming conventions
-you will only need the load function which will infer the correct function for you. You can also use device-specific
-load functions if needed.
-
-Functions
----------
-- `load` -- top level load function that identifies data type
-- `load_bike` -- load bicycle ergometer data from LEM
-- `load_esseda` -- load Esseda wheelchair ergometer data from LEM
-- `load_hsb` -- load Esseda wheelchair ergometer data from HSB
-- `load_n3d` -- load Optotrak data from binary file
-- `load_opti` -- load Optipush data from .data file
-- `load_optitrack` -- load markerdata from Optitrack csv
-- `load_session` -- load NGIMU data from a session
-- `load_spiro` -- load COSMED spirometer data from .xlsx file
-- `load_spline` -- load Esseda calibration spline from LEM
-- `load_sw` -- load SMARTwheel data from .txt
-
-"""
 import csv
 import re
 from collections import defaultdict
@@ -108,12 +83,21 @@ def load_spiro(filename):
     expenditure, computes weights from the time difference between samples, if no heart rate data is available it fills
     the column with np.NaNs, also includes VO2 and VCO2. Returns a DataFrame with:
 
-    - time: time at breath [s]
-    - power: internal power at breath [W]
-    - weights: sample weights [..]
-    - HR: heart rate [bpm]
-    - VO2: [mL/min]
-    - VCO2: [mL/min]
+    +------------+----------------------+-----------+
+    | Column     | Data                 | Unit      |
+    +============+======================+===========+
+    | time       | time at breath       | s         |
+    +------------+----------------------+-----------+
+    | power      | power at breath      | N         |
+    +------------+----------------------+-----------+
+    | weights    | sample weight        |           |
+    +------------+----------------------+-----------+
+    | HR         | heart rate           | bpm       |
+    +------------+----------------------+-----------+
+    | VO2        | torque around x-axis | [mL/min]  |
+    +------------+----------------------+-----------+
+    | VCO2       | torque around y-axis | [mL/min]  |
+    +------------+----------------------+-----------+
 
     Parameters
     ----------
@@ -298,7 +282,7 @@ def load_esseda(filename):
     Loads HSB ergometer data from LEM datafile.
 
     Loads ergometer data measured with LEM and returns the data in a dictionary for the left and right module with a
-    DataFrame each that contains time, force, and speed.
+    DataFrame each that contains time, force (on wheel), and speed.
 
     Parameters
     ----------
