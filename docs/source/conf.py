@@ -22,7 +22,7 @@ copyright = '2019, R. de Klerk'
 author = 'R. de Klerk'
 
 # The full version, including alpha/beta/rc tags
-release = '1.3.7.'
+release = '1.3.8'
 
 
 # -- General configuration ---------------------------------------------------
