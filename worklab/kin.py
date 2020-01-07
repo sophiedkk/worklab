@@ -356,7 +356,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     return pbp
 
 
-def push_by_push_ergo(data: dict, variable: str = "torque", cutoff: float = 0.0, minpeak: float = 5.0) -> dict:
+def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
     """
     Push-by-push analysis for measurement wheel data.
 
