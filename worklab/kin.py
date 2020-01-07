@@ -63,7 +63,7 @@ def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2
     return data, pushes
 
 
-def filter_mw(data, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, speed=True):
+def filter_mw(data, sfreq=200., co_f=15., ord_f=2, co_s=6., ord_s=2, force=True, speed=True):
     """
     Filters measurement wheel data.
 
@@ -73,13 +73,13 @@ def filter_mw(data, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, sp
     ----------
     data : pd.DataFrame
         raw measurement wheel data
-    sfreq : int
+    sfreq : float
         sample frequency [Hz]
-    co_f : int
+    co_f : float
         cutoff frequency force filter [Hz]
     ord_f : int
         order force filter [..]
-    co_s : int
+    co_s : float
         cutoff frequency force filter [Hz]
     ord_s : int
         order speed filter [..]
@@ -107,7 +107,7 @@ def filter_mw(data, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, sp
     return data
 
 
-def filter_ergo(data, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, speed=True):
+def filter_ergo(data, co_f=15., ord_f=2, co_s=6., ord_s=2, force=True, speed=True):
     """
     Filters ergometer data.
 
@@ -117,11 +117,11 @@ def filter_ergo(data, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True, speed=True)
     ----------
     data : dict
         raw measurement wheel data
-    co_f : int
+    co_f : float
         cutoff frequency force filter [Hz]
     ord_f : int
         order force filter [..]
-    co_s : int
+    co_s : float
         cutoff frequency force filter [Hz]
     ord_s : int
         order speed filter [..]

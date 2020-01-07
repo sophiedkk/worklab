@@ -15,3 +15,6 @@ Tachometer
 
 Angle sensor
 ^^^^^^^^^^^^
+
+References
+----------

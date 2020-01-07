@@ -296,8 +296,8 @@ def load_esseda(filename):
 
     See Also
     --------
-    load_spline: Load calibration splines from LEM datafile.
     load_wheelchair: Load wheelchair information from LEM datafile.
+    load_spline: Load calibration splines from LEM datafile.
 
     """
     df = pd.read_excel(filename, sheet_name="HSB")
@@ -351,8 +351,8 @@ def load_wheelchair(filename):
 
     See Also
     --------
-    load_spline: Load calibration splines from LEM datafile.
     load_esseda: Load HSB data from LEM datafile.
+    load_spline: Load calibration splines from LEM datafile.
 
     """
     data = pd.read_excel(filename, sheet_name="Wheelchair Settings")
@@ -467,8 +467,7 @@ def load_session(root_dir, filenames=None):
     """
     Imports NGIMU session in nested dictionary with all devices and sensors.
 
-    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.
-    https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
+    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies [1]_.
 
     Parameters
     ----------
@@ -481,6 +480,10 @@ def load_session(root_dir, filenames=None):
     -------
     session_data : dict
         returns nested object sensordata[device][sensor][dataframe]
+
+    References
+    ----------
+    .. [1] https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
 
     """
     directory_contents = listdir(root_dir)  # all content in directory

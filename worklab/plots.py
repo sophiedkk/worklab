@@ -1,18 +1,31 @@
-"""
--Plotting functionalities-
-Description: Most variables can easily be plotted with matplotlib or pandas as most data in this package is contained
-in dataframes. Some plotting is tedious however these are functions for those plots.
-Author:     Rick de Klerk
-Contact:    r.de.klerk@umcg.nl
-Company:    University Medical Center Groningen
-License:    GNU GPLv3.0
-Date:       27/06/2019
-"""
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax=None):
+    """
+    Plot pushes from measurement wheel or ergometer data.
+
+    Parameters
+    ----------
+    data : pd.DataFrame
+    pushes : pd.DataFrame
+    var : str
+        variable to plot, default is torque
+    start : bool
+        plot push starts, default is True
+    stop : bool
+        plot push stops, default is True
+    peak : bool
+        plot push peaks, default is True
+    ax : axis object
+        Axis to plot on, you can add your own or it will make a new one.
+
+    Returns
+    -------
+    ax : axis object
+
+    """
     with plt.style.context("seaborn-white"):
         if not ax:
             _, ax = plt.subplots(1, 1)
@@ -29,7 +42,29 @@ def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax
     return ax
 
 
-def plot_ergometer_pushes(data, pushes, var="torque", start=True, stop=True, peak=True):
+def plot_pushes_ergo(data, pushes, var="torque", start=True, stop=True, peak=True):
+    """
+    Plot left and right side ergometer push data.
+
+    Parameters
+    ----------
+    data : dict
+    pushes : dict
+    var : str
+        variable to plot, default is torque
+    start : bool
+        plot push starts, default is True
+    stop : bool
+        plot push stops, default is True
+    peak : bool
+        plot push peaks, default is True
+
+    Returns
+    -------
+    axes : np.array
+        an array containing an axis for the left and right side
+
+    """
     _, axes = plt.subplots(2, 1, sharex="all", sharey="all")
     for idx, side in enumerate(data):
         axes[idx] = plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
@@ -38,6 +73,28 @@ def plot_ergometer_pushes(data, pushes, var="torque", start=True, stop=True, pea
 
 
 def bland_altman_plot(data1, data2, ax=None, condition=None):
+    """
+    Make a Bland-Altman plot.
+
+    A Bland–Altman plot (Difference plot) is a method of data plotting used in analyzing the agreement between two
+    different assays.
+
+    Parameters
+    ----------
+    data1 : np.array, pd.Series
+        First variable
+    data2 : np.array, pd.Series
+        Second variable
+    ax : axis object, optional
+        Axis to plot on, you can add your own or it will make a new one.
+    condition : str, optional
+        add labels to the plot
+
+    Returns
+    -------
+    ax : axis object
+
+    """
     if not ax:
         fig, ax = plt.subplots(1, 1)
     data1 = np.asarray(data1)

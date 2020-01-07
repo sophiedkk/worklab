@@ -16,17 +16,6 @@ Worklab documentation
 Introduction
 ------------
 
-In wheelchair propulsion the main source of energy loss is rolling friction, which depends on
-the wheelchair, user, and wheelchair-user interface. At high speeds aerodynamic drag rapidly
-increases as it is a non-linear function of speed (Figure 1 ). Wheelchair design, mechanics, and
-maintenance can significantly alter the resistive forces acting on the wheelchair and user. In
-an everyday setting these forces are to be minimised to reduce strain and, in a sports setting,
-they have to be minimised to optimize performance. The forces can either be identified
-through a drag-test or with the coasting deceleration method. This document will give a short
-overview of rolling resistance, air drag, and how to determine them. It will also provide some
-reference values where possible that can be used for simulation on a treadmill or wheelchair
-ergometer. It aims to be as concise as possible.
-
 Contents
 --------
 
@@ -42,17 +31,19 @@ Contents
 
 Source
 ------
-The source is on GitLab.
+The source is on `this GitLab <https://gitlab.com/Rickdkk/worklab>`_.
 
 About
 -----
 Authors
 ^^^^^^^
-* **Rick de Klerk** - *Initial work* - `gitlab <https://gitlab.com/rickdkk>`_ - `UMCG <https://www.rug.nl/staff/r.de.klerk/>`_
+* **Rick de Klerk** - *Initial work* - `GitLab <https://gitlab.com/rickdkk>`_ - `UMCG <https://www.rug.nl/staff/r.de.klerk/>`_
 
 Citing
 ^^^^^^
-If you want to refer to this package please use this DOI: 10.5281/zenodo.3268671, or cite: R.de Klerk. (2019, July 4). Worklab: a wheelchair biomechanics mini-package (Version 1.0.0). Zenodo. http://doi.org/10.5281/zenodo.3268671
+If you want to refer to this package please use this DOI: 10.5281/zenodo.3268671, or cite:
+
+R.de Klerk. (2019, July 4). Worklab: a wheelchair biomechanics mini-package (Version 1.0.0). Zenodo. http://doi.org/10.5281/zenodo.3268671
 
 Acknowledgments
 ^^^^^^^^^^^^^^^
@@ -62,6 +53,8 @@ Acknowledgments
 
 References
 ^^^^^^^^^^
+Specifically for the Python module:
+
 * Vegter, R. J., Lamoth, C. J., De Groot, S., Veeger, D. H., & Van der Woude, L. H. (2013). Variability in bimanual wheelchair propulsion: consistency of two instrumented wheels during handrim wheelchair propulsion on a motor driven treadmill. Journal of neuroengineering and rehabilitation, 10(1), 9.
 * Van der Slikke, R. M. A., Berger, M. A. M., Bregman, D. J. J., & Veeger, H. E. J. (2015). Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. Procedia Engineering, 112, 207-212.
 * van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair court sport sprinting. Procedia engineering, 147, 730-734.
