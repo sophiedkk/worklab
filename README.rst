@@ -59,3 +59,5 @@ If you find an error or mistake, which entirely possible, please contact me or s
 Citing
 ------
 If you want to refer to this package please use this DOI: 10.5281/zenodo.3268671, or cite: R.de Klerk. (2019, July 4). Worklab: a wheelchair biomechanics mini-package (Version 1.0.0). Zenodo. http://doi.org/10.5281/zenodo.3268671
+
+Test
