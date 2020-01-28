@@ -28,7 +28,7 @@ wheelchair ergometer in the worklab at the University Medical Centre Groningen. 
 
 Documentation
 -------------
-For more detailed documentation you can look `here <https://worklab.readthedocs.io/en/latest>`_.
+For more detailed documentation you can look at the `docs <https://worklab.readthedocs.io/en/latest>`_.
 
 Prerequisites
 -------------
