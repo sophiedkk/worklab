@@ -27,11 +27,12 @@ Contents
     treadmill
     ergometer
     general
+    examples
     API
 
 Source
 ------
-The source is on `this GitLab <https://gitlab.com/Rickdkk/worklab>`_.
+The source is on `this GitLab page <https://gitlab.com/Rickdkk/worklab>`_.
 
 About
 -----
