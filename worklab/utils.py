@@ -523,6 +523,38 @@ def find_nearest(array, value, index=False):
     return idx if index else array[idx]
 
 
+def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
+    """
+    Apply a compatible Numpy function to every bins samples (e.g. mean or std).
+
+    Parameters
+    ----------
+    array : np.array
+        array which has to be searched
+    bins : int
+        number of samples to be averaged
+    pad : bool
+        whether or not to pad the array with NaNs if needed
+    func : function
+        function that is used when no padding is applied
+    nan_func : function
+        function that is used when padding is applied
+
+    Returns
+    -------
+    means: np.array
+        array with the mean for every bins samples.
+
+    """
+    array = np.array(array, dtype=float)  # make sure we have an array
+    if pad:
+        array = np.pad(array, (0, bins - array.size % bins), mode='constant', constant_values=np.NaN)
+        means = nan_func(array.reshape(-1, bins), axis=1)
+    else:
+        means = func(array[:(len(array) // bins) * bins].reshape(-1, bins), axis=1)
+    return means
+
+
 class TimerError(Exception):
     """A custom exception used to report errors in use of Timer class"""
 

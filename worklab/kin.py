@@ -122,7 +122,7 @@ def filter_ergo(data, co_f=15., ord_f=2, co_s=6., ord_s=2, force=True, speed=Tru
     ord_f : int
         order force filter [..]
     co_s : float
-        cutoff frequency force filter [Hz]
+        cutoff frequency speed filter [Hz]
     ord_s : int
         order speed filter [..]
     force : bool
