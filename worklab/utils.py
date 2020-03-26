@@ -180,7 +180,7 @@ def make_linear_calibration_spline(calibration_points):
 
 def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
     """
-    Apply a simple low-pass Butterworth filter on an array.
+    Apply a simple zero-phase low-pass Butterworth filter on an array.
 
     Parameters
     ----------
@@ -200,7 +200,7 @@ def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
 
     """
     # noinspection PyTupleAssignmentBalance
-    sos = butter(order, cutoff, fs=sfreq, btype='low', output='sos')
+    sos = butter(order//2, cutoff, fs=sfreq, btype='low', output='sos')
     return sosfiltfilt(sos, array)
 
 

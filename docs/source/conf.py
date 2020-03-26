@@ -18,11 +18,11 @@ sys.path.insert(0, os.path.abspath('../..'))
 # -- Project information -----------------------------------------------------
 
 project = 'worklab'
-copyright = '2019, R. de Klerk'
+copyright = '2020, R. de Klerk'
 author = 'R. de Klerk'
 
 # The full version, including alpha/beta/rc tags
-release = '1.4.4'
+release = '1.4.5'
 
 
 # -- General configuration ---------------------------------------------------
