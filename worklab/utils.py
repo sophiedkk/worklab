@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.optimize import curve_fit
-from scipy.signal import butter, filtfilt
+from scipy.signal import butter, sosfiltfilt
 
 
 def pick_file(initialdir=None):
@@ -200,8 +200,8 @@ def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
 
     """
     # noinspection PyTupleAssignmentBalance
-    b, a = butter(order, cutoff / (0.5 * sfreq), 'low')
-    return filtfilt(b, a, array)
+    sos = butter(order, cutoff, fs=sfreq, btype='low', output='sos')
+    return sosfiltfilt(sos, array)
 
 
 def interpolate_array(x, y, kind="linear", fill_value="extrapolate", assume=True):
