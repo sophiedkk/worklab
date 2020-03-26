@@ -318,6 +318,11 @@ def load_esseda(filename):
 
     for side in data:
         data[side].dropna(inplace=True)
+        data[side]["time"] -= data[side]["time"][0]  # time should start at 0.0s
+
+    n_samples = min(len(data["left"]), len(data["right"]))  # ensure equal sized left and right dataframes
+    data["left"] = data["left"].iloc[:n_samples, :]
+    data["right"] = data["right"].iloc[:n_samples, :]
     return data
 
 
