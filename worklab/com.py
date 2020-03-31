@@ -470,7 +470,7 @@ def load_n3d(filename, verbose=True):
     return optodata
 
 
-def load_session(root_dir, filenames=None):
+def load_imu(root_dir, filenames=None):
     """
     Imports NGIMU session in nested dictionary with all devices and sensors.
 
@@ -496,8 +496,6 @@ def load_session(root_dir, filenames=None):
     directory_contents = listdir(root_dir)  # all content in directory
     if not directory_contents:
         raise Exception("No contents in directory")
-    if "Session.xml" not in directory_contents:
-        raise Exception("Session.xml not found.")
     directories = glob(f"{root_dir}/*/")  # folders of all devices
     session_data = dict()
 
