@@ -55,5 +55,5 @@ Thumbs.db
 /build
 /docs/build
 /dist
-/examples/.ipynb_checkpoints
+docs/source/examples/.ipynb_checkpoints
 tests.py

@@ -284,6 +284,10 @@ find_nearest
 ^^^^^^^^^^^^
 .. autofunction:: worklab.utils.find_nearest
 
+binned_stats
+^^^^^^^^^^^^
+.. autoclass:: worklab.utils.binned_stats
+
 Timer
 ^^^^^
 .. autoclass:: worklab.utils.Timer
