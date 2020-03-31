@@ -1,12 +1,3 @@
-"""
--NGIMU data analysis
-Description: Contains functions to analyse field tests in wheelchair tennis
-Author:     Thomas Rietveld
-Contact:    t.rietveld@umcg.nl
-Company:    University Medical Center Groningen
-Date:       12/02/2020
-"""
-
 import copy
 from warnings import warn
 
@@ -194,7 +185,8 @@ def push_imu(acceleration: np.array, sfreq=400.):
 
     References
     ----------
-    .. [3] van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair court sport sprinting. Procedia engineering, 147, 730-734.
+    .. [3] van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair court
+    sport sprinting. Procedia engineering, 147, 730-734.
 
     """
     min_freq = 1.2
