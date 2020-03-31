@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-def get_perp_vector(vector2d: np.array, clockwise=True) -> np.array:
+def get_perp_vector(vector2d, clockwise=True):
     """
     Get the vector perpendicular to the input vector. Only works in 2D as 3D has infinite solutions.
 
@@ -91,7 +91,7 @@ def normalize(x):
         return x / np.linalg.norm(x)
 
 
-def calc_marker_angles(v_1: np.array, v_2: np.array, deg=False):
+def calc_marker_angles(v_1, v_2, deg=False):
     """
     Calculates n angles between two [n, 3] markers.
 

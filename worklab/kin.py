@@ -365,7 +365,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
             pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
             pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
             window = data.loc[pbp["start"][ind-1]:pbp["start"][ind], "work"]  # select cycle
-            window = window[data["work"] <= 0]  # only negative samples
+            window = window[window <= 0]  # only negative samples
             pbp["negwork"].append(np.sum(window))
     pbp["ctime"].append(None)  # ensure equal length of arrays
     pbp["reltime"].append(None)
@@ -464,11 +464,12 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
             if ind:  # only after first push
                 tmp["ctime"].append(tmp["tstart"][-1] - tmp["tstart"][-2])
                 tmp["reltime"].append(tmp["ptime"][-2] / tmp["ctime"][-1] * 100)
-                window = data[side].loc[tmp["start"][ind - 1]:tmp["start"][ind], "work"]  # TODO
-                window = window[window["work"] <= 0]  # only negative samples
-                pbp[side]["negwork"].append(np.sum(window))
+                window = data[side].loc[tmp["start"][ind - 1]:tmp["start"][ind], "work"]
+                window = window[window <= 0]  # only negative samples
+                tmp["negwork"].append(np.sum(window))
         tmp["ctime"].append(None)  # ensure equal length arrays
         tmp["reltime"].append(None)
+        tmp["negwork"].append(None)
         pbp[side] = pd.DataFrame(tmp)
     print("\n" + "=" * 80 + f"\nFound left: {len(pbp['left'])} and right: {len(pbp['right'])} pushes!\n"
           + "=" * 80 + "\n")

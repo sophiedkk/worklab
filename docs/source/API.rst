@@ -138,24 +138,7 @@ push_by_push_ergo
 
 Kinematics (.move)
 -------------------------
-Basic functions for movement related data such as from IMUs or optical tracking systems. IMU functions are
-specifically made for the NGIMUs we use in the worklab.
-
-resample_imu
-^^^^^^^^^^^^
-.. autofunction:: worklab.move.resample_imu
-
-calc_wheelspeed
-^^^^^^^^^^^^^^^
-.. autofunction:: worklab.move.calc_wheelspeed
-
-change_imu_orientation
-^^^^^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.move.change_imu_orientation
-
-push_detection
-^^^^^^^^^^^^^^
-.. autofunction:: worklab.move.push_detection
+Basic functions for movement related data from optical tracking systems.
 
 get_perp_vector
 ^^^^^^^^^^^^^^^
@@ -172,6 +155,48 @@ normalize
 calc_marker_angles
 ^^^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.move.calc_marker_angles
+
+
+IMU (.imu)
+-------------------------
+Basic functions for movement related data from IMUs. IMU functions are specifically made for the NGIMUs we use in the
+worklab.
+
+resample_imu
+^^^^^^^^^^^^
+.. autofunction:: worklab.imu.resample_imu
+
+calc_wheelspeed
+^^^^^^^^^^^^^^^
+.. autofunction:: worklab.imu.process_imu
+
+change_imu_orientation
+^^^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.imu.change_imu_orientation
+
+push_imu
+^^^^^^^^
+.. autofunction:: worklab.imu.push_imu
+
+butterfly
+^^^^^^^^^
+.. autofunction:: worklab.imu.butterfly
+
+spider
+^^^^^^
+.. autofunction:: worklab.imu.spider
+
+sprint_10m
+^^^^^^^^^^
+.. autofunction:: worklab.imu.sprint_10m
+
+sprint_20m
+^^^^^^^^^^
+.. autofunction:: worklab.imu.sprint_20m
+
+vel_zones
+^^^^^^^^^
+.. autofunction:: worklab.imu.vel_zones
 
 Physiology module (.physio)
 ----------------------------------
@@ -195,9 +220,62 @@ plot_pushes_ergo
 ^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.plots.plot_pushes_ergo
 
-bland_altman_plot
-^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.bland_altman_plot
+acc_peak_disp_plot
+^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.acc_peak_disp_plot
+
+acc_peak_plot
+^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.acc_peak_plot
+
+acc_plot
+^^^^^^^^
+.. autofunction:: worklab.plots.acc_plot
+
+butterfly_plot
+^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.butterfly_plot
+
+imu_push_plot
+^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.imu_push_plot
+
+overview_butterfly_plot
+^^^^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.overview_butterfly_plot
+
+overview_spider_plot
+^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.overview_spider_plot
+
+overview_sprint_plot
+^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.overview_sprint_plot
+
+rot_vel_plot
+^^^^^^^^^^^^
+.. autofunction:: worklab.plots.rot_vel_plot
+
+spider_plot
+^^^^^^^^^^^
+.. autofunction:: worklab.plots.spider_plot
+
+straight_sprint_plot
+^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.straight_sprint_plot
+
+vel_peak_disp_plot
+^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.vel_peak_disp_plot
+
+vel_peak_plot
+^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.vel_peak_plot
+
+vel_plot
+^^^^^^^^
+.. autofunction:: worklab.plots.vel_plot
+
 
 Utilities (.utils)
 -------------------------

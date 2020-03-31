@@ -1,12 +1,3 @@
-"""
--NGIMU data analysis
-Description: Contains functions to analyse field tests in wheelchair tennis
-Author:     Thomas Rietveld
-Contact:    t.rietveld@umcg.nl
-Company:    University Medical Center Groningen
-Date:       12/02/2020
-"""
-
 import copy
 from warnings import warn
 
@@ -189,7 +180,7 @@ def push_imu(acceleration: np.array, sfreq=400.):
 
     Returns
     -------
-    push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
+        push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
 
     References
     ----------
