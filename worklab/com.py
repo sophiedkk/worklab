@@ -35,27 +35,27 @@ def load(filename=""):
     load_sw
 
     """
-    filename = pick_file() if not filename else filename
+    filename = pick_file().lower() if not filename else filename.lower()
     if not filename:
         raise Exception("Please provide a filename")
     print("\n" + "=" * 80)
     print(f"Initializing loading for {filename} ...")
-    if ".xlsx" in filename or "spiro" in filename.lower():  # COSMED
+    if ".xlsx" in filename or "spiro" in filename:  # COSMED
         print("File identified as COSMED datafile. Attempting to load ...")
         data = load_spiro(filename)
-    elif "lem" in filename.lower():
+    elif ".xls" in filename and "fiets" not in filename:
         print("File identified as Esseda datafile. Attempting to load ...")
         data = load_esseda(filename)
     elif "HSB.csv" in filename:
         print("File identified as HSB-logger datafile. Attempting to load ...")
         data = load_hsb(filename)
-    elif ".txt" in filename and "drag" not in filename.lower():
+    elif ".txt" in filename and "drag" not in filename:
         print("File identified as SMARTwheel datafile. Attempting to load ...")
         data = load_sw(filename)
     elif ".dat" in filename:
         print("File identified as Optipush datafile. Attempting to load ...")
         data = load_opti(filename)
-    elif "fiets" in filename.lower():
+    elif "fiets" in filename:
         print("File identified as Bicycle ergometer datafile. Attempting to load ...")
         data = load_bike(filename)
     elif ".n3d" in filename:
@@ -64,9 +64,11 @@ def load(filename=""):
     elif ".xml" in filename:
         print("Folder identified as NGIMU folder. Attempting to load ...")
         data = load_session(path.split(filename)[0], filenames=["sensors"])
-    elif "drag" in filename.lower():
+    elif "drag" in filename:
+        print("File identified as dragtest datafile. Attempting to load ...")
         data = load_drag_test(filename)
-    elif ".csv" in filename.lower():
+    elif ".csv" in filename:
+        print("File identified as optitrack datafile. Attempting to load ...")
         data = load_optitrack(filename)
     else:
         raise Exception("No file name given or could not identify data source with load!!")
@@ -114,7 +116,7 @@ def load_spiro(filename):
     data["time"] = data.apply(lambda row: pd_dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
-    data["HR"] = np.full(len(data), np.NaN) if "HR" not in data else data["HR"]  # missing when sensor is not detected
+    data["HR"] = np.NaN if "HR" not in data else data["HR"]  # missing when sensor is not detected
     data = data[data["time"] > 0]  # remove "missing" data
     return data[["time", "HR", "power", "VO2", "VCO2", "weights"]]
 
@@ -221,7 +223,7 @@ def load_sw(filename, sfreq=200):
     dtypes = {name: np.float64 for name in names}
     usecols = [1, 3, 18, 19, 20, 21, 22, 23]
     sw_df = pd.read_csv(filename, names=names, usecols=usecols, dtype=dtypes)
-    sw_df["time"] *= (1 / sfreq)
+    sw_df["time"] /= sfreq
     sw_df["angle"] = np.unwrap(sw_df["angle"] * (np.pi / 180)) * - 1  # in radians
     return sw_df
 

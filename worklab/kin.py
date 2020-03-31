@@ -204,6 +204,7 @@ def process_mw(data, wheelsize=0.31, rimsize=0.275, sfreq=200):
     data["acc"] = np.gradient(data["speed"]) * sfreq
     data["ftot"] = (data["fx"] ** 2 + data["fy"] ** 2 + data["fz"] ** 2) ** 0.5
     data["uforce"] = data["torque"] / rimsize
+    data["feff"] = (data["uforce"] / data["ftot"]) * 100
     data["force"] = data["torque"] / wheelsize
     data["power"] = data["torque"] * data["aspeed"]
     data["work"] = data["power"] / sfreq
@@ -295,15 +296,25 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     +--------------------+----------------------+-----------+
     | maxtorque          | peak torque per push | Nm        |
     +--------------------+----------------------+-----------+
-    | meanforce          | (rim) force per push | N         |
+    | meanforce          | mean force per push  | N         |
     +--------------------+----------------------+-----------+
     | maxforce           | peak force per push  | N         |
     +--------------------+----------------------+-----------+
+    | meanuforce         | (rim) force per push | N         |
+    +--------------------+----------------------+-----------+
+    | maxuforce          | peak force per push  | N         |
+    +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
-    | feff               | mean feff per push   | %         |
+    | meanfeff           | mean feff per push   | %         |
+    +--------------------+----------------------+-----------+
+    | maxfeff            | max feff per push    | %         |
     +--------------------+----------------------+-----------+
     | slope              | slope onset to peak  | Nm/s      |
+    +--------------------+----------------------+-----------+
+    | smoothness         | mean/peak force      |           |
+    +--------------------+----------------------+-----------+
+    | negwork            | negative work/cycle  | J         |
     +--------------------+----------------------+-----------+
     | ptime              | push time            | s         |
     +--------------------+----------------------+-----------+
@@ -336,21 +347,29 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
         pbp["cangle"].append(data["angle"][stop] - data["angle"][start])
         pbp["cangle_deg"].append(np.rad2deg(pbp["cangle"][-1]))
         pbp["ptime"].append(pbp["tstop"][-1] - pbp["tstart"][-1])
-        stop += 1  # inclusive of last sample for slices
-        pbp["meanpower"].append(np.mean(data["power"][start:stop]))
-        pbp["maxpower"].append(np.max(data["power"][start:stop]))
-        pbp["meantorque"].append(np.mean(data["torque"][start:stop]))
-        pbp["maxtorque"].append(np.max(data["torque"][start:stop]))
-        pbp["meanforce"].append(np.mean(data["uforce"][start:stop]))
-        pbp["maxforce"].append(np.max(data["uforce"][start:stop]))
-        pbp["work"].append(np.cumsum(data["work"][start:stop]).iloc[-1])
-        pbp["feff"].append(np.mean(data["uforce"][start:stop] / data["ftot"][start:stop]) * 100)
+        window = data.iloc[start:stop+1, :]
+        pbp["meanpower"].append(np.mean(window["power"]))
+        pbp["maxpower"].append(np.max(window["power"]))
+        pbp["meantorque"].append(np.mean(window["torque"]))
+        pbp["maxtorque"].append(np.max(window["torque"]))
+        pbp["meanuforce"].append(np.mean(window["uforce"]))
+        pbp["maxuforce"].append(np.max(window["uforce"]))
+        pbp["meanforce"].append(np.mean(window["force"]))
+        pbp["maxforce"].append(np.max(window["force"]))
+        pbp["work"].append(np.sum(window["work"]))
+        pbp["meanfeff"].append(np.mean(window["feff"]))
+        pbp["maxfeff"].append(np.max(window["feff"]))
         pbp["slope"].append(pbp["maxtorque"][-1] / (pbp["tpeak"][-1] - pbp["tstart"][-1]))
+        pbp["smoothness"].append(pbp["meanforce"][-1]/pbp["maxforce"][-1])
         if ind:  # only after first push
             pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
             pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
-    pbp["ctime"].append(np.NaN)
-    pbp["reltime"].append(np.NaN)
+            window = data.loc[pbp["start"][ind-1]:pbp["start"][ind], "work"]  # select cycle
+            window = window[data["work"] <= 0]  # only negative samples
+            pbp["negwork"].append(np.sum(window))
+    pbp["ctime"].append(None)  # ensure equal length of arrays
+    pbp["reltime"].append(None)
+    pbp["negwork"].append(None)
     pbp = pd.DataFrame(pbp)
     print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
     return pbp
@@ -381,13 +400,21 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
     +--------------------+----------------------+-----------+
     | maxtorque          | peak torque per push | Nm        |
     +--------------------+----------------------+-----------+
-    | meanforce          | (rim) force per push | N         |
+    | meanforce          | mean force per push  | N         |
     +--------------------+----------------------+-----------+
     | maxforce           | peak force per push  | N         |
+    +--------------------+----------------------+-----------+
+    | meanuforce         | (rim) force per push | N         |
+    +--------------------+----------------------+-----------+
+    | maxuforce          | peak force per push  | N         |
     +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
     | slope              | slope onset to peak  | Nm/s      |
+    +--------------------+----------------------+-----------+
+    | smoothness         | mean/peak force      |           |
+    +--------------------+----------------------+-----------+
+    | negwork            | negative work/cycle  | J         |
     +--------------------+----------------------+-----------+
     | ptime              | push time            | s         |
     +--------------------+----------------------+-----------+
@@ -414,30 +441,35 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
     """
     pbp = {"left": [], "right": []}
     for side in data:
-        pbp[side] = find_peaks(data[side][variable], cutoff, minpeak)
-        for ind, (start, stop, peak) in enumerate(zip(pbp[side]["start"], pbp[side]["stop"], pbp[side]["peak"])):
-            pbp[side]["tstart"].append(data[side]["time"][start])
-            pbp[side]["tstop"].append(data[side]["time"][stop])
-            pbp[side]["tpeak"].append(data[side]["time"][peak])
-            pbp[side]["cangle"].append(data[side]["angle"][stop] - data[side]["angle"][start])
-            pbp[side]["cangle_deg"].append(np.rad2deg(pbp[side]["cangle"][-1]))
-            pbp[side]["ptime"].append(pbp[side]["tstop"][-1] - pbp[side]["tstart"][-1])
-            stop += 1  # inclusive of last sample for slicing
-            pbp[side]["meanpower"].append(np.mean(data[side]["power"][start:stop]))
-            pbp[side]["maxpower"].append(np.max(data[side]["power"][start:stop]))
-            pbp[side]["meantorque"].append(np.mean(data[side]["torque"][start:stop]))
-            pbp[side]["maxtorque"].append(np.max(data[side]["torque"][start:stop]))
-            pbp[side]["meanforce"].append(np.mean(data[side]["uforce"][start:stop]))
-            pbp[side]["maxforce"].append(np.max(data[side]["uforce"][start:stop]))
-            pbp[side]["work"].append(np.cumsum(data[side]["work"][start:stop]).iloc[-1])
-            pbp[side]["slope"].append(pbp[side]["maxtorque"][-1] /
-                                      (pbp[side]["tpeak"][-1] - pbp[side]["tstart"][-1]))
+        tmp = find_peaks(data[side][variable], cutoff, minpeak)
+        for ind, (start, stop, peak) in enumerate(zip(tmp["start"], tmp["stop"], tmp["peak"])):
+            tmp["tstart"].append(data[side]["time"][start])
+            tmp["tstop"].append(data[side]["time"][stop])
+            tmp["tpeak"].append(data[side]["time"][peak])
+            tmp["cangle"].append(data[side]["angle"][stop] - data[side]["angle"][start])
+            tmp["cangle_deg"].append(np.rad2deg(tmp["cangle"][-1]))
+            tmp["ptime"].append(tmp["tstop"][-1] - tmp["tstart"][-1])
+            view = data[side].iloc[start:stop+1, :]
+            tmp["meanpower"].append(np.mean(view["power"]))
+            tmp["maxpower"].append(np.max(view["power"]))
+            tmp["meantorque"].append(np.mean(view["torque"]))
+            tmp["maxtorque"].append(np.max(view["torque"]))
+            tmp["meanuforce"].append(np.mean(view["uforce"]))
+            tmp["maxuforce"].append(np.max(view["uforce"]))
+            tmp["meanforce"].append(np.mean(view["force"]))
+            tmp["maxforce"].append(np.max(view["force"]))
+            tmp["work"].append(np.sum(view["work"]))
+            tmp["slope"].append(tmp["maxtorque"][-1] / (tmp["tpeak"][-1] - tmp["tstart"][-1]))
+            tmp["smoothness"].append(tmp["meanforce"][-1]/tmp["maxforce"][-1])
             if ind:  # only after first push
-                pbp[side]["ctime"].append(pbp[side]["tstart"][-1] - pbp[side]["tstart"][-2])
-                pbp[side]["reltime"].append(pbp[side]["ptime"][-2] / pbp[side]["ctime"][-1] * 100)
-        pbp[side]["ctime"].append(np.NaN)
-        pbp[side]["reltime"].append(np.NaN)
-        pbp[side] = pd.DataFrame(pbp[side])
+                tmp["ctime"].append(tmp["tstart"][-1] - tmp["tstart"][-2])
+                tmp["reltime"].append(tmp["ptime"][-2] / tmp["ctime"][-1] * 100)
+                window = data[side].loc[tmp["start"][ind - 1]:tmp["start"][ind], "work"]  # TODO
+                window = window[window["work"] <= 0]  # only negative samples
+                pbp[side]["negwork"].append(np.sum(window))
+        tmp["ctime"].append(None)  # ensure equal length arrays
+        tmp["reltime"].append(None)
+        pbp[side] = pd.DataFrame(tmp)
     print("\n" + "=" * 80 + f"\nFound left: {len(pbp['left'])} and right: {len(pbp['right'])} pushes!\n"
           + "=" * 80 + "\n")
     return pbp
