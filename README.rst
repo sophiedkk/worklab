@@ -43,7 +43,7 @@ You can install this package with pip::
 
 Examples
 --------
-You can find some Jupyter Notebook examples `here <https://gitlab.com/Rickdkk/worklab/tree/master/examples>`_.
+You can find some Jupyter Notebook examples `here <https://worklab.readthedocs.io/en/latest/examples.html>`_.
 
 Projects using same code
 ------------------------

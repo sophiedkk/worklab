@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import InterpolatedUnivariateSpline, interp1d
 from scipy.optimize import curve_fit
-from scipy.signal import butter, filtfilt
+from scipy.signal import butter, sosfiltfilt
 
 
 def pick_file(initialdir=None):
@@ -180,7 +180,7 @@ def make_linear_calibration_spline(calibration_points):
 
 def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
     """
-    Apply a simple low-pass Butterworth filter on an array.
+    Apply a simple zero-phase low-pass Butterworth filter on an array.
 
     Parameters
     ----------
@@ -200,8 +200,9 @@ def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
 
     """
     # noinspection PyTupleAssignmentBalance
-    b, a = butter(order, cutoff / (0.5 * sfreq), 'low')
-    return filtfilt(b, a, array)
+    array = np.array(array)
+    sos = butter(order//2, cutoff, fs=sfreq, btype='low', output='sos')
+    return sosfiltfilt(sos, array)
 
 
 def interpolate_array(x, y, kind="linear", fill_value="extrapolate", assume=True):
@@ -516,11 +517,68 @@ def find_nearest(array, value, index=False):
 
     Returns
     -------
+    np.array
+        value or index of nearest value
 
     """
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
     return idx if index else array[idx]
+
+
+def split_dataframe(df, inds):
+    """
+    Split a dataframe on a list of indices. For example a dataframe that contains multiple sessions of wheelchair
+    ergometer data.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        target dataframe
+    inds : list
+        list of indices where the dataframe should be split
+
+    Returns
+    -------
+    list
+        list of dataframes
+
+    """
+    df.reset_index(drop=True, inplace=True)
+    inds = [0] + list(inds) + [len(df)]  # add first and last index for slicing
+    return [df.iloc[start:stop, :].copy().reset_index(drop=True) for start, stop in zip(inds[0::], inds[1::])]
+
+
+def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
+    """
+    Apply a compatible Numpy function to every bins samples (e.g. mean or std).
+
+    Parameters
+    ----------
+    array : np.array
+        array which has to be searched
+    bins : int
+        number of samples to be averaged
+    pad : bool
+        whether or not to pad the array with NaNs if needed
+    func : function
+        function that is used when no padding is applied
+    nan_func : function
+        function that is used when padding is applied
+
+    Returns
+    -------
+    means: np.array
+        array with the mean for every bins samples.
+
+    """
+    array = np.array(array, dtype=float)  # make sure we have an array
+    if pad:
+        array = np.pad(array, (0, bins - array.size % bins), mode='constant', constant_values=np.NaN)
+        means = nan_func(array.reshape(-1, bins), axis=1)
+    else:
+        means = func(array[:(len(array) // bins) * bins].reshape(-1, bins), axis=1)
+    return means
 
 
 class TimerError(Exception):

@@ -1,6 +1,6 @@
 """Worklab data processing package"""
 
-__version__ = "1.4.1 (2019/12/19)"
+__version__ = "1.4.6"
 
 __all__ = ['com', 'kin', 'move', 'physio', 'utils', 'plots']
 

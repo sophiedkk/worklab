@@ -15,6 +15,11 @@ Worklab documentation
 
 Introduction
 ------------
+The current page contains information on wheelchair propulsion research in the worklab and the correspondingly named Python package.
+As such, the page contains a general outline of wheelchair propulsion research, but also some practical examples on how to work with
+that data together with the API-reference of the worklab package. The worklab package aims to provide functions for the most common
+data (pre-)processing steps in wheelchair research (at our lab). It makes extensive use of pandas dataframes as those are familiar to
+most researchers.
 
 Contents
 --------
@@ -27,11 +32,12 @@ Contents
     treadmill
     ergometer
     general
+    examples
     API
 
 Source
 ------
-The source is on `this GitLab <https://gitlab.com/Rickdkk/worklab>`_.
+The source is on `this GitLab page <https://gitlab.com/Rickdkk/worklab>`_.
 
 About
 -----
