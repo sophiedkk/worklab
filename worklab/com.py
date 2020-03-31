@@ -497,9 +497,9 @@ def load_session(root_dir, filenames=None):
     for sensordir in directories:  # loop through all sensor directories
         sensor_files = glob(f"{sensordir}/*.csv")
         device_name = path.split(path.split(sensordir)[0])[-1]
-        device_name = "Left" if "links" in device_name.lower() or "left" in device_name.lower() else device_name
-        device_name = "Right" if "rechts" in device_name.lower() or "right" in device_name.lower() else device_name
-        device_name = "Frame" if "frame" in device_name.lower() else device_name
+        device_name = "left" if "links" in device_name.lower() or "left" in device_name.lower() else device_name
+        device_name = "right" if "rechts" in device_name.lower() or "right" in device_name.lower() else device_name
+        device_name = "frame" if "frame" in device_name.lower() else device_name
         session_data[device_name] = dict()
 
         for sensor_file in sensor_files:  # loop through all csv files
@@ -510,7 +510,7 @@ def load_session(root_dir, filenames=None):
 
             session_data[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
             session_data[device_name][sensor_name].rename(columns=lambda x: re.sub("[(\[].*?[)\]]", "", x)
-                                                          .replace(" ", ""), inplace=True)  # remove units from name
+                                                          .replace(" ", "_").lower()[:-1], inplace=True)  # remove units from name
 
         if not session_data[device_name]:
             raise Exception("No data was imported")
