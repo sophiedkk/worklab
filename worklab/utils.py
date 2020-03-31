@@ -561,9 +561,9 @@ def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
         number of samples to be averaged
     pad : bool
         whether or not to pad the array with NaNs if needed
-    func : function
+    func
         function that is used when no padding is applied
-    nan_func : function
+    nan_func
         function that is used when padding is applied
 
     Returns

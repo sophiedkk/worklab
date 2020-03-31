@@ -181,12 +181,11 @@ def push_imu(acceleration: np.array, sfreq=400.):
 
     Returns
     -------
-    push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
+        push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
 
     References
     ----------
-    .. [3] van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair court
-    sport sprinting. Procedia engineering, 147, 730-734.
+    .. [3] van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair court sport sprinting. Procedia engineering, 147, 730-734.
 
     """
     min_freq = 1.2
