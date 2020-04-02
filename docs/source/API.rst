@@ -138,7 +138,7 @@ push_by_push_ergo
 
 Kinematics (.move)
 -------------------------
-Basic functions for movement related data from optical tracking systems.
+Basic functions for movement related data from optical tracking systems. If I have the time I will make a vector3d class.
 
 get_perp_vector
 ^^^^^^^^^^^^^^^
@@ -147,6 +147,18 @@ get_perp_vector
 get_rotation_matrix
 ^^^^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.move.get_rotation_matrix
+
+mirror
+^^^^^^
+.. autofunction:: worklab.move.mirror
+
+rotate
+^^^^^^
+.. autofunction:: worklab.move.rotate
+
+scale
+^^^^^
+.. autofunction:: worklab.move.scale
 
 normalize
 ^^^^^^^^^
@@ -198,7 +210,7 @@ vel_zones
 ^^^^^^^^^
 .. autofunction:: worklab.imu.vel_zones
 
-Physiology module (.physio)
+Physiology (.physio)
 ----------------------------------
 Basics for working with physiological data. We only have a spirometer in the lab at the moment and this
 involves very little processing. Might expand with EMG related function at some point in the future.

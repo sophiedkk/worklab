@@ -19,18 +19,16 @@ def get_perp_vector(vector2d, clockwise=True):
         rotated vector
 
     """
+    vector2d = np.asarray(vector2d)  # make sure it's an array
+    perp_vector2d = np.zeros(vector2d.shape)
     if clockwise:
         """Gets 2D vector perpendicular to input vector, rotated clockwise"""
-        perp_vector2d = np.empty(vector2d.shape)
-        perp_vector2d[:, 0] = vector2d[:, 1] * -1
-        perp_vector2d[:, 1] = vector2d[:, 0]
-        perp_vector2d[:, 2] = vector2d[:, 2]
-    else:
-        """Gets 2D vector perpendicular to input vector, rotated counterclockwise"""
-        perp_vector2d = np.empty(vector2d.shape)
         perp_vector2d[:, 0] = vector2d[:, 1]
         perp_vector2d[:, 1] = vector2d[:, 0] * -1
-        perp_vector2d[:, 2] = vector2d[:, 2]
+    else:
+        """Gets 2D vector perpendicular to input vector, rotated counterclockwise"""
+        perp_vector2d[:, 0] = vector2d[:, 1] * -1
+        perp_vector2d[:, 1] = vector2d[:, 0]
     return perp_vector2d
 
 
@@ -68,6 +66,103 @@ def get_rotation_matrix(new_frame, local_to_world=True):
                                     [np.dot(x2_prime, x1), np.dot(x2_prime, x2), np.dot(x2_prime, x3)],
                                     [np.dot(x3_prime, x1), np.dot(x3_prime, x2), np.dot(x3_prime, x3)]])
     return rotation_matrix
+
+
+def mirror(vector3d, axis="xyz"):
+    """
+    Simply mirror one or multiple axes.
+
+    Parameters
+    ----------
+    vector3d: np.array
+        vector to be mirrored, also works on dataframes
+    axis: str
+        string with axes to be mirrored
+
+    Returns
+    -------
+    vector3d: np.array
+        mirrored vector
+
+    """
+    x, y, z = 1, 1, 1
+    if "x" in axis.lower():
+        x = -1
+    if "y" in axis.lower():
+        y = -1
+    if "z" in axis.lower():
+        z = -1
+    vector3d = vector3d * np.array([x, y, z])
+    return vector3d
+
+
+def scale(vector3d, x=1., y=1., z=1.):
+    """
+    Scale a vector in different directions.
+
+    Parameters
+    ----------
+    vector3d: np.array
+        array to be scaled, also works on dataframes
+    x: float
+        x-axis scaling
+    y: float
+        y-axis scaling
+    z: floag
+        z-axis scaling
+
+    Returns
+    -------
+    vector3d: np.array
+        scaled array
+
+    """
+    return vector3d * np.array([x, y, z])
+
+
+def rotate(vector3d, angle, deg=False, axis="z"):
+    """
+    Rotate a vector around a given axis, specify rotation angle in radians or degrees.
+
+    Parameters
+    ----------
+    vector3d: np.array
+        vector to be rotated, also works on dataframes
+    angle: float
+        angle to rotate over
+    deg: bool
+        True if angle is specified in degrees, False for radians
+    axis: str
+        axis to rotate over, default = "z"
+
+    Returns
+    -------
+    vector3d: np.array
+        rotated vector
+
+    """
+    df = None  # we have to separately handle dataframes here
+    if isinstance(vector3d, pd.DataFrame):
+        df = vector3d.copy()
+        vector3d = vector3d.values
+
+    if deg:
+        angle = np.deg2rad(angle)
+
+    if axis.lower() == "x":
+        vector3d[:, 1] = vector3d[:, 1] * np.cos(angle) + vector3d[:, 2] * np.sin(angle)
+        vector3d[:, 2] = vector3d[:, 1] * np.sin(angle) * -1 + vector3d[:, 2] * np.cos(angle)
+    elif axis.lower() == "y":
+        vector3d[:, 0] = vector3d[:, 0] * np.cos(angle) + vector3d[:, 2] * np.sin(angle)
+        vector3d[:, 2] = vector3d[:, 0] * np.sin(angle) * -1 + vector3d[:, 2] * np.cos(angle)
+    else:
+        vector3d[:, 0] = vector3d[:, 0] * np.cos(angle) + vector3d[:, 1] * np.sin(angle)
+        vector3d[:, 1] = vector3d[:, 0] * np.sin(angle) * -1 + vector3d[:, 1] * np.cos(angle)
+
+    if df is not None:
+        df[["X", "Y", "Z"]] = vector3d
+        vector3d = df
+    return vector3d
 
 
 def normalize(x):
