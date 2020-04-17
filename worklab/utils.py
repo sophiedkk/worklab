@@ -200,7 +200,7 @@ def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
 
     """
     # noinspection PyTupleAssignmentBalance
-    array = np.array(array)
+    array = np.asarray(array)
     sos = butter(order//2, cutoff, fs=sfreq, btype='low', output='sos')
     return sosfiltfilt(sos, array)
 
@@ -325,7 +325,7 @@ def find_peaks(data, cutoff=1.0, minpeak=5.0, min_dist=5):
     peaks = defaultdict(list)
     tmp = {"start": None, "stop": None}
 
-    data = np.array(data)  # coercing to an array if necessary
+    data = np.asarray(data)  # coercing to an array if necessary
     data_slice = np.nonzero(data > minpeak)[0]  # indices of nonzero values
     data_slice = data_slice[np.diff(data_slice, append=10e100) > min_dist]  # remove duplicate samples from push
     for prom in np.nditer(data_slice):
