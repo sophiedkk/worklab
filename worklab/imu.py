@@ -199,11 +199,11 @@ def push_imu(acceleration: np.array, sfreq=400.):
     std_fr_acc = np.std(frame_acceleration_p)
     push_idx, push_acc_fr_ind = find_peaks(frame_acceleration_p, height=std_fr_acc / 2,
                                               distance=round(1 / (max_freq * 1.5) * sfreq), prominence=std_fr_acc / 2)
-    n_pushes = len(push_acc_fr)
+    n_pushes = len(push_idx)
     push_freq = n_pushes / (len(acceleration) / sfreq)
     cycle_time = pd.DataFrame([])
 
-    for n in range(0, len(push_acc_fr) - 1):
+    for n in range(0, len(push_idx) - 1):
         cycle_time = cycle_time.append([(push_idx[n + 1] / sfreq) - (push_idx[n] / sfreq)])
 
     return push_idx, frame_acceleration_p, n_pushes, cycle_time, push_freq
