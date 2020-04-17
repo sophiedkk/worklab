@@ -109,6 +109,14 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
     frame["dist"] = (right["dist"] + left["dist"]) / 2  # mean distance
 
+    # distance in the x and y direction
+    frame["dist_y"] = cumtrapz(
+        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+        initial=0.0)
+    frame["dist_x"] = cumtrapz(
+        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+        initial=0.0)
+
     """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
     Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
     Procedia Engineering, 112, 207-212."""
@@ -132,13 +140,6 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     frame["skid_dist"] = cumtrapz(frame["skid_vel"], initial=0.0) / sfreq  # Combined skid distance
     frame["acc"] = np.gradient(
         lowpass_butter(frame["skid_vel"], sfreq=sfreq, cutoff=10)) * sfreq  # mean acceleration from velocity
-    # distance in the x and y direction
-    frame["dist_y"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
-        initial=0.0)
-    frame["dist_x"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
-        initial=0.0)
     return sessiondata
 
 
