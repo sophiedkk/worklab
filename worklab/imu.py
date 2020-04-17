@@ -108,6 +108,8 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     frame["vel"] = (right["vel"] + left["vel"]) / 2  # mean velocity
     frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
     frame["dist"] = (right["dist"] + left["dist"]) / 2  # mean distance
+    frame["acc"] = np.gradient(
+        lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)) * sfreq  # mean acceleration from velocity
 
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
@@ -138,8 +140,6 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combratio values, not in df
     frame["skid_vel"] = (frame["skid_vel_right"] * comb_ratio) + (frame["skid_vel_left"] * (1 - comb_ratio))
     frame["skid_dist"] = cumtrapz(frame["skid_vel"], initial=0.0) / sfreq  # Combined skid distance
-    frame["acc"] = np.gradient(
-        lowpass_butter(frame["skid_vel"], sfreq=sfreq, cutoff=10)) * sfreq  # mean acceleration from velocity
     return sessiondata
 
 
@@ -197,16 +197,16 @@ def push_imu(acceleration: np.array, sfreq=400.):
     cutoff_freq = 1.5 * max_freq
     frame_acceleration_p = lowpass_butter(acceleration, sfreq=sfreq, cutoff=cutoff_freq)
     std_fr_acc = np.std(frame_acceleration_p)
-    push_acc_fr, push_acc_fr_ind = find_peaks(frame_acceleration_p, height=std_fr_acc / 2,
+    push_idx, push_acc_fr_ind = find_peaks(frame_acceleration_p, height=std_fr_acc / 2,
                                               distance=round(1 / (max_freq * 1.5) * sfreq), prominence=std_fr_acc / 2)
     n_pushes = len(push_acc_fr)
     push_freq = n_pushes / (len(acceleration) / sfreq)
     cycle_time = pd.DataFrame([])
 
     for n in range(0, len(push_acc_fr) - 1):
-        cycle_time = cycle_time.append([(push_acc_fr[n + 1] / sfreq) - (push_acc_fr[n] / sfreq)])
+        cycle_time = cycle_time.append([(push_idx[n + 1] / sfreq) - (push_idx[n] / sfreq)])
 
-    return push_acc_fr, frame_acceleration_p, n_pushes, cycle_time, push_freq
+    return push_idx, frame_acceleration_p, n_pushes, cycle_time, push_freq
 
 
 def vel_zones(velocity, time):
@@ -243,7 +243,7 @@ def vel_zones(velocity, time):
     return zones
 
 
-def butterfly(sessiondata, sfreq: float = 400.) -> dict:
+def butterfly(sessiondata, sfreq: float = 400., skid=False) -> dict:
     """
     Calculate butterfly sprint test outcome measures.
 
@@ -260,17 +260,21 @@ def butterfly(sessiondata, sfreq: float = 400.) -> dict:
         structure with most important outcome variables of the butterfly sprint test
 
     """
-    sessiondata["frame"]["vel"] = lowpass_butter(sessiondata["frame"]["vel"], sfreq=sfreq, cutoff=10)
+    if skid == True:
+        vel = "skid_vel"
+    else:
+        vel = "vel"
+    sessiondata["frame"][vel] = lowpass_butter(sessiondata["frame"][vel], sfreq=sfreq, cutoff=10)
 
-    m = int(len(sessiondata["frame"]["vel"]) - (0.5 * sfreq))
+    m = int(len(sessiondata["frame"][vel]) - (0.5 * sfreq))
     st = 1
     for st in range(1, m):
-        if sessiondata["frame"]["vel"][st] > 0.1:
-            if sessiondata["frame"]["vel"][int(st + (0.5 * sfreq))] > 1.0:
+        if sessiondata["frame"][vel][st] > 0.1:
+            if sessiondata["frame"][vel][int(st + (0.5 * sfreq))] > 1.0:
                 start_value = st
                 break
     sessiondata["frame"] = sessiondata["frame"][start_value:].reset_index(drop=True)
-    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"]["vel"], initial=0.0) / sfreq
+    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"][vel], initial=0.0) / sfreq
 
     sessiondata["frame"]["dist_y"] = cumtrapz(np.gradient(sessiondata["frame"]["dist"]) * np.sin(
         np.deg2rad(cumtrapz(sessiondata["frame"]["rot_vel"] / sfreq, initial=0.0))), initial=0.0)
@@ -290,8 +294,8 @@ def butterfly(sessiondata, sfreq: float = 400.) -> dict:
 
     outcomes_bs = pd.DataFrame([])
     outcomes_bs = outcomes_bs.append([{'endtime': (end_value / sfreq),
-                                       'vel_mean': np.mean(sessiondata["frame"]["vel"]),
-                                       'vel_peak': np.max(sessiondata["frame"]["vel"]),
+                                       'vel_mean': np.mean(sessiondata["frame"][vel]),
+                                       'vel_peak': np.max(sessiondata["frame"][vel]),
                                        'acc_peak': np.max(sessiondata["frame"]["acc"]),
                                        'rot_vel_mean_right': np.mean(sessiondata["frame"]["rot_vel_right"]),
                                        'rot_vel_mean_left': np.mean(sessiondata["frame"]["rot_vel_left"]),
@@ -302,7 +306,7 @@ def butterfly(sessiondata, sfreq: float = 400.) -> dict:
     return sessiondata, outcomes_bs
 
 
-def sprint_10m(sessiondata, sfreq: float = 400.) -> dict:
+def sprint_10m(sessiondata, sfreq: float = 400., skid=False) -> dict:
     """
     Calculate 10m sprint test outcomes measures.
 
@@ -319,16 +323,21 @@ def sprint_10m(sessiondata, sfreq: float = 400.) -> dict:
         structure with most important outcome variables of the sprint test
 
     """
-    sessiondata["frame"]["vel"] = lowpass_butter(sessiondata["frame"]["vel"], sfreq=sfreq, cutoff=10)
+    if skid == True:
+        vel = "skid_vel"
+    else:
+        vel = "vel"
 
-    m = int(len(sessiondata["frame"]["vel"]) - (0.5 * sfreq))
+    sessiondata["frame"][vel] = lowpass_butter(sessiondata["frame"][vel], sfreq=sfreq, cutoff=10)
+
+    m = int(len(sessiondata["frame"][vel]) - (0.5 * sfreq))
     for st in range(1, m):
-        if sessiondata["frame"]["vel"][st] > 0.1:
-            if sessiondata["frame"]["vel"][int(st + (0.5 * sfreq))] > 1.0:
+        if sessiondata["frame"][vel][st] > 0.1:
+            if sessiondata["frame"][vel][int(st + (0.5 * sfreq))] > 1.0:
                 start_value = st
                 break
     sessiondata["frame"] = sessiondata["frame"][start_value:].reset_index(drop=True)
-    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"]["vel"], initial=0.0) / sfreq
+    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"][vel], initial=0.0) / sfreq
 
     sessiondata["frame"]["dist_y"] = cumtrapz(np.gradient(sessiondata["frame"]["dist"]) * np.sin(
         np.deg2rad(cumtrapz(sessiondata["frame"]["rot_vel"] / sfreq, initial=0.0))), initial=0.0)
@@ -358,15 +367,15 @@ def sprint_10m(sessiondata, sfreq: float = 400.) -> dict:
     outcomes_sprint = outcomes_sprint.append([{'time_2m': two_value / sfreq,
                                                'time_5m': five_value / sfreq,
                                                'time_10m': end_value / sfreq,
-                                               'vel_2m_peak': np.max(sessiondata["frame"]["vel"][:two_value]),
+                                               'vel_2m_peak': np.max(sessiondata["frame"][vel][:two_value]),
                                                'vel_5m_peak': np.max(
-                                                   sessiondata["frame"]["vel"][two_value:five_value]),
+                                                   sessiondata["frame"][vel][two_value:five_value]),
                                                'vel_10m_peak': np.max(
-                                                   sessiondata["frame"]["vel"][five_value:end_value]),
+                                                   sessiondata["frame"][vel][five_value:end_value]),
                                                'pos_vel_peak': sessiondata["frame"]["dist_x"][
-                                                   sessiondata["frame"]["vel"].idxmax()],
-                                               'vel_mean': np.mean(sessiondata["frame"]["vel"]),
-                                               'vel_peak': np.max(sessiondata["frame"]["vel"]),
+                                                   sessiondata["frame"][vel].idxmax()],
+                                               'vel_mean': np.mean(sessiondata["frame"][vel]),
+                                               'vel_peak': np.max(sessiondata["frame"][vel]),
                                                'acc_2m_peak': np.max(sessiondata["frame"]["acc"][:two_value]),
                                                'acc_5m_peak': np.max(sessiondata["frame"]["acc"][two_value:five_value]),
                                                'acc_10m_peak': np.max(
@@ -384,7 +393,7 @@ def sprint_10m(sessiondata, sfreq: float = 400.) -> dict:
     return sessiondata, outcomes_sprint
 
 
-def sprint_20m(sessiondata, sfreq: float = 400.) -> dict:
+def sprint_20m(sessiondata, sfreq: float = 400., skid=False) -> dict:
     """
     Calculate 20m sprint outcomes measures.
 
@@ -401,18 +410,22 @@ def sprint_20m(sessiondata, sfreq: float = 400.) -> dict:
         structure with most important outcome variables of the sprint test
 
     """
+    if skid == True:
+        vel = "skid_vel"
+    else:
+        vel = "vel"
 
-    sessiondata["frame"]["vel"] = lowpass_butter(sessiondata["frame"]["vel"], sfreq=sfreq, cutoff=10)
+    sessiondata["frame"][vel] = lowpass_butter(sessiondata["frame"][vel], sfreq=sfreq, cutoff=10)
 
-    m = int(len(sessiondata["frame"]["vel"]) - (0.5 * sfreq))
+    m = int(len(sessiondata["frame"][vel]) - (0.5 * sfreq))
     st = 1
     for st in range(1, m):
-        if sessiondata["frame"]["vel"][st] > 0.1:
-            if sessiondata["frame"]["vel"][int(st + (0.5 * sfreq))] > 1.0:
+        if sessiondata["frame"][vel][st] > 0.1:
+            if sessiondata["frame"][vel][int(st + (0.5 * sfreq))] > 1.0:
                 start_value = st
                 break
     sessiondata["frame"] = sessiondata["frame"][start_value:].reset_index(drop=True)
-    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"]["vel"], initial=0.0) / sfreq
+    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"][vel], initial=0.0) / sfreq
 
     sessiondata["frame"]["dist_y"] = cumtrapz(np.gradient(sessiondata["frame"]["dist"]) * np.sin(
         np.deg2rad(cumtrapz(sessiondata["frame"]["rot_vel"] / sfreq, initial=0.0))), initial=0.0)
@@ -442,15 +455,15 @@ def sprint_20m(sessiondata, sfreq: float = 400.) -> dict:
     outcomes_sprint = outcomes_sprint.append([{'time_2m': five_value / sfreq,
                                                'time_10m': ten_value / sfreq,
                                                'time_20m': end_value / sfreq,
-                                               'vel_5m_peak': np.max(sessiondata["frame"]["vel"][:five_value]),
+                                               'vel_5m_peak': np.max(sessiondata["frame"][vel][:five_value]),
                                                'vel_10m_peak': np.max(
-                                                   sessiondata["frame"]["vel"][five_value:ten_value]),
+                                                   sessiondata["frame"][vel][five_value:ten_value]),
                                                'vel_20m_peak': np.max(
-                                                   sessiondata["frame"]["vel"][ten_value:end_value]),
+                                                   sessiondata["frame"][vel][ten_value:end_value]),
                                                'pos_vel_peak': sessiondata["frame"]["dist_x"][
-                                                   sessiondata["frame"]["vel"].idxmax()],
-                                               'vel_mean': np.mean(sessiondata["frame"]["vel"]),
-                                               'vel_peak': np.max(sessiondata["frame"]["vel"]),
+                                                   sessiondata["frame"][vel].idxmax()],
+                                               'vel_mean': np.mean(sessiondata["frame"][vel]),
+                                               'vel_peak': np.max(sessiondata["frame"][vel]),
                                                'acc_5m_peak': np.max(sessiondata["frame"]["acc"][:five_value]),
                                                'acc_10m_peak': np.max(
                                                    sessiondata["frame"]["acc"][five_value:ten_value]),
@@ -468,7 +481,7 @@ def sprint_20m(sessiondata, sfreq: float = 400.) -> dict:
     return sessiondata, outcomes_sprint
 
 
-def spider(sessiondata, sfreq: float = 400.) -> dict:
+def spider(sessiondata, sfreq: float = 400., skid=False) -> dict:
     """
     Calculate spider outcomes measures.
 
@@ -485,17 +498,22 @@ def spider(sessiondata, sfreq: float = 400.) -> dict:
         structure with most important outcome variables of the spider test
 
     """
-    sessiondata["frame"]["vel"] = lowpass_butter(sessiondata["frame"]["vel"], sfreq=sfreq, cutoff=10)
+    if skid == True:
+        vel = "skid_vel"
+    else:
+        vel = "vel"
 
-    m = int(len(sessiondata["frame"]["vel"]) - (0.5 * sfreq))
+    sessiondata["frame"][vel] = lowpass_butter(sessiondata["frame"][vel], sfreq=sfreq, cutoff=10)
+
+    m = int(len(sessiondata["frame"][vel]) - (0.5 * sfreq))
     st = 1
     for st in range(1, m):
-        if sessiondata["frame"]["vel"][st] > 0.1:
-            if sessiondata["frame"]["vel"][int(st + (0.5 * sfreq))] > 1.0:
+        if sessiondata["frame"][vel][st] > 0.1:
+            if sessiondata["frame"][vel][int(st + (0.5 * sfreq))] > 1.0:
                 start_value = st
                 break
     sessiondata["frame"] = sessiondata["frame"][start_value:].reset_index(drop=True)
-    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"]["vel"], initial=0.0) / sfreq
+    sessiondata["frame"]["dist"] = cumtrapz(sessiondata["frame"][vel], initial=0.0) / sfreq
 
     sessiondata["frame"]["dist_y"] = cumtrapz(np.gradient(sessiondata["frame"]["dist"]) * np.sin(
         np.deg2rad(cumtrapz(sessiondata["frame"]["rot_vel"] / sfreq, initial=0.0))), initial=0.0)
@@ -516,8 +534,8 @@ def spider(sessiondata, sfreq: float = 400.) -> dict:
 
     outcomes_spider = pd.DataFrame([])
     outcomes_spider = outcomes_spider.append([{'endtime': (end_value / sfreq),
-                                               'vel_mean': np.mean(sessiondata["frame"]["vel"]),
-                                               'vel_peak': np.max(sessiondata["frame"]["vel"]),
+                                               'vel_mean': np.mean(sessiondata["frame"][vel]),
+                                               'vel_peak': np.max(sessiondata["frame"][vel]),
                                                'acc_peak': np.max(sessiondata["frame"]["acc"]),
                                                'rot_vel_mean_right': np.mean(
                                                    sessiondata["frame"]["rot_vel_right"]),
