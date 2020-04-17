@@ -133,7 +133,7 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     frame["acc"] = np.gradient(
         lowpass_butter(frame["skid_vel"], sfreq=sfreq, cutoff=10)) * sfreq  # mean acceleration from velocity
     # distance in the x and y direction
-    frame["dips_y"] = cumtrapz(
+    frame["dist_y"] = cumtrapz(
         np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
     frame["dist_x"] = cumtrapz(
