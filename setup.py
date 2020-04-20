@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
 	name             		= 'worklab',
-	version          		= '1.5.3',
+	version          		= '1.5.4',
 	description      		= 'Basic scripts for worklab devices',
 	author           		= 'Rick de Klerk',
 	author_email     		= 'r.de.klerk@umcg.nl',
@@ -24,5 +24,5 @@ setup(
 	classifiers      		= ["Programming Language :: Python",
 							   "Intended Audience :: Science/Research",
 							   "Operating System :: OS Independent"],
-	install_requires 		= ["numpy", "scipy", "pandas", "matplotlib"]
+	install_requires 		= ["numpy", "scipy>=1.2.0", "pandas", "matplotlib"]
 )
