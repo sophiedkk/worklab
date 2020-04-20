@@ -94,7 +94,7 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
 
     # Calculation of rotations, rotational velocity and acceleration
-    frame["rot_vel"] = lowpass_butter(-frame["gyroscope_z"], sfreq=sfreq, cutoff=10)
+    frame["rot_vel"] = lowpass_butter(-frame["gyroscope_z"], sfreq=sfreq, cutoff=4)
     frame["rot"] = cumtrapz(abs(frame["rot_vel"]) / sfreq, initial=0.0)
     frame["rot_acc"] = np.gradient(frame["rot_vel"]) * sfreq
 
@@ -105,11 +105,11 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     left["vel"] = left["gyro_cor"] * wsize * deg2rad
     left["dist"] = cumtrapz(left["vel"] / sfreq, initial=0.0)
 
-    frame["vel"] = (right["vel"] + left["vel"]) / 2  # mean velocity
-    frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
+    frame["vel"] = (right["vel"] + left["vel"]) / 2  # mean velocity both sides
+    frame["vel"] = lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)
+    frame["acc"] = lowpass_butter(np.gradient(frame["vel"])*sfreq, sfreq=sfreq, cutoff=10) #mean acceleration from velocity
     frame["dist"] = (right["dist"] + left["dist"]) / 2  # mean distance
-    frame["acc"] = np.gradient(
-        lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)) * sfreq  # mean acceleration from velocity
+    frame["accelerometer_x"] = frame["accelerometer_x"]*9.81
 
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
@@ -139,6 +139,7 @@ def process_imu(sessiondata, camber=15, wsize=0.31, wbase=0.60, inplace=False):
     comb_ratio = lowpass_butter(comb_ratio, sfreq=sfreq, cutoff=20)  # Filter the signal
     comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combratio values, not in df
     frame["skid_vel"] = (frame["skid_vel_right"] * comb_ratio) + (frame["skid_vel_left"] * (1 - comb_ratio))
+    frame["skid_vel"] = lowpass_butter(frame["skid_vel"], sfreq=sfreq, cutoff=10)
     frame["skid_dist"] = cumtrapz(frame["skid_vel"], initial=0.0) / sfreq  # Combined skid distance
     return sessiondata
 
