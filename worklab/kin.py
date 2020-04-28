@@ -306,6 +306,10 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
+    | cwork              | work per cycle       | J         |
+    +--------------------+----------------------+-----------+
+    | negwork            | negative work/cycle  | J         |
+    +--------------------+----------------------+-----------+
     | meanfeff           | mean feff per push   | %         |
     +--------------------+----------------------+-----------+
     | maxfeff            | max feff per push    | %         |
@@ -313,8 +317,6 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     | slope              | slope onset to peak  | Nm/s      |
     +--------------------+----------------------+-----------+
     | smoothness         | mean/peak force      |           |
-    +--------------------+----------------------+-----------+
-    | negwork            | negative work/cycle  | J         |
     +--------------------+----------------------+-----------+
     | ptime              | push time            | s         |
     +--------------------+----------------------+-----------+
@@ -361,16 +363,23 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
         pbp["maxfeff"].append(np.max(window["feff"]))
         pbp["slope"].append(pbp["maxtorque"][-1] / (pbp["tpeak"][-1] - pbp["tstart"][-1]))
         pbp["smoothness"].append(pbp["meanforce"][-1]/pbp["maxforce"][-1])
+
         if ind:  # only after first push
             pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
             pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
+
             window = data.loc[pbp["start"][ind-1]:pbp["start"][ind], "work"]  # select cycle
+            pbp["cwork"].append(np.sum(window))
             window = window[window <= 0]  # only negative samples
             pbp["negwork"].append(np.sum(window))
+
     pbp["ctime"].append(None)  # ensure equal length of arrays
     pbp["reltime"].append(None)
+    pbp["cwork"].append(None)
     pbp["negwork"].append(None)
+
     pbp = pd.DataFrame(pbp)
+
     print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
     return pbp
 
@@ -410,11 +419,13 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
     +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
+    | cwork              | work per cycle       | J         |
+    +--------------------+----------------------+-----------+
+    | negwork            | negative work/cycle  | J         |
+    +--------------------+----------------------+-----------+
     | slope              | slope onset to peak  | Nm/s      |
     +--------------------+----------------------+-----------+
     | smoothness         | mean/peak force      |           |
-    +--------------------+----------------------+-----------+
-    | negwork            | negative work/cycle  | J         |
     +--------------------+----------------------+-----------+
     | ptime              | push time            | s         |
     +--------------------+----------------------+-----------+
@@ -461,16 +472,23 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
             tmp["work"].append(np.sum(view["work"]))
             tmp["slope"].append(tmp["maxtorque"][-1] / (tmp["tpeak"][-1] - tmp["tstart"][-1]))
             tmp["smoothness"].append(tmp["meanforce"][-1]/tmp["maxforce"][-1])
+
             if ind:  # only after first push
                 tmp["ctime"].append(tmp["tstart"][-1] - tmp["tstart"][-2])
                 tmp["reltime"].append(tmp["ptime"][-2] / tmp["ctime"][-1] * 100)
-                window = data[side].loc[tmp["start"][ind - 1]:tmp["start"][ind], "work"]
+
+                window = data[side].iloc[tmp["start"][ind - 1]:tmp["start"][ind], :]  # select cycle
+                tmp["cwork"].append(np.sum(window["work"]))
                 window = window[window <= 0]  # only negative samples
-                tmp["negwork"].append(np.sum(window))
+                tmp["negwork"].append(np.sum(window["work"]))
+
         tmp["ctime"].append(None)  # ensure equal length arrays
         tmp["reltime"].append(None)
+        tmp["cwork"].append(None)
         tmp["negwork"].append(None)
+
         pbp[side] = pd.DataFrame(tmp)
+
     print("\n" + "=" * 80 + f"\nFound left: {len(pbp['left'])} and right: {len(pbp['right'])} pushes!\n"
           + "=" * 80 + "\n")
     return pbp
