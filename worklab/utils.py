@@ -201,7 +201,7 @@ def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
     """
     # noinspection PyTupleAssignmentBalance
     array = np.asarray(array)
-    sos = butter(order//2, cutoff, fs=sfreq, btype='low', output='sos')
+    sos = butter(order, cutoff, fs=sfreq, btype='low', output='sos')
     return sosfiltfilt(sos, array)
 
 
