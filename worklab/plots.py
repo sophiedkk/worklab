@@ -139,7 +139,7 @@ def vel_plot(time, vel, name=''):
 
     """
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, vel, 'r')
     ax.set_xlabel("Time [s]", fontsize=12)
     ax.set_ylabel("Velocity [m/s]", fontsize=12)
@@ -176,7 +176,7 @@ def vel_peak_plot(time, vel, name=''):
 
     # Create time vs. velocity figure with vel_peak
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, vel, 'r')
     ax.plot(time[y_max_vel], vel[y_max_vel], 'ko',
             label='Vel$_{peak}$: ' + str(round(y_max_vel_value, 2)) + ' m/s')
@@ -218,7 +218,7 @@ def vel_peak_dist_plot(time, vel, dist, name=''):
 
     # Create time vs. velocity figure with vel_peak
     plt.style.use("seaborn-darkgrid")
-    fig, ax1 = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
     ax1.plot(time, vel, 'r')
     ax1.plot(time[y_max_vel], vel[y_max_vel], 'ko',
              label='Vel$_{peak}$: ' + str(round(y_max_vel_value, 2)) + ' m/s')
@@ -263,7 +263,7 @@ def acc_plot(time, acc, name=''):
     """
     # Create time vs. acceleration figure
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, acc, 'g')
     ax.set_xlabel("Time [s]", fontsize=12)
     ax.set_ylabel("Acceleration [m/$s^2$]", fontsize=12)
@@ -300,7 +300,7 @@ def acc_peak_plot(time, acc, name=''):
 
     # Create time vs. acceleration figure with acc_peak
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, acc, 'g')
     ax.plot(time[y_max_acc], acc[y_max_acc], 'k.',
             label='Acc$_{peak}$: ' + str(round(y_max_acc_value, 2)) + ' m/$s^2$')
@@ -342,7 +342,7 @@ def acc_peak_dist_plot(time, acc, dist, name=''):
 
     # Create time vs. acceleration figure with acc_peak
     plt.style.use("seaborn-darkgrid")
-    fig, ax1 = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
     ax1.plot(time, acc, 'g')
     ax1.plot(time[y_max_acc], acc[y_max_acc], 'k.',
              label='Acc$_{peak}$: ' + str(round(y_max_acc_value, 2)) + ' m/$s^2$')
@@ -387,7 +387,7 @@ def rot_vel_plot(time, rot_vel, name=''):
     """
     # Create time vs. rotational velocity figure
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[20, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, rot_vel, 'b')
     ax.set_xlabel("Time [s]", fontsize=12)
     ax.set_ylabel("Rotational velocity [deg/s]", fontsize=12)
@@ -400,7 +400,7 @@ def rot_vel_plot(time, rot_vel, name=''):
     return ax
 
 
-def imu_push_plot(time, vel, acc_raw, name=''):
+def imu_push_plot(time, vel, acc_raw, name='', dec=False):
     """
     Plot push detection with IMUs
 
@@ -414,6 +414,8 @@ def imu_push_plot(time, vel, acc_raw, name=''):
         raw acceleration structure
     name : str
         name of a session
+    dec : boolean
+        set to True if main deceleration should be found
 
     Returns
     -------
@@ -422,14 +424,21 @@ def imu_push_plot(time, vel, acc_raw, name=''):
     """
     # Calculate push detection with function
     sfreq = 1 / time.diff().mean()
-    push_idx, frame_acc_p, n_pushes, cycle_time, push_freq = push_imu(acc_raw, sfreq)
+    push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc_raw, sfreq)
+
+    # Change signal if the main deceleration values should be found
+    if dec == True:
+        acc_filt = -acc_filt
+
+    # Calculate processed acceleration from velocity
+    acc = lowpass_butter(np.gradient(vel) * sfreq, sfreq=sfreq, cutoff=20)
 
     # Create time vs. velocity with push detection figure
     plt.style.use("seaborn-darkgrid")
-    fig, ax1 = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
     ax1.set_ylim(-6, 6)
     ax1.plot(time, vel, 'r')
-    ax1.plot(time[push_idx], vel[push_idx], 'k.')
+    ax1.plot(time[push_idx], vel[push_idx], 'k.', markersize=10)
     ax1.set_xlabel("Time [s]", fontsize=12)
     ax1.set_ylabel("Velocity [m/s]", fontsize=12)
     ax1.tick_params(axis='y', colors='r', labelsize=12)
@@ -440,11 +449,13 @@ def imu_push_plot(time, vel, acc_raw, name=''):
     # Create time vs. acceleration with push detection figure
     ax2 = ax1.twinx()
     ax2.set_ylim(-25, 25)
-    ax2.plot(time, frame_acc_p)
-    ax2.plot(time[push_idx], frame_acc_p[push_idx], 'k.')
+    ax2.plot(time, acc, 'C7', alpha=0.5)
+    ax2.plot(time, acc_filt, 'b')
+    ax2.plot(time[push_idx], acc_filt[push_idx], 'k.', markersize=10, label="Detected push")
     ax2.set_ylabel("Acceleration [m/$s^2$]", fontsize=12)
     ax2.tick_params(axis='y', colors='b', labelsize=12)
     ax2.yaxis.label.set_color('b')
+    ax2.legend(frameon=True)
 
     return ax1, ax2
 
@@ -495,7 +506,7 @@ def straight_sprint_plot(time, vel, dist, rot_vel, name=''):
 
     # Create straight sprint figure
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.set_xlim(-6, 6)
     ax.set_ylim(0, max(dist_x)+1)
     ax.plot(-dist_y, dist_x)
@@ -544,10 +555,10 @@ def overview_sprint_plot(time, vel, dist, rot_vel, acc_raw, name=''):
     """
     sfreq = 1 / time.diff().mean()
     # Calculate push detection with function
-    push_idx, frame_acc_p, n_pushes, cycle_time, push_freq = push_imu(acc_raw, sfreq)
+    push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc_raw, sfreq)
 
     # Calculate processed acceleration from velocity
-    acc = lowpass_butter(np.gradient(vel) * sfreq, sfreq=sfreq, cutoff=10)
+    acc = lowpass_butter(np.gradient(vel) * sfreq, sfreq=sfreq, cutoff=20)
 
     # Calculate distance in x and y direction
     dist_y = cumtrapz(
@@ -586,8 +597,9 @@ def overview_sprint_plot(time, vel, dist, rot_vel, acc_raw, name=''):
     # Create time vs. acceleration with push detection figure
     ax5 = ax1.twinx()
     ax5.set_ylim(-30, 30)
-    ax5.plot(time, frame_acc_p)
-    ax5.plot(time[push_idx], frame_acc_p[push_idx], 'k.')
+    ax5.plot(time, acc, 'C7', alpha=0.5)
+    ax5.plot(time, acc_filt, 'b')
+    ax5.plot(time[push_idx], acc_filt[push_idx], 'k.')
     ax5.set_ylabel("Acceleration [m/$s^2$]", fontsize=10)
     ax5.tick_params(axis='y', colors='b', labelsize=10)
     ax5.yaxis.label.set_color('b')
@@ -707,21 +719,21 @@ def butterfly_plot(time, rot_vel, dist, name='', mirror=False):
 
     # Create butterfly sprint figure
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.text(2, 7, 'Endtime: ' + str(round(len(time) / sfreq, 2)) + 's',
             bbox=dict(facecolor='green', alpha=0.5))
-    ax.plot(dist_x, -dist_y)
-    ax.plot(rot_vel_x_45, -rot_vel_y_45, 'y.', markersize=5,
+    ax.plot(dist_x, dist_y)
+    ax.plot(rot_vel_x_45, rot_vel_y_45, 'y.', markersize=5,
             label='Rot vel > 45 deg/s')
-    ax.plot(rot_vel_x_90, -rot_vel_y_90, 'g.', markersize=8,
+    ax.plot(rot_vel_x_90, rot_vel_y_90, 'g.', markersize=8,
             label='Rot vel > 90 deg/s')
-    ax.plot(rot_vel_x_180, -rot_vel_y_180, 'r.', markersize=14,
+    ax.plot(rot_vel_x_180, rot_vel_y_180, 'r.', markersize=14,
             label='Rot vel > 180 deg/s')
     ax.plot(dist_x[y_max_rot_vel],
-            -dist_y[y_max_rot_vel], 'ko', markersize=10,
+            dist_y[y_max_rot_vel], 'ko', markersize=10,
             label='Rot vel$_{peak}$: ' + str(int(y_max_rot_vel_value)) + ' deg/s')
     ax.plot(dist_x[y_max_rotacc],
-            -dist_y[y_max_rotacc], 'k*', markersize=10,
+            dist_y[y_max_rotacc], 'k*', markersize=10,
             label='Rot acc$_{peak}:$ ' + str(int(y_max_rotacc_value)) + ' deg/$s^2$')
     ax.set_xlabel("Distance [m]", fontsize=12)
     ax.set_ylabel("Distance [m]", fontsize=12)
@@ -830,20 +842,20 @@ def overview_butterfly_plot(time, vel, rot_vel, dist, name='', mirror=False):
     ax3.autoscale(tight=True)
 
     # Create butterfly sprint figure
-    ax4.plot(dist_x, -dist_y)
+    ax4.plot(dist_x, dist_y)
     ax4.text(2, 7, 'Endtime: ' + str(round(len(time) / sfreq, 2)) + 's',
             bbox=dict(facecolor='green', alpha=0.5))
-    ax4.plot(rot_vel_x_45, -rot_vel_y_45, 'y.', markersize=6,
+    ax4.plot(rot_vel_x_45, rot_vel_y_45, 'y.', markersize=6,
              label='Rot vel > 45 deg/s')
-    ax4.plot(rot_vel_x_90, -rot_vel_y_90, 'g.', markersize=8,
+    ax4.plot(rot_vel_x_90, rot_vel_y_90, 'g.', markersize=8,
              label='Rot vel > 90 deg/s')
-    ax4.plot(rot_vel_x_180, -rot_vel_y_180, 'r.', markersize=14,
+    ax4.plot(rot_vel_x_180, rot_vel_y_180, 'r.', markersize=14,
              label='Rot vel > 180 deg/s')
     ax4.plot(dist_x[y_max_rot_vel],
-             -dist_y[y_max_rot_vel], 'ko', markersize=10,
+             dist_y[y_max_rot_vel], 'ko', markersize=10,
              label='Rot vel$_{peak}$: ' + str(int(y_max_rot_vel_value)) + ' deg/s')
     ax4.plot(dist_x[y_max_rotacc],
-             -dist_y[y_max_rotacc], 'k*', markersize=10,
+             dist_y[y_max_rotacc], 'k*', markersize=10,
              label='Rot acc$_{peak}$: ' + str(int(y_max_rotacc_value)) + ' deg/$s^2$')
     ax4.set_xlabel("Distance [m]", fontsize=10)
     ax4.set_ylabel("Distance [m]", fontsize=10)
@@ -888,8 +900,8 @@ def spider_plot(time, rot_vel, dist,
 
     # Change signal if test was executed in reversed order
     if mirror == True:
-        dist_y = -dist_y
         dist_x = -dist_x
+        dist_y = -dist_y
 
     # Caculate rotational vel zones and rot_vel_peak, rot_acc_peak
     rot_vel.reset_index(inplace=True, drop=True)
@@ -907,25 +919,25 @@ def spider_plot(time, rot_vel, dist,
 
     # Create Spider figure
     plt.style.use("seaborn-darkgrid")
-    fig, ax = plt.subplots(1, 1, figsize=[14, 10])
+    fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     if mirror == True:
-        ax.text(1, 3, 'Endtime: ' + str(len(time) / sfreq) + 's',
+        ax.text(0.8, 3.1, 'Endtime: ' + str(len(time) / sfreq) + 's',
                 bbox=dict(facecolor='green', alpha=0.5))
     else:
-        ax.text(3, 3, 'Endtime: ' + str(len(time) / sfreq) + 's',
+        ax.text(2.7, 3.1, 'Endtime: ' + str(len(time) / sfreq) + 's',
                 bbox=dict(facecolor='green', alpha=0.5))
-    ax.plot(dist_x, dist_y)
-    ax.plot(rot_vel_x_45, rot_vel_y_45, 'y.', markersize=5,
+    ax.plot(dist_x, -dist_y)
+    ax.plot(rot_vel_x_45, -rot_vel_y_45, 'y.', markersize=5,
             label='Rot vel > 45 deg/s')
-    ax.plot(rot_vel_x_90, rot_vel_y_90, 'g.', markersize=8,
+    ax.plot(rot_vel_x_90, -rot_vel_y_90, 'g.', markersize=8,
             label='Rot vel > 90 deg/s')
-    ax.plot(rot_vel_x_180, rot_vel_y_180, 'r.', markersize=14,
+    ax.plot(rot_vel_x_180, -rot_vel_y_180, 'r.', markersize=14,
             label='Rot vel > 180 deg/s')
     ax.plot(dist_x[y_max_rot_vel],
-            dist_y[y_max_rot_vel], 'ko', markersize=10,
+            -dist_y[y_max_rot_vel], 'ko', markersize=10,
             label='Rot vel$_{peak}:$ ' + str(int(y_max_rot_vel_value)) + ' deg/s')
     ax.plot(dist_x[y_max_rotacc],
-            dist_y[y_max_rotacc], 'k*', markersize=10,
+            -dist_y[y_max_rotacc], 'k*', markersize=10,
             label='Rot acc$_{peak}:$ ' + str(int(y_max_rotacc_value)) + ' deg/s$^{2}$')
     ax.set_xlabel("Distance [m]", fontsize=12)
     ax.set_ylabel("Distance [m]", fontsize=12)
@@ -975,8 +987,8 @@ def overview_spider_plot(time, vel, rot_vel, dist, name='', mirror=False):
 
     # Change signal if test was executed in reversed order
     if mirror == True:
-        dist_y = -dist_y
         dist_x = -dist_x
+        dist_y = -dist_y
 
     # Caculate rotational vel zones and rot_vel_peak, rot_acc_peak
     rot_vel.reset_index(inplace=True, drop=True)
@@ -1038,18 +1050,18 @@ def overview_spider_plot(time, vel, rot_vel, dist, name='', mirror=False):
     ax4.set_xlim(-2, 3.5)
     ax4.text(1.9, 3.7, 'Endtime: ' + str(len(time) / sfreq) + 's',
              bbox=dict(facecolor='green', alpha=0.5))
-    ax4.plot(dist_x, dist_y)
-    ax4.plot(rot_vel_x_45, rot_vel_y_45, 'y.', markersize=5,
+    ax4.plot(dist_x, -dist_y)
+    ax4.plot(rot_vel_x_45, -rot_vel_y_45, 'y.', markersize=5,
              label='rot_vel > 45 deg/s')
-    ax4.plot(rot_vel_x_90, rot_vel_y_90, 'g.', markersize=8,
+    ax4.plot(rot_vel_x_90, -rot_vel_y_90, 'g.', markersize=8,
              label='rot_vel > 90 deg/s')
-    ax4.plot(rot_vel_x_180, rot_vel_y_180, 'r.', markersize=14,
+    ax4.plot(rot_vel_x_180, -rot_vel_y_180, 'r.', markersize=14,
              label='rot_vel > 180 deg/s')
     ax4.plot(dist_x[y_max_rot_vel],
-             dist_y[y_max_rot_vel], 'ko', markersize=10,
+             -dist_y[y_max_rot_vel], 'ko', markersize=10,
              label='rot_$vel_{peak}$: ' + str(int(y_max_rot_vel_value)) + ' deg/s')
     ax4.plot(dist_x[y_max_rotacc],
-             dist_y[y_max_rotacc], 'k*', markersize=10,
+             -dist_y[y_max_rotacc], 'k*', markersize=10,
              label='rot_$acc_{peak}$: ' + str(int(y_max_rotacc_value)) + ' deg/$s^2$')
     ax4.set_xlabel("Distance [m]", fontsize=10)
     ax4.set_ylabel("Distance [m]", fontsize=10)

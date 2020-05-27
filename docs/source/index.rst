@@ -44,6 +44,7 @@ About
 Authors
 ^^^^^^^
 * **Rick de Klerk** - *Initial work* - `GitLab <https://gitlab.com/rickdkk>`_ - `UMCG <https://www.rug.nl/staff/r.de.klerk/>`_
+* **Thomas Rietveld** - `GitLab <https://gitlab.com/Thomas2016>`_ - `UMCG <https://www.rug.nl/staff/t.rietveld>`_
 
 Citing
 ^^^^^^
