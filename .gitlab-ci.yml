@@ -1,4 +1,5 @@
 pypi:
+  image: python:latest
   stage: deploy
   script:
   - pip install twine
