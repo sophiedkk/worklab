@@ -1,5 +1,5 @@
 pypi:
-  stage: upload
+  stage: deploy
   script:
   - pip install twine
   - rm -rf dist
