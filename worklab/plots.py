@@ -7,6 +7,7 @@ from .imu import push_imu
 from .utils import lowpass_butter
 from scipy.integrate import cumtrapz
 
+
 def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax=None):
     """
     Plot pushes from measurement wheel or ergometer data.
@@ -1076,6 +1077,23 @@ def overview_spider_plot(time, vel, rot_vel, dist, name='', mirror=False):
 
 
 def plot_power_speed_dist(data, title=""):
+    """
+    Plot power, speed and distance versus time. Left (solid line) and right (dotted line) separately.
+
+    Parameters
+    ----------
+    data: dict
+        wheelchair ergometer data dictionary with dataframes
+    title: str
+        a title for the plot
+
+    Returns
+    -------
+    fig: matplotlib.figure.Figure
+    axes: tuple
+        the three axes objects
+
+    """
     plt.style.use("seaborn-ticks")
     fig = plt.figure()
 
