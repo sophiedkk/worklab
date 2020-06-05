@@ -232,6 +232,10 @@ plot_pushes_ergo
 ^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.plots.plot_pushes_ergo
 
+plot_power_speed_dist
+^^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.plot_power_speed_dist
+
 acc_peak_disp_plot
 ^^^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.plots.acc_peak_disp_plot
