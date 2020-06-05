@@ -1076,23 +1076,6 @@ def overview_spider_plot(time, vel, rot_vel, dist, name='', mirror=False):
 
 
 def plot_power_speed_dist(data, title=""):
-    """
-    Plot power, speed and distance versus time. Left (solid line) and right (dotted line) separately.
-
-    Parameters
-    ----------
-    data: dict
-        wheelchair ergometer data dictionary with dataframes
-    title: str
-        a title for the plot
-
-    Returns
-    -------
-    fig: matplotlib.figure.Figure
-    axes: tuple
-        the three axes objects
-
-    """
     plt.style.use("seaborn-ticks")
     fig = plt.figure()
 
