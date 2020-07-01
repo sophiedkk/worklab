@@ -2,16 +2,18 @@ import numpy as np
 import pandas as pd
 
 
-def get_perp_vector(vector2d, clockwise=True):
+def get_perp_vector(vector2d, clockwise=True, normalized=True):
     """
     Get the vector perpendicular to the input vector. Only works in 2D as 3D has infinite solutions.
 
     Parameters
     ----------
     vector2d : np.array
-        [n, 3] vector data
+        [n, 3] vector data, only uses x and y
     clockwise : bool
         clockwise or counterclockwise rotation
+    normalized : bool
+        whether or not to normalize the result, default is True
 
     Returns
     -------
@@ -29,7 +31,7 @@ def get_perp_vector(vector2d, clockwise=True):
         """Gets 2D vector perpendicular to input vector, rotated counterclockwise"""
         perp_vector2d[:, 0] = vector2d[:, 1] * -1
         perp_vector2d[:, 1] = vector2d[:, 0]
-    return perp_vector2d
+    return normalize(perp_vector2d) if normalized else perp_vector2d
 
 
 def get_rotation_matrix(new_frame, local_to_world=True):
@@ -39,7 +41,7 @@ def get_rotation_matrix(new_frame, local_to_world=True):
     Parameters
     ----------
     new_frame : np.array
-        3x3 array specifying the new reference frame
+        [3, 3] array specifying the new reference frame
     local_to_world : bool
         global to local or local to global
 
@@ -66,6 +68,42 @@ def get_rotation_matrix(new_frame, local_to_world=True):
                                     [np.dot(x2_prime, x1), np.dot(x2_prime, x2), np.dot(x2_prime, x3)],
                                     [np.dot(x3_prime, x1), np.dot(x3_prime, x2), np.dot(x3_prime, x3)]])
     return rotation_matrix
+
+
+def get_orthonormal_frame(point1, point2, point3, mean=False):
+    """Returns an orthonormal frame from three reference points. For example, a local coordinate system from three
+    marker points.
+
+    Parameters
+    ----------
+    point1: np.array
+        first marker point, used as origin if mean=False
+    point2:  np.array
+        second marker point, used as x-axis
+    point3: np.array
+        third marker point
+    mean: bool
+        whether or not the mean should be used as origin, default is False
+
+    Returns
+    -------
+    origin: np.array
+        xyz column vector with coordinates of the origin which is point1 or the mean of all points
+    orthonormal: np.array
+        3x3 array with orthonormal coordinates [x, y, z] of the new axis system
+
+    """
+    if mean:
+        origin = np.mean(np.vstack([point1, point2, point3]), axis=0)
+    else:
+        origin = np.array(point1)
+
+    x_axis = normalize(point2 - origin)
+    y_axis = normalize(np.cross(x_axis, point3 - origin))
+    z_axis = normalize(np.cross(x_axis, y_axis))
+
+    orthonormal = np.vstack([x_axis, y_axis, z_axis]).T
+    return origin[:, None], orthonormal
 
 
 def mirror(vector3d, axis="xyz"):
@@ -103,7 +141,7 @@ def scale(vector3d, x=1., y=1., z=1.):
     Parameters
     ----------
     vector3d: np.array
-        array to be scaled, also works on dataframes
+        array to be scaled, also works on dataframes, assumes [n, xyz] data
     x: float
         x-axis scaling
     y: float
@@ -122,12 +160,12 @@ def scale(vector3d, x=1., y=1., z=1.):
 
 def rotate(vector3d, angle, deg=False, axis="z"):
     """
-    Rotate a vector around a given axis, specify rotation angle in radians or degrees.
+    Rotate a vector around a single given axis, specify rotation angle in radians or degrees.
 
     Parameters
     ----------
     vector3d: np.array
-        vector to be rotated, also works on dataframes
+        vector to be rotated, also works on dataframes, assumes [n, xyz] data
     angle: float
         angle to rotate over
     deg: bool
@@ -165,30 +203,76 @@ def rotate(vector3d, angle, deg=False, axis="z"):
     return vector3d
 
 
-def normalize(x):
+def magnitude(vector3d):
     """
-    Normalizes [n, 3] marker data using an l2 norm.
+    Calculates the vector magnitude using an l2 norm. Works with [1, 3] or [n, 3] vectors.
 
     Parameters
     ----------
-    x : np.array
+    vector3d: np.array
+        a [1, 3] or [n, 3] vector
+
+    Returns
+    -------
+    vector3d: np.array
+        scalar value or column vector
+
+    """
+    if vector3d.ndim == 1:
+        return np.linalg.norm(vector3d)
+    else:
+        return np.linalg.norm(vector3d, axis=1)[:, None]  # make column vector
+
+
+def normalize(vector3d):
+    """
+    Normalizes [n, 3] marker data using an l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.
+
+    Parameters
+    ----------
+    vector3d : np.array
         marker data to be normalized
 
     Returns
     -------
-    x : np.array
+    vector3d : np.array
         normalized marker data
 
     """
-    if isinstance(x, pd.DataFrame):
-        return x.div(np.linalg.norm(x), axis=0)
+    if vector3d.ndim == 1:
+        return vector3d / magnitude(vector3d)
     else:
-        return x / np.linalg.norm(x)
+        if isinstance(vector3d, pd.DataFrame):
+            return vector3d.div(magnitude(vector3d), axis=1)
+        else:
+            return vector3d / magnitude(vector3d)
 
 
-def calc_marker_angles(v_1, v_2, deg=False):
+def distance(point1, point2):
     """
-    Calculates n angles between two [n, 3] markers.
+    Compute Euclidean distance between two points, this is the distance if you were to draw a straight line.
+
+    Parameters
+    ----------
+    point1 : np.array
+        a [1, 3] or [n, 3] array with point coordinates
+    point2 : np.array
+        a [1, 3] or [n, 3] array with point coordinates
+    Returns
+    -------
+    distance : np.array
+        distance from point1 to point2 in a [1, 3] or [n, 3] array
+
+    """
+    if point1.ndim == 1 and point2.ndim == 1:
+        return np.sqrt(np.sum(np.square(point2 - point1)))
+    else:
+        return np.sqrt(np.sum(np.square(point2 - point1), axis=1))
+
+
+def marker_angles(v_1, v_2, deg=False):
+    """
+    Calculates n angles between two [n, 3] markers, two [1, 3] markers, or one [n, 3] and one [1, 3] marker.
 
     Parameters
     ----------
@@ -202,11 +286,24 @@ def calc_marker_angles(v_1, v_2, deg=False):
     Returns
     -------
     x : np.array
-        returns [n, 1] array with the angle for each sample
+        returns [n, 1] array with the angle for each sample or scalar value
 
     """
-    p1 = np.einsum('ij,ij->i', v_1, v_2)
-    p2 = np.cross(v_1, v_2, axis=1)
-    p3 = np.linalg.norm(p2, axis=1)
-    angles = np.arctan2(p3, p1)
-    return np.rad2deg(angles) if deg else angles
+    if v_1.ndim == 1 and v_2.ndim == 1:
+        angle = np.arctan2(np.linalg.norm(np.cross(v_1, v_2)), np.dot(v_1, v_2))
+        return np.rad2deg(angle) if deg else angle
+    else:
+        if v_1.ndim == 1:
+            v_1 = np.tile(v_1, (len(v_2), 1))  # extend array if necessary
+        elif v_2.ndim == 1:
+            v_2 = np.tile(v_2, (len(v_1), 1))
+        p1 = np.einsum('ij,ij->i', v_1, v_2)  # vectorized dot operation
+        p2 = np.cross(v_1, v_2, axis=1)
+        p3 = np.linalg.norm(p2, axis=1)
+        angles = np.arctan2(p3, p1)
+        return np.rad2deg(angles) if deg else angles
+
+
+def is_unit_length(vector3d, atol=1.e-8):
+    """Checks whether an array ([1, 3] or [n, 3]) is equal to unit length given a tolerance"""
+    return np.allclose(magnitude(vector3d), 1.0, rtol=0, atol=atol)

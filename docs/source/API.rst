@@ -86,9 +86,9 @@ load_optitrack
 ^^^^^^^^^^^^^^
 .. autofunction:: worklab.com.load_optitrack
 
-load_session
-^^^^^^^^^^^^
-.. autofunction:: worklab.com.load_session
+load_imu
+^^^^^^^^
+.. autofunction:: worklab.com.load_imu
 
 load_spiro
 ^^^^^^^^^^
@@ -139,6 +139,7 @@ push_by_push_ergo
 Kinematics (.move)
 -------------------------
 Basic functions for movement related data from optical tracking systems. If I have the time I will make a vector3d class.
+Most functions assume an [n, 3] or [1, 3] array or dataframe.
 
 get_perp_vector
 ^^^^^^^^^^^^^^^
@@ -147,6 +148,10 @@ get_perp_vector
 get_rotation_matrix
 ^^^^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.move.get_rotation_matrix
+
+get_orthonormal_frame
+^^^^^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.move.get_orthonormal_frame
 
 mirror
 ^^^^^^
@@ -160,13 +165,25 @@ scale
 ^^^^^
 .. autofunction:: worklab.move.scale
 
+magnitude
+^^^^^^^^^
+.. autofunction:: worklab.move.magnitude
+
 normalize
 ^^^^^^^^^
 .. autofunction:: worklab.move.normalize
 
-calc_marker_angles
+distance
+^^^^^^^^
+.. autofunction:: worklab.move.distance
+
+marker_angles
 ^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.move.calc_marker_angles
+.. autofunction:: worklab.move.marker_angles
+
+is_unit_length
+^^^^^^^^^^^^^^
+.. autofunction:: worklab.move.is_unit_length
 
 
 IMU (.imu)
@@ -236,9 +253,9 @@ plot_power_speed_dist
 ^^^^^^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.plots.plot_power_speed_dist
 
-acc_peak_disp_plot
+acc_peak_dist_plot
 ^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.acc_peak_disp_plot
+.. autofunction:: worklab.plots.acc_peak_dist_plot
 
 acc_peak_plot
 ^^^^^^^^^^^^^
@@ -280,9 +297,9 @@ straight_sprint_plot
 ^^^^^^^^^^^^^^^^^^^^
 .. autofunction:: worklab.plots.straight_sprint_plot
 
-vel_peak_disp_plot
+vel_peak_dist_plot
 ^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.vel_peak_disp_plot
+.. autofunction:: worklab.plots.vel_peak_dist_plot
 
 vel_peak_plot
 ^^^^^^^^^^^^^
@@ -380,7 +397,7 @@ find_nearest
 
 binned_stats
 ^^^^^^^^^^^^
-.. autoclass:: worklab.utils.binned_stats
+.. autofunction:: worklab.utils.binned_stats
 
 Timer
 ^^^^^
