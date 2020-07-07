@@ -63,7 +63,7 @@ def load(filename=""):
         data, _ = load_n3d(filename)
     elif ".xml" in filename:
         print("Folder identified as NGIMU folder. Attempting to load ...")
-        data = load_session(path.split(filename)[0], filenames=["sensors"])
+        data = load_optitrack(path.split(filename)[0], filenames=["sensors"])
     elif "drag" in filename:
         print("File identified as dragtest datafile. Attempting to load ...")
         data = load_drag_test(filename)
@@ -96,9 +96,11 @@ def load_spiro(filename):
     +------------+----------------------+-----------+
     | HR         | heart rate           | bpm       |
     +------------+----------------------+-----------+
-    | VO2        | torque around x-axis | [mL/min]  |
+    | RER        | exchange ratio       | VCO2/VO2  |
     +------------+----------------------+-----------+
-    | VCO2       | torque around y-axis | [mL/min]  |
+    | VO2        | oxygen               | [mL/min]  |
+    +------------+----------------------+-----------+
+    | VCO2       | carbon dioxide       | [mL/min]  |
     +------------+----------------------+-----------+
 
     Parameters
@@ -116,9 +118,10 @@ def load_spiro(filename):
     data["time"] = data.apply(lambda row: pd_dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
+    data["RER"] = data["VCO2"] / data["VO2"]
     data["HR"] = np.NaN if "HR" not in data else data["HR"]  # missing when sensor is not detected
     data = data[data["time"] > 0]  # remove "missing" data
-    return data[["time", "HR", "power", "VO2", "VCO2", "weights"]]
+    return data[["time", "HR", "power", "RER", "VO2", "VCO2", "weights"]]
 
 
 def load_opti(filename):
