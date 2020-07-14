@@ -314,7 +314,7 @@ def find_peaks(data, cutoff=1.0, minpeak=5.0, min_dist=5):
     minpeak : float
         minimum peak height of wave
     min_dist : int
-        minimum sample distance between peaks, can be used to speed up algorithm
+        minimum sample distance between peak candidates, can be used to speed up algorithm
 
     Returns
     -------

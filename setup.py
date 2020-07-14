@@ -9,7 +9,7 @@ def read(fname):
 
 setup(
 	name             		= 'worklab',
-	version          		= '1.5.11',
+	version          		= '1.5.12',
 	description      		= 'Basic scripts for worklab devices',
 	author           		= 'Rick de Klerk',
 	author_email     		= 'r.de.klerk@umcg.nl',

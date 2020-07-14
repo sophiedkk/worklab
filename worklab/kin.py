@@ -384,7 +384,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     return pbp
 
 
-def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
+def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5):
     """
     Push-by-push analysis for measurement wheel data.
 
@@ -444,6 +444,8 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
         noise level for peak (push) detection
     minpeak : float
         min peak height for peak (push) detection
+    mindist : int
+        minimum sample distance between peak candidates, can be used to speed up algorithm
 
     Returns
     -------
@@ -452,7 +454,7 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0):
     """
     pbp = {"left": [], "right": []}
     for side in data:
-        tmp = find_peaks(data[side][variable], cutoff, minpeak)
+        tmp = find_peaks(data[side][variable], cutoff, minpeak, mindist)
         for ind, (start, stop, peak) in enumerate(zip(tmp["start"], tmp["stop"], tmp["peak"])):
             tmp["tstart"].append(data[side]["time"][start])
             tmp["tstop"].append(data[side]["time"][stop])
