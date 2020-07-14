@@ -129,7 +129,7 @@ def calc_weighted_average(dataframe, weights):
         the weighted averages of each column
     
     """
-    return dataframe.apply(lambda col: np.average(col, weights=weights), axis=0)
+    return dataframe.apply(lambda col: np.average(col.dropna(), weights=weights), axis=0)
 
 
 def make_calibration_spline(calibration_points):
