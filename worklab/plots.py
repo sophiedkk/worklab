@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from .imu import push_imu
 from .utils import lowpass_butter
-from scipy.integrate import cumtrapz
 
 
 def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax=None):
