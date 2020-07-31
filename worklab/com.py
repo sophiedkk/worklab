@@ -1,5 +1,4 @@
 import csv
-import re
 from collections import defaultdict
 from glob import glob
 from os import listdir, path
@@ -35,44 +34,45 @@ def load(filename=""):
     load_sw, load_opti_offset
 
     """
-    filename = pick_file().lower() if not filename else filename.lower()
-    if not filename:
+    filename = pick_file() if not filename else filename
+    filename_lower = filename.lower()
+    if not filename_lower:
         raise Exception("Please provide a filename")
     print("\n" + "=" * 80)
-    print(f"Initializing loading for {filename} ...")
-    if ".xlsx" in filename or "spiro" in filename:  # COSMED
+    print(f"Initializing loading for {filename_lower} ...")
+    if ".xlsx" in filename_lower or "spiro" in filename_lower:  # COSMED
         print("File identified as COSMED datafile. Attempting to load ...")
         data = load_spiro(filename)
-    elif ".xls" in filename and "fiets" not in filename and "offset" not in filename:
-        print("File identified as Esseda datafile. Attempting to load ...")
-        data = load_esseda(filename)
-    elif "HSB.csv" in filename:
-        print("File identified as HSB-logger datafile. Attempting to load ...")
-        data = load_hsb(filename)
-    elif ".txt" in filename and "drag" not in filename:
-        print("File identified as SMARTwheel datafile. Attempting to load ...")
-        data = load_sw(filename)
-    elif ".dat" in filename:
-        print("File identified as Optipush datafile. Attempting to load ...")
-        data = load_opti(filename)
-    elif "fiets" in filename:
+    elif "bike" in filename_lower:
         print("File identified as Bicycle ergometer datafile. Attempting to load ...")
         data = load_bike(filename)
-    elif ".n3d" in filename:
-        print("File identified as Optotrak datafile. Attempting to load ...")
-        data, _ = load_n3d(filename)
-    elif ".xml" in filename:
-        print("Folder identified as NGIMU folder. Attempting to load ...")
-        data = load_imu(path.split(filename)[0], filenames=["sensors"])
-    elif "drag" in filename:
-        print("File identified as dragtest datafile. Attempting to load ...")
-        data = load_drag_test(filename)
-    elif ".csv" in filename:
-        print("File identified as optitrack datafile. Attempting to load ...")
-        data = load_optitrack(filename)
-    elif "offset" in filename:
+    elif "offset" in filename_lower:
         print("File identified as Optipush offset datafile. Attempting to load...")
         data = load_opti_offset(filename)
+    elif ".xls" in filename_lower:
+        print("File identified as Esseda datafile. Attempting to load ...")
+        data = load_esseda(filename)
+    elif "HSB.csv" in filename_lower:
+        print("File identified as HSB-logger datafile. Attempting to load ...")
+        data = load_hsb(filename)
+    elif ".txt" in filename_lower and "drag" not in filename_lower:
+        print("File identified as SMARTwheel datafile. Attempting to load ...")
+        data = load_sw(filename)
+    elif ".dat" in filename_lower:
+        print("File identified as Optipush datafile. Attempting to load ...")
+        data = load_opti(filename)
+    elif ".n3d" in filename_lower:
+        print("File identified as Optotrak datafile. Attempting to load ...")
+        data = load_n3d(filename)
+    elif ".xml" in filename_lower:
+        print("Folder identified as NGIMU folder. Attempting to load ...")
+        data = load_imu(path.split(filename)[0])
+    elif "drag" in filename_lower:
+        print("File identified as dragtest datafile. Attempting to load ...")
+        data = load_drag_test(filename)
+    elif ".csv" in filename_lower:
+        print("File identified as optitrack datafile. Attempting to load ...")
+        data = load_optitrack(filename)
     else:
         raise Exception("No file name given or could not identify data source with load!!")
     print("Data loaded!")
@@ -440,7 +440,7 @@ def load_n3d(filename, verbose=True):
     Returns
     -------
     optodata : ndarray
-        Multidimensional numpy array with xyz [in mm], marker, and sample dimensions.
+        Multidimensional numpy array with marker positions (in m) in sample x xyz x marker dimensions.
 
     """
     with open(filename, "rb") as f:
@@ -468,7 +468,8 @@ def load_n3d(filename, verbose=True):
     optodata = np.array(unpack('f' * num_total, content[256:]))
 
     optodata[optodata <= -10e20] = np.nan  # replace NDF nan with nan
-    optodata = np.reshape(optodata, (numframes, items, subitems)).T  # row = xyz, column = marker, 3rd = samples
+    optodata = np.reshape(optodata, (numframes, items, subitems)).transpose((0, 2, 1))
+    optodata /= 1000  # to meters
     return optodata
 
 
@@ -483,7 +484,7 @@ def load_imu(root_dir, filenames=None):
     root_dir : str
         directory where session is located
     filenames : list, optional
-        list of sensor names or single sensor name that you would like to include
+        list of sensor names or single sensor name that you would like to include, only loads sensor if not specified
 
     Returns
     -------
@@ -500,6 +501,8 @@ def load_imu(root_dir, filenames=None):
         raise Exception("No contents in directory")
     directories = glob(f"{root_dir}/*/")  # folders of all devices
     session_data = dict()
+    if not filenames:
+        filenames = ["sensors"]
 
     for sensordir in directories:  # loop through all sensor directories
         sensor_files = glob(f"{sensordir}/*.csv")
@@ -512,12 +515,13 @@ def load_imu(root_dir, filenames=None):
         for sensor_file in sensor_files:  # loop through all csv files
             sensor_name = path.split(sensor_file)[-1].split(".csv")[0]  # sensor without path or extension
 
-            if filenames and sensor_name not in filenames:
+            if sensor_name not in filenames:
                 continue  # skip if filenames is given and sensor not in filenames
 
             session_data[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
-            session_data[device_name][sensor_name].rename(columns=lambda x: re.sub("[(\[].*?[)\]]", "", x)
-                                                          .replace(" ", "_").lower()[:-1], inplace=True)  # remove units from name
+            new_col_names = session_data[device_name][sensor_name].columns
+            new_col_names = [col.lower().replace(" ", "_").rsplit("_", 1)[0] for col in new_col_names]
+            session_data[device_name][sensor_name].columns = new_col_names
 
         if not session_data[device_name]:
             raise Exception("No data was imported")
