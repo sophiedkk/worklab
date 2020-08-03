@@ -39,7 +39,7 @@ def load(filename=""):
     if not filename_lower:
         raise Exception("Please provide a filename")
     print("\n" + "=" * 80)
-    print(f"Initializing loading for {filename_lower} ...")
+    print(f"Initializing loading for {filename} ...")
     if ".xlsx" in filename_lower or "spiro" in filename_lower:  # COSMED
         print("File identified as COSMED datafile. Attempting to load ...")
         data = load_spiro(filename)
@@ -127,7 +127,7 @@ def load_spiro(filename):
     return data[["time", "HR", "power", "RER", "VO2", "VCO2", "weights"]]
 
 
-def load_opti(filename):
+def load_opti(filename, rotate=True):
     """
     Loads Optipush data from .data file.
 
@@ -154,12 +154,14 @@ def load_opti(filename):
     | angle      | unwrapped wheel angle| rad       |
     +------------+----------------------+-----------+
 
-    .. note:: Optipush uses a local coordinate system
+    .. note:: Optipush uses a local coordinate system, option to rotate Fx and Fy available in >1.6
 
     Parameters
     ----------
     filename : str
         filename or path to Optipush .data (.csv) file
+    rotate : bool
+        whether or not to rotate from a local rotating axis system to a global non-rotating one, default is True
 
     Returns
     -------
@@ -177,6 +179,9 @@ def load_opti(filename):
     opti_df = pd.read_csv(filename, names=names, delimiter="\t", usecols=usecols, dtype=dtypes, skiprows=12)
     opti_df["angle"] *= (np.pi / 180)
     opti_df["torque"] *= -1
+    if rotate:
+        opti_df["fx"] = opti_df["fx"] * np.cos(opti_df["angle"]) + opti_df["fy"] * np.sin(opti_df["angle"])
+        opti_df["fy"] = opti_df["fx"] * -np.sin(opti_df["angle"]) + opti_df["fy"] * np.cos(opti_df["angle"])
     return opti_df
 
 
