@@ -22,7 +22,7 @@ copyright = '2020, R. de Klerk'
 author = 'R. de Klerk, T. Rietveld'
 
 # The full version, including alpha/beta/rc tags
-release = '1.6.1'
+release = '1.6.2'
 
 
 # -- General configuration ---------------------------------------------------

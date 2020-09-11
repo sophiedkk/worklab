@@ -180,8 +180,10 @@ def load_opti(filename, rotate=True):
     opti_df["angle"] *= (np.pi / 180)
     opti_df["torque"] *= -1
     if rotate:
-        opti_df["fx"] = opti_df["fx"] * np.cos(opti_df["angle"]) + opti_df["fy"] * np.sin(opti_df["angle"])
-        opti_df["fy"] = opti_df["fx"] * -np.sin(opti_df["angle"]) + opti_df["fy"] * np.cos(opti_df["angle"])
+        fx = opti_df["fx"] * np.cos(opti_df["angle"]) + opti_df["fy"] * np.sin(opti_df["angle"])
+        fy = opti_df["fx"] * -np.sin(opti_df["angle"]) + opti_df["fy"] * np.cos(opti_df["angle"])
+        opti_df["fx"] = fx
+        opti_df["fy"] = fy
     return opti_df
 
 
