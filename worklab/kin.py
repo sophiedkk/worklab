@@ -271,7 +271,7 @@ def process_ergo(data, wheelsize=0.31, rimsize=0.275):
     return data
 
 
-def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
+def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5, verbose=True):
     """
     Push-by-push analysis for measurement wheel data.
 
@@ -288,31 +288,23 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     +--------------------+----------------------+-----------+
     | cangle_deg         | contact angle        | degrees   |
     +--------------------+----------------------+-----------+
-    | meanpower          | power per push       | W         |
+    | mean/maxpower      | power per push       | W         |
     +--------------------+----------------------+-----------+
-    | maxpower           | peak power per push  | W         |
+    | mean/maxtorque     | torque per push      | Nm        |
     +--------------------+----------------------+-----------+
-    | meantorque         | torque per push      | Nm        |
+    | mean/maxforce      | force per push       | N         |
     +--------------------+----------------------+-----------+
-    | maxtorque          | peak torque per push | Nm        |
+    | mean/maxuforce     | (rim) force per push | N         |
     +--------------------+----------------------+-----------+
-    | meanforce          | mean force per push  | N         |
+    | mean/maxfeff       | feffective per push  | %         |
     +--------------------+----------------------+-----------+
-    | maxforce           | peak force per push  | N         |
-    +--------------------+----------------------+-----------+
-    | meanuforce         | (rim) force per push | N         |
-    +--------------------+----------------------+-----------+
-    | maxuforce          | peak force per push  | N         |
+    | mean/maxftot       | ftotal per push      | N         |
     +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
     | cwork              | work per cycle       | J         |
     +--------------------+----------------------+-----------+
     | negwork            | negative work/cycle  | J         |
-    +--------------------+----------------------+-----------+
-    | meanfeff           | mean feff per push   | %         |
-    +--------------------+----------------------+-----------+
-    | maxfeff            | max feff per push    | %         |
     +--------------------+----------------------+-----------+
     | slope              | slope onset to peak  | Nm/s      |
     +--------------------+----------------------+-----------+
@@ -341,50 +333,51 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0):
     pbp : pd.DataFrame
         push-by-push DataFrame
     """
-    pbp = find_peaks(data[variable], cutoff, minpeak)
-    for ind, (start, stop, peak) in enumerate(zip(pbp["start"], pbp["stop"], pbp["peak"])):  # for each push
-        pbp["tstart"].append(data["time"][start])
-        pbp["tstop"].append(data["time"][stop])
-        pbp["tpeak"].append(data["time"][peak])
-        pbp["cangle"].append(data["angle"][stop] - data["angle"][start])
-        pbp["cangle_deg"].append(np.rad2deg(pbp["cangle"][-1]))
-        pbp["ptime"].append(pbp["tstop"][-1] - pbp["tstart"][-1])
-        window = data.iloc[start:stop+1, :]
-        pbp["meanpower"].append(np.mean(window["power"]))
-        pbp["maxpower"].append(np.max(window["power"]))
-        pbp["meantorque"].append(np.mean(window["torque"]))
-        pbp["maxtorque"].append(np.max(window["torque"]))
-        pbp["meanuforce"].append(np.mean(window["uforce"]))
-        pbp["maxuforce"].append(np.max(window["uforce"]))
-        pbp["meanforce"].append(np.mean(window["force"]))
-        pbp["maxforce"].append(np.max(window["force"]))
-        pbp["work"].append(np.sum(window["work"]))
-        pbp["meanfeff"].append(np.mean(window["feff"]))
-        pbp["maxfeff"].append(np.max(window["feff"]))
-        pbp["slope"].append(pbp["maxtorque"][-1] / (pbp["tpeak"][-1] - pbp["tstart"][-1]))
-        pbp["smoothness"].append(pbp["meanforce"][-1]/pbp["maxforce"][-1])
+    peaks = find_peaks(data[variable], cutoff, minpeak, mindist)
 
-        if ind:  # only after first push
-            pbp["ctime"].append(pbp["tstart"][-1] - pbp["tstart"][-2])
-            pbp["reltime"].append(pbp["ptime"][-2] / pbp["ctime"][-1] * 100)
+    keys = ["start", "stop", "peak", "tstart", "tstop", "tpeak", "cangle", "cangle_deg", "ptime", "meanpower",
+            "maxpower", "meantorque", "maxtorque", "meanuforce", "maxuforce", "meanforce", "maxforce", "work",
+            "meanfeff", "maxfeff", "meanftot", "maxftot", "slope", "smoothness", "ctime", "reltime", "cwork", "negwork"]
+    pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.NaN), columns=keys)  # preallocate dataframe
 
-            window = data.loc[pbp["start"][ind-1]:pbp["start"][ind], "work"]  # select cycle
-            pbp["cwork"].append(np.sum(window))
-            window = window[window <= 0]  # only negative samples
-            pbp["negwork"].append(np.sum(window))
+    pbp["start"] = peaks["start"]
+    pbp["peak"] = peaks["peak"]
+    pbp["stop"] = peaks["stop"]
+    pbp["tstart"] = data["time"][pbp["start"]].values  # get .values so indices align
+    pbp["tstop"] = data["time"][pbp["stop"]].values
+    pbp["tpeak"] = data["time"][pbp["peak"]].values
+    pbp["ptime"] = pbp["tstop"] - pbp["tstart"].values
+    pbp["ctime"] = pbp["tstart"].iloc[1:].reset_index(drop=True) - pbp["tstart"].iloc[:-1].reset_index(drop=True)
+    pbp["reltime"] = (pbp["ptime"] / pbp["ctime"]) * 100
+    pbp["cangle"] = data["angle"][pbp["stop"]].values - data["angle"][pbp["start"]].values
+    pbp["cangle_deg"] = np.rad2deg(pbp["cangle"])
 
-    pbp["ctime"].append(None)  # ensure equal length of arrays
-    pbp["reltime"].append(None)
-    pbp["cwork"].append(None)
-    pbp["negwork"].append(None)
+    bins = pbp[["start", "stop"]].values
+    bins[:, 1] += 1
+    push_bins = np.digitize(data.index, bins.ravel())  # slice dataframe from push start:stop
+    push_group = data.groupby(push_bins)
+    grouped = push_group.agg(["mean", "max"])[1::2].reset_index(drop=True)
+    grouped.columns = [f"{col[1]}{col[0]}" for col in grouped.columns]  # collapse multiindex to match cols with pbp
 
-    pbp = pd.DataFrame(pbp)
+    mean_max_variables = [var for var in keys if "mean" in var or "max" in var]
+    pbp[mean_max_variables] = grouped[mean_max_variables]
+    pbp["slope"] = pbp["maxtorque"] / (pbp["tpeak"] - pbp["tstart"])
+    pbp["smoothness"] = pbp["meanforce"] / pbp["maxforce"]
+    pbp["work"] = push_group["work"].sum()[1::2].reset_index(drop=True)
 
-    print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
+    cycle_bins = np.digitize(data.index, pbp["start"].values)
+    pbp["cwork"] = data[["work"]].groupby(cycle_bins).sum()[1:].reset_index(drop=True)
+    negative_work = data["work"].copy()
+    negative_work[negative_work >= 0] = 0
+    pbp["negwork"] = negative_work.groupby(cycle_bins).sum()[1:].reset_index(drop=True)
+    pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.NaN
+
+    if verbose:
+        print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
     return pbp
 
 
-def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5):
+def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5, verbose=True):
     """
     Push-by-push analysis for wheelchair ergometer data.
 
@@ -401,21 +394,13 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=
     +--------------------+----------------------+-----------+
     | cangle_deg         | contact angle        | degrees   |
     +--------------------+----------------------+-----------+
-    | meanpower          | power per push       | W         |
+    | mean/maxpower      | power per push       | W         |
     +--------------------+----------------------+-----------+
-    | maxpower           | peak power per push  | W         |
+    | mean/maxtorque     | torque per push      | Nm        |
     +--------------------+----------------------+-----------+
-    | meantorque         | torque per push      | Nm        |
+    | mean/maxforce      | force per push       | N         |
     +--------------------+----------------------+-----------+
-    | maxtorque          | peak torque per push | Nm        |
-    +--------------------+----------------------+-----------+
-    | meanforce          | mean force per push  | N         |
-    +--------------------+----------------------+-----------+
-    | maxforce           | peak force per push  | N         |
-    +--------------------+----------------------+-----------+
-    | meanuforce         | (rim) force per push | N         |
-    +--------------------+----------------------+-----------+
-    | maxuforce          | peak force per push  | N         |
+    | mean/maxuforce     | (rim) force per push | N         |
     +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
@@ -452,45 +437,50 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=
     pbp : dict
         dictionary with left and right push-by-push DataFrame
     """
-    pbp = {"left": [], "right": []}
+    pbp_sides = {"left": [], "right": []}
+    keys = ["start", "stop", "peak", "tstart", "tstop", "tpeak", "cangle", "cangle_deg", "ptime", "meanpower",
+            "maxpower", "meantorque", "maxtorque", "meanuforce", "maxuforce", "meanforce", "maxforce", "work",
+            "slope", "smoothness", "ctime", "reltime", "cwork", "negwork"]
+
     for side in data:
-        tmp = find_peaks(data[side][variable], cutoff, minpeak, mindist)
-        for ind, (start, stop, peak) in enumerate(zip(tmp["start"], tmp["stop"], tmp["peak"])):
-            tmp["tstart"].append(data[side]["time"][start])
-            tmp["tstop"].append(data[side]["time"][stop])
-            tmp["tpeak"].append(data[side]["time"][peak])
-            tmp["cangle"].append(data[side]["angle"][stop] - data[side]["angle"][start])
-            tmp["cangle_deg"].append(np.rad2deg(tmp["cangle"][-1]))
-            tmp["ptime"].append(tmp["tstop"][-1] - tmp["tstart"][-1])
-            view = data[side].iloc[start:stop+1, :]
-            tmp["meanpower"].append(np.mean(view["power"]))
-            tmp["maxpower"].append(np.max(view["power"]))
-            tmp["meantorque"].append(np.mean(view["torque"]))
-            tmp["maxtorque"].append(np.max(view["torque"]))
-            tmp["meanuforce"].append(np.mean(view["uforce"]))
-            tmp["maxuforce"].append(np.max(view["uforce"]))
-            tmp["meanforce"].append(np.mean(view["force"]))
-            tmp["maxforce"].append(np.max(view["force"]))
-            tmp["work"].append(np.sum(view["work"]))
-            tmp["slope"].append(tmp["maxtorque"][-1] / (tmp["tpeak"][-1] - tmp["tstart"][-1]))
-            tmp["smoothness"].append(tmp["meanforce"][-1]/tmp["maxforce"][-1])
+        peaks = find_peaks(data[side][variable], cutoff, minpeak, mindist)
+        pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.NaN), columns=keys)  # preallocate
 
-            if ind:  # only after first push
-                tmp["ctime"].append(tmp["tstart"][-1] - tmp["tstart"][-2])
-                tmp["reltime"].append(tmp["ptime"][-2] / tmp["ctime"][-1] * 100)
+        pbp["start"] = peaks["start"]
+        pbp["peak"] = peaks["peak"]
+        pbp["stop"] = peaks["stop"]
+        pbp["tstart"] = data[side]["time"][pbp["start"]].values  # get .values so indices align
+        pbp["tstop"] = data[side]["time"][pbp["stop"]].values
+        pbp["tpeak"] = data[side]["time"][pbp["peak"]].values
+        pbp["ptime"] = pbp["tstop"] - pbp["tstart"].values
+        pbp["ctime"] = pbp["tstart"].iloc[1:].reset_index(drop=True) - pbp["tstart"].iloc[:-1].reset_index(drop=True)
+        pbp["reltime"] = (pbp["ptime"] / pbp["ctime"]) * 100
+        pbp["cangle"] = data[side]["angle"][pbp["stop"]].values - data[side]["angle"][pbp["start"]].values
+        pbp["cangle_deg"] = np.rad2deg(pbp["cangle"])
 
-                window = data[side].iloc[tmp["start"][ind - 1]:tmp["start"][ind], :]  # select cycle
-                tmp["cwork"].append(np.sum(window["work"]))
-                window = window[window <= 0]  # only negative samples
-                tmp["negwork"].append(np.sum(window["work"]))
+        bins = pbp[["start", "stop"]].values
+        bins[:, 1] += 1
+        push_bins = np.digitize(data[side].index, bins.ravel())  # slice dataframe from push start:stop
+        push_group = data[side].groupby(push_bins)
+        grouped = push_group.agg(["mean", "max"])[1::2].reset_index(drop=True)
+        grouped.columns = [f"{col[1]}{col[0]}" for col in grouped.columns]  # collapse multiindex to match cols with pbp
 
-        tmp["ctime"].append(None)  # ensure equal length arrays
-        tmp["reltime"].append(None)
-        tmp["cwork"].append(None)
-        tmp["negwork"].append(None)
+        mean_max_variables = [var for var in keys if "mean" in var or "max" in var]
+        pbp[mean_max_variables] = grouped[mean_max_variables]
+        pbp["slope"] = pbp["maxtorque"] / (pbp["tpeak"] - pbp["tstart"])
+        pbp["smoothness"] = pbp["meanforce"] / pbp["maxforce"]
+        pbp["work"] = push_group["work"].sum()[1::2].reset_index(drop=True)
 
-        pbp[side] = pd.DataFrame(tmp)
+        cycle_bins = np.digitize(data[side].index, pbp["start"].values)
+        pbp["cwork"] = data[side][["work"]].groupby(cycle_bins).sum()[1:].reset_index(drop=True)
+        negative_work = data[side]["work"].copy()
+        negative_work[negative_work >= 0] = 0
+        pbp["negwork"] = negative_work.groupby(cycle_bins).sum()[1:].reset_index(drop=True)
+        pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.NaN
 
-    print("\n" + "=" * 80 + f"\nFound left: {len(pbp['left'])} and right: {len(pbp['right'])} pushes!\n"
-          + "=" * 80 + "\n")
-    return pbp
+        pbp_sides[side] = pd.DataFrame(pbp)
+
+    if verbose:
+        print("\n" + "=" * 80 + f"\nFound left: {len(pbp_sides['left'])} and right: {len(pbp_sides['right'])} pushes!\n"
+              + "=" * 80 + "\n")
+    return pbp_sides
