@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from mpl_toolkits.axisartist import ParasiteAxes
+from mpl_toolkits.axisartist.parasite_axes import HostAxes
+
 from .imu import push_imu
 from .utils import lowpass_butter
 
@@ -190,6 +193,7 @@ def vel_peak_plot(time, vel, name=''):
     ax.legend(loc='lower right', prop={'size': 12})
     ax.set_ylim(0, y_max_vel_value + 0.5)
     ax.autoscale(axis='x', tight=True)
+
     return ax
 
 
@@ -231,6 +235,7 @@ def vel_peak_dist_plot(time, vel, dist, name=''):
     ax1.tick_params(axis='x', labelsize=12)
     ax1.set_title(f"{name} Velocity and distance with vel_peak")
     ax1.legend(loc='lower right', prop={'size': 12})
+    ax1.autoscale(axis='x', tight=True)
 
     # Create time vs. distance figure
     ax2 = ax1.twinx()
@@ -273,7 +278,7 @@ def acc_plot(time, acc, name=''):
     ax.tick_params(axis='x', labelsize=12)
     ax.yaxis.label.set_color('g')
     ax.set_title(f"{name} Acceleration")
-    ax.set_ylim(0, np.max(acc) + 1)
+    ax.set_ylim(np.min(acc) - 1, np.max(acc) + 1)
     ax.autoscale(axis='x', tight=True)
 
     return ax
@@ -314,7 +319,7 @@ def acc_peak_plot(time, acc, name=''):
     ax.yaxis.label.set_color('g')
     ax.set_title(f"{name} Acceleration with acc_peak")
     ax.legend(loc='lower center', prop={'size': 12})
-    ax.set_ylim(0, y_max_acc_value + 1)
+    ax.set_ylim(np.min(acc) - 1, y_max_acc_value + 1)
     ax.autoscale(axis='x', tight=True)
 
     return ax
@@ -347,7 +352,7 @@ def acc_peak_dist_plot(time, acc, dist, name=''):
     # Create time vs. acceleration figure with acc_peak
     plt.style.use("seaborn-darkgrid")
     fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
-    ax1.set_ylim(0, y_max_acc_value + 1)
+    ax1.set_ylim(np.min(acc) - 1, y_max_acc_value + 1)
     ax1.plot(time, acc, 'g')
     ax1.plot(time[y_max_acc], acc[y_max_acc], 'k.',
              label='Acc$_{peak}$: ' + str(round(y_max_acc_value, 2)) + ' m/$s^2$')
@@ -358,6 +363,7 @@ def acc_peak_dist_plot(time, acc, dist, name=''):
     ax1.yaxis.label.set_color('g')
     ax1.legend(loc='lower center', prop={'size': 12})
     ax1.set_title(f"{name} Acceleration and distance with acc_peak")
+    ax1.autoscale(axis='x', tight=True)
 
     # Create time vs. distance figure
     ax2 = ax1.twinx()
@@ -367,7 +373,7 @@ def acc_peak_dist_plot(time, acc, dist, name=''):
     ax2.set_ylabel("Distance [m]", fontsize=12)
     ax2.tick_params(axis='y', colors='b', labelsize=12)
     ax2.yaxis.label.set_color('b')
-    ax1.autoscale(axis='x', tight=True)
+    ax2.autoscale(axis='x', tight=True)
 
     return ax1, ax2
 
@@ -400,7 +406,7 @@ def rot_vel_plot(time, rot_vel, name=''):
     ax.tick_params(axis='x', labelsize=12)
     ax.yaxis.label.set_color('b')
     ax.set_title(f"{name} Rotational Velociy")
-    ax.set_ylim(0, np.max(rot_vel) + 10)
+    ax.set_ylim(np.min(rot_vel) - 10, np.max(rot_vel) + 10)
     ax.autoscale(axis='x', tight=True)
 
     return ax
@@ -412,11 +418,11 @@ def imu_push_plot(time, vel, acc_raw, name=''):
 
     Parameters
     ----------
-    time : np.array, pd.Series
+    time : dict
         time structure
-    vel : np.array, pd.Series
+    vel : dict
         velocity structure
-    acc_raw : np.array, pd.Series
+    acc_raw : dict
         raw acceleration structure
     name : str
         name of a session
@@ -431,7 +437,7 @@ def imu_push_plot(time, vel, acc_raw, name=''):
     push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc_raw, sfreq)
 
     # Calculate processed acceleration from velocity
-    acc = lowpass_butter(np.gradient(vel) * sfreq, sfreq=sfreq, cutoff=10)
+    acc = lowpass_butter(np.gradient(vel) * sfreq, sfreq=sfreq, cutoff=20)
 
     # Create time vs. velocity with push detection figure
     plt.style.use("seaborn-darkgrid")
@@ -445,6 +451,7 @@ def imu_push_plot(time, vel, acc_raw, name=''):
     ax1.tick_params(axis='x', labelsize=12)
     ax1.yaxis.label.set_color('r')
     ax1.set_title(f"{name} Push detection Sprint test")
+    ax1.autoscale(axis='x', tight=True)
 
     # Create time vs. acceleration with push detection figure
     ax2 = ax1.twinx()
@@ -456,6 +463,72 @@ def imu_push_plot(time, vel, acc_raw, name=''):
     ax2.tick_params(axis='y', colors='b', labelsize=12)
     ax2.yaxis.label.set_color('b')
     ax2.legend(frameon=True)
+    ax2.autoscale(axis='x', tight=True)
 
     return ax1, ax2
 
+
+def plot_power_speed_dist(data, title=""):
+    """
+    Plot power, speed and distance versus time. Left (solid line) and right (dotted line) separately.
+
+    Parameters
+    ----------
+    data: dict
+        wheelchair ergometer data dictionary with dataframes
+    title: str
+        a title for the plot
+
+    Returns
+    -------
+    fig: matplotlib.figure.Figure
+    axes: tuple
+        the three axes objects
+
+    """
+    plt.style.use("seaborn-ticks")
+    fig = plt.figure()
+
+    # Generate three axes
+    host = HostAxes(fig, [0.15, 0.1, 0.65, 0.8])
+    par1 = ParasiteAxes(host, sharex=host)
+    par2 = ParasiteAxes(host, sharex=host)
+    host.parasites.append(par1)
+    host.parasites.append(par2)
+
+    # Edit axis visibility
+    host.axis["right"].set_visible(False)
+    par1.axis["right"].set_visible(True)
+    par1.axis["right"].major_ticklabels.set_visible(True)
+    par1.axis["right"].label.set_visible(True)
+
+    # Define third ax
+    new_axisline = par2.get_grid_helper().new_fixed_axis
+    par2.axis["right2"] = new_axisline(loc="right", axes=par2, offset=(60, 0))
+
+    fig.add_axes(host)
+
+    host.plot(data["left"]["time"], data["left"]["power"], "C0", label="Power left")
+    host.plot(data["right"]["time"], data["right"]["power"], "C0", linestyle="dotted", label="Power right")
+    par1.plot(data["left"]["time"], data["left"]["speed"], "C1", label="Speed left")
+    par1.plot(data["right"]["time"], data["right"]["speed"], "C1", linestyle="dotted", label="Speed right")
+    par2.plot(data["left"]["time"], data["left"]["dist"], "C2", label="Distance left")
+    par2.plot(data["right"]["time"], data["right"]["dist"], "C2", linestyle="dotted", label="Distance right")
+
+    host.autoscale(tight=True, axis="x")
+    host.set_ylim(0., max(max(data["left"]["power"]), max(data["right"]["power"])) * 1.5)
+    par1.set_ylim(0., max(max(data["left"]["speed"]), max(data["right"]["speed"])) * 1.1)
+    par2.set_ylim(0., max(max(data["left"]["dist"]), max(data["right"]["dist"])) * 1.1)
+
+    host.set_title(title)
+    host.set_xlabel("Time [s]")
+    host.set_ylabel("Power [W]")
+    par1.set_ylabel("Speed [m/s]")
+    par2.set_ylabel("Distance [m]")
+
+    host.legend(loc="upper left", frameon=True)  # make the legend
+    host.axis["left"].label.set_color("C0")
+    par1.axis["right"].label.set_color("C1")
+    par2.axis["right2"].label.set_color("C2")
+
+    return fig, (host, par1, par2)

@@ -1,5 +1,4 @@
 import csv
-import re
 from collections import defaultdict
 from glob import glob
 from os import listdir, path
@@ -31,43 +30,47 @@ def load(filename=""):
 
     See Also
     --------
-    load_bike, load_esseda, load_hsb, load_n3d, load_opti, load_optitrack, load_session, load_spiro, load_spline,
-    load_sw
+    load_bike, load_esseda, load_hsb, load_n3d, load_opti, load_optitrack, load_imu, load_spiro, load_spline,
+    load_sw, load_opti_offset
 
     """
-    filename = pick_file().lower() if not filename else filename.lower()
-    if not filename:
+    filename = pick_file() if not filename else filename
+    filename_lower = filename.lower()
+    if not filename_lower:
         raise Exception("Please provide a filename")
     print("\n" + "=" * 80)
     print(f"Initializing loading for {filename} ...")
-    if ".xlsx" in filename or "spiro" in filename:  # COSMED
+    if ".xlsx" in filename_lower or "spiro" in filename_lower:  # COSMED
         print("File identified as COSMED datafile. Attempting to load ...")
         data = load_spiro(filename)
-    elif ".xls" in filename and "fiets" not in filename:
-        print("File identified as Esseda datafile. Attempting to load ...")
-        data = load_esseda(filename)
-    elif "HSB.csv" in filename:
-        print("File identified as HSB-logger datafile. Attempting to load ...")
-        data = load_hsb(filename)
-    elif ".txt" in filename and "drag" not in filename:
-        print("File identified as SMARTwheel datafile. Attempting to load ...")
-        data = load_sw(filename)
-    elif ".dat" in filename:
-        print("File identified as Optipush datafile. Attempting to load ...")
-        data = load_opti(filename)
-    elif "fiets" in filename:
+    elif "bike" in filename_lower:
         print("File identified as Bicycle ergometer datafile. Attempting to load ...")
         data = load_bike(filename)
-    elif ".n3d" in filename:
+    elif "offset" in filename_lower:
+        print("File identified as Optipush offset datafile. Attempting to load...")
+        data = load_opti_offset(filename)
+    elif ".xls" in filename_lower:
+        print("File identified as Esseda datafile. Attempting to load ...")
+        data = load_esseda(filename)
+    elif "HSB.csv" in filename_lower:
+        print("File identified as HSB-logger datafile. Attempting to load ...")
+        data = load_hsb(filename)
+    elif ".txt" in filename_lower and "drag" not in filename_lower:
+        print("File identified as SMARTwheel datafile. Attempting to load ...")
+        data = load_sw(filename)
+    elif ".dat" in filename_lower:
+        print("File identified as Optipush datafile. Attempting to load ...")
+        data = load_opti(filename)
+    elif ".n3d" in filename_lower:
         print("File identified as Optotrak datafile. Attempting to load ...")
-        data, _ = load_n3d(filename)
-    elif ".xml" in filename:
+        data = load_n3d(filename)
+    elif ".xml" in filename_lower:
         print("Folder identified as NGIMU folder. Attempting to load ...")
-        data = load_optitrack(path.split(filename)[0], filenames=["sensors"])
-    elif "drag" in filename:
+        data = load_imu(path.split(filename)[0])
+    elif "drag" in filename_lower:
         print("File identified as dragtest datafile. Attempting to load ...")
         data = load_drag_test(filename)
-    elif ".csv" in filename:
+    elif ".csv" in filename_lower:
         print("File identified as optitrack datafile. Attempting to load ...")
         data = load_optitrack(filename)
     else:
@@ -124,7 +127,7 @@ def load_spiro(filename):
     return data[["time", "HR", "power", "RER", "VO2", "VCO2", "weights"]]
 
 
-def load_opti(filename):
+def load_opti(filename, rotate=True):
     """
     Loads Optipush data from .data file.
 
@@ -151,12 +154,14 @@ def load_opti(filename):
     | angle      | unwrapped wheel angle| rad       |
     +------------+----------------------+-----------+
 
-    .. note:: Optipush uses a local coordinate system
+    .. note:: Optipush uses a local coordinate system, option to rotate Fx and Fy available in >1.6
 
     Parameters
     ----------
     filename : str
         filename or path to Optipush .data (.csv) file
+    rotate : bool
+        whether or not to rotate from a local rotating axis system to a global non-rotating one, default is True
 
     Returns
     -------
@@ -174,6 +179,11 @@ def load_opti(filename):
     opti_df = pd.read_csv(filename, names=names, delimiter="\t", usecols=usecols, dtype=dtypes, skiprows=12)
     opti_df["angle"] *= (np.pi / 180)
     opti_df["torque"] *= -1
+    if rotate:
+        fx = opti_df["fx"] * np.cos(opti_df["angle"]) + opti_df["fy"] * np.sin(opti_df["angle"])
+        fy = opti_df["fx"] * -np.sin(opti_df["angle"]) + opti_df["fy"] * np.cos(opti_df["angle"])
+        opti_df["fx"] = fx
+        opti_df["fy"] = fy
     return opti_df
 
 
@@ -437,7 +447,7 @@ def load_n3d(filename, verbose=True):
     Returns
     -------
     optodata : ndarray
-        Multidimensional numpy array with xyz [in mm], marker, and sample dimensions.
+        Multidimensional numpy array with marker positions (in m) in sample x xyz x marker dimensions.
 
     """
     with open(filename, "rb") as f:
@@ -465,7 +475,8 @@ def load_n3d(filename, verbose=True):
     optodata = np.array(unpack('f' * num_total, content[256:]))
 
     optodata[optodata <= -10e20] = np.nan  # replace NDF nan with nan
-    optodata = np.reshape(optodata, (numframes, items, subitems)).T  # row = xyz, column = marker, 3rd = samples
+    optodata = np.reshape(optodata, (numframes, items, subitems)).transpose((0, 2, 1))
+    optodata /= 1000  # to meters
     return optodata
 
 
@@ -480,7 +491,7 @@ def load_imu(root_dir, filenames=None):
     root_dir : str
         directory where session is located
     filenames : list, optional
-        list of sensor names or single sensor name that you would like to include
+        list of sensor names or single sensor name that you would like to include, only loads sensor if not specified
 
     Returns
     -------
@@ -497,6 +508,8 @@ def load_imu(root_dir, filenames=None):
         raise Exception("No contents in directory")
     directories = glob(f"{root_dir}/*/")  # folders of all devices
     session_data = dict()
+    if not filenames:
+        filenames = ["sensors"]
 
     for sensordir in directories:  # loop through all sensor directories
         sensor_files = glob(f"{sensordir}/*.csv")
@@ -509,12 +522,13 @@ def load_imu(root_dir, filenames=None):
         for sensor_file in sensor_files:  # loop through all csv files
             sensor_name = path.split(sensor_file)[-1].split(".csv")[0]  # sensor without path or extension
 
-            if filenames and sensor_name not in filenames:
+            if sensor_name not in filenames:
                 continue  # skip if filenames is given and sensor not in filenames
 
             session_data[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
-            session_data[device_name][sensor_name].rename(columns=lambda x: re.sub("[(\[].*?[)\]]", "", x)
-                                                          .replace(" ", "_").lower()[:-1], inplace=True)  # remove units from name
+            new_col_names = session_data[device_name][sensor_name].columns
+            new_col_names = [col.lower().replace(" ", "_").rsplit("_", 1)[0] for col in new_col_names]
+            session_data[device_name][sensor_name].columns = new_col_names
 
         if not session_data[device_name]:
             raise Exception("No data was imported")
@@ -597,3 +611,49 @@ def load_optitrack(filename, include_header=False):
                                                 names=["X", "Y", "Z"])
         marker_data[marker_label] = marker_data[marker_label][:-1]  # remove last (empty) row
     return marker_data, header if include_header else marker_data
+
+
+def load_opti_offset(filename):
+    """
+    Loads Offset Optipush data from .xls file.
+
+    Loads Offset Optipush data to a pandas DataFrame, converts angle to radians, and flips torque (Tz).
+    Returns a DataFrame with:
+
+    +------------+----------------------+-----------+
+    | Column     | Data                 | Unit      |
+    +============+======================+===========+
+    | fx         | force on local x-axis| N         |
+    +------------+----------------------+-----------+
+    | fy         | force on local y-axis| N         |
+    +------------+----------------------+-----------+
+    | fz         | force on local z-axis| N         |
+    +------------+----------------------+-----------+
+    | mx         | torque around x-axis | Nm        |
+    +------------+----------------------+-----------+
+    | my         | torque around y-axis | Nm        |
+    +------------+----------------------+-----------+
+    | torque     | torque around z-axis | Nm        |
+    +------------+----------------------+-----------+
+    | angle      | unwrapped wheel angle| rad       |
+    +------------+----------------------+-----------+
+
+    .. note:: Optipush uses a local coordinate system
+
+    Parameters
+    ----------
+    filename : str
+        filename or path to Optipush offset .xls (.csv) file
+
+    Returns
+    -------
+    offset_opti_df : pd.DataFrame
+        Offset Optipush data in a pandas DataFrame
+
+    """
+    names = ["fx", "fy", "fz", "mx", "my", "torque", "angle", "angle2"]
+    opti_offset_df = pd.read_csv(filename, names=names, delimiter="\t", skiprows=12)
+    opti_offset_df["angle"] *= (np.pi / 180)
+    opti_offset_df["torque"] *= -1
+
+    return opti_offset_df

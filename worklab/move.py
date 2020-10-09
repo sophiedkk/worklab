@@ -187,20 +187,22 @@ def rotate(vector3d, angle, deg=False, axis="z"):
     if deg:
         angle = np.deg2rad(angle)
 
+    output_vector = vector3d.copy()
+
     if axis.lower() == "x":
-        vector3d[:, 1] = vector3d[:, 1] * np.cos(angle) + vector3d[:, 2] * np.sin(angle)
-        vector3d[:, 2] = vector3d[:, 1] * np.sin(angle) * -1 + vector3d[:, 2] * np.cos(angle)
+        output_vector[:, 1] = vector3d[:, 1] * np.cos(angle) + vector3d[:, 2] * np.sin(angle)
+        output_vector[:, 2] = vector3d[:, 1] * np.sin(angle) * -1 + vector3d[:, 2] * np.cos(angle)
     elif axis.lower() == "y":
-        vector3d[:, 0] = vector3d[:, 0] * np.cos(angle) + vector3d[:, 2] * np.sin(angle)
-        vector3d[:, 2] = vector3d[:, 0] * np.sin(angle) * -1 + vector3d[:, 2] * np.cos(angle)
+        output_vector[:, 0] = vector3d[:, 0] * np.cos(angle) + vector3d[:, 2] * np.sin(angle)
+        output_vector[:, 2] = vector3d[:, 0] * np.sin(angle) * -1 + vector3d[:, 2] * np.cos(angle)
     else:
-        vector3d[:, 0] = vector3d[:, 0] * np.cos(angle) + vector3d[:, 1] * np.sin(angle)
-        vector3d[:, 1] = vector3d[:, 0] * np.sin(angle) * -1 + vector3d[:, 1] * np.cos(angle)
+        output_vector[:, 0] = vector3d[:, 0] * np.cos(angle) + vector3d[:, 1] * np.sin(angle)
+        output_vector[:, 1] = vector3d[:, 0] * np.sin(angle) * -1 + vector3d[:, 1] * np.cos(angle)
 
     if df is not None:
-        df[["X", "Y", "Z"]] = vector3d
-        vector3d = df
-    return vector3d
+        df[["X", "Y", "Z"]] = output_vector
+        output_vector = df
+    return output_vector
 
 
 def magnitude(vector3d):
