@@ -671,7 +671,7 @@ def load_opti_offset(filename):
         Offset Optipush data in a pandas DataFrame
 
     """
-    names = ["fx", "fy", "fz", "mx", "my", "torque", "angle", "angle2"]
+    names = ["fx", "fy", "fz", "mx", "my", "torque", "angle", "angle_360"]
     opti_offset_df = pd.read_csv(filename, names=names, delimiter="\t", skiprows=12)
     opti_offset_df["angle"] *= (np.pi / 180)
     opti_offset_df["torque"] *= -1
