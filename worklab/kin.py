@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.integrate import cumtrapz
-
+from scipy.signal import savgol_filter
 from .utils import lowpass_butter, find_peaks
 
 
@@ -103,7 +103,7 @@ def filter_mw(data, sfreq=200., co_f=15., ord_f=2, co_s=6., ord_s=2, force=True,
         for var in frel:
             data[var] = lowpass_butter(data[var], cutoff=co_f, order=ord_f, sfreq=sfreq)
     if speed:
-        data["angle"] = lowpass_butter(data["angle"], cutoff=co_s, order=ord_s, sfreq=sfreq)
+        data["angle"] = savgol_filter(data["angle"], window_length=wl, polyorder=ord_a)
     return data
 
 
