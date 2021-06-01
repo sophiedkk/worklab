@@ -19,10 +19,10 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 project = 'worklab'
 copyright = '2020, R. de Klerk'
-author = 'R. de Klerk, T. Rietveld'
+author = 'R. de Klerk, T. Rietveld, R.J.F. Janssen'
 
 # The full version, including alpha/beta/rc tags
-release = '1.6.6'
+release = '1.7.0'
 
 
 # -- General configuration ---------------------------------------------------

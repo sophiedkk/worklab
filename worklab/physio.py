@@ -1,10 +1,47 @@
-def get_spirometer_units():
+import numpy as np
+
+def cut_spiro(data_spiro, start, end):
     """
-    Mapping of DataFrame keys to units for spirometer data
+    Cuts data to time of interest
+
+    Parameters
+    ----------
+    data_spiro : pd.dataframe
+        spirometer data
+    start : float
+        start time [s]
+    end : float
+        end time [s]
 
     Returns
     -------
-    mapping : dict
-        table with column names mapped to units
+    data_spiro : dataframe
+        data cutted to time of interest
+
     """
-    return {"time": "s", "HR": "b/min", "power": "W", "VO2": "ml/min", "VCO2": "ml/min", "weights": ""}
+    index_start = abs(data_spiro['time'] - start).idxmin() + 1
+    index_end = abs(data_spiro['time'] - end).idxmin()
+    data_spiro['time'] = data_spiro['time'] - start
+
+    data_spiro = data_spiro.iloc[index_start:index_end]
+    return data_spiro
+
+
+def calc_weighted_average(dataframe, weights):
+    """
+    Calculate the weighted average of all columns in a DataFrame.
+
+    Parameters
+    ----------
+    dataframe : pd.DataFrame
+        input dataframe
+    weights : pd.Series, np.array
+        can be any iterable of equal length
+
+    Returns
+    -------
+    averages : pd.Series
+        the weighted averages of each column
+
+    """
+    return dataframe.apply(lambda col: np.average(col[~np.isnan(col)], weights=weights[~np.isnan(col)]), axis=0)

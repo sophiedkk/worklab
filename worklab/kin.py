@@ -3,7 +3,7 @@ import pandas as pd
 from scipy.integrate import cumtrapz
 from scipy.signal import savgol_filter
 from .utils import lowpass_butter, find_peaks
-
+from .move import rotate_matrix
 
 def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True,
                  speed=True, variable="torque", cutoff=0.0, minpeak=5.0):
@@ -377,7 +377,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5,
     return pbp
 
 
-def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5, verbose=True):
+def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=5, verbose=True):
     """
     Push-by-push analysis for wheelchair ergometer data.
 
@@ -424,11 +424,11 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=
     data : dict
         wheelchair ergometer dictionary
     variable : str
-        variable name used for peak (push) detection
+        variable name used for peak (push) detection, default = power
     cutoff : float
-        noise level for peak (push) detection
+        noise level for peak (push) detection, default = 0
     minpeak : float
-        min peak height for peak (push) detection
+        min peak height for peak (push) detection, default = 50.0
     mindist : int
         minimum sample distance between peak candidates, can be used to speed up algorithm
 
@@ -437,13 +437,16 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=
     pbp : dict
         dictionary with left and right push-by-push DataFrame
     """
-    pbp_sides = {"left": [], "right": []}
+    pbp_sides = {"left": [], "right": [], "mean": []}
     keys = ["start", "stop", "peak", "tstart", "tstop", "tpeak", "cangle", "cangle_deg", "ptime", "meanpower",
             "maxpower", "meantorque", "maxtorque", "meanuforce", "maxuforce", "meanforce", "maxforce", "work",
             "slope", "smoothness", "ctime", "reltime", "cwork", "negwork"]
 
     for side in data:
-        peaks = find_peaks(data[side][variable], cutoff, minpeak, mindist)
+        if (side == 'left') | (side == 'right'):
+            peaks = wl.utils.find_peaks(data[side][variable], cutoff, minpeak, mindist)
+        if (side == 'mean'):
+            peaks = wl.utils.find_peaks(data[side][variable], cutoff, (minpeak*2), mindist)
         pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.NaN), columns=keys)  # preallocate
 
         pbp["start"] = peaks["start"]
@@ -484,3 +487,33 @@ def push_by_push_ergo(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=
         print("\n" + "=" * 80 + f"\nFound left: {len(pbp_sides['left'])} and right: {len(pbp_sides['right'])} pushes!\n"
               + "=" * 80 + "\n")
     return pbp_sides
+
+
+def camber_correct(data, ang):
+    """Correct for camber angle in measurement wheel data
+
+    Parameters
+    ----------
+    data : pd.DataFrame()
+        measurement wheel data with forces/torques in 3D
+
+    ang : int
+        camber angle to correct
+
+    Returns
+    -------
+    data: pd.DataFrame()
+        measurement wheel data with forces/torques in 3D
+        corrected for camber angle
+    """
+
+    force = data[['fx', 'fy', 'fz']].T
+    torques = data[['mx', 'my', 'torque']].T
+
+    rotmat = rotate_matrix(ang/(180*np.pi), axis='x')
+    data[['fx', 'fy', 'fz']] = np.dot(rotmat, force).T
+    data[['mx', 'my', 'torque']] = np.dot(rotmat, torques).T
+
+    return data
+
+

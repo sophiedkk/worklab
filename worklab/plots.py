@@ -70,9 +70,14 @@ def plot_pushes_ergo(data, pushes, var="torque", start=True, stop=True, peak=Tru
         an array containing an axis for the left and right side
 
     """
-    _, axes = plt.subplots(2, 1, sharex="all", sharey="all")
+    _, axes = plt.subplots(3, 1, sharex="all", sharey="all")
+    if title:
+        plt.suptitle('Push detection: ' + str(title))
+    if not title:
+        plt.suptitle('Push detection')
     for idx, side in enumerate(data):
-        axes[idx] = plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
+        axes[idx] = wl.plots.plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
+        axes[idx].set_title(str(side) + ' ' + str(var))
     plt.tight_layout()
     return axes
 
@@ -489,16 +494,25 @@ def imu_push_plot(time, vel, acc_raw, name=''):
     return ax1, ax2
 
 
-def plot_power_speed_dist(data, title=""):
+def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim_distance=None):
     """
-    Plot power, speed and distance versus time. Left (solid line) and right (dotted line) separately.
+    Plot power, speed and distance versus time for left (solid line) and
+    right (dotted line) seperately
+
+    Figure scales automatically, unless you specify it manually with the ylim_* arguments
 
     Parameters
     ----------
     data: dict
-        wheelchair ergometer data dictionary with dataframes
+        processed ergometer data dictionary with dataframes
     title: str
         a title for the plot
+    ylim_power: list [min, max] of float or int, optional
+        list of the minimal and maximal ylim for power in W
+    ylim_speed: list [min, max] of floats or int, optional
+        list of the minimal and maximal ylim for speed in km/h
+    ylim_distance: list [min, max] of floats or int, optional
+        list of the minimal and maximal ylim for distance in m
 
     Returns
     -------
@@ -526,30 +540,43 @@ def plot_power_speed_dist(data, title=""):
     # Define third ax
     new_axisline = par2.get_grid_helper().new_fixed_axis
     par2.axis["right2"] = new_axisline(loc="right", axes=par2, offset=(60, 0))
-
     fig.add_axes(host)
 
-    host.plot(data["left"]["time"], data["left"]["power"], "C0", label="Power left")
-    host.plot(data["right"]["time"], data["right"]["power"], "C0", linestyle="dotted", label="Power right")
-    par1.plot(data["left"]["time"], data["left"]["speed"], "C1", label="Speed left")
-    par1.plot(data["right"]["time"], data["right"]["speed"], "C1", linestyle="dotted", label="Speed right")
-    par2.plot(data["left"]["time"], data["left"]["dist"], "C2", label="Distance left")
-    par2.plot(data["right"]["time"], data["right"]["dist"], "C2", linestyle="dotted", label="Distance right")
+    # Plot data
+    host.plot(data["left"]["time"], data["left"]["power"], "forestgreen", label="Power left")
+    host.plot(data["right"]["time"], data["right"]["power"], "forestgreen", linestyle="dotted", label="Power right")
+    par1.plot(data["left"]["time"], data["left"]["speed"], "firebrick", label="Speed left", alpha=0.7)
+    par1.plot(data["right"]["time"], data["right"]["speed"], "firebrick", linestyle="dotted", label="Speed right", alpha=0.7)
+    par2.plot(data["left"]["time"], data["left"]["dist"], "y", label="Distance left", alpha=0.5)
+    par2.plot(data["right"]["time"], data["right"]["dist"], "y", linestyle="dotted", label="Distance right", alpha=0.5)
 
     host.autoscale(tight=True, axis="x")
-    host.set_ylim(0., max(max(data["left"]["power"]), max(data["right"]["power"])) * 1.5)
-    par1.set_ylim(0., max(max(data["left"]["speed"]), max(data["right"]["speed"])) * 1.1)
-    par2.set_ylim(0., max(max(data["left"]["dist"]), max(data["right"]["dist"])) * 1.1)
+
+    # Scale figure (manually or automatically)
+    if ylim_power:
+        host.set_ylim(ylim_power[0], ylim_power[1])
+    if not ylim_power:
+        host.set_ylim(0., max(max(data["left"]["power"]), max(data["right"]["power"])) * 1.5)
+
+    if ylim_speed:
+        par1.set_ylim(ylim_speed[0], ylim_speed[1])
+    if not ylim_speed:
+        par1.set_ylim(0., max(max(data["left"]["speed"]), max(data["right"]["speed"])) * 1.1)
+
+    if ylim_distance:
+        par2.set_ylim(ylim_distance[0], ylim_distance[1])
+    if not ylim_distance:
+        par2.set_ylim(0., max(max(data["left"]["dist"]), max(data["right"]["dist"])) * 1.1)
 
     host.set_title(title)
     host.set_xlabel("Time [s]")
     host.set_ylabel("Power [W]")
-    par1.set_ylabel("Speed [m/s]")
+    par1.set_ylabel("Speed [km/h]")
     par2.set_ylabel("Distance [m]")
 
     host.legend(loc="upper left", frameon=True)  # make the legend
-    host.axis["left"].label.set_color("C0")
-    par1.axis["right"].label.set_color("C1")
-    par2.axis["right2"].label.set_color("C2")
+    host.axis["left"].label.set_color("forestgreen")
+    par1.axis["right"].label.set_color("firebrick")
+    par2.axis["right2"].label.set_color("y")
 
     return fig, (host, par1, par2)

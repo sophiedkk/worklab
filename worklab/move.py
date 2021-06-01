@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-
+from numpy.linalg import solve
+from scipy.spatial.transform import Rotation as R
 
 def get_perp_vector(vector2d, clockwise=True, normalized=True):
     """
@@ -309,3 +310,587 @@ def marker_angles(v_1, v_2, deg=False):
 def is_unit_length(vector3d, atol=1.e-8):
     """Checks whether an array ([1, 3] or [n, 3]) is equal to unit length given a tolerance"""
     return np.allclose(magnitude(vector3d), 1.0, rtol=0, atol=atol)
+
+
+def acs_to_car_ang(acs, order=[0, 1, 2]):
+    """Anatomical coordinate system to cardanic angles
+
+    Note: Only works if used in the DSEM coordinate system
+    Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Parameters
+    ----------
+    acs: np.array
+        anatomical coordinate system
+
+    order: list[int]
+        list of integers 0='x', 1='y', 2='z'
+
+    Returns
+    -------
+    angles: np.array
+        cardanic angles
+    """
+
+    i = order[0]
+    j = order[1]
+    k = order[2]
+
+    if np.remainder(j - i + 3, 3) == 1:
+        a = 1
+    else:
+        a = -1
+
+    if i != k:  # Cardan angles
+        a1 = np.arctan2(-a * acs[:, j, k], acs[:, k, k])
+        a2 = np.arcsin(a * acs[:, i, k])
+        a3 = np.arctan2(-a * acs[:, i, j], acs[:, i, i])
+
+    else:  # Euler angles
+        l = 3 - i - j
+        a1 = np.arctan2(acs[:, j, i], -a * acs[:, l, i])
+        a2 = np.arccos(acs[:, i, i])
+        a3 = np.arctan2(acs[:, i, j], a * acs[:, i, l])
+
+    angles = np.stack([a1, a2, a3], axis=1)
+
+    return angles
+
+
+def make_marker_dict(markers, marker_names=None):
+    """Create a dictionary of nx3 arrays with name samples
+
+    Parameters
+    ----------
+    marker : np.array
+        marker points
+
+    marker_names : list[strings]
+        list of marker names
+
+    Returns
+    -------
+    marker_dict: dict[np.array]
+        dictionary of nx3 markers with names
+    """
+
+    if marker_names is None:
+        marker_names = ['Hand1', 'Hand2', 'Hand3', 'Low_arm1', 'Low_arm2', 'Low_arm3', 'Up_arm1', 'Up_arm2', 'Up_arm3',
+
+                        'Acro1', 'Acro2', 'Acro3', 'Sternum1', 'Sternum2', 'Sternum3', 'Wheel1', 'Wheel2', 'Wheel3',
+
+                        'Racket1', 'Racket2', 'Racket3', 'M2', 'M5', 'RS', 'US', 'EM', 'EL', 'TS', 'AI', 'AA',
+
+                        'AC', 'PC', 'C7', 'T8', 'PX', 'IJ', 'SC', 'Centre', '12 clock', '4 clock', '8 clock', 'TopBlade',
+
+                        'LeftBlade', 'BottomGrip']
+
+    if len(marker_names) != markers.shape[2]:
+        raise IndexError("Number of names and markers are not identical.")
+    marker_dict = {}
+
+    for idx, name in enumerate(marker_names):
+        marker_dict[name] = markers[..., idx]
+    return marker_dict
+
+
+def rotate_matrix(ang, axis='z'):
+    """Create a rotation matrix to rotate around x, y or z-axis
+
+    Parameters
+    ----------
+    ang : int
+        angle of rotation
+
+    axis : string (default = 'z')
+        axis of rotation, 'x', 'y' or 'z'
+
+    Returns
+    -------
+    rotate: np.array
+        rotation matrix
+    """
+
+    if axis.lower() == 'x':
+        rotate = [[1, 0, 0], [0, np.cos(ang), -np.sin(ang)], [0, np.sin(ang), np.cos(ang)]]
+    elif axis.lower() == 'y':
+        rotate = [[np.cos(ang), 0, np.sin(ang)], [0, 1, 0], [-np.sin(ang), 0, np.cos(ang)]]
+    else:
+        rotate = [[np.cos(ang), -np.sin(ang), 0], [np.sin(ang), np.cos(ang), 0], [0, 0, 1]]
+
+    return rotate
+
+
+def get_local_coordinate(marker, acs, origin):
+    """Make the local coordinate system from the anatomical coordinate system
+
+    Parameters
+    ----------
+    marker : np.array
+        marker points
+
+    acs : np.array
+        anatomical coordinate system
+
+    origin : np.array
+        origin for the local coordinate system
+
+    Returns
+    -------
+    local_marker : dict[np.array]
+        local coordinate system
+    """
+
+    marker = marker.copy()
+    marker -= origin
+    local_marker = solve(acs, marker)
+
+    return local_marker
+
+
+def make_acs_sc(AA, TS, AI, DSEM=False):
+    """Make the anatomical coordinate system of the scapula based on ISB recommendations
+
+    Y is pointing upwards
+    X is pointing to the front
+    Z is pointing laterally to the right
+
+    Parameters
+    ----------
+    AA : np.array
+        data points of the angulus acromialis
+
+    TS : np.array
+        data points of the trigonum spinae
+
+    AI : np.array
+        data points of the angulus inferior
+
+    DSEM : boolean
+        set to True to use coordinate system guidelines DSEM
+        Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Returns
+    -------
+    local : dict[np.array]
+        local coordinate system of the scapula
+
+    acs : np.array
+        anatomical coordinate system of the scapula
+
+    origin: np.array
+        origin of the local coordinate system of the scapula
+    """
+    origin = AA
+
+    if DSEM is False:
+        z_axis = AA - TS
+        support_vector = AI - AA
+        x_axis = np.cross(z_axis, support_vector, axis=1)
+        y_axis = np.cross(z_axis, x_axis, axis=1)
+    else:
+        x_axis = AA - TS
+        support_vector = AA - AI
+        z_axis = np.cross(x_axis, support_vector, axis=1)
+        y_axis = np.cross(z_axis, x_axis, axis=1)
+
+    z_axis = normalize(z_axis)
+    x_axis = normalize(x_axis)
+    y_axis = normalize(y_axis)
+
+    acs = np.stack([x_axis, y_axis, z_axis], axis=2)
+    local = {}
+    points = [AA, TS, AI]
+    names = ['AA', 'TS', 'AI']
+    for points, names in zip(points, names):
+        local[names] = get_local_coordinate(points, acs, origin)
+
+    return local, acs, origin
+
+
+def make_acs_th(IJ, PX, C7, T8, DSEM=False):
+    """Make the anatomical coordinate system of the thorax based on ISB recommendations
+
+    Y is pointing upwards
+    X is pointing to the front
+    Z is pointing laterally to the right
+
+    Parameters
+    ----------
+    IJ : np.array
+        data points of the incisura jugularis
+
+    PX : np.array
+        data points of the processus xiphoideus
+
+    C7: np.array
+        data points of C7
+
+    T8: np.array
+        data points of T8
+
+    DSEM: boolean (default = False)
+        set to True to use coordinate system guidelines DSEM
+        Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Returns
+    -------
+    local : dict[np.array]
+        local coordinate system of the thorax
+
+    acs : np.array
+        anatomical coordinate system of the thorax
+
+    origin: np.array
+        origin of the local coordinate system of the thorax
+    """
+    origin = IJ
+    y_axis = (C7 + IJ) / 2 - (T8 + PX) / 2
+
+    if DSEM is False:
+        support_vector = normalize(IJ - (C7 + IJ) / 2)
+        z_axis = np.cross(support_vector, y_axis, axis=1)
+        x_axis = np.cross(y_axis, z_axis, axis=1)
+    else:
+        support_vector = normalize((C7 + IJ) / 2 - IJ)
+        x_axis = np.cross(y_axis, support_vector, axis=1)
+        z_axis = np.cross(x_axis, y_axis, axis=1)
+
+    z_axis = normalize(z_axis)
+    x_axis = normalize(x_axis)
+    y_axis = normalize(y_axis)
+
+    acs = np.stack([x_axis, y_axis, z_axis], axis=2)
+    local = {}
+    points = [IJ, PX, C7, T8]
+    names = ['IJ', 'PX', 'C7', 'T8']
+    for points, names in zip(points, names):
+        local[names] = get_local_coordinate(points, acs, origin)
+
+    return local, acs, origin
+
+
+def make_acs_cl(SC, AC, IJ, PX, C7, T8, AA=None, DSEM=False):
+    """Make the anatomical coordinate system of the clavicule based on ISB recommendations
+
+    Y is pointing upwards
+    X is pointing to the front
+    Z is pointing laterally to the right
+
+    Parameters
+    ----------
+    SC: np.array
+        data points of the sternoclaviculare joint
+
+    AC: np.array
+        data points of the dorsal acromioclaviculare joint
+
+    IJ : np.array
+        data points of the incisura jugularis
+
+    PX : np.array
+        data points of the processus xiphoideus
+
+    C7: np.array
+        data points of C7
+
+    T8: np.array
+        data points of T8
+
+    AA: np.array
+        data points of AA (only necessary for DSEM)
+
+    DSEM: boolean (default = False)
+        set to True to use coordinate system guidelines DSEM
+        Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Returns
+    -------
+    local : dict[np.array]
+        local coordinate system of the clavicule
+
+    acs : np.array
+        anatomical coordinate system of the clavicule
+
+    origin: np.array
+        origin of the local coordinate system of the clavicule
+    """
+
+    origin = SC
+
+    if DSEM is False:
+        z_axis = AC - SC
+        support_vector = ((C7 + IJ) / 2 - (T8 + PX) / 2)
+        x_axis = np.cross(support_vector, z_axis, axis=1)
+        y_axis = np.cross(z_axis, x_axis, axis=1)
+        points = [SC, AC, IJ, PX, C7, T8]
+        names = ['SC', 'AC', 'IJ', 'PX', 'C7', 'T8']
+    else:
+        x_axis = AC - SC
+        support_vector = AA - AC
+        y_axis = np.cross(support_vector, x_axis, axis=1)
+        z_axis = np.cross(x_axis, y_axis, axis=1)
+        points = [SC, AC, AA]
+        names = ['SC', 'AC', 'AA']
+
+    z_axis = normalize(z_axis)
+    x_axis = normalize(x_axis)
+    y_axis = normalize(y_axis)
+
+    acs = np.stack([x_axis, y_axis, z_axis], axis=2)
+    local = {}
+    for points, names in zip(points, names):
+        local[names] = get_local_coordinate(points, acs, origin)
+
+    return local, acs, origin
+
+
+def make_acs_hu(GH, EL, EM, DSEM=False):
+    """Make the anatomical coordinate system of the humerus based on ISB recommendations
+
+    Y is pointing upwards
+    X is pointing to the front
+    Z is pointing laterally to the right
+
+    Parameters
+    ----------
+    GH: np.array
+        data points of the glenohumeral rotation centre
+
+    EL: np.array
+        data points of the epicondylus lateral
+
+    EM: np.array
+        data points of the epicondylus medial
+
+    DSEM: boolean (default = False)
+        set to True to use coordinate system guidelines DSEM
+        Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Returns
+    -------
+    local : dict[np.array]
+        local coordinate system of the humerus
+
+    acs : np.array
+        anatomical coordinate system of the humerus
+
+    origin: np.array
+        origin of the local coordinate system of the humerus
+    """
+    if DSEM is False:
+        origin = GH
+        y_axis = GH - (EL + EM) / 2
+        support_vector = EM - EL
+        x_axis = np.cross(support_vector, y_axis, axis=1)
+        z_axis = np.cross(x_axis, y_axis, axis=1)
+    else:
+        origin = (EM + EL) / 2
+        y_axis = GH - origin
+        support_vector = EL - origin
+        z_axis = np.cross(support_vector, y_axis, axis=1)
+        x_axis = np.cross(y_axis, z_axis)
+
+    z_axis = normalize(z_axis)
+    x_axis = normalize(x_axis)
+    y_axis = normalize(y_axis)
+
+    acs = np.stack([x_axis, y_axis, z_axis], axis=2)
+    local = {}
+    points = [GH, EL, EM]
+    names = ['GH', 'EL', 'EM']
+    for points, names in zip(points, names):
+        local[names] = get_local_coordinate(points, acs, origin)
+
+    return local, acs, origin
+
+
+def make_acs_fa(US, RS, EL, EM, DSEM=False):
+    """Make the anatomical coordinate system of the forearm based on ISB recommendations
+
+    Y is pointing upwards
+    X is pointing to the front
+    Z is pointing laterally to the right
+
+    Parameters
+    ----------
+    US: np.array
+        data points of the ulna styloid
+
+    RS: np.array
+        data points of the radial styloid
+
+    EL: np.array
+        data points of the epicondylus lateral
+
+    EM: np.array
+        data points of the epicondylus medial
+
+    DSEM: boolean (default = False)
+        set to True to use coordinate system guidelines DSEM
+        Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Returns
+    -------
+    local : dict[np.array]
+        local coordinate system of the forearm
+
+    acs : np.array
+        anatomical coordinate system of the forearm
+
+    origin: np.array
+        origin of the local coordinate system of the forearm
+    """
+    if DSEM is False:
+        origin = US
+        y_axis = (EL + EM) / 2 - US
+        support_vector = RS - US
+        x_axis = np.cross(y_axis, support_vector, axis=1)
+        z_axis = np.cross(x_axis, y_axis, axis=1)
+    else:
+        origin = (US + RS) / 2
+        y_axis = origin - (EM + EL) / 2
+        x_axis = origin - RS
+        z_axis = np.cross(x_axis, y_axis)
+
+    z_axis = normalize(z_axis)
+    x_axis = normalize(x_axis)
+    y_axis = normalize(y_axis)
+
+    acs = np.stack([x_axis, y_axis, z_axis], axis=2)
+    local = {}
+    points = [US, RS, EL, EM]
+    names = ['US', 'RS', 'EL', 'EM']
+    for points, names in zip(points, names):
+        local[names] = get_local_coordinate(points, acs, origin)
+
+    return local, acs, origin
+
+
+def make_acs_hand(M2, M5, US, RS):
+    """Make the anatomical coordinate system of the hand in DSEM
+
+    Y is pointing upwards
+    X is pointing laterally to the right
+    Z is pointing backwards
+
+    Parameters
+    ----------
+    M2: np.array
+        data points of metacarpal 2
+
+    M5: np.array
+        data points of metacarpal 5
+
+    US: np.array
+        data points of the ulna styloid
+
+    RS: np.array
+        data points of the radial styloid
+
+    Returns
+    -------
+    local : dict[np.array]
+        local coordinate system of the hand
+
+    acs : np.array
+        anatomical coordinate system of the hand
+
+    origin: np.array
+        origin of the local coordinate system of the hand
+    """
+
+    origin = (M5 + M2) / 2
+    y_axis = origin - (US + RS) / 2
+    x_axis = origin - M2
+    z_axis = np.cross(x_axis, y_axis, axis=1)
+
+    z_axis = normalize(z_axis)
+    x_axis = normalize(x_axis)
+    y_axis = normalize(y_axis)
+
+    acs = np.stack([x_axis, y_axis, z_axis], axis=2)
+    local = {}
+    points = [M2, M5, US, RS]
+    names = ['M2', 'M5', 'US', 'RS']
+    for points, names in zip(points, names):
+        local[names] = get_local_coordinate(points, acs, origin)
+
+    return local, acs, origin
+
+
+def flexext_prosup(GH, EL, EM, US, RS):
+    """Flexion/extension as well as pro/supination in the DSEM reference frame
+    Y pointing upward, X pointing laterally to the right and Z point backwards
+
+    Parameters
+    ----------
+    GH: np.array
+        data points of the glenohumeral rotation centre
+
+    EL: np.array
+        data points of the epicondylus lateral
+
+    EM: np.array
+        data points of the epicondylus medial
+
+    US: np.array
+        data points of the ulna styloid
+
+    RS: np.array
+        data points of the radial styloid
+
+    Returns
+    -------
+    angles: np.array
+        angles for flexion/extention, as well as pro/supination
+    """
+
+    local_hu, acs_hu, origin_hu = make_acs_hu(GH, EL, EM, DSEM=True)
+    local_fa, acs_fa, origin_fa = make_acs_fa(US, RS, EL, EM, DSEM=True)
+
+    elbow = solve(acs_hu, acs_fa)
+    angles = acs_to_car_ang(elbow, order=[0, 2, 1], DSEM=True) * 180 / np.pi
+    angles = angles[:, 0:2]
+
+    return angles
+
+
+def find_gh_regression(markers):
+    """Get the location of the glenohumeral joint in the global coordinate system of DSEM
+    In vivo estimation of the glenohumeral joint rotation center from scapular bony landmarks by linear regression
+    C.G.M. Meskers, F.C.T. van der Helm, L.A. Rozendaal, P.M. Rozing
+
+    Parameters
+    ----------
+    markers: np.array
+        data points of upper-limb kinematics
+
+    Returns
+    -------
+    GH: np.array
+        Glenohumeral rotation center in the global coordinate system
+    """
+
+    origin = markers["AA"]
+    local, acs, origin = make_acs_sc(origin, markers["TS"], markers["AI"], DSEM=True)
+    data_r = {}
+
+    for name in ["AA", "AC", "AI", "PC", "TS"]:
+        data_r[name] = get_local_coordinate(markers[name], acs, origin)
+
+    AI2AA = magnitude(data_r["AI"] - data_r["AA"])[0]
+    AC2AA = magnitude(data_r["AC"] - data_r["AA"])[0]
+    AC2PC = magnitude(data_r["AC"] - data_r["PC"])[0]
+    TS2PC = magnitude(data_r["TS"] - data_r["PC"])[0]
+
+    PC, AI, AA = data_r["PC"], data_r["AI"], data_r["AA"]
+
+    x_pos = 0.0189743 + PC[:, 0] * 0.2434 + PC[:, 1] * 0.0558 + AI[:, 0] * 0.2341 + AI2AA * 0.1590
+    y_pos = -0.0038791 + AC2AA * - 0.3940 + PC[:, 1] * 0.1732 + AI[:, 0] * 0.1205 + AC2PC * -0.1002
+    z_pos = 0.0092629 + PC[:, 2] * 1.0255 + PC[:, 1] * -0.2403 + TS2PC * 0.1720
+
+    gh_location = np.stack([x_pos, y_pos, z_pos], axis=1)
+    gh_global = origin + np.einsum('ijk,ik->ij', acs, gh_location)
+
+    return gh_global
