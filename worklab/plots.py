@@ -412,6 +412,27 @@ def rot_vel_plot(time, rot_vel, name=''):
     return ax
 
 
+def set_axes_equal_3d(axes):
+    """
+    Set 3D plot axes to equal scale and size
+
+    Parameters
+    ----------
+    axes : matplotlib.axes._subplots.Axes3DSubplot
+        axes containing 3D plotted data
+    """
+    axes.set_box_aspect([1, 1, 1])
+    limits = np.array([axes.get_xlim3d(),
+                       axes.get_ylim3d(),
+                       axes.get_zlim3d()])
+    origin = np.mean(limits, axis=1)
+    radius = 0.5 * np.max(np.abs(limits[:, 1] - limits[:, 0]))
+    x, y, z = origin
+    axes.set_xlim3d([x - radius, x + radius])
+    axes.set_ylim3d([y - radius, y + radius])
+    axes.set_zlim3d([z - radius, z + radius])
+
+
 def imu_push_plot(time, vel, acc_raw, name=''):
     """
     Plot push detection with IMUs

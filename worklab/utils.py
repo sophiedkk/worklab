@@ -443,9 +443,9 @@ def zerocross1d(x, y, indices=False):
 
     Parameters
     ----------
-    x : np.array
-        time variable
-    y : np.array
+    x : np.array, pd.Series
+        time/sample variable
+    y : np.array, pd.Series
         y variable
     indices : bool
         return indices or not, default is False
@@ -456,6 +456,8 @@ def zerocross1d(x, y, indices=False):
         position in time and optionally the index of the sample before the zero-crossing
 
     """
+    x = np.asarray(x)
+    y = np.asarray(y)
     # Indices of points *before* zero-crossing
     indi = np.where(y[1:] * y[0:-1] < 0.0)[0]
 
@@ -480,7 +482,7 @@ def zerocross1d(x, y, indices=False):
     sind = np.argsort(zeroc_xvalues)
     zeroc_xvalues, zeroc_indices = zeroc_xvalues[sind], zeroc_indices[sind]
 
-    return zeroc_xvalues, zeroc_indices if indices else zeroc_xvalues
+    return (zeroc_xvalues, zeroc_indices) if indices else zeroc_xvalues
 
 
 def camel_to_snake(name: str):

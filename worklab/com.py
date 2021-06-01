@@ -610,7 +610,7 @@ def load_optitrack(filename, include_header=False):
         marker_data[marker_label] = pd.read_csv(filename, skiprows=list(range(7)), usecols=marker_columns,
                                                 names=["X", "Y", "Z"])
         marker_data[marker_label] = marker_data[marker_label][:-1]  # remove last (empty) row
-    return marker_data, header if include_header else marker_data
+    return (marker_data, header) if include_header else marker_data
 
 
 def load_opti_offset(filename):

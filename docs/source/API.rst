@@ -265,37 +265,17 @@ acc_plot
 ^^^^^^^^
 .. autofunction:: worklab.plots.acc_plot
 
-butterfly_plot
-^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.butterfly_plot
-
 imu_push_plot
 ^^^^^^^^^^^^^
 .. autofunction:: worklab.plots.imu_push_plot
-
-overview_butterfly_plot
-^^^^^^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.overview_butterfly_plot
-
-overview_spider_plot
-^^^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.overview_spider_plot
-
-overview_sprint_plot
-^^^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.overview_sprint_plot
 
 rot_vel_plot
 ^^^^^^^^^^^^
 .. autofunction:: worklab.plots.rot_vel_plot
 
-spider_plot
-^^^^^^^^^^^
-.. autofunction:: worklab.plots.spider_plot
-
-straight_sprint_plot
-^^^^^^^^^^^^^^^^^^^^
-.. autofunction:: worklab.plots.straight_sprint_plot
+set_axes_equal_3d
+^^^^^^^^^^^^^^^^^
+.. autofunction:: worklab.plots.set_axes_equal_3d
 
 vel_peak_dist_plot
 ^^^^^^^^^^^^^^^^^^
