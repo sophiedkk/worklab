@@ -112,26 +112,6 @@ def pick_save_file(initialdir=None):
     return filename
 
 
-def calc_weighted_average(dataframe, weights):
-    """
-    Calculate the weighted average of all columns in a DataFrame.
-
-    Parameters
-    ----------
-    dataframe : pd.DataFrame
-        input dataframe
-    weights : pd.Series, np.array
-        can be any iterable of equal length
-
-    Returns
-    -------
-    averages : pd.Series
-        the weighted averages of each column
-    
-    """
-    return dataframe.apply(lambda col: np.average(col[~np.isnan(col)], weights=weights[~np.isnan(col)]), axis=0)
-
-
 def make_calibration_spline(calibration_points):
     """
     Makes a pre-1.0.4 calibration spline for the Esseda wheelchair ergometer.

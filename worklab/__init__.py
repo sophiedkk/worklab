@@ -1,8 +1,8 @@
 """Worklab data processing package"""
 
-__version__ = "1.6.6"
+__version__ = "1.7.0"
 
-__all__ = ['com', 'kin', 'move', 'physio', 'utils', 'plots', 'imu']
+__all__ = ['com', 'kin', 'move', 'physio', 'utils', 'plots', 'imu', 'ana']
 
 from . import com
 from . import kin

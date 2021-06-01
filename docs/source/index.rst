@@ -45,7 +45,7 @@ Authors
 ^^^^^^^
 * **Rick de Klerk** - *Initial work* - `GitLab <https://gitlab.com/rickdkk>`_ - `UMCG <https://www.rug.nl/staff/r.de.klerk/>`_
 * **Thomas Rietveld** - `GitLab <https://gitlab.com/Thomas2016>`_ - `UMCG <https://www.rug.nl/staff/t.rietveld>`_
-
+* **Rowie Janssen** - `UMCG <http://www.wheelpower.online>`_
 Citing
 ^^^^^^
 If you want to refer to this package please use this DOI: 10.5281/zenodo.3268671, or cite:

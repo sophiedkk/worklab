@@ -84,27 +84,41 @@ def load_spiro(filename):
     """
     Loads COSMED spirometer data from Excel file.
 
-    Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes power from the energy
-    expenditure, computes weights from the time difference between samples, if no heart rate data is available it fills
-    the column with np.NaNs, also includes VO2 and VCO2. Returns a DataFrame with:
+    Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
+    computes weights from the time difference between samples, if no heart rate data is available it fills
+    the column with np.NaNs. Returns a DataFrame with:
 
-    +------------+----------------------+-----------+
-    | Column     | Data                 | Unit      |
-    +============+======================+===========+
-    | time       | time at breath       | s         |
-    +------------+----------------------+-----------+
-    | power      | power at breath      | N         |
-    +------------+----------------------+-----------+
-    | weights    | sample weight        |           |
-    +------------+----------------------+-----------+
-    | HR         | heart rate           | bpm       |
-    +------------+----------------------+-----------+
-    | RER        | exchange ratio       | VCO2/VO2  |
-    +------------+----------------------+-----------+
-    | VO2        | oxygen               | [mL/min]  |
-    +------------+----------------------+-----------+
-    | VCO2       | carbon dioxide       | [mL/min]  |
-    +------------+----------------------+-----------+
+    +------------+----------------------------+-----------+
+    | Column     | Data                        | Unit     |
+    +============+============================+===========+
+    | time       | time at breath             | s         |
+    +------------+----------------------------+-----------+
+    | HR         | heart rate                 | bpm       |
+    +------------+----------------------------+-----------+
+    | EE         | energy expenditure         | J/s       |
+    +------------+----------------------------+-----------+
+    | RER        | exchange ratio             | VCO2/VO2  |
+    +------------+----------------------------+-----------+
+    | VO2        | oxygen                     | l/min     |
+    +------------+----------------------------+-----------+
+    | VCO2       | carbon dioxide             | l/min     |
+    +------------+----------------------------+-----------+
+    | VE         | ventilation                | l/min     |
+    +------------+----------------------------+-----------+
+    | VE/VO2     | ratio VE/VO2| -            |           |
+    +------------+----------------------------+-----------+
+    | VE/VCO2    | ratio VE/VCO2              | -         |
+    +------------+----------------------------+-----------+
+    | O2pulse    | oxygen pulse  (VO2/HR)     | -         |
+    +------------+----------------------------+-----------+
+    | PetO2      | end expiratory O2 tension  | mmHg      |
+    +------------+----------------------------+-----------+
+    | PetCO2     | end expiratory CO2 tension | mmHg      |
+    +------------+----------------------------+-----------+
+    | VT         | tidal volume               | l         |
+    +------------+----------------------------+-----------+
+    | weights    | sample weight              | -         |
+    +------------+----------------------------+-----------+
 
     Parameters
     ----------
@@ -119,12 +133,18 @@ def load_spiro(filename):
     """
     data = pd.read_excel(filename, skiprows=[1, 2], usecols="J:XX")
     data["time"] = data.apply(lambda row: pd_dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
-    data["power"] = data["EEm"] * 4184 / 60  # added power (kcal/min to J/s)
+    data["EE"] = data["EEm"] * 4184 / 60  # kcal/min to J/s
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
+    data["VO2"] = data["VO2"] / 1000  # to l/min
+    data["VCO2"] = data["VCO2"] / 1000  # to l/min
     data["RER"] = data["VCO2"] / data["VO2"]
     data["HR"] = np.NaN if "HR" not in data else data["HR"]  # missing when sensor is not detected
+    data["O2pulse"] = data["VO2"] / data["HR"]
+    data["VE/VO2"] = data["VE"] / data["VO2"]
+    data["VE/VCO2"] = data["VE"] / data["VCO2"]
+
     data = data[data["time"] > 0]  # remove "missing" data
-    return data[["time", "HR", "power", "RER", "VO2", "VCO2", "weights"]]
+    return data[["time", "HR", "EE", "RER", "VO2", "VCO2", "VE", "VE/VO2", "VE/VCO2", "O2pulse", "PetO2", "PetCO2", "VT", "weights"]]
 
 
 def load_opti(filename, rotate=True):
