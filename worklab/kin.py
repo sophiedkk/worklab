@@ -63,7 +63,7 @@ def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2
     return data, pushes
 
 
-def filter_mw(data, sfreq=200., co_f=15., ord_f=2, co_s=6., ord_s=2, force=True, speed=True):
+def filter_mw(data, sfreq=200., co_f=15., ord_f=2, wl=201, ord_a=2, force=True, speed=True):
     """
     Filters measurement wheel data.
 
@@ -79,10 +79,10 @@ def filter_mw(data, sfreq=200., co_f=15., ord_f=2, co_s=6., ord_s=2, force=True,
         cutoff frequency force filter [Hz]
     ord_f : int
         order force filter [..]
-    co_s : float
-        cutoff frequency force filter [Hz]
-    ord_s : int
-        order speed filter [..]
+    wl : float
+        window length angle filter
+    ord_a : int
+        order angle filter [..]
     force : bool
         force filter toggle, default is True
     speed : bool
