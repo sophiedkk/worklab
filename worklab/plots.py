@@ -80,7 +80,7 @@ def plot_pushes_ergo(data, pushes, title=None, var="power", start=True, stop=Tru
     if not title:
         plt.suptitle('Push detection')
     for idx, side in enumerate(data):
-        axes[idx] = wl.plots.plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
+        axes[idx] = plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
         axes[idx].set_title(str(side) + ' ' + str(var))
     plt.tight_layout()
     return axes
