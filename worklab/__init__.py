@@ -11,3 +11,4 @@ from . import physio
 from . import utils
 from . import plots
 from . import imu
+from . import ana

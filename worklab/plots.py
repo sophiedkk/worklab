@@ -47,16 +47,20 @@ def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax
     return ax
 
 
-def plot_pushes_ergo(data, pushes, var="torque", start=True, stop=True, peak=True):
+def plot_pushes_ergo(data, pushes, title=None, var="power", start=True, stop=True, peak=True):
     """
-    Plot left and right side ergometer push data.
+    Plot left, right and mean side ergometer push data
 
     Parameters
     ----------
     data : dict
+        processed ergometer data dictionary with dataframes
     pushes : dict
+        processed push_by_push ergometer data dictionary with dataframes
+    title : str
+        title of the plot, optional
     var : str
-        variable to plot, default is torque
+        variable to plot, default is power
     start : bool
         plot push starts, default is True
     stop : bool
@@ -67,7 +71,7 @@ def plot_pushes_ergo(data, pushes, var="torque", start=True, stop=True, peak=Tru
     Returns
     -------
     axes : np.array
-        an array containing an axis for the left and right side
+        an array containing an axis for the left, right and mean side
 
     """
     _, axes = plt.subplots(3, 1, sharex="all", sharey="all")
@@ -76,7 +80,7 @@ def plot_pushes_ergo(data, pushes, var="torque", start=True, stop=True, peak=Tru
     if not title:
         plt.suptitle('Push detection')
     for idx, side in enumerate(data):
-        axes[idx] = wl.plots.plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
+        axes[idx] = plot_pushes(data[side], pushes[side], var=var, start=start, stop=stop, peak=peak, ax=axes[idx])
         axes[idx].set_title(str(side) + ' ' + str(var))
     plt.tight_layout()
     return axes
