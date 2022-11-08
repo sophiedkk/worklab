@@ -677,3 +677,60 @@ def load_opti_offset(filename):
     opti_offset_df["torque"] *= -1
 
     return opti_offset_df
+
+
+def load_movesense(root_dir, right, frame=None, left=None):
+    """
+    Imports MoveSense data in nested dictionary with all sensors.
+
+    Parameters
+    ----------
+    root_dir : str
+        directory where session is located
+    right : str
+        12 digit identity code of right sensor
+    frame : str
+        12 digit identity code of frame sensor
+    left : str
+        12 digit identity code of left sensor
+
+    Returns
+    -------
+    sessiondata : dict
+        returns nested object sensordata[device][dataframe]
+
+
+    """
+    sessiondata = dict()
+
+    right_sensors = sorted(glob(root_dir + right + '*'))
+    sensors = [right_sensors]
+    if frame is not None:
+        frame_sensors = sorted(glob(root_dir + frame + '*'))
+        sensors.append(frame_sensors)
+    if left is not None:
+        left_sensors = sorted(glob(root_dir + left + '*'))
+        sensors.append(left_sensors)
+
+    for sensor in sensors:
+        if right in sensor[0]: sensor_name = 'right'
+        if frame is not None:
+            if frame in sensor[0]: sensor_name = 'frame'
+        if left is not None:
+            if left in sensor[0]: sensor_name = 'left'
+
+        acc = pd.read_csv(sensor[0])
+        acc['x'] *= -1
+        gyro = pd.read_csv(sensor[1])
+        gyro['x'] *= -1
+        acc.rename(columns={'x': 'accelerometer_y', 'y': 'accelerometer_x', 'z': 'accelerometer_z'}, inplace=True)
+        gyro.rename(columns={'x': 'gyroscope_y', 'y': 'gyroscope_x', 'z': 'gyroscope_z'}, inplace=True)
+
+        acc['time'] = pd.to_datetime(acc['timestamp'], unit='ms')
+        acc['time'] -= acc['time'][0]
+        acc['time'] = acc['time'].dt.total_seconds()
+
+        sessiondata[sensor_name] = pd.concat([gyro, acc], axis=1, join='inner')
+        sessiondata[sensor_name] = sessiondata[sensor_name].drop(['timestamp'], axis=1)
+
+    return sessiondata
