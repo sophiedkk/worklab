@@ -9,10 +9,10 @@ def read(fname):
 
 setup(
 	name             		= 'worklab',
-	version          		= '1.7.1',
+	version          		= '1.7.2',
 	description      		= 'Basic scripts for worklab devices',
 	author           		= 'Rick de Klerk, Thomas Rietveld, Rowie Janssen',
-	author_email     		= 'r.de.klerk@umcg.nl, t.rietveld@umcg.nl, r.j.f.janssen@umcg.nl',
+	author_email     		= 'r.de.klerk@pl.hanze.nl, t.rietveld@lboro.ac.uk, r.j.f.janssen@umcg.nl',
 	url              		= 'https://gitlab.com/Rickdkk/worklab',
 	download_url     		= 'https://gitlab.com/Rickdkk/worklab',
 	packages         		= ['worklab'],

@@ -14,15 +14,16 @@ Worklab: a wheelchair biomechanics mini-package
     :target: https://worklab.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-Essential data analysis and (pre-)processing scripts used in my project researching the Lode `Esseda`_
+Essential data analysis and (pre-)processing scripts used in projects researching the Lode `Esseda`_
 wheelchair ergometer in the worklab at the University Medical Centre Groningen. Includes all basic io and calculations for the equipment in the worklab, which means:
 
 .. _Esseda: https://www.lode.nl/en/product/esseda-wheelchair-ergometer/637
 
-* Measurement wheel (Optipush and SMARTwheel) and ergometer (Esseda) data processing
+* Measurement wheel (Optipush and SMARTwheel) data processing
+* Ergometer (Esseda) data processing
 * Push-by-push analysis
 * Spirometer (COSMED) data processing
-* IMU (NGIMU) data processing
+* IMU (NGIMU and MoveSense) data processing
 * Kinematics (Optotrak/OptiTrack) data processing
 * more(?)
 
