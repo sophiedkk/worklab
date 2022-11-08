@@ -1,3 +1,4 @@
+import copy
 import csv
 from collections import defaultdict
 from glob import glob
@@ -500,7 +501,7 @@ def load_n3d(filename, verbose=True):
     return optodata
 
 
-def load_imu(root_dir, filenames=None):
+def load_imu(root_dir, filenames=None, inplace=False):
     """
     Imports NGIMU session in nested dictionary with all devices and sensors.
 
@@ -515,8 +516,8 @@ def load_imu(root_dir, filenames=None):
 
     Returns
     -------
-    session_data : dict
-        returns nested object sensordata[device][sensor][dataframe]
+    sessiondata : dict
+        returns nested object sensordata[device][dataframe]
 
     References
     ----------
@@ -527,7 +528,7 @@ def load_imu(root_dir, filenames=None):
     if not directory_contents:
         raise Exception("No contents in directory")
     directories = glob(f"{root_dir}/*/")  # folders of all devices
-    session_data = dict()
+    sessiondata = dict()
     if not filenames:
         filenames = ["sensors"]
 
@@ -537,7 +538,9 @@ def load_imu(root_dir, filenames=None):
         device_name = "left" if "links" in device_name.lower() or "left" in device_name.lower() else device_name
         device_name = "right" if "rechts" in device_name.lower() or "right" in device_name.lower() else device_name
         device_name = "frame" if "frame" in device_name.lower() else device_name
-        session_data[device_name] = dict()
+        device_name = 'trunk' if 'trunk' in device_name.lower() else device_name
+
+        sessiondata[device_name] = dict()
 
         for sensor_file in sensor_files:  # loop through all csv files
             sensor_name = path.split(sensor_file)[-1].split(".csv")[0]  # sensor without path or extension
@@ -545,14 +548,29 @@ def load_imu(root_dir, filenames=None):
             if sensor_name not in filenames:
                 continue  # skip if filenames is given and sensor not in filenames
 
-            session_data[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
-            new_col_names = session_data[device_name][sensor_name].columns
+            sessiondata[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
+            new_col_names = sessiondata[device_name][sensor_name].columns
             new_col_names = [col.lower().replace(" ", "_").rsplit("_", 1)[0] for col in new_col_names]
-            session_data[device_name][sensor_name].columns = new_col_names
+            sessiondata[device_name][sensor_name].columns = new_col_names
 
-        if not session_data[device_name]:
+        if not sessiondata[device_name]:
             raise Exception("No data was imported")
-    return session_data
+
+    if not inplace:
+        sessiondata = copy.deepcopy(sessiondata)
+
+    sessiondata["right"] = sessiondata["right"]["sensors"] if 'right' in sessiondata.keys() else print(
+        'No right sensor imported')
+    sessiondata["frame"] = sessiondata["frame"]["sensors"] if 'frame' in sessiondata.keys() else print(
+        'No frame sensor imported')
+    sessiondata["left"] = sessiondata["left"]["sensors"] if 'left' in sessiondata.keys() else print(
+        'No left sensor imported')
+    sessiondata["trunk"] = sessiondata["trunk"]["sensors"] if 'trunk' in sessiondata.keys() else print(
+        'No trunk sensor imported')
+
+    sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
+
+    return sessiondata
 
 
 def load_drag_test(filename):
