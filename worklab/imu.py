@@ -220,43 +220,9 @@ def push_imu(acceleration, sfreq=400.):
                                      distance=round(1 / (max_freq * 1.5) * sfreq), prominence=std_acc / 2)
     n_pushes = len(push_idx)
     push_freq = n_pushes / (len(acceleration) / sfreq)
-    cycle_time = pd.DataFrame([])
+    cycle_time = list()
 
     for n in range(0, len(push_idx) - 1):
-        cycle_time = cycle_time.append([(push_idx[n + 1] / sfreq) - (push_idx[n] / sfreq)])
+        cycle_time.append((push_idx[n + 1] / sfreq) - (push_idx[n] / sfreq))
 
     return push_idx, acc_filt, n_pushes, cycle_time, push_freq
-
-
-def vel_zones(velocity, time):
-    """
-    Calculate wheelchair velocity zones
-
-    Parameters
-    ----------
-    velocity : np.array, pd.Series
-        velocity data structure
-    time : np.array, pd.Series
-        time data structure
-
-    Returns
-    -------
-    velocity_zones : dict
-        velocity zones (m/s), 1-2, 2-3, 3-4, 4-5, 5 and above
-
-    """
-
-    vel_1 = velocity[velocity > 1]
-    vel_2 = velocity[velocity > 2]
-    vel_3 = velocity[velocity > 3]
-    vel_4 = velocity[velocity > 4]
-    vel_5 = velocity[velocity > 5]
-    per_bet_1_and_2 = abs((len(vel_2) - len(vel_1)) / len(time) * 100)
-    per_bet_2_and_3 = abs((len(vel_3) - len(vel_2)) / len(time) * 100)
-    per_bet_3_and_4 = abs((len(vel_4) - len(vel_3)) / len(time) * 100)
-    per_bet_4_and_5 = abs((len(vel_5) - len(vel_4)) / len(time) * 100)
-    per_above_5 = abs(len(vel_5) / len(time) * 100)
-
-    zones = [per_bet_1_and_2, per_bet_2_and_3, per_bet_3_and_4,
-             per_bet_4_and_5, per_above_5]
-    return zones
