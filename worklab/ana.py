@@ -9,7 +9,7 @@ import sys
 
 def mean_data(data):
     """
-    Combined data of left and right module
+    TESTCombined data of left and right module
     Time, speed, aspeed, acc and dist are averaged
     Force, torque, power, work and uforce are averaged and multiplied with two
 
