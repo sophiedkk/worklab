@@ -7,6 +7,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
+from .plots import plot_power_speed_dist, plot_pushes_ergo
+from .physio import calc_weighted_average
+
+
 def mean_data(data):
     """
     Combined data of left and right module
@@ -62,7 +66,7 @@ def cut_data(data, start, end, distance=True):
     return data
 
 
-def isometricforce(data, title=None, height=40, distance=100, vel=True, ylim=None):
+def isometricforce(data, title=None, height=40, distance=500, vel=False, ylim=None):
     """
     Calculates the three seconds maximal user force and plots it against time (darkblue).
     Peaks are annotated with a dot and with the height of the peak, max value is shown in the corner.
@@ -77,7 +81,7 @@ def isometricforce(data, title=None, height=40, distance=100, vel=True, ylim=Non
     height : float, optional
         minimal height of peak, default is 40 N
     distance : float, optional
-        minimal distance between peaks, default is 100 samples
+        minimal distance between peaks, default is 500 samples
     vel : bool
         plot velocity, default is True
     ylim : list [min, max] of floats or int, optional
@@ -91,12 +95,15 @@ def isometricforce(data, title=None, height=40, distance=100, vel=True, ylim=Non
     """
     # calculate 3s rolling average
     for side in data:
-        data[side]['3s'] = data[side]['uforce'].rolling(window=300).mean()
+        data[side]['timed'] = pd.to_datetime(data[side]['time'], unit='s')
+        data[side].set_index('timed', inplace=True)
+        data[side]['3s'] = data[side]['uforce'].rolling(window='3s').mean()
 
     # plot figure, force in blue en velocity (optional) in red
     fig, ax = plt.subplots(3, figsize=[20, 9], sharex=True, sharey=True)
     idx = [0, 1, 2]
 
+    peaks_y_all = []
     for side, x in zip(data, idx):
         peaks = find_peaks(data[side]['3s'], height=height, distance=distance)
         peaks_x = pd.Series(list(peaks[0]))
@@ -131,7 +138,9 @@ def isometricforce(data, title=None, height=40, distance=100, vel=True, ylim=Non
         # style plot
         if x == 0:
             if title:
-                ax[x].set_title('Isometric force production (3 seconds) for left, right and the average \n'+str(title), fontsize=20)
+                ax[x].set_title(
+                    'Isometric force production (3 seconds) for left, right and the average \n' + str(title),
+                    fontsize=20)
             if not title:
                 ax[x].set_title('Isometric force production (3 seconds) for left, right and the average', fontsize=20)
         if x == 1:
@@ -144,8 +153,14 @@ def isometricforce(data, title=None, height=40, distance=100, vel=True, ylim=Non
         if x == 2:
             ax[x].set_xlabel('Time [s]', fontsize=16)
 
-        peaks_y = pd.DataFrame(peaks_y, columns=['max_user_force'])
-    return fig, peaks_y
+        peaks_y = pd.DataFrame(peaks_y, columns=[side])
+        peaks_y_all.append(peaks_y)
+
+    peaks = pd.DataFrame()
+    peaks['left'] = peaks_y_all[0]
+    peaks['right'] = peaks_y_all[1]
+    peaks['mean'] = peaks_y_all[2]
+    return fig, peaks
 
 
 def protocol_wingate(fiso, muser, mwc, folder=None, v=2):
@@ -204,7 +219,7 @@ def protocol_wingate(fiso, muser, mwc, folder=None, v=2):
             sys.stdout = original_stdout  # reset the standard output
 
 
-def wingate(data, title=None):
+def wingate(data, title=None, box=False, ylim=5):
     """
     Wingate test analyse. Gives a plot with the power (green) and velocity (red),
     also prints the important performance indicators
@@ -215,6 +230,10 @@ def wingate(data, title=None):
         processed and cutted ergometer data dictionary with dataframes
     title : str
         title of figure
+    box : bool
+        prints important performance indicators on figure, default is False
+    ylim : float, optional
+        sets the ylim of the graph, defaul is 5 ms
 
     Returns
     -------
@@ -241,7 +260,7 @@ def wingate(data, title=None):
     ax1.plot(data['mean']['time'], data['mean']['speed'], color='firebrick', label='speed', alpha=.5)
     ax1.set_ylabel('speed [m/s]', fontsize=18)
     ax1.yaxis.label.set_color('firebrick')
-    ax1.set_ylim(0, 5)
+    ax1.set_ylim(0, ylim)
     ax1.legend(fontsize=14)
     ax1.tick_params(axis="y", labelsize=14)
 
@@ -262,14 +281,14 @@ def wingate(data, title=None):
                  "rfstartend": rfstartend, "vmean": vmean, "vmax": vmax}]
 
     outcomes = pd.DataFrame(outcomes)
-
-    # annotate important outcomes in figure
-    ax.text(0.80, 0.1, transform=ax.transAxes, s='P30 = ' + str(round(P30, 0)) + ' W' +
-            '\nPmax = ' + str(round(Pmax, 0)) + 'W' +
-            '\nP5max = ' + str(round(P5max, 2)) + ' W' +
-            '\nvmax = ' + str(round(vmax, 1)) + ' m/s' +
-            '\nRF = ' + str(round(rfstartend, 1)) + ' %'
-            , bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9), fontsize=14)
+    if box:
+        # annotate important outcomes in figure
+        ax.text(0.80, 0.1, transform=ax.transAxes, s='P30 = ' + str(round(P30, 0)) + ' W' +
+                '\nPmax = ' + str(round(Pmax, 0)) + 'W' +
+                '\nP5max = ' + str(round(P5max, 2)) + ' W' +
+                '\nvmax = ' + str(round(vmax, 1)) + ' m/s' +
+                '\nRF = ' + str(round(rfstartend, 1)) + ' %',
+                bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9), fontsize=14)
 
     if title:
         ax.set_title('Wingate test \n' + str(title), fontsize=24)
@@ -279,7 +298,7 @@ def wingate(data, title=None):
     return fig, outcomes
 
 
-def protocol_max(P30, muser, mwc, folder=None, v=1.39, protocol="J"):
+def protocol_max(P30, muser, mwc, folder=None, v=1.39):
     """
     Calculates the protocol for the Maximal exercise test on a wheelchair ergometer,
     based on the regression equations between the isometric force, anaerobic
@@ -302,8 +321,6 @@ def protocol_max(P30, muser, mwc, folder=None, v=1.39, protocol="J"):
         file path, protocol will be saved here
     v : float, optional
         constant comfortable velocity for the test, default is 1.39 m/s
-    protocol : str, optional
-        "J" is Janssen protocol, "W" is van der Woude protocol, default is "J"
 
     Returns
     -------
@@ -314,10 +331,8 @@ def protocol_max(P30, muser, mwc, folder=None, v=1.39, protocol="J"):
     mtotal = muser + mwc
 
     p30kg = P30/muser
-    if protocol == "J":
-        poaer = 0.67 * p30kg + 0.11  # (Janssen)
-    if protocol == "W":
-        poaer = 0.75 * p30kg + 0.03  # (Woude)
+
+    poaer = 0.67 * p30kg + 0.11  # (Janssen)
     pototal = poaer * muser
     postart = 0.20 * pototal  # start at 20% of POpeak
     posubmax2 = 0.40 * pototal  # 40% of POpeak
@@ -356,7 +371,13 @@ def protocol_max(P30, muser, mwc, folder=None, v=1.39, protocol="J"):
 def maximal1min(data, data_pbp, dur, title=None):
     """
     Maximal exercise test analyse. Gives a plot with the power (green) and velocity (red)
-    for each step, also prints the important performance indicators per step
+    for each step, also prints the important performance indicators per step:
+        Work [J]
+        Mean power [W]
+        Maximal power [W]
+        Mean velocity [ms]
+        Push time [s]
+        Cycle time [s]
 
     Parameters
     ----------
@@ -376,7 +397,7 @@ def maximal1min(data, data_pbp, dur, title=None):
 
     """
     # plot figure with 4 columns and x rows (depending on duration test)
-    n = [*range(math.ceil((dur) / 60))]
+    n = [*range(math.ceil(dur / 60))]
     ncolumns = 4  # columns in the figure
     nrows = math.ceil(((max(n)+1)/ncolumns))  # rows in the figure
 
@@ -401,12 +422,12 @@ def maximal1min(data, data_pbp, dur, title=None):
     for i, r, c in zip(n, rows, columns):
         # slice mean data for each step
         x = copy.deepcopy(data['mean'])
-        s = x[(x['time'] > ((i+1)*60)-60) & (x['time'] < (((i+1)*60)))]
+        s = x[(x['time'] > ((i+1)*60)-60) & (x['time'] < ((i+1)*60))]
         s = s[s['time'] > (s['time'].max()-20)]
 
         # slice push by push data for each step
         z = copy.deepcopy(data_pbp['mean'])
-        p = z[(z['tstart'] > ((i+1)*60)-60) & (z['tstop'] < (((i+1)*60)))]
+        p = z[(z['tstart'] > ((i+1)*60)-60) & (z['tstop'] < ((i+1)*60))]
         p = p[p['tstart'] > (s['time'].max()-20)]
 
         # calculate variables for each step (last 20 seconds)
@@ -448,7 +469,7 @@ def maximal1min(data, data_pbp, dur, title=None):
     return fig, outcomes
 
 
-def sprint(data, data_pbp, title):
+def ana_sprint(data, data_pbp, half=5, title=None):
     """
     Sprint test analyse. Plot a figure with the power, speed and distance for
     left and right seperate. Also saves important outcomes
@@ -459,6 +480,8 @@ def sprint(data, data_pbp, title):
         processed and cutted ergometer data dictionary with dataframes
     data_pbp : dict
         processed and cutted push_by_push ergometer data dictionary with dataframes
+    half : float, optional
+        half time of the sprint, default is 5 s
     title : str, optional
         title of figure
 
@@ -468,18 +491,78 @@ def sprint(data, data_pbp, title):
     outcomes : dataframe
 
     """
-    fig = plot_power_speed_dist(data, title)
+    if title:
+        fig = plot_power_speed_dist(data, title)
+    if not title:
+        fig = plot_power_speed_dist(data, title=" ")
 
-    outcomes = [{'distance': data['mean']['dist'].max(),
-                 'max_vel': data['mean']['speed'].max(), 'mean_vel': data['mean']['speed'].mean(),
-                 'max_vel_l': data['left']['speed'].max(), 'mean_vel_l': data['left']['speed'].mean(),
-                 'max_vel_r': data['right']['speed'].max(), 'mean_vel_r': data['right']['speed'].mean(),
-                 'max_power': data['mean']['power'].max(), 'mean_power': data['mean']['power'].mean(),
-                 'mean_power_l': data['left']['power'].mean(), 'max_power_l': data['left']['power'].max(),
-                 'max_power_r': data['right']['power'].max(), 'mean_power_r': data['right']['power'].mean(),
-                 'ptime': data_pbp['mean']['ptime'].mean(), 'maxpowerafter3': data_pbp['mean']['maxpower'][0:3].max(),
-                 'ctime': data_pbp['mean']['ctime'].mean()}]
+    half = half * 100  # to get right index
+    outcomes = [{'distance_half': round(data['mean']['dist'].iloc[half], 1),
+                 'distance_half_l': round(data['left']['dist'].iloc[half], 1),
+                 'distance_half_r': round(data['right']['dist'].iloc[half], 1),
+                 'distance': round(data['mean']['dist'].max(), 1), 'distance_l': round(data['left']['dist'].max(), 1),
+                 'distance_r': round(data['right']['dist'].max(), 1),
+                 'max_vel': round(data['mean']['speed'].max(), 1), 'max_vel_l': round(data['left']['speed'].max(), 1),
+                 'max_vel_r': round(data['right']['speed'].max(), 1),
+                 'mean_vel': round(data['mean']['speed'].mean(), 1),
+                 'mean_vel_l': round(data['left']['speed'].mean(), 1),
+                 'mean_vel_r': round(data['right']['speed'].mean(), 1),
+                 'max_power': round(data['mean']['power'].max(), 0),
+                 'max_power_l': round(data['left']['power'].max(), 0),
+                 'max_power_r': round(data['right']['power'].max(), 0),
+                 'mean_power': round(data['mean']['power'].mean(), 0),
+                 'mean_power_l': round(data['left']['power'].mean(), 0),
+                 'mean_power_r': round(data['right']['power'].mean(), 0),
+                 'maxpowerafter3': round(data_pbp['mean']['maxpower'][0:3].max(), 0),
+                 'maxpowerafter3_l': round(data_pbp['left']['maxpower'][0:3].max(), 0),
+                 'maxpowerafter3_r': round(data_pbp['right']['maxpower'][0:3].max(), 0),
+                 'maxvelafter3': round(data_pbp['mean']['maxspeed'][0:3].max(), 1),
+                 'maxvelafter3_l': round(data_pbp['left']['maxspeed'][0:3].max(), 1),
+                 'maxvelafter3_r': round(data_pbp['right']['maxspeed'][0:3].max(), 1),
+                 'ctime': round(data_pbp['mean']['ctime'].mean(), 2),
+                 'p_time': round(data_pbp['mean']['ptime'].mean(), 2)}]
 
     outcomes = pd.DataFrame(outcomes)
 
     return fig, outcomes
+
+
+def ana_submax(data_ergo, data_pbp, data_spiro):
+    """
+    Sub maximal test analyse. Plot a figure with the pushes for left, right
+    and the mean. Also saves important outcomes
+
+    Parameters
+    ----------
+    data_ergo : pd.DataFrame
+        processed and cutted ergometer data
+    data_pbp : pd.DataFrame
+        processed and cutted ergometer data
+    data_spiro : pd.DataFrame
+        processed and cutted spirometer data
+
+    Returns
+    -------
+    pushes : matplotlib.figure.Figure
+    outcomes : pd.DataFrame
+
+    """
+    pushes = plot_pushes_ergo(data_ergo, data_pbp)
+
+    mean_spiro = calc_weighted_average(data_spiro[["RER", "EE", "HR", "VO2"]], data_spiro["weights"])
+    mean_spiro = pd.DataFrame(mean_spiro).T
+
+    mean_ergo = [{'mean_vel': data_ergo['mean']['speed'].mean(), 'meanpower': data_ergo['mean']['power'].mean(),
+                  'ptime_l': data_pbp['left']['ptime'].mean(), 'ptime_r': data_pbp['right']['ptime'].mean(),
+                  'ctime_l': data_pbp['left']['ctime'].mean(), 'ctime_r': data_pbp['right']['ctime'].mean(),
+                  'ca_l': data_pbp['left']['cangle_deg'].mean(), 'ca_r': data_pbp['right']['cangle_deg'].mean(),
+                  'meanpowerperpush': data_pbp['mean']['meanpower'].mean(),
+                  'maxpowerperpush': data_pbp['mean']['maxpower'].mean(),
+                  'angle_deg': data_pbp['mean']['cangle_deg'].mean(), 'slope': data_pbp['mean']['slope'].mean(),
+                  'smoothness': data_pbp['mean']['smoothness'].mean(), 'freq': 1/data_pbp['mean']['ctime'].mean()}]
+
+    mean_ergo = pd.DataFrame(mean_ergo)
+
+    outcomes = pd.concat([mean_ergo, mean_spiro], axis=1)
+    outcomes['me'] = (outcomes['meanpower']/outcomes['EE']) * 100
+    return pushes, outcomes

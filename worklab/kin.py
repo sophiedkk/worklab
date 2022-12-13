@@ -406,6 +406,8 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
     +--------------------+----------------------+-----------+
     | mean/maxuforce     | (rim) force per push | N         |
     +--------------------+----------------------+-----------+
+    | mean/maxspeed      | velocity per push    | ms        |
+    +--------------------+----------------------+-----------+
     | work               | work per push        | J         |
     +--------------------+----------------------+-----------+
     | cwork              | work per cycle       | J         |
@@ -443,8 +445,8 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
     """
     pbp_sides = {"left": [], "right": [], "mean": []}
     keys = ["start", "stop", "peak", "tstart", "tstop", "tpeak", "cangle", "cangle_deg", "ptime", "meanpower",
-            "maxpower", "meantorque", "maxtorque", "meanuforce", "maxuforce", "meanforce", "maxforce", "work",
-            "slope", "smoothness", "ctime", "reltime", "cwork", "negwork"]
+            "maxpower", "meantorque", "maxtorque", "meanuforce", "maxuforce", "meanforce", "maxforce", "meanspeed",
+            "maxspeed", "work", "slope", "smoothness", "ctime", "reltime", "cwork", "negwork"]
 
     for side in data:
         if (side == 'left') | (side == 'right'):

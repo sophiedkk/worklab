@@ -4,6 +4,7 @@ import time
 from collections import defaultdict
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename, askopenfilenames, asksaveasfilename, askdirectory
+import math
 
 import numpy as np
 import pandas as pd
@@ -637,3 +638,70 @@ class Timer:
         if self.name:
             self.timers[self.name] += elapsed_time
         return elapsed_time
+
+
+def power_per_min(data_ergo, dur, start_spiro):
+    """
+    Calculates the power achieved per min in a graded exercise test, needed for
+    the Wasserman plot
+
+    Parameters:
+    ----------
+    data_ergo : pd.DataFrame
+        processed ergometer data dictionary with dataframes
+    dur : int
+        duration of max test in seconds
+    start_spiro : float or int
+        duration of the rest measurement just before the maximal exercise test.
+
+    Returns
+    -------
+    power : pd.DataFrame
+        a dataframe containing the mean power output per step, showed as a continu signal
+
+
+    """
+
+    n = [*range(math.ceil(dur / 60))]    # define amount of steps
+    mean_power = []     # define mean_power
+
+    for i in n:
+        x = data_ergo['mean']
+        s = x[(x['time'] > ((i+1)*60)-60) & (x['time'] < (((i+1)*60)))]     # cut every step
+        s = s[s['time'] > (s['time'].max()-20)]     # takes last 20s of step
+        mean_p = s['power'].mean()
+        mean_power.append(mean_p)
+
+    outcome = pd.DataFrame(mean_power, columns=['mean_power'])
+    for i in n:
+        q = [outcome['mean_power'][i]] * 60
+        if i == 0:
+            power = []
+        power = power + q
+
+    x = [0] * int(start_spiro)
+    power = x + power
+    power = pd.DataFrame(power, columns=['power'])
+
+    return power
+
+
+def metamax_to_s(dt):
+    """
+    Calculates time in seconds from h:mm:ss.000 to seconds
+
+    Parameters
+    ----------
+    dt : pd.Series
+        series with h:mm:ss.000
+
+    Returns
+    -------
+    time : pd.Series
+        time in seconds
+
+    """
+
+    h, m, s = dt[:-4].split(":")
+    time = int(h) * 3600 + int(m) * 60 + int(s)
+    return time

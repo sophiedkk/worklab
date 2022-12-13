@@ -8,7 +8,7 @@ from struct import unpack
 import numpy as np
 import pandas as pd
 
-from .utils import pick_file, pd_dt_to_s, merge_chars
+from .utils import pick_file, pd_dt_to_s, merge_chars, metamax_to_s
 
 
 def load(filename=""):
@@ -146,6 +146,85 @@ def load_spiro(filename):
 
     data = data[data["time"] > 0]  # remove "missing" data
     return data[["time", "HR", "EE", "RER", "VO2", "VCO2", "VE", "VE/VO2", "VE/VCO2", "O2pulse", "PetO2", "PetCO2", "VT", "weights"]]
+
+
+def load_spiro_metamax(filename):
+    """
+    Loads METAMAX 3B spirometer data from Excel file.
+
+    Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
+    computes weights from the time difference between samples, if no heart rate data is available it fills
+    the column with np.NaNs. Returns a DataFrame with:
+
+    +------------+----------------------------+-----------+
+    | Column     | Data                        | Unit     |
+    +============+============================+===========+
+    | time       | time at breath             | s         |
+    +------------+----------------------------+-----------+
+    | HR         | heart rate                 | bpm       |
+    +------------+----------------------------+-----------+
+    | EE         | energy expenditure         | J/s       |
+    +------------+----------------------------+-----------+
+    | RER        | exchange ratio             | VCO2/VO2  |
+    +------------+----------------------------+-----------+
+    | VO2        | oxygen                     | l/min     |
+    +------------+----------------------------+-----------+
+    | VCO2       | carbon dioxide             | l/min     |
+    +------------+----------------------------+-----------+
+    | VE         | ventilation                | l/min     |
+    +------------+----------------------------+-----------+
+    | VE/VO2     | ratio VE/VO2               | -         |
+    +------------+----------------------------+-----------+
+    | VE/VCO2    | ratio VE/VCO2              | -         |
+    +------------+----------------------------+-----------+
+    | O2pulse    | oxygen pulse  (VO2/HR)     | -         |
+    +------------+----------------------------+-----------+
+    | PetO2      | end expiratory O2 tension  | mmHg      |
+    +------------+----------------------------+-----------+
+    | PetCO2     | end expiratory CO2 tension | mmHg      |
+    +------------+----------------------------+-----------+
+    | VT         | tidal volume               | l         |
+    +------------+----------------------------+-----------+
+    | weights    | sample weight              | -         |
+    +------------+----------------------------+-----------+
+
+    Parameters
+    ----------
+    filename : str
+        full file path or file in existing path from METAMAX 3B spirometer
+
+    Returns
+    -------
+    data : pd.DataFrame
+        Spirometer data in pandas DataFrame
+
+
+    """
+    data = pd.read_excel(filename, skiprows=[*range(0, 124, 1)])
+    units = data.iloc[0, :]
+    data.drop(0, inplace=True)
+
+    data.replace('-', np.NaN, inplace=True)
+
+    data.rename(columns={'t': 'time', "V'O2": "VO2", "V'E": "VE"}, inplace=True)
+    data["VCO2"] = data["V'E/V'CO2"] * (data['VE'])
+    data['VCO2'] = (data['VCO2'].astype(float) / 1000)
+    data.drop(labels=['Phase', 'Marker', "V'O2/kg", "V'O2/HR", 'WR', "V'E/V'O2", "V'E/V'CO2", "BF"], axis=1,
+              inplace=True)
+    data["time"] = data.apply(lambda row: metamax_to_s(row["time"]), axis=1)  # hh:mm:ss.000 to s
+    data['VO2'] = data['VO2'].astype(float)
+    data['EE'] = ((4.94 * data['RER'] + 16.04) * (1000 * data['VO2'])) / 60
+    data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
+    data["HR"] = (np.NaN if "HR" not in data else data["HR"]).astype(int)  # missing when sensor is not detected
+    data["O2pulse"] = data["VO2"] / data["HR"]
+    data['VCO2'].replace(0, 0.01, inplace=True)
+    data['VO2'].replace(0, 0.01, inplace=True)
+    data["VE/VO2"] = data["VE"] / data["VO2"]
+    data["VE/VCO2"] = data["VE"] / data["VCO2"]
+
+    data = data[data["time"] > 0]  # remove "missing" data
+    data.reset_index(drop=True, inplace=True)
+    return data[["time", "HR", "EE", "RER", "VO2", "VCO2", "VE", "VE/VO2", "VE/VCO2", "O2pulse", "VT", "weights"]]
 
 
 def load_opti(filename, rotate=True):
@@ -362,19 +441,21 @@ def load_wheelchair(filename):
     """
     Loads wheelchair from LEM datafile.
 
-    Loads the wheelchair data from a LEM datafile. Note that LEM only recently added this to their exports. Returns:
+    Loads the wheelchair data from a LEM datafile. Returns:
 
     +------------+-----------------------+-----------+
-    | Column     | Data                  | Unit      |
-    +============+=======================+===========+
-    | name       | chair name            |           |
-    +------------+-----------------------+-----------+
-    | rimsize    | radius of handrim     | m         |
-    +------------+-----------------------+-----------+
-    | wheelsize  | radius of the wheel   | m         |
-    +------------+-----------------------+-----------+
-    | weight     | weight of the chair   | kg        |
-    +------------+-----------------------+-----------+
+    | Column     | Data                    | Unit      |
+    +============+=========================+===========+
+    | name       | chair name              |           |
+    +------------+-------------------------+-----------+
+    | rimsize    | radius of handrim       | m         |
+    +------------+-------------------------+-----------+
+    | wheelsize  | radius of the wheel     | m         |
+    +------------+-------------------------+-----------+
+    | wheelbase  | width of the wheelchair | m         |
+    +------------+-------------------------+-----------+
+    | weight     | weight of the chair     | kg        |
+    +------------+-------------------------+-----------+
 
     Parameters
     ----------
@@ -385,14 +466,9 @@ def load_wheelchair(filename):
     -------
     wheelchair : dict
         dictionary with wheelchair information
-
-    See Also
-    --------
-    load_esseda: Load HSB data from LEM datafile.
-    load_spline: Load calibration splines from LEM datafile.
-
     """
-    data = pd.read_excel(filename, sheet_name="Wheelchair Settings")
+
+    data = pd.read_excel(filename, sheet_name=2)
     wheelchair = {"name": data.iloc[1, 1],
                   "rimsize": float(data.iloc[7, 1]) / 1000 / 2,
                   "wheelsize": float(data.iloc[8, 1]) / 1000 / 2,
