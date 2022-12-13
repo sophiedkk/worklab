@@ -9,7 +9,7 @@ import sys
 
 def mean_data(data):
     """
-    TESTCombined data of left and right module
+    Combined data of left and right module
     Time, speed, aspeed, acc and dist are averaged
     Force, torque, power, work and uforce are averaged and multiplied with two
 
@@ -425,7 +425,7 @@ def maximal1min(data, data_pbp, dur, title=None):
         # plot velocity on the second y axis
         ax1 = ax[r, c].twinx()
         ax1.plot(s['time'], s['speed'], color='firebrick', alpha=0.5)
-        ax1.set_ylim(-1, 2)
+        ax1.set_ylim(-1, 1.2 * data['mean']['speed'].max())
 
         # set title and box with mean power per step
         ax[r, c].set_title("Step " + str(i + 1), fontweight="bold")
