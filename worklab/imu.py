@@ -51,7 +51,7 @@ def resample_imu(sessiondata, sfreq=400.):
     return sessiondata
 
 
-def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, inplace=False):
+def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type='ngimu', inplace=False):
     """
     Calculate wheelchair kinematic variables based on NGIMU data
 
@@ -67,6 +67,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, inp
         width of wheelbase
     n_sensors: float
         number of sensors used, 1: right wheel, 2: right wheel and frame, 3: right, left wheel and frame
+    sensor_type: string
+        type of sensor, 'ngimu' is for xio-technologies, 'move' is for movesense
     inplace : bool
         performs operation inplace
 
@@ -119,7 +121,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, inp
     frame["vel"] = lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)
     frame["acc"] = np.gradient(frame["vel"]) * sfreq  # mean acceleration from velocity
 
-    if np.max(frame['accelerometer_x']) < 10:  # Acceleration for NGIMU is in G
+    if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
 
     # distance in the x and y direction
