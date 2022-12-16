@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from numpy.linalg import solve
-from scipy.spatial.transform import Rotation as R
+
 
 def get_perp_vector(vector2d, clockwise=True, normalized=True):
     """
@@ -381,9 +381,9 @@ def make_marker_dict(markers, marker_names=None):
 
                         'Racket1', 'Racket2', 'Racket3', 'M2', 'M5', 'RS', 'US', 'EM', 'EL', 'TS', 'AI', 'AA',
 
-                        'AC', 'PC', 'C7', 'T8', 'PX', 'IJ', 'SC', 'Centre', '12 clock', '4 clock', '8 clock', 'TopBlade',
+                        'AC', 'PC', 'C7', 'T8', 'PX', 'IJ', 'SC', 'Centre', '12 clock', '4 clock', '8 clock',
 
-                        'LeftBlade', 'BottomGrip']
+                        'TopBlade', 'LeftBlade', 'BottomGrip']
 
     if len(marker_names) != markers.shape[2]:
         raise IndexError("Number of names and markers are not identical.")

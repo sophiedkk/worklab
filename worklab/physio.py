@@ -354,7 +354,8 @@ def aerobic_threshold(data_spiro, power, start_spiro, muser):
     print("VT1-time: " + str(time - int(start_spiro)) + " s"
           "\nVT1-power: " + str(round(power.iloc[time].values[0], 2)) + " W"
           "\nVT1-HR: " + str(data_spiro['HR'][data_spiro['time'] == time].values[0]) + ' bpm'
-          "\nVT1-VO2: " + str(round(data_spiro['VO2'].rolling(window=30).mean()[data_spiro['time'] == time].values[0], 3)) + ' l/min')
+          "\nVT1-VO2: " + str(round(data_spiro['VO2'].rolling(window=30).mean()[data_spiro['time'] == time].values[0],
+                                    3)) + ' l/min')
 
     vt1 = pd.DataFrame([{'VT1-time': time - int(start_spiro), 'VT1-power': power.iloc[time].values[0],
                          'VT1-HR': data_spiro['HR'][data_spiro['time'] == time].values[0],
@@ -492,7 +493,8 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
     print("VT2-time: " + str(time - int(start_spiro)) + " s"
           "\nVT2-power: " + str(round(power.iloc[time].values[0], 2)) + " W"
           "\nVT2-HR: " + str(data_spiro['HR'][data_spiro['time'] == time].values[0]) + " bpm"
-          "\nVT2-VO2: " + str(round(data_spiro['VO2'].rolling(window=30).mean()[data_spiro['time'] == time].values[0], 3)) + ' l/min')
+          "\nVT2-VO2: " + str(round(data_spiro['VO2'].rolling(window=30).mean()[data_spiro['time'] == time].values[0],
+                                    3)) + ' l/min')
 
     vt2 = pd.DataFrame([{'VT2-time': time - int(start_spiro), 'VT2-power': power.iloc[time].values[0],
                          'VT2-HR': data_spiro['HR'][data_spiro['time'] == time].values[0],

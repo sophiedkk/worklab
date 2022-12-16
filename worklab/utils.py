@@ -667,7 +667,7 @@ def power_per_min(data_ergo, dur, start_spiro):
 
     for i in n:
         x = data_ergo['mean']
-        s = x[(x['time'] > ((i+1)*60)-60) & (x['time'] < (((i+1)*60)))]     # cut every step
+        s = x[(x['time'] > ((i+1)*60)-60) & (x['time'] < ((i+1)*60))]     # cut every step
         s = s[s['time'] > (s['time'].max()-20)]     # takes last 20s of step
         mean_p = s['power'].mean()
         mean_power.append(mean_p)

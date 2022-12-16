@@ -4,7 +4,6 @@ import copy
 import math
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import sys
 
 from .plots import plot_power_speed_dist, plot_pushes_ergo

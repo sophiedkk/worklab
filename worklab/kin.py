@@ -5,6 +5,7 @@ from scipy.signal import savgol_filter
 from .utils import lowpass_butter, find_peaks
 from .move import rotate_matrix
 
+
 def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2, co_s=6, ord_s=2, force=True,
                  speed=True, variable="torque", cutoff=0.0, wl=201, ord_a=2, minpeak=5.0):
     """

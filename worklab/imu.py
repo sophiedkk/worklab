@@ -2,7 +2,6 @@ import copy
 from warnings import warn
 
 import numpy as np
-import pandas as pd
 from scipy.integrate import cumtrapz
 from scipy.signal import periodogram, find_peaks
 
@@ -123,7 +122,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
     if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
-    frame['acc'] = frame['accelerometer_x']
+    frame['acc'] = lowpass_butter(frame['accelerometer_x'], sfreq=sfreq, cutoff=20)
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
         np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),

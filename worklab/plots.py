@@ -550,7 +550,8 @@ def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim
     host.plot(data["left"]["time"], data["left"]["power"], "forestgreen", label="Power left")
     host.plot(data["right"]["time"], data["right"]["power"], "forestgreen", linestyle="dotted", label="Power right")
     par1.plot(data["left"]["time"], data["left"]["speed"], "firebrick", label="Speed left", alpha=0.7)
-    par1.plot(data["right"]["time"], data["right"]["speed"], "firebrick", linestyle="dotted", label="Speed right", alpha=0.7)
+    par1.plot(data["right"]["time"], data["right"]["speed"],
+              "firebrick", linestyle="dotted", label="Speed right", alpha=0.7)
     par2.plot(data["left"]["time"], data["left"]["dist"], "y", label="Distance left", alpha=0.5)
     par2.plot(data["right"]["time"], data["right"]["dist"], "y", linestyle="dotted", label="Distance right", alpha=0.5)
 

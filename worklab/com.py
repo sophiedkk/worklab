@@ -145,7 +145,8 @@ def load_spiro(filename):
     data["VE/VCO2"] = data["VE"] / data["VCO2"]
 
     data = data[data["time"] > 0]  # remove "missing" data
-    return data[["time", "HR", "EE", "RER", "VO2", "VCO2", "VE", "VE/VO2", "VE/VCO2", "O2pulse", "PetO2", "PetCO2", "VT", "weights"]]
+    return data[["time", "HR", "EE", "RER", "VO2", "VCO2", "VE", "VE/VO2", "VE/VCO2",
+                 "O2pulse", "PetO2", "PetCO2", "VT", "weights"]]
 
 
 def load_spiro_metamax(filename):
