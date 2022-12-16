@@ -119,11 +119,11 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         frame["dist"] = right["dist"]
 
     frame["vel"] = lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)
-    frame["acc"] = np.gradient(frame["vel"]) * sfreq  # mean acceleration from velocity
+    frame["acc_wheel"] = np.gradient(frame["vel"]) * sfreq  # mean acceleration from velocity
 
     if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
-
+    frame['acc'] = frame['accelerometer_x']
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
         np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
