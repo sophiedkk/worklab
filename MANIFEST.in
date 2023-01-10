@@ -1,4 +1,0 @@
-include LICENSE
-include README.md
-include setup.py
-global-include worklab/example_data *.xls *.csv *.data *.n3d *.txt
