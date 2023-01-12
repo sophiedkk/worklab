@@ -1,6 +1,7 @@
-"""Worklab data processing package"""
+import importlib.metadata
 
-__version__ = "1.8.3"
+__version__ = importlib.metadata.version(__package__)
+del importlib  # clean up the namespace
 
 __all__ = ['com', 'kin', 'move', 'physio', 'utils', 'plots', 'imu', 'ana']
 
