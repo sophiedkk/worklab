@@ -5,10 +5,10 @@ that have multiple applications such as filtering, finding
 zero-crossings, finding the nearest value in a signal.
 
 ```{eval-rst}
-API Reference
-=============
+API Reference .utils
+====================
 
-.. automodule:: worklab.com
+.. automodule:: worklab.utils
     :members:
 ```
 

@@ -90,7 +90,7 @@ def load_spiro(filename):
     the column with np.NaNs. Returns a DataFrame with:
 
     +------------+----------------------------+-----------+
-    | Column     | Data                        | Unit     |
+    | Column     | Data                       | Unit      |
     +============+============================+===========+
     | time       | time at breath             | s         |
     +------------+----------------------------+-----------+
@@ -444,7 +444,7 @@ def load_wheelchair(filename):
 
     Loads the wheelchair data from a LEM datafile. Returns:
 
-    +------------+-----------------------+-----------+
+    +------------+-------------------------+-----------+
     | Column     | Data                    | Unit      |
     +============+=========================+===========+
     | name       | chair name              |           |
@@ -793,7 +793,6 @@ def load_movesense(root_dir, right, frame=None, left=None):
     -------
     sessiondata : dict
         returns nested object sensordata[device][dataframe]
-
 
     """
     sessiondata = dict()

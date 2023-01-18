@@ -5,8 +5,8 @@ data in this package is contained in dataframes. Some plotting is
 tedious however and these are functions for those plots.
 
 ```{eval-rst}
-API Reference
-=============
+API Reference .plots
+====================
 
 .. automodule:: worklab.plots
     :members:

@@ -362,7 +362,7 @@ def make_marker_dict(markers, marker_names=None):
 
     Parameters
     ----------
-    marker : np.array
+    markers : np.array
         marker points
 
     marker_names : list[strings]
@@ -412,13 +412,11 @@ def rotate_matrix(ang, axis='z'):
     """
 
     if axis.lower() == 'x':
-        rotate = [[1, 0, 0], [0, np.cos(ang), -np.sin(ang)], [0, np.sin(ang), np.cos(ang)]]
+        return [[1, 0, 0], [0, np.cos(ang), -np.sin(ang)], [0, np.sin(ang), np.cos(ang)]]
     elif axis.lower() == 'y':
-        rotate = [[np.cos(ang), 0, np.sin(ang)], [0, 1, 0], [-np.sin(ang), 0, np.cos(ang)]]
+        return [[np.cos(ang), 0, np.sin(ang)], [0, 1, 0], [-np.sin(ang), 0, np.cos(ang)]]
     else:
-        rotate = [[np.cos(ang), -np.sin(ang), 0], [np.sin(ang), np.cos(ang), 0], [0, 0, 1]]
-
-    return rotate
+        return [[np.cos(ang), -np.sin(ang), 0], [np.sin(ang), np.cos(ang), 0], [0, 0, 1]]
 
 
 def get_local_coordinate(marker, acs, origin):

@@ -40,7 +40,7 @@ def auto_process(data, wheelsize=0.31, rimsize=0.27, sfreq=200, co_f=15, ord_f=2
         variable name used for peak (push) detection
     cutoff : float
         noise level for peak (push) detection
-    wl : float
+    wl : int
         window length angle filter
     ord_a : int
         order angle filter [..]
@@ -84,7 +84,7 @@ def filter_mw(data, sfreq=200., co_f=15., ord_f=2, wl=201, ord_a=2, force=True, 
         cutoff frequency force filter [Hz]
     ord_f : int
         order force filter [..]
-    wl : float
+    wl : int
         window length angle filter
     ord_a : int
         order angle filter [..]

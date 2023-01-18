@@ -31,8 +31,3 @@ have excellent support for slicing operations and getting the basic
 statistics is as easy as calling the .describe method on said dataframe.
 
 We could go on for days, but it\'s usually best to show an example:
-
-::: {.toctree maxdepth="1"}
-examples/ex_kinetics_ergo.ipynb examples/ex_kinetics_mw.ipynb
-examples/ex_move_imu.ipynb examples/ex_physio_spiro.ipynb
-:::

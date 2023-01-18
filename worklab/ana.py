@@ -371,12 +371,12 @@ def maximal1min(data, data_pbp, dur, title=None):
     """
     Maximal exercise test analyse. Gives a plot with the power (green) and velocity (red)
     for each step, also prints the important performance indicators per step:
-        Work [J]
-        Mean power [W]
-        Maximal power [W]
-        Mean velocity [ms]
-        Push time [s]
-        Cycle time [s]
+    - Work [J]
+    - Mean power [W]
+    - Maximal power [W]
+    - Mean velocity [ms]
+    - Push time [s]
+    - Cycle time [s]
 
     Parameters
     ----------

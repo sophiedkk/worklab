@@ -1,8 +1,8 @@
 # Physiology (.physio)
 
 ```{eval-rst}
-API Reference
-=============
+API Reference .physio
+=====================
 
 .. automodule:: worklab.physio
     :members:
