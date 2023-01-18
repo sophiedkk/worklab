@@ -61,13 +61,21 @@ def get_rotation_matrix(new_frame, local_to_world=True):
     x3_prime = new_frame[:, 2]  # Z axis of the local frame
 
     if local_to_world:
-        rotation_matrix = np.array([[np.dot(x1, x1_prime), np.dot(x1, x2_prime), np.dot(x1, x3_prime)],
-                                    [np.dot(x2, x1_prime), np.dot(x2, x2_prime), np.dot(x2, x3_prime)],
-                                    [np.dot(x3, x1_prime), np.dot(x3, x2_prime), np.dot(x3, x3_prime)]])
+        rotation_matrix = np.array(
+            [
+                [np.dot(x1, x1_prime), np.dot(x1, x2_prime), np.dot(x1, x3_prime)],
+                [np.dot(x2, x1_prime), np.dot(x2, x2_prime), np.dot(x2, x3_prime)],
+                [np.dot(x3, x1_prime), np.dot(x3, x2_prime), np.dot(x3, x3_prime)],
+            ]
+        )
     else:
-        rotation_matrix = np.array([[np.dot(x1_prime, x1), np.dot(x1_prime, x2), np.dot(x1_prime, x3)],
-                                    [np.dot(x2_prime, x1), np.dot(x2_prime, x2), np.dot(x2_prime, x3)],
-                                    [np.dot(x3_prime, x1), np.dot(x3_prime, x2), np.dot(x3_prime, x3)]])
+        rotation_matrix = np.array(
+            [
+                [np.dot(x1_prime, x1), np.dot(x1_prime, x2), np.dot(x1_prime, x3)],
+                [np.dot(x2_prime, x1), np.dot(x2_prime, x2), np.dot(x2_prime, x3)],
+                [np.dot(x3_prime, x1), np.dot(x3_prime, x2), np.dot(x3_prime, x3)],
+            ]
+        )
     return rotation_matrix
 
 
@@ -135,7 +143,7 @@ def mirror(vector3d, axis="xyz"):
     return vector3d
 
 
-def scale(vector3d, x=1., y=1., z=1.):
+def scale(vector3d, x=1.0, y=1.0, z=1.0):
     """
     Scale a vector in different directions.
 
@@ -300,14 +308,14 @@ def marker_angles(v_1, v_2, deg=False):
             v_1 = np.tile(v_1, (len(v_2), 1))  # extend array if necessary
         elif v_2.ndim == 1:
             v_2 = np.tile(v_2, (len(v_1), 1))
-        p1 = np.einsum('ij,ij->i', v_1, v_2)  # vectorized dot operation
+        p1 = np.einsum("ij,ij->i", v_1, v_2)  # vectorized dot operation
         p2 = np.cross(v_1, v_2, axis=1)
         p3 = np.linalg.norm(p2, axis=1)
         angles = np.arctan2(p3, p1)
         return np.rad2deg(angles) if deg else angles
 
 
-def is_unit_length(vector3d, atol=1.e-8):
+def is_unit_length(vector3d, atol=1.0e-8):
     """Checks whether an array ([1, 3] or [n, 3]) is equal to unit length given a tolerance"""
     return np.allclose(magnitude(vector3d), 1.0, rtol=0, atol=atol)
 
@@ -375,15 +383,52 @@ def make_marker_dict(markers, marker_names=None):
     """
 
     if marker_names is None:
-        marker_names = ['Hand1', 'Hand2', 'Hand3', 'Low_arm1', 'Low_arm2', 'Low_arm3', 'Up_arm1', 'Up_arm2', 'Up_arm3',
-
-                        'Acro1', 'Acro2', 'Acro3', 'Sternum1', 'Sternum2', 'Sternum3', 'Wheel1', 'Wheel2', 'Wheel3',
-
-                        'Racket1', 'Racket2', 'Racket3', 'M2', 'M5', 'RS', 'US', 'EM', 'EL', 'TS', 'AI', 'AA',
-
-                        'AC', 'PC', 'C7', 'T8', 'PX', 'IJ', 'SC', 'Centre', '12 clock', '4 clock', '8 clock',
-
-                        'TopBlade', 'LeftBlade', 'BottomGrip']
+        marker_names = [
+            "Hand1",
+            "Hand2",
+            "Hand3",
+            "Low_arm1",
+            "Low_arm2",
+            "Low_arm3",
+            "Up_arm1",
+            "Up_arm2",
+            "Up_arm3",
+            "Acro1",
+            "Acro2",
+            "Acro3",
+            "Sternum1",
+            "Sternum2",
+            "Sternum3",
+            "Wheel1",
+            "Wheel2",
+            "Wheel3",
+            "Racket1",
+            "Racket2",
+            "Racket3",
+            "M2",
+            "M5",
+            "RS",
+            "US",
+            "EM",
+            "EL",
+            "TS",
+            "AI",
+            "AA",
+            "AC",
+            "PC",
+            "C7",
+            "T8",
+            "PX",
+            "IJ",
+            "SC",
+            "Centre",
+            "12 clock",
+            "4 clock",
+            "8 clock",
+            "TopBlade",
+            "LeftBlade",
+            "BottomGrip",
+        ]
 
     if len(marker_names) != markers.shape[2]:
         raise IndexError("Number of names and markers are not identical.")
@@ -394,7 +439,7 @@ def make_marker_dict(markers, marker_names=None):
     return marker_dict
 
 
-def rotate_matrix(ang, axis='z'):
+def rotate_matrix(ang, axis="z"):
     """Create a rotation matrix to rotate around x, y or z-axis
 
     Parameters
@@ -411,9 +456,9 @@ def rotate_matrix(ang, axis='z'):
         rotation matrix
     """
 
-    if axis.lower() == 'x':
+    if axis.lower() == "x":
         return [[1, 0, 0], [0, np.cos(ang), -np.sin(ang)], [0, np.sin(ang), np.cos(ang)]]
-    elif axis.lower() == 'y':
+    elif axis.lower() == "y":
         return [[np.cos(ang), 0, np.sin(ang)], [0, 1, 0], [-np.sin(ang), 0, np.cos(ang)]]
     else:
         return [[np.cos(ang), -np.sin(ang), 0], [np.sin(ang), np.cos(ang), 0], [0, 0, 1]]
@@ -499,7 +544,7 @@ def make_acs_sc(AA, TS, AI, DSEM=False):
     acs = np.stack([x_axis, y_axis, z_axis], axis=2)
     local = {}
     points = [AA, TS, AI]
-    names = ['AA', 'TS', 'AI']
+    names = ["AA", "TS", "AI"]
     for points, names in zip(points, names):
         local[names] = get_local_coordinate(points, acs, origin)
 
@@ -561,7 +606,7 @@ def make_acs_th(IJ, PX, C7, T8, DSEM=False):
     acs = np.stack([x_axis, y_axis, z_axis], axis=2)
     local = {}
     points = [IJ, PX, C7, T8]
-    names = ['IJ', 'PX', 'C7', 'T8']
+    names = ["IJ", "PX", "C7", "T8"]
     for points, names in zip(points, names):
         local[names] = get_local_coordinate(points, acs, origin)
 
@@ -618,18 +663,18 @@ def make_acs_cl(SC, AC, IJ, PX, C7, T8, AA=None, DSEM=False):
 
     if DSEM is False:
         z_axis = AC - SC
-        support_vector = ((C7 + IJ) / 2 - (T8 + PX) / 2)
+        support_vector = (C7 + IJ) / 2 - (T8 + PX) / 2
         x_axis = np.cross(support_vector, z_axis, axis=1)
         y_axis = np.cross(z_axis, x_axis, axis=1)
         points = [SC, AC, IJ, PX, C7, T8]
-        names = ['SC', 'AC', 'IJ', 'PX', 'C7', 'T8']
+        names = ["SC", "AC", "IJ", "PX", "C7", "T8"]
     else:
         x_axis = AC - SC
         support_vector = AA - AC
         y_axis = np.cross(support_vector, x_axis, axis=1)
         z_axis = np.cross(x_axis, y_axis, axis=1)
         points = [SC, AC, AA]
-        names = ['SC', 'AC', 'AA']
+        names = ["SC", "AC", "AA"]
 
     z_axis = normalize(z_axis)
     x_axis = normalize(x_axis)
@@ -696,7 +741,7 @@ def make_acs_hu(GH, EL, EM, DSEM=False):
     acs = np.stack([x_axis, y_axis, z_axis], axis=2)
     local = {}
     points = [GH, EL, EM]
-    names = ['GH', 'EL', 'EM']
+    names = ["GH", "EL", "EM"]
     for points, names in zip(points, names):
         local[names] = get_local_coordinate(points, acs, origin)
 
@@ -758,7 +803,7 @@ def make_acs_fa(US, RS, EL, EM, DSEM=False):
     acs = np.stack([x_axis, y_axis, z_axis], axis=2)
     local = {}
     points = [US, RS, EL, EM]
-    names = ['US', 'RS', 'EL', 'EM']
+    names = ["US", "RS", "EL", "EM"]
     for points, names in zip(points, names):
         local[names] = get_local_coordinate(points, acs, origin)
 
@@ -810,7 +855,7 @@ def make_acs_hand(M2, M5, US, RS):
     acs = np.stack([x_axis, y_axis, z_axis], axis=2)
     local = {}
     points = [M2, M5, US, RS]
-    names = ['M2', 'M5', 'US', 'RS']
+    names = ["M2", "M5", "US", "RS"]
     for points, names in zip(points, names):
         local[names] = get_local_coordinate(points, acs, origin)
 
@@ -885,10 +930,10 @@ def find_gh_regression(markers):
     PC, AI, AA = data_r["PC"], data_r["AI"], data_r["AA"]
 
     x_pos = 0.0189743 + PC[:, 0] * 0.2434 + PC[:, 1] * 0.0558 + AI[:, 0] * 0.2341 + AI2AA * 0.1590
-    y_pos = -0.0038791 + AC2AA * - 0.3940 + PC[:, 1] * 0.1732 + AI[:, 0] * 0.1205 + AC2PC * -0.1002
+    y_pos = -0.0038791 + AC2AA * -0.3940 + PC[:, 1] * 0.1732 + AI[:, 0] * 0.1205 + AC2PC * -0.1002
     z_pos = 0.0092629 + PC[:, 2] * 1.0255 + PC[:, 1] * -0.2403 + TS2PC * 0.1720
 
     gh_location = np.stack([x_pos, y_pos, z_pos], axis=1)
-    gh_global = origin + np.einsum('ijk,ik->ij', acs, gh_location)
+    gh_global = origin + np.einsum("ijk,ik->ij", acs, gh_location)
 
     return gh_global

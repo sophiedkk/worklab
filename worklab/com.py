@@ -145,8 +145,24 @@ def load_spiro(filename):
     data["VE/VCO2"] = data["VE"] / data["VCO2"]
 
     data = data[data["time"] > 0]  # remove "missing" data
-    return data[["time", "HR", "EE", "RER", "VO2", "VCO2", "VE", "VE/VO2", "VE/VCO2",
-                 "O2pulse", "PetO2", "PetCO2", "VT", "weights"]]
+    return data[
+        [
+            "time",
+            "HR",
+            "EE",
+            "RER",
+            "VO2",
+            "VCO2",
+            "VE",
+            "VE/VO2",
+            "VE/VCO2",
+            "O2pulse",
+            "PetO2",
+            "PetCO2",
+            "VT",
+            "weights",
+        ]
+    ]
 
 
 def load_spiro_metamax(filename):
@@ -205,21 +221,22 @@ def load_spiro_metamax(filename):
     units = data.iloc[0, :]
     data.drop(0, inplace=True)
 
-    data.replace('-', np.NaN, inplace=True)
+    data.replace("-", np.NaN, inplace=True)
 
-    data.rename(columns={'t': 'time', "V'O2": "VO2", "V'E": "VE"}, inplace=True)
-    data["VCO2"] = data["V'E/V'CO2"] * (data['VE'])
-    data['VCO2'] = (data['VCO2'].astype(float) / 1000)
-    data.drop(labels=['Phase', 'Marker', "V'O2/kg", "V'O2/HR", 'WR', "V'E/V'O2", "V'E/V'CO2", "BF"], axis=1,
-              inplace=True)
+    data.rename(columns={"t": "time", "V'O2": "VO2", "V'E": "VE"}, inplace=True)
+    data["VCO2"] = data["V'E/V'CO2"] * (data["VE"])
+    data["VCO2"] = data["VCO2"].astype(float) / 1000
+    data.drop(
+        labels=["Phase", "Marker", "V'O2/kg", "V'O2/HR", "WR", "V'E/V'O2", "V'E/V'CO2", "BF"], axis=1, inplace=True
+    )
     data["time"] = data.apply(lambda row: metamax_to_s(row["time"]), axis=1)  # hh:mm:ss.000 to s
-    data['VO2'] = data['VO2'].astype(float)
-    data['EE'] = ((4.94 * data['RER'] + 16.04) * (1000 * data['VO2'])) / 60
+    data["VO2"] = data["VO2"].astype(float)
+    data["EE"] = ((4.94 * data["RER"] + 16.04) * (1000 * data["VO2"])) / 60
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
     data["HR"] = (np.NaN if "HR" not in data else data["HR"]).astype(int)  # missing when sensor is not detected
     data["O2pulse"] = data["VO2"] / data["HR"]
-    data['VCO2'].replace(0, 0.01, inplace=True)
-    data['VO2'].replace(0, 0.01, inplace=True)
+    data["VCO2"].replace(0, 0.01, inplace=True)
+    data["VO2"].replace(0, 0.01, inplace=True)
     data["VE/VO2"] = data["VE"] / data["VO2"]
     data["VE/VCO2"] = data["VE"] / data["VCO2"]
 
@@ -278,7 +295,7 @@ def load_opti(filename, rotate=True):
     dtypes = {name: np.float64 for name in names}
     usecols = [0, 3, 4, 5, 6, 7, 8, 9]
     opti_df = pd.read_csv(filename, names=names, delimiter="\t", usecols=usecols, dtype=dtypes, skiprows=12)
-    opti_df["angle"] *= (np.pi / 180)
+    opti_df["angle"] *= np.pi / 180
     opti_df["torque"] *= -1
     if rotate:
         fx = opti_df["fx"] * np.cos(opti_df["angle"]) + opti_df["fy"] * np.sin(opti_df["angle"])
@@ -338,7 +355,7 @@ def load_sw(filename, sfreq=200):
     usecols = [1, 3, 18, 19, 20, 21, 22, 23]
     sw_df = pd.read_csv(filename, names=names, usecols=usecols, dtype=dtypes)
     sw_df["time"] /= sfreq
-    sw_df["angle"] = np.unwrap(sw_df["angle"] * (np.pi / 180)) * - 1  # in radians
+    sw_df["angle"] = np.unwrap(sw_df["angle"] * (np.pi / 180)) * -1  # in radians
     return sw_df
 
 
@@ -363,8 +380,8 @@ def load_hsb(filename):
     """
     # noinspection PyTypeChecker
     data = {"left": defaultdict(list), "right": defaultdict(list)}
-    with open(filename, 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=';')
+    with open(filename, "r") as csvfile:
+        reader = csv.reader(csvfile, delimiter=";")
         next(reader, None)  # skip header
         for row in reader:
             if row[0] == "0":
@@ -417,8 +434,8 @@ def load_esseda(filename):
 
     """
     df = pd.read_excel(filename, sheet_name="HSB")
-    df = df.dropna(axis=1, how='all')  # remove empty columns
-    df = df.apply(lambda col: pd.to_numeric(col.str.replace(',', '.')) if isinstance(col[0], str) else col, axis=0)
+    df = df.dropna(axis=1, how="all")  # remove empty columns
+    df = df.apply(lambda col: pd.to_numeric(col.str.replace(",", ".")) if isinstance(col[0], str) else col, axis=0)
 
     cols = len(df.columns) // 5  # LEM does this annoying thing where it starts in new columns
     mats = np.split(df.values, cols, axis=1)
@@ -470,11 +487,13 @@ def load_wheelchair(filename):
     """
 
     data = pd.read_excel(filename, sheet_name=2)
-    wheelchair = {"name": data.iloc[1, 1],
-                  "rimsize": float(data.iloc[7, 1]) / 1000 / 2,
-                  "wheelsize": float(data.iloc[8, 1]) / 1000 / 2,
-                  "wheelbase": float(data.iloc[9, 1]) / 1000,
-                  "weight": float(data.iloc[10, 1])}
+    wheelchair = {
+        "name": data.iloc[1, 1],
+        "rimsize": float(data.iloc[7, 1]) / 1000 / 2,
+        "wheelsize": float(data.iloc[8, 1]) / 1000 / 2,
+        "wheelbase": float(data.iloc[9, 1]) / 1000,
+        "weight": float(data.iloc[10, 1]),
+    }
     return wheelchair
 
 
@@ -552,25 +571,25 @@ def load_n3d(filename, verbose=True):
         content = f.read()
 
     # filetype = unpack('c', content[0:1])[0]
-    items = unpack('h', content[1:3])[0]  # int16, number of markers
-    subitems = unpack('h', content[3:5])[0]  # int16, number of dimensions (usually 3)
-    numframes = unpack('i', content[5:9])[0]  # int32, number of frames
-    sfrq = unpack('f', content[9:13])[0]  # float32, sample frequency
+    items = unpack("h", content[1:3])[0]  # int16, number of markers
+    subitems = unpack("h", content[3:5])[0]  # int16, number of dimensions (usually 3)
+    numframes = unpack("i", content[5:9])[0]  # int32, number of frames
+    sfrq = unpack("f", content[9:13])[0]  # float32, sample frequency
     # usercomment = merge_chars(unpack('c' * 60, content[13:73]))  # char
     # sys_comment = merge_chars(unpack('c' * 60, content[73:133]))
     # descrp_file = merge_chars(unpack('c' * 30, content[133:163]))
     # cuttoff_frq = unpack('h', content[163:165])
-    coll_time = merge_chars(unpack('c' * 10, content[165:175]))
-    coll_date = merge_chars(unpack('c' * 10, content[175:185]))
+    coll_time = merge_chars(unpack("c" * 10, content[165:175]))
+    coll_date = merge_chars(unpack("c" * 10, content[175:185]))
     # rest = merge_chars(unpack('c' * 71, content[185:256]))  # padding
 
     if verbose:
         print("-" * 50)
-        print(f'Reading data from {filename}, recorded on {coll_date} at {coll_time} with {sfrq} Hz.')
+        print(f"Reading data from {filename}, recorded on {coll_date} at {coll_time} with {sfrq} Hz.")
         print("-" * 50)
 
     num_total = items * subitems * numframes  # total number of 'samples'
-    optodata = np.array(unpack('f' * num_total, content[256:]))
+    optodata = np.array(unpack("f" * num_total, content[256:]))
 
     optodata[optodata <= -10e20] = np.nan  # replace NDF nan with nan
     optodata = np.reshape(optodata, (numframes, items, subitems)).transpose((0, 2, 1))
@@ -615,7 +634,7 @@ def load_imu(root_dir, filenames=None, inplace=False):
         device_name = "left" if "links" in device_name.lower() or "left" in device_name.lower() else device_name
         device_name = "right" if "rechts" in device_name.lower() or "right" in device_name.lower() else device_name
         device_name = "frame" if "frame" in device_name.lower() else device_name
-        device_name = 'trunk' if 'trunk' in device_name.lower() else device_name
+        device_name = "trunk" if "trunk" in device_name.lower() else device_name
 
         sessiondata[device_name] = dict()
 
@@ -636,14 +655,18 @@ def load_imu(root_dir, filenames=None, inplace=False):
     if not inplace:
         sessiondata = copy.deepcopy(sessiondata)
 
-    sessiondata["right"] = sessiondata["right"]["sensors"] if 'right' in sessiondata.keys() else print(
-        'No right sensor imported')
-    sessiondata["frame"] = sessiondata["frame"]["sensors"] if 'frame' in sessiondata.keys() else print(
-        'No frame sensor imported')
-    sessiondata["left"] = sessiondata["left"]["sensors"] if 'left' in sessiondata.keys() else print(
-        'No left sensor imported')
-    sessiondata["trunk"] = sessiondata["trunk"]["sensors"] if 'trunk' in sessiondata.keys() else print(
-        'No trunk sensor imported')
+    sessiondata["right"] = (
+        sessiondata["right"]["sensors"] if "right" in sessiondata.keys() else print("No right sensor imported")
+    )
+    sessiondata["frame"] = (
+        sessiondata["frame"]["sensors"] if "frame" in sessiondata.keys() else print("No frame sensor imported")
+    )
+    sessiondata["left"] = (
+        sessiondata["left"]["sensors"] if "left" in sessiondata.keys() else print("No left sensor imported")
+    )
+    sessiondata["trunk"] = (
+        sessiondata["trunk"]["sensors"] if "trunk" in sessiondata.keys() else print("No trunk sensor imported")
+    )
 
     sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
 
@@ -695,7 +718,7 @@ def load_optitrack(filename, include_header=False):
     """
     # First get all the metadata
     header = {}
-    with open(filename, 'r') as f:
+    with open(filename, "r") as f:
         header["metadata"] = f.readline().replace("\n", "").split(",")
         next(f)
         header["marker_type"] = f.readline().replace("\n", "").replace(",,", "frame,time,").split(",")
@@ -722,8 +745,9 @@ def load_optitrack(filename, include_header=False):
         if "Unlabeled" in marker_label:
             marker_label = "marker_" + str(i)
         marker_columns = [first_marker + i * 3, first_marker + 1 + i * 3, first_marker + 2 + i * 3]
-        marker_data[marker_label] = pd.read_csv(filename, skiprows=list(range(7)), usecols=marker_columns,
-                                                names=["X", "Y", "Z"])
+        marker_data[marker_label] = pd.read_csv(
+            filename, skiprows=list(range(7)), usecols=marker_columns, names=["X", "Y", "Z"]
+        )
         marker_data[marker_label] = marker_data[marker_label][:-1]  # remove last (empty) row
     return (marker_data, header) if include_header else marker_data
 
@@ -768,7 +792,7 @@ def load_opti_offset(filename):
     """
     names = ["fx", "fy", "fz", "mx", "my", "torque", "angle", "angle_360"]
     opti_offset_df = pd.read_csv(filename, names=names, delimiter="\t", skiprows=12)
-    opti_offset_df["angle"] *= (np.pi / 180)
+    opti_offset_df["angle"] *= np.pi / 180
     opti_offset_df["torque"] *= -1
 
     return opti_offset_df
@@ -797,34 +821,37 @@ def load_movesense(root_dir, right, frame=None, left=None):
     """
     sessiondata = dict()
 
-    right_sensors = sorted(glob(root_dir + right + '*'))
+    right_sensors = sorted(glob(root_dir + right + "*"))
     sensors = [right_sensors]
     if frame is not None:
-        frame_sensors = sorted(glob(root_dir + frame + '*'))
+        frame_sensors = sorted(glob(root_dir + frame + "*"))
         sensors.append(frame_sensors)
     if left is not None:
-        left_sensors = sorted(glob(root_dir + left + '*'))
+        left_sensors = sorted(glob(root_dir + left + "*"))
         sensors.append(left_sensors)
 
     for sensor in sensors:
-        if right in sensor[0]: sensor_name = 'right'
+        if right in sensor[0]:
+            sensor_name = "right"
         if frame is not None:
-            if frame in sensor[0]: sensor_name = 'frame'
+            if frame in sensor[0]:
+                sensor_name = "frame"
         if left is not None:
-            if left in sensor[0]: sensor_name = 'left'
+            if left in sensor[0]:
+                sensor_name = "left"
 
         acc = pd.read_csv(sensor[0])
-        acc['x'] *= -1
+        acc["x"] *= -1
         gyro = pd.read_csv(sensor[1])
-        gyro['x'] *= -1
-        acc.rename(columns={'x': 'accelerometer_y', 'y': 'accelerometer_x', 'z': 'accelerometer_z'}, inplace=True)
-        gyro.rename(columns={'x': 'gyroscope_y', 'y': 'gyroscope_x', 'z': 'gyroscope_z'}, inplace=True)
+        gyro["x"] *= -1
+        acc.rename(columns={"x": "accelerometer_y", "y": "accelerometer_x", "z": "accelerometer_z"}, inplace=True)
+        gyro.rename(columns={"x": "gyroscope_y", "y": "gyroscope_x", "z": "gyroscope_z"}, inplace=True)
 
-        acc['time'] = pd.to_datetime(acc['timestamp'], unit='ms')
-        acc['time'] -= acc['time'][0]
-        acc['time'] = acc['time'].dt.total_seconds()
+        acc["time"] = pd.to_datetime(acc["timestamp"], unit="ms")
+        acc["time"] -= acc["time"][0]
+        acc["time"] = acc["time"].dt.total_seconds()
 
-        sessiondata[sensor_name] = pd.concat([gyro, acc], axis=1, join='inner')
-        sessiondata[sensor_name] = sessiondata[sensor_name].drop(['timestamp'], axis=1)
+        sessiondata[sensor_name] = pd.concat([gyro, acc], axis=1, join="inner")
+        sessiondata[sensor_name] = sessiondata[sensor_name].drop(["timestamp"], axis=1)
 
     return sessiondata

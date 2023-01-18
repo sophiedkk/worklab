@@ -3,7 +3,7 @@ import importlib.metadata
 __version__ = importlib.metadata.version(__package__)
 del importlib  # clean up the namespace
 
-__all__ = ['com', 'kin', 'move', 'physio', 'utils', 'plots', 'imu', 'ana']
+__all__ = ["com", "kin", "move", "physio", "utils", "plots", "imu", "ana"]
 
 from . import com
 from . import kin

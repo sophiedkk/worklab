@@ -8,7 +8,7 @@ from scipy.signal import periodogram, find_peaks
 from .utils import lowpass_butter, pd_interp
 
 
-def resample_imu(sessiondata, sfreq=400.):
+def resample_imu(sessiondata, sfreq=400.0):
     """
     Resample all devices and sensors to new sample frequency.
 
@@ -42,7 +42,7 @@ def resample_imu(sessiondata, sfreq=400.):
     for device in sessiondata:
         if device == "quaternion":
             sessiondata[device] = pd_interp(sessiondata[device], "time", new_time)
-            sessiondata[device] *= (1 / np.linalg.norm(sessiondata[device], axis=0))
+            sessiondata[device] *= 1 / np.linalg.norm(sessiondata[device], axis=0)
         elif device == "matrix":
             warn("Rotation matrix cannot be resampled. This dataframe has been removed")
         else:
@@ -50,7 +50,7 @@ def resample_imu(sessiondata, sfreq=400.):
     return sessiondata
 
 
-def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type='ngimu', inplace=False):
+def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type="ngimu", inplace=False):
     """
     Calculate wheelchair kinematic variables based on NGIMU data
 
@@ -90,11 +90,13 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     # Wheelchair camber correction
     deg2rad = np.pi / 180
     right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad) * (
-            frame["gyroscope_z"] * np.cos(camber * deg2rad))
+        frame["gyroscope_z"] * np.cos(camber * deg2rad)
+    )
 
     if n_sensors == 3:
         left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-                            frame["gyroscope_z"] * np.cos(camber * deg2rad))
+            frame["gyroscope_z"] * np.cos(camber * deg2rad)
+        )
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     else:
         frame["gyro_cor"] = right["gyro_cor"]
@@ -120,16 +122,16 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     frame["vel"] = lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)
     frame["acc_wheel"] = np.gradient(frame["vel"]) * sfreq  # mean acceleration from velocity
 
-    if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
+    if sensor_type == "ngimu":  # Acceleration for NGIMU is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
-    frame['acc'] = lowpass_butter(frame['accelerometer_x'], sfreq=sfreq, cutoff=20)
+    frame["acc"] = lowpass_butter(frame["accelerometer_x"], sfreq=sfreq, cutoff=20)
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
-        initial=0.0)
+        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))), initial=0.0
+    )
     frame["dist_x"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
-        initial=0.0)
+        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))), initial=0.0
+    )
 
     """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
     Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
@@ -143,13 +145,15 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
         r_ratio0 = np.abs(right["vel"]) / (np.abs(right["vel"]) + np.abs(left["vel"]))  # Ratio left and right
         l_ratio0 = np.abs(left["vel"]) / (np.abs(right["vel"]) + np.abs(left["vel"]))
-        r_ratio1 = np.abs(np.gradient(left["vel"])) / (np.abs(np.gradient(right["vel"]))
-                                                       + np.abs(np.gradient(left["vel"])))
-        l_ratio1 = np.abs(np.gradient(right["vel"])) / (np.abs(np.gradient(right["vel"]))
-                                                        + np.abs(np.gradient(left["vel"])))
+        r_ratio1 = np.abs(np.gradient(left["vel"])) / (
+            np.abs(np.gradient(right["vel"])) + np.abs(np.gradient(left["vel"]))
+        )
+        l_ratio1 = np.abs(np.gradient(right["vel"])) / (
+            np.abs(np.gradient(right["vel"])) + np.abs(np.gradient(left["vel"]))
+        )
 
         comb_ratio = (r_ratio0 * r_ratio1) / ((r_ratio0 * r_ratio1) + (l_ratio0 * l_ratio1))  # Combine speed ratios
-        comb_ratio.fillna(value=0., inplace=True)
+        comb_ratio.fillna(value=0.0, inplace=True)
         comb_ratio = lowpass_butter(comb_ratio, sfreq=sfreq, cutoff=20)  # Filter the signal
         comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combratio values, not in df
         frame["skid_vel"] = (frame["skid_vel_right"] * comb_ratio) + (frame["skid_vel_left"] * (1 - comb_ratio))
@@ -188,7 +192,7 @@ def change_imu_orientation(sessiondata, inplace=False):
     return sessiondata
 
 
-def push_imu(acceleration, sfreq=400.):
+def push_imu(acceleration, sfreq=400.0):
     """
     Push detection based on velocity signal of IMU on a wheelchair [3]_.
 
@@ -211,14 +215,15 @@ def push_imu(acceleration, sfreq=400.):
     min_freq = 1.2
     f, pxx = periodogram(acceleration - np.mean(acceleration), sfreq)
     min_freq_f = len(f[f < min_freq])
-    max_freq_ind_temp = np.argmax(pxx[min_freq_f:min_freq_f * 5])
+    max_freq_ind_temp = np.argmax(pxx[min_freq_f : min_freq_f * 5])
     max_freq = f[min_freq_f + max_freq_ind_temp]
-    max_freq = min(max_freq, 3.)
+    max_freq = min(max_freq, 3.0)
     cutoff_freq = 1.5 * max_freq
     acc_filt = lowpass_butter(acceleration, sfreq=sfreq, cutoff=cutoff_freq)
     std_acc = np.std(acc_filt)
-    push_idx, peak_char = find_peaks(acc_filt, height=std_acc / 2,
-                                     distance=round(1 / (max_freq * 1.5) * sfreq), prominence=std_acc / 2)
+    push_idx, peak_char = find_peaks(
+        acc_filt, height=std_acc / 2, distance=round(1 / (max_freq * 1.5) * sfreq), prominence=std_acc / 2
+    )
     n_pushes = len(push_idx)
     push_freq = n_pushes / (len(acceleration) / sfreq)
     cycle_time = list()

@@ -159,7 +159,7 @@ def make_linear_calibration_spline(calibration_points):
     return spl_line
 
 
-def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
+def lowpass_butter(array, sfreq=100.0, cutoff=20.0, order=2):
     """
     Apply a simple zero-phase low-pass Butterworth filter on an array.
 
@@ -182,7 +182,7 @@ def lowpass_butter(array, sfreq=100., cutoff=20., order=2):
     """
     # noinspection PyTupleAssignmentBalance
     array = np.asarray(array)
-    sos = butter(order, cutoff, fs=sfreq, btype='low', output='sos')
+    sos = butter(order, cutoff, fs=sfreq, btype="low", output="sos")
     return sosfiltfilt(sos, array)
 
 
@@ -279,7 +279,7 @@ def merge_chars(chars):
         concatenated characters
 
     """
-    return ''.join([char.decode("utf-8") for char in chars])
+    return "".join([char.decode("utf-8") for char in chars])
 
 
 def find_peaks(data, cutoff=1.0, minpeak=5.0, min_dist=5):
@@ -317,7 +317,7 @@ def find_peaks(data, cutoff=1.0, minpeak=5.0, min_dist=5):
             peaks["start"].append(prom - tmp["start"])
     for key, value in peaks.items():
         peaks[key] = np.unique(value)  # remove possible duplicates
-    peaks["peak"] = [np.argmax(data[start:stop + 1]) + start for start, stop in zip(peaks["start"], peaks["stop"])]
+    peaks["peak"] = [np.argmax(data[start : stop + 1]) + start for start, stop in zip(peaks["start"], peaks["stop"])]
     return peaks
 
 
@@ -410,7 +410,7 @@ def calc_inertia(weight=0.8, radius=0.295, length=0.675, period=1.0):
         inertia [kgm2]
 
     """
-    return (weight * 9.81 * radius ** 2 * period ** 2) / (4 * np.pi ** 2 * length)
+    return (weight * 9.81 * radius**2 * period**2) / (4 * np.pi**2 * length)
 
 
 def zerocross1d(x, y, indices=False):
@@ -481,8 +481,8 @@ def camel_to_snake(name: str):
         converted_string
     """
 
-    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+    s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+    return re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
 
 
 def find_nearest(array, value, index=False):
@@ -557,10 +557,10 @@ def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
     """
     array = np.array(array, dtype=float)  # make sure we have an array
     if pad:
-        array = np.pad(array, (0, bins - array.size % bins), mode='constant', constant_values=np.NaN)
+        array = np.pad(array, (0, bins - array.size % bins), mode="constant", constant_values=np.NaN)
         means = nan_func(array.reshape(-1, bins), axis=1)
     else:
-        means = func(array[:(len(array) // bins) * bins].reshape(-1, bins), axis=1)
+        means = func(array[: (len(array) // bins) * bins].reshape(-1, bins), axis=1)
     return means
 
 
@@ -591,11 +591,12 @@ class Timer:
         print the time between this lap and the previous one
 
     """
+
     timers = dict()
 
     def __init__(self, name="", text="Elapsed time: {:0.4f} seconds", start=True):
         self._start_time = None
-        self._lap_time = 0.
+        self._lap_time = 0.0
         self.name = name
         self.text = text
 
@@ -662,26 +663,26 @@ def power_per_min(data_ergo, dur, start_spiro):
 
     """
 
-    n = [*range(math.ceil(dur / 60))]    # define amount of steps
-    mean_power = []     # define mean_power
+    n = [*range(math.ceil(dur / 60))]  # define amount of steps
+    mean_power = []  # define mean_power
 
     for i in n:
-        x = data_ergo['mean']
-        s = x[(x['time'] > ((i+1)*60)-60) & (x['time'] < ((i+1)*60))]     # cut every step
-        s = s[s['time'] > (s['time'].max()-20)]     # takes last 20s of step
-        mean_p = s['power'].mean()
+        x = data_ergo["mean"]
+        s = x[(x["time"] > ((i + 1) * 60) - 60) & (x["time"] < ((i + 1) * 60))]  # cut every step
+        s = s[s["time"] > (s["time"].max() - 20)]  # takes last 20s of step
+        mean_p = s["power"].mean()
         mean_power.append(mean_p)
 
-    outcome = pd.DataFrame(mean_power, columns=['mean_power'])
+    outcome = pd.DataFrame(mean_power, columns=["mean_power"])
     for i in n:
-        q = [outcome['mean_power'][i]] * 60
+        q = [outcome["mean_power"][i]] * 60
         if i == 0:
             power = []
         power = power + q
 
     x = [0] * int(start_spiro)
     power = x + power
-    power = pd.DataFrame(power, columns=['power'])
+    power = pd.DataFrame(power, columns=["power"])
 
     return power
 
