@@ -26,11 +26,16 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "flake8", "black"]
+dev = [
+    "pytest", 
+    "flake8", 
+    "black",
+    "jupyter-book"
+]
 
 [project.urls]
-"Homepage" = "https://github.com/pypa/sampleproject"
-"Bug Reports" = "https://github.com/pypa/sampleproject/issues"
+"Homepage" = "https://github.com/rickdkk/worklab"
+"Bug Reports" = "https://github.com/rickdkk/worklab/issues"
 
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]

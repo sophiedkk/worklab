@@ -1,0 +1,25 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: README
+parts:
+  - caption: Theory
+    chapters:
+    - file: chapters/setup
+  - caption: Examples
+    chapters:
+    - file: chapters/examples/ex_kinetics_ergo
+    - file: chapters/examples/ex_kinetics_mw
+    - file: chapters/examples/ex_move_imu
+    - file: chapters/examples/ex_physio_spiro
+  - caption: Package documentation
+    chapters:
+    - file: chapters/API/ana
+    - file: chapters/API/com
+    - file: chapters/API/imu
+    - file: chapters/API/kin
+    - file: chapters/API/move
+    - file: chapters/API/physio
+    - file: chapters/API/plots
+    - file: chapters/API/utils
