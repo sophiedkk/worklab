@@ -355,7 +355,7 @@ def acs_to_car_ang(acs, order=[0, 1, 2]):
         a3 = np.arctan2(-a * acs[:, i, j], acs[:, i, i])
 
     else:  # Euler angles
-        l = 3 - i - j
+        l = 3 - i - j  # noqa
         a1 = np.arctan2(acs[:, j, i], -a * acs[:, l, i])
         a2 = np.arccos(acs[:, i, i])
         a3 = np.arctan2(acs[:, i, j], a * acs[:, i, l])
@@ -927,7 +927,7 @@ def find_gh_regression(markers):
     AC2PC = magnitude(data_r["AC"] - data_r["PC"])[0]
     TS2PC = magnitude(data_r["TS"] - data_r["PC"])[0]
 
-    PC, AI, AA = data_r["PC"], data_r["AI"], data_r["AA"]
+    PC, AI = data_r["PC"], data_r["AI"]
 
     x_pos = 0.0189743 + PC[:, 0] * 0.2434 + PC[:, 1] * 0.0558 + AI[:, 0] * 0.2341 + AI2AA * 0.1590
     y_pos = -0.0038791 + AC2AA * -0.3940 + PC[:, 1] * 0.1732 + AI[:, 0] * 0.1205 + AC2PC * -0.1002

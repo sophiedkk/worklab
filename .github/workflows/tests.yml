@@ -22,7 +22,7 @@ jobs:
           pip install ".[dev]"
       - name: Lint with flake8
         run: |
-          flake8 .
+           flake8 --max-line-length 120 --extend-ignore E203 worklab
       - name: Test with pytest
         run: |
           pytest

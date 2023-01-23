@@ -218,7 +218,7 @@ def load_spiro_metamax(filename):
 
     """
     data = pd.read_excel(filename, skiprows=[*range(0, 124, 1)])
-    units = data.iloc[0, :]
+    # units = data.iloc[0, :]
     data.drop(0, inplace=True)
 
     data.replace("-", np.NaN, inplace=True)

@@ -133,9 +133,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))), initial=0.0
     )
 
-    """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
-    Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
-    Procedia Engineering, 112, 207-212."""
+    # Van der Slikke, R. M. A., et. al. https://doi.org/10.1016/j.proeng.2015.07.201
     frame["skid_vel_right"] = right["vel"]  # Calculate frame centre distance
     frame["skid_vel_right"] -= np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
 

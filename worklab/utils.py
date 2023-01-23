@@ -360,7 +360,7 @@ def nonlinear_fit_coast_down(time, vel, total_weight):
     """
     # try to determine c1 and c2 with curve_fit for non-linear approach
     initial_velocity = vel[0]
-    vel_func = lambda t, c1, c2: coast_down_velocity(t, initial_velocity, c1, c2, total_weight)  # lock variables
+    vel_func = lambda t, c1, c2: coast_down_velocity(t, initial_velocity, c1, c2, total_weight)  # noqa, lock variables
     (coef1, coef2), pcov = curve_fit(vel_func, time, vel, bounds=(0, [1, 20]))  # 'trf' method but 'lm' would also work
     return coef1, coef2
 
@@ -608,13 +608,13 @@ class Timer:
     def start(self):
         """Start a new timer"""
         if self._start_time is not None:
-            raise TimerError(f"Timer is already running. Use .stop() to stop it")
+            raise TimerError("Timer is already running. Use .stop() to stop it")
         self._start_time = time.perf_counter()
 
     def lap(self, lap_name=""):
         """Report the elapsed time"""
         if self._start_time is None:
-            raise TimerError(f"Timer is not running. Use .start() to start it")
+            raise TimerError("Timer is not running. Use .start() to start it")
 
         if self._lap_time:
             current_lap = time.perf_counter() - self._lap_time - self._start_time
@@ -630,7 +630,7 @@ class Timer:
     def stop(self):
         """Stop the timer, and report the elapsed time"""
         if self._start_time is None:
-            raise TimerError(f"Timer is not running. Use .start() to start it")
+            raise TimerError("Timer is not running. Use .start() to start it")
 
         elapsed_time = time.perf_counter() - self._start_time
         self._start_time = None

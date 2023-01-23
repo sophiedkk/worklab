@@ -559,11 +559,9 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
 
     if verbose:
         print(
-            "\n"
-            + "=" * 80
-            + f"\nFound left: {len(pbp_sides['left'])} , right: {len(pbp_sides['right'])} and mean: {len(pbp_sides['mean'])} pushes!\n"
-            + "=" * 80
-            + "\n"
+            "\n" + "=" * 80 + f"\nFound left: {len(pbp_sides['left'])} , "
+            f"right: {len(pbp_sides['right'])} and "
+            f"mean: {len(pbp_sides['mean'])} pushes!\n" + "=" * 80 + "\n"
         )
     return pbp_sides
 
