@@ -1,6 +1,9 @@
-# Introduction
+# Worklab Docs
 
-[![image](https://zenodo.org/badge/DOI/10.5281/zenodo.3268671.svg)](https://doi.org/10.5281/zenodo.3268671) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE) [![Documentation Status](https://readthedocs.org/projects/worklab/badge/?version=latest)](https://worklab.readthedocs.io/en/latest/?badge=latest)
+[![image](https://zenodo.org/badge/DOI/10.5281/zenodo.3268671.svg)](https://doi.org/10.5281/zenodo.3268671) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE)
+```{eval-rst}
+**Date**: |today|
+```
 
 The current page contains information on wheelchair propulsion research
 in the worklab and the correspondingly named Python package. As such,

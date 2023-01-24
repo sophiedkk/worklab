@@ -5,10 +5,10 @@
 
 #######################################################################################
 # Book settings
-title                       : Worklab Docs  # The title of the book. Will be placed in the left navbar.
+title                       : ""  # The title of the book. Will be placed in the left navbar.
 author                      : Rick de Klerk, Thomas Rietveld, Rowie Janssen  # The author of the book
 copyright                   : "2023"  # Copyright year to be placed in the footer
-logo                        : ""  # A path to the book logo
+logo                        : "accessibility_icon_boost.svg"  # A path to the book logo
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 exclude_patterns            : [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
 # Auto-exclude files not in the toc
@@ -47,7 +47,7 @@ parse:
 #######################################################################################
 # HTML-specific settings
 html:
-  favicon                   : ""  # A path to a favicon image
+  favicon                   : "favicon.svg"  # A path to a favicon image
   use_edit_page_button      : true  # Whether to add an "edit this page" button to pages. If `true`, repository information in repository: must be filled in
   use_repository_button     : true  # Whether to add a link to your repository button
   use_issues_button         : true  # Whether to add an "open an issue" button

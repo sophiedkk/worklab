@@ -4,7 +4,7 @@
 format: jb-book
 root: README
 parts:
-  - caption: Theory
+  - caption: Introduction
     chapters:
     - file: chapters/setup
   - caption: Examples
@@ -13,13 +13,16 @@ parts:
     - file: chapters/examples/ex_kinetics_mw
     - file: chapters/examples/ex_move_imu
     - file: chapters/examples/ex_physio_spiro
-  - caption: Package documentation
+  - caption: Documentation
     chapters:
-    - file: chapters/API/ana
-    - file: chapters/API/com
-    - file: chapters/API/imu
-    - file: chapters/API/kin
-    - file: chapters/API/move
-    - file: chapters/API/physio
-    - file: chapters/API/plots
-    - file: chapters/API/utils
+    - file: chapters/package
+      sections:
+      - file: chapters/API/ana
+      - file: chapters/API/com
+      - file: chapters/API/imu
+      - file: chapters/API/kin
+      - file: chapters/API/move
+      - file: chapters/API/physio
+      - file: chapters/API/plots
+      - file: chapters/API/utils
+    - file: chapters/developer
