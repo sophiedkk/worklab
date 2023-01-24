@@ -13,7 +13,7 @@ def resample_imu(sessiondata, sfreq=400.0):
     Resample all devices and sensors to new sample frequency.
 
     Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with NGIMU's so resampling
-    before further analysis is recommended. Translated from xio-Technologies [2]_.
+    before further analysis is recommended. Translated from xio-Technologies.
 
     Parameters
     ----------
@@ -29,7 +29,7 @@ def resample_imu(sessiondata, sfreq=400.0):
 
     References
     ----------
-    .. [2] https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
+    https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
 
     """
     end_time = 0
@@ -70,7 +70,6 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         type of sensor, 'ngimu' is for xio-technologies, 'move' is for movesense
     inplace : bool
         performs operation inplace
-
 
     Returns
     -------
@@ -192,7 +191,7 @@ def change_imu_orientation(sessiondata, inplace=False):
 
 def push_imu(acceleration, sfreq=400.0):
     """
-    Push detection based on velocity signal of IMU on a wheelchair [3]_.
+    Push detection based on velocity signal of IMU on a wheelchair.
 
     Parameters
     ----------
@@ -200,14 +199,15 @@ def push_imu(acceleration, sfreq=400.0):
         acceleration data structure
     sfreq : float
         sampling frequency
+
     Returns
     -------
         push_idx, acc_filt, n_pushes, cycle_time, push_freq
 
     References
     ----------
-    .. [3] van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair
-    court sport sprinting. Procedia engineering, 147, 730-734.
+    van der Slikke, R., Berger, M., Bregman, D., & Veeger, D. (2016). Push characteristics in wheelchair court sport
+    sprinting. Procedia engineering, 147, 730-734.
 
     """
     min_freq = 1.2

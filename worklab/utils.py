@@ -606,13 +606,11 @@ class Timer:
             self.start()
 
     def start(self):
-        """Start a new timer"""
         if self._start_time is not None:
             raise TimerError("Timer is already running. Use .stop() to stop it")
         self._start_time = time.perf_counter()
 
     def lap(self, lap_name=""):
-        """Report the elapsed time"""
         if self._start_time is None:
             raise TimerError("Timer is not running. Use .start() to start it")
 
@@ -628,7 +626,6 @@ class Timer:
         print(self.text.format(current_lap))
 
     def stop(self):
-        """Stop the timer, and report the elapsed time"""
         if self._start_time is None:
             raise TimerError("Timer is not running. Use .start() to start it")
 
@@ -647,7 +644,7 @@ def power_per_min(data_ergo, dur, start_spiro):
     the Wasserman plot
 
     Parameters:
-    ----------
+    -----------
     data_ergo : pd.DataFrame
         processed ergometer data dictionary with dataframes
     dur : int

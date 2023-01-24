@@ -1,6 +1,4 @@
----
-title: Treadmill
----
+# Treadmill testing
 
 # Determining power output
 

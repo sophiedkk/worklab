@@ -1,6 +1,4 @@
----
-title: Ergometer
----
+# Ergometer testing
 
 This guide will explain how the settings of the Esseda wheelchair
 ergometer can be used to simulate overground propulsion or set a target

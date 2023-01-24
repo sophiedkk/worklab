@@ -1,6 +1,4 @@
----
-title: Overground
----
+# Overground testing
 
 In wheelchair propulsion the main source of energy loss is rolling
 friction, which depends on the wheelchair, user, and wheelchair-user

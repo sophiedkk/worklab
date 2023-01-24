@@ -601,7 +601,7 @@ def load_imu(root_dir, filenames=None, inplace=False):
     """
     Imports NGIMU session in nested dictionary with all devices and sensors.
 
-    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies [1]_.
+    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.
 
     Parameters
     ----------
@@ -617,7 +617,7 @@ def load_imu(root_dir, filenames=None, inplace=False):
 
     References
     ----------
-    .. [1] https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
+    https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
 
     """
     directory_contents = listdir(root_dir)  # all content in directory

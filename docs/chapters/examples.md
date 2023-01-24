@@ -1,6 +1,4 @@
----
-title: Examples
----
+# Minimal examples
 
 This page contains some commonly requested examples in Jupyter
 notebooks. The general approach to processing the data used in this

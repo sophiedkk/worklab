@@ -1,4 +1,4 @@
-# Setup
+# Installation & general info
 
 This is an attempt to make analysis of wheelchair biomechanics data more
 accessible and transparent. Previously all analyses were performed with

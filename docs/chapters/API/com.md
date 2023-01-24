@@ -6,9 +6,6 @@ which will infer the correct function for you. You can also use
 device-specific load functions if needed.
 
 ```{eval-rst}
-API Reference .com
-==================
-
 .. automodule:: worklab.com
     :members:
 ```

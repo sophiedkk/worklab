@@ -7,8 +7,12 @@ parts:
   - caption: Introduction
     chapters:
     - file: chapters/setup
+    - file: chapters/overground
+    - file: chapters/treadmill
+    - file: chapters/ergometer
   - caption: Examples
     chapters:
+    - file: chapters/examples
     - file: chapters/examples/ex_kinetics_ergo
     - file: chapters/examples/ex_kinetics_mw
     - file: chapters/examples/ex_move_imu
