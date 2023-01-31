@@ -8,4 +8,3 @@ zero-crossings, finding the nearest value in a signal.
 .. automodule:: worklab.utils
     :members:
 ```
-
