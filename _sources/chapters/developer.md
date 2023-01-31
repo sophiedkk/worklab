@@ -27,7 +27,32 @@ required. You can install the package in edit mode with the `-e` option:
 pip install -e ".[dev]"
 ```
 
+Any changes that you apply to the package in edit mode will be reflected in your environment. Alternatively, you can 
+develop in-tree, which admittedly reduces complexity a little.
+
 ## Changing code
+
+Please remind me to make a pre-commit hook for these steps one day. Worklab uses `black` to format its code. The CI/CD 
+will fail on inconsistencies with the black codestyle. To format the code using black you can run (from the root folder):
+
+:::{margin} Good Practice 👍
+You can add the black formatter to your IDE and format on save. That way you don't need to worry about formatting!
+:::
+
+```shell
+black worklab
+```
+
+You don't need to add any optional parameters as those are stored in the `pyproject.toml`. Additionally, `flake8` is 
+used to check for code-style consistency. Again, this is done with a simple command:
+
+```shell
+flake8 worklab
+```
+
+Finally, the code is tested for errors with Pytest. Due to the history of the project the coverage is very low. 
+Nevertheless, any new code that will be added should also include test cases to ensure proper execution. You can run
+all tests by simply calling the `pytest` command from the terminal.
 
 ## Changing documentation
 

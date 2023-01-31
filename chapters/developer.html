@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -111,7 +112,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="setup.html">
-   Installation &amp; general info
+   Quick Start Guide
   </a>
  </li>
  <li class="toctree-l1">
@@ -524,9 +525,28 @@ required. You can install the package in edit mode with the <code class="docutil
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
 </pre></div>
 </div>
+<p>Any changes that you apply to the package in edit mode will be reflected in your environment. Alternatively, you can
+develop in-tree, which admittedly reduces complexity a little.</p>
 </section>
 <section id="changing-code">
 <h2>Changing code<a class="headerlink" href="#changing-code" title="Permalink to this headline">#</a></h2>
+<p>Please remind me to make a pre-commit hook for these steps one day. Worklab uses <code class="docutils literal notranslate"><span class="pre">black</span></code> to format its code. The CI/CD
+will fail on inconsistencies with the black codestyle. To format the code using black you can run (from the root folder):</p>
+<aside class="margin sidebar">
+<p class="sidebar-title">Good Practice 👍</p>
+<p>You can add the black formatter to your IDE and format on save. That way you don’t need to worry about formatting!</p>
+</aside>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>black<span class="w"> </span>worklab
+</pre></div>
+</div>
+<p>You don’t need to add any optional parameters as those are stored in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>. Additionally, <code class="docutils literal notranslate"><span class="pre">flake8</span></code> is
+used to check for code-style consistency. Again, this is done with a simple command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>flake8<span class="w"> </span>worklab
+</pre></div>
+</div>
+<p>Finally, the code is tested for errors with Pytest. Due to the history of the project the coverage is very low.
+Nevertheless, any new code that will be added should also include test cases to ensure proper execution. You can run
+all tests by simply calling the <code class="docutils literal notranslate"><span class="pre">pytest</span></code> command from the terminal.</p>
 </section>
 <section id="changing-documentation">
 <h2>Changing documentation<a class="headerlink" href="#changing-documentation" title="Permalink to this headline">#</a></h2>

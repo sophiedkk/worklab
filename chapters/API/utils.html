@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -112,7 +113,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../setup.html">
-   Installation &amp; general info
+   Quick Start Guide
   </a>
  </li>
  <li class="toctree-l1">
@@ -859,20 +860,19 @@ reason.</p>
 <span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">power_per_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_ergo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_spiro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#power_per_min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.power_per_min" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the power achieved per min in a graded exercise test, needed for
 the Wasserman plot</p>
-<dl class="simple">
-<dt>data_ergo<span class="classifier">pd.DataFrame</span></dt><dd><p>processed ergometer data dictionary with dataframes</p>
-</dd>
-<dt>dur<span class="classifier">int</span></dt><dd><p>duration of max test in seconds</p>
-</dd>
-<dt>start_spiro<span class="classifier">float or int</span></dt><dd><p>duration of the rest measurement just before the maximal exercise test.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>power</strong> – a dataframe containing the mean power output per step, showed as a continu signal</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_ergo</strong> (<em>pd.DataFrame</em>) – processed ergometer data dictionary with dataframes</p></li>
+<li><p><strong>dur</strong> (<em>int</em>) – duration of max test in seconds</p></li>
+<li><p><strong>start_spiro</strong> (<em>float</em><em> or </em><em>int</em>) – duration of the rest measurement just before the maximal exercise test.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pd.DataFrame</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>power</strong> – a dataframe containing the mean power output per step, showed as a continu signal</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>

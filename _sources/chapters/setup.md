@@ -1,62 +1,57 @@
-# Installation & general info
+# Quick Start Guide
 
-This is an attempt to make analysis of wheelchair biomechanics data more
-accessible and transparent. Previously all analyses were performed with
-commercial software that is not available to everyone, especially to
-people not associated with a university. Having the analysis in Python
-makes it accessible and more readable (hopefully) for everyone. By
-sharing the code I hope to be transparent and to reduce the amount of
-times this code has to be written by other people.
+The worklab package makes use of the Scientific Python ecosystem. The original goal of the project was to make analysis 
+of wheelchair biomechanics data more accessible and transparent. Previously, all analyses were performed with commercial 
+software that is not available to everyone, especially to people not associated with a university. The scripts were then
+shared by e-mail or with a USB-drive. Having the analysis in Python makes it accessible and more readable (hopefully) 
+for everyone. By sharing the code I hope to be transparent and to reduce the amount of times this code has to be written 
+by other people.
 
-## Examples & audience
+## Intended audience
 
-People working in our lab that want to work with data from any of our
-instruments. It can, of course, also be used by other people, provided
-that you have similar equipment. Most of the time you will only need one
-or two functions which you can just take from the source code or you can
-just install the package as it has very little overhead anyways and only
-uses packages that you probably already have installed. Also have a look
-at the
-[examples](https://gitlab.com/Rickdkk/worklab/tree/master/examples).
+People working in our lab that want to work with data from any of our instruments. It can, of course, also be used by
+other people, provided that you have similar equipment or access to data. Also have a look at the
+[examples](./examples).
+
+## Requirements
+
+The worklab package uses the Python programming language. You need to install Python from their [website](https://www.python.org/)
+or a scientific Python distribution like [Anaconda](https://www.anaconda.com/) (recommended). 
 
 ## Installation
 
-Option 1: the package is now on pip:
+The package is now available on the Python Package Index (PyPI, [link](https://pypi.org/project/worklab/)), which means 
+you can install it with pip from your terminal:
 
-    pip install worklab
+```shell
+pip install worklab
+```
 
-Option 2: download the package from this page, and run:
+:::{margin} Good Practice 👍
+Don't install packages in your global (system) Python, but use a separate environment (e.g. using conda or venv)!
+:::
 
-    python setup.py install
+To verify if everything works simply try to import worklab in Python:
 
-Option 3: don\'t install it and just include the scripts in your working
-directory (why though?).
+```python
+import worklab as wl
+```
 
-To verify if everything works simply try to import worklab:
+If that returns no errors you are (probably) good to go. That's it.
 
-    python
-    import worklab as wl
+## TL;DR
 
-That\'s it.
+- **com:** Provides functions for reading and writing data, use `load` to infer filetype and automatically read it. If 
+you use a different naming scheme you can always call the specific load functions.
+- **kinetics:** Contains all essentials for measurement wheel and ergometer data. You only need the top-level function 
+`auto_process` for most use-cases.
+- **move:** Contains kinematics and movement related functions for NGIMU and some functions for 3D kinematics.
+- **physio:** Contains physiological calculations, which for now is basically nothing as the spirometer does everything
+for you. Might include EMG and the likes later though.
+- **plots:** Contains some basic plotting functionalities for plots that become repetitive, needs some TLC to become 
+really useful.
+- **utils:** Contains all functions that are useful for more than one application (e.g. filtering and interpolation).
 
-## Breakdown
-
--   com: Provides functions for reading and writing data, use `load` to
-    infer filetype and automatically read it. If you use a different
-    naming scheme you can always call the specific load functions.
--   kinetics: Contains all essentials for measurement wheel and
-    ergometer data. You only need the top-level function `auto_process`
-    for most use-cases.
--   move: Contains kinematics and movement related functions for NGIMU
-    and some functions for 3D kinematics.
--   physio: Contains physiological calculations, which for now is
-    basically nothing as the spirometer does everything for you. Might
-    include EMG and the likes later though.
--   plots: Contains some basic plotting functionalities for plots that
-    become repetitive, needs some TLC to become really useful.
--   utils: Contains all functions that are useful for more than one
-    application (e.g. filtering and interpolation).
-
-The return of a function is a Pandas DataFrame in 9/10 cases. This means
-that you can also use all Pandas goodness.
+The return of a function is a Pandas DataFrame in 9/10 cases. This means that you can also use all Pandas goodness. The 
+exception to this rule is spatial data as that can be better represented in 3D arrays.
 

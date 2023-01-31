@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &amp; general info</title>
+    <title>Quick Start Guide</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -54,7 +55,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Overground testing" href="overground.html" />
-    <link rel="prev" title="Worklab Docs" href="../README.html" />
+    <link rel="prev" title="Worklab Documentation" href="../README.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -112,7 +113,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Installation &amp; general info
+   Quick Start Guide
   </a>
  </li>
  <li class="toctree-l1">
@@ -421,8 +422,13 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#examples-audience">
-   Examples &amp; audience
+  <a class="reference internal nav-link" href="#intended-audience">
+   Intended audience
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   Requirements
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -431,8 +437,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#breakdown">
-   Breakdown
+  <a class="reference internal nav-link" href="#tl-dr">
+   TL;DR
   </a>
  </li>
 </ul>
@@ -444,7 +450,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Installation & general info</h1>
+                <h1>Quick Start Guide</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -455,8 +461,13 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#examples-audience">
-   Examples &amp; audience
+  <a class="reference internal nav-link" href="#intended-audience">
+   Intended audience
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   Requirements
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -465,8 +476,8 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#breakdown">
-   Breakdown
+  <a class="reference internal nav-link" href="#tl-dr">
+   TL;DR
   </a>
  </li>
 </ul>
@@ -479,66 +490,58 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="installation-general-info">
-<h1>Installation &amp; general info<a class="headerlink" href="#installation-general-info" title="Permalink to this headline">#</a></h1>
-<p>This is an attempt to make analysis of wheelchair biomechanics data more
-accessible and transparent. Previously all analyses were performed with
-commercial software that is not available to everyone, especially to
-people not associated with a university. Having the analysis in Python
-makes it accessible and more readable (hopefully) for everyone. By
-sharing the code I hope to be transparent and to reduce the amount of
-times this code has to be written by other people.</p>
-<section id="examples-audience">
-<h2>Examples &amp; audience<a class="headerlink" href="#examples-audience" title="Permalink to this headline">#</a></h2>
-<p>People working in our lab that want to work with data from any of our
-instruments. It can, of course, also be used by other people, provided
-that you have similar equipment. Most of the time you will only need one
-or two functions which you can just take from the source code or you can
-just install the package as it has very little overhead anyways and only
-uses packages that you probably already have installed. Also have a look
-at the
-<a class="reference external" href="https://gitlab.com/Rickdkk/worklab/tree/master/examples">examples</a>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="quick-start-guide">
+<h1>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Permalink to this headline">#</a></h1>
+<p>The worklab package makes use of the Scientific Python ecosystem. The original goal of the project was to make analysis
+of wheelchair biomechanics data more accessible and transparent. Previously, all analyses were performed with commercial
+software that is not available to everyone, especially to people not associated with a university. The scripts were then
+shared by e-mail or with a USB-drive. Having the analysis in Python makes it accessible and more readable (hopefully)
+for everyone. By sharing the code I hope to be transparent and to reduce the amount of times this code has to be written
+by other people.</p>
+<section id="intended-audience">
+<h2>Intended audience<a class="headerlink" href="#intended-audience" title="Permalink to this headline">#</a></h2>
+<p>People working in our lab that want to work with data from any of our instruments. It can, of course, also be used by
+other people, provided that you have similar equipment or access to data. Also have a look at the
+<a class="reference internal" href="examples.html"><span class="doc std std-doc">examples</span></a>.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">#</a></h2>
+<p>The worklab package uses the Python programming language. You need to install Python from their <a class="reference external" href="https://www.python.org/">website</a>
+or a scientific Python distribution like <a class="reference external" href="https://www.anaconda.com/">Anaconda</a> (recommended).</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h2>
-<p>Option 1: the package is now on pip:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>pip install worklab
+<p>The package is now available on the Python Package Index (PyPI, <a class="reference external" href="https://pypi.org/project/worklab/">link</a>), which means
+you can install it with pip from your terminal:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>worklab
 </pre></div>
 </div>
-<p>Option 2: download the package from this page, and run:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python setup.py install
+<aside class="margin sidebar">
+<p class="sidebar-title">Good Practice 👍</p>
+<p>Don’t install packages in your global (system) Python, but use a separate environment (e.g. using conda or venv)!</p>
+</aside>
+<p>To verify if everything works simply try to import worklab in Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">worklab</span> <span class="k">as</span> <span class="nn">wl</span>
 </pre></div>
 </div>
-<p>Option 3: don’t install it and just include the scripts in your working
-directory (why though?).</p>
-<p>To verify if everything works simply try to import worklab:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>python
-import worklab as wl
-</pre></div>
-</div>
-<p>That’s it.</p>
+<p>If that returns no errors you are (probably) good to go. That’s it.</p>
 </section>
-<section id="breakdown">
-<h2>Breakdown<a class="headerlink" href="#breakdown" title="Permalink to this headline">#</a></h2>
+<section id="tl-dr">
+<h2>TL;DR<a class="headerlink" href="#tl-dr" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
-<li><p>com: Provides functions for reading and writing data, use <code class="docutils literal notranslate"><span class="pre">load</span></code> to
-infer filetype and automatically read it. If you use a different
-naming scheme you can always call the specific load functions.</p></li>
-<li><p>kinetics: Contains all essentials for measurement wheel and
-ergometer data. You only need the top-level function <code class="docutils literal notranslate"><span class="pre">auto_process</span></code>
-for most use-cases.</p></li>
-<li><p>move: Contains kinematics and movement related functions for NGIMU
-and some functions for 3D kinematics.</p></li>
-<li><p>physio: Contains physiological calculations, which for now is
-basically nothing as the spirometer does everything for you. Might
-include EMG and the likes later though.</p></li>
-<li><p>plots: Contains some basic plotting functionalities for plots that
-become repetitive, needs some TLC to become really useful.</p></li>
-<li><p>utils: Contains all functions that are useful for more than one
-application (e.g. filtering and interpolation).</p></li>
+<li><p><strong>com:</strong> Provides functions for reading and writing data, use <code class="docutils literal notranslate"><span class="pre">load</span></code> to infer filetype and automatically read it. If
+you use a different naming scheme you can always call the specific load functions.</p></li>
+<li><p><strong>kinetics:</strong> Contains all essentials for measurement wheel and ergometer data. You only need the top-level function
+<code class="docutils literal notranslate"><span class="pre">auto_process</span></code> for most use-cases.</p></li>
+<li><p><strong>move:</strong> Contains kinematics and movement related functions for NGIMU and some functions for 3D kinematics.</p></li>
+<li><p><strong>physio:</strong> Contains physiological calculations, which for now is basically nothing as the spirometer does everything
+for you. Might include EMG and the likes later though.</p></li>
+<li><p><strong>plots:</strong> Contains some basic plotting functionalities for plots that become repetitive, needs some TLC to become
+really useful.</p></li>
+<li><p><strong>utils:</strong> Contains all functions that are useful for more than one application (e.g. filtering and interpolation).</p></li>
 </ul>
-<p>The return of a function is a Pandas DataFrame in 9/10 cases. This means
-that you can also use all Pandas goodness.</p>
+<p>The return of a function is a Pandas DataFrame in 9/10 cases. This means that you can also use all Pandas goodness. The
+exception to this rule is spatial data as that can be better represented in 3D arrays.</p>
 </section>
 </section>
 
@@ -573,7 +576,7 @@ that you can also use all Pandas goodness.</p>
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Worklab Docs</p>
+            <p class="prev-next-title">Worklab Documentation</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="overground.html" title="next page">
