@@ -643,8 +643,8 @@ def power_per_min(data_ergo, dur, start_spiro):
     Calculates the power achieved per min in a graded exercise test, needed for
     the Wasserman plot
 
-    Parameters:
-    -----------
+    Parameters
+    ----------
     data_ergo : pd.DataFrame
         processed ergometer data dictionary with dataframes
     dur : int
