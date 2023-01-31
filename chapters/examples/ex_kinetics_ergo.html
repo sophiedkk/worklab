@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Working with ergometer data</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Working with measurement wheel data" href="ex_kinetics_mw.html" />
+    <link rel="prev" title="Minimal examples" href="../examples.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../setup.html">
+   Installation &amp; general info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ergometer.html">
+   Ergometer testing
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_kinetics_mw.html">
+   Working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_move_imu.html">
+   Working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_physio_spiro.html">
+   Working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Documentation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../package.html">
+   Package documentation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../API/utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../developer.html">
+   Developers
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/rickdkk/worklab/main?urlpath=tree/docs/chapters/examples/ex_kinetics_ergo.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/examples/ex_kinetics_ergo.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/examples/ex_kinetics_ergo.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/chapters/examples/ex_kinetics_ergo.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Working with ergometer data</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="working-with-ergometer-data">
+<h1>Working with ergometer data<a class="headerlink" href="#working-with-ergometer-data" title="Permalink to this headline">#</a></h1>
+<p>Import the worklab module:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">worklab</span> <span class="k">as</span> <span class="nn">wl</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Import the data with com.load() or the device specific load function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;example_data&#39;</span><span class="p">,</span> <span class="s1">&#39;Esseda_example_LEM.xls&#39;</span><span class="p">)</span>
+<span class="n">ergo_data</span> <span class="o">=</span> <span class="n">wl</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ergometer data is stored in a: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">ergo_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+Initializing loading for C:\Users\rick_\Development\worklab2\example_data\Esseda_example_LEM.xls ...
+File identified as Esseda datafile. Attempting to load ...
+Data loaded!
+================================================================================
+
+Ergometer data is stored in a:  &lt;class &#39;dict&#39;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ergo_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dict_keys([&#39;left&#39;, &#39;right&#39;])
+</pre></div>
+</div>
+</div>
+</div>
+<p>The ergometer data is a little more simple than measurement wheel data, (but you do have two modules):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>force</th>
+      <th>speed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.01</td>
+      <td>0.788487</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.02</td>
+      <td>0.780378</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.03</td>
+      <td>0.797562</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.04</td>
+      <td>0.792799</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.05</td>
+      <td>0.838543</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Processing is identical however:</p>
+<ul class="simple">
+<li><p>filter</p></li>
+<li><p>process</p></li>
+<li><p>push-by-push</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ergo_data</span> <span class="o">=</span> <span class="n">wl</span><span class="o">.</span><span class="n">kin</span><span class="o">.</span><span class="n">filter_ergo</span><span class="p">(</span><span class="n">ergo_data</span><span class="p">)</span>
+<span class="n">ergo_data</span> <span class="o">=</span> <span class="n">wl</span><span class="o">.</span><span class="n">kin</span><span class="o">.</span><span class="n">process_ergo</span><span class="p">(</span><span class="n">ergo_data</span><span class="p">)</span>
+<span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>time</th>
+      <th>force</th>
+      <th>speed</th>
+      <th>torque</th>
+      <th>acc</th>
+      <th>power</th>
+      <th>dist</th>
+      <th>work</th>
+      <th>uforce</th>
+      <th>aspeed</th>
+      <th>angle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.01</td>
+      <td>0.788493</td>
+      <td>-1.163828e-14</td>
+      <td>0.244433</td>
+      <td>-2.799567e-13</td>
+      <td>-9.176693e-15</td>
+      <td>0.000000e+00</td>
+      <td>-9.176693e-17</td>
+      <td>0.888846</td>
+      <td>-3.754282e-14</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.02</td>
+      <td>0.793392</td>
+      <td>-1.443784e-14</td>
+      <td>0.245951</td>
+      <td>-2.414086e-13</td>
+      <td>-1.145486e-14</td>
+      <td>-1.303806e-16</td>
+      <td>-1.145486e-16</td>
+      <td>0.894369</td>
+      <td>-4.657369e-14</td>
+      <td>-4.205825e-16</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.03</td>
+      <td>0.802370</td>
+      <td>-1.646645e-14</td>
+      <td>0.248735</td>
+      <td>-1.179231e-13</td>
+      <td>-1.321219e-14</td>
+      <td>-2.849020e-16</td>
+      <td>-1.321219e-16</td>
+      <td>0.904490</td>
+      <td>-5.311757e-14</td>
+      <td>-9.190388e-16</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.04</td>
+      <td>0.812440</td>
+      <td>-1.679630e-14</td>
+      <td>0.251857</td>
+      <td>1.148631e-13</td>
+      <td>-1.364600e-14</td>
+      <td>-4.512158e-16</td>
+      <td>-1.364600e-16</td>
+      <td>0.915842</td>
+      <td>-5.418163e-14</td>
+      <td>-1.455535e-15</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.05</td>
+      <td>0.811675</td>
+      <td>-1.416918e-14</td>
+      <td>0.251619</td>
+      <td>4.896777e-13</td>
+      <td>-1.150078e-14</td>
+      <td>-6.060432e-16</td>
+      <td>-1.150078e-16</td>
+      <td>0.914979</td>
+      <td>-4.570705e-14</td>
+      <td>-1.954978e-15</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now you have almost all parameters that you will ever need:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;torque&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ex_kinetics_ergo_11_0.png" src="../../_images/ex_kinetics_ergo_11_0.png" />
+</div>
+</div>
+<p>Let’s do a christmas tree for a smaller section of the data:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3000</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ergo_data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">3000</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Get the pushes with the push by push function:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pushes</span> <span class="o">=</span> <span class="n">wl</span><span class="o">.</span><span class="n">kin</span><span class="o">.</span><span class="n">push_by_push_ergo</span><span class="p">(</span><span class="n">ergo_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pushes</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pushes</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">pushes</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;dict&#39;&gt;
+dict_keys([&#39;left&#39;, &#39;right&#39;])
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stop</th>
+      <th>start</th>
+      <th>peak</th>
+      <th>tstart</th>
+      <th>tstop</th>
+      <th>tpeak</th>
+      <th>cangle</th>
+      <th>ptime</th>
+      <th>meanpower</th>
+      <th>maxpower</th>
+      <th>meantorque</th>
+      <th>maxtorque</th>
+      <th>meanforce</th>
+      <th>maxforce</th>
+      <th>work</th>
+      <th>slope</th>
+      <th>ctime</th>
+      <th>reltime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>351</td>
+      <td>276</td>
+      <td>311</td>
+      <td>2.77</td>
+      <td>3.52</td>
+      <td>3.12</td>
+      <td>1.180683</td>
+      <td>0.75</td>
+      <td>34.260157</td>
+      <td>77.243329</td>
+      <td>20.808663</td>
+      <td>33.636038</td>
+      <td>75.667865</td>
+      <td>122.312864</td>
+      <td>26.037719</td>
+      <td>96.102965</td>
+      <td>1.15</td>
+      <td>65.217391</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>419</td>
+      <td>391</td>
+      <td>409</td>
+      <td>3.92</td>
+      <td>4.20</td>
+      <td>4.10</td>
+      <td>1.122666</td>
+      <td>0.28</td>
+      <td>67.705997</td>
+      <td>142.440912</td>
+      <td>16.666537</td>
+      <td>34.028533</td>
+      <td>60.605589</td>
+      <td>123.740121</td>
+      <td>19.634739</td>
+      <td>189.047406</td>
+      <td>0.77</td>
+      <td>36.363636</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>474</td>
+      <td>468</td>
+      <td>472</td>
+      <td>4.69</td>
+      <td>4.75</td>
+      <td>4.73</td>
+      <td>0.272526</td>
+      <td>0.06</td>
+      <td>15.354861</td>
+      <td>27.136431</td>
+      <td>3.381357</td>
+      <td>5.975240</td>
+      <td>12.295844</td>
+      <td>21.728147</td>
+      <td>1.074840</td>
+      <td>149.381011</td>
+      <td>0.12</td>
+      <td>50.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>493</td>
+      <td>480</td>
+      <td>487</td>
+      <td>4.81</td>
+      <td>4.94</td>
+      <td>4.88</td>
+      <td>0.599194</td>
+      <td>0.13</td>
+      <td>44.567863</td>
+      <td>79.093543</td>
+      <td>9.648388</td>
+      <td>17.036661</td>
+      <td>35.085049</td>
+      <td>61.951494</td>
+      <td>6.239501</td>
+      <td>243.380868</td>
+      <td>0.60</td>
+      <td>21.666667</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>547</td>
+      <td>540</td>
+      <td>543</td>
+      <td>5.41</td>
+      <td>5.48</td>
+      <td>5.44</td>
+      <td>0.319896</td>
+      <td>0.07</td>
+      <td>31.561252</td>
+      <td>54.087009</td>
+      <td>6.901818</td>
+      <td>11.812804</td>
+      <td>25.097520</td>
+      <td>42.955650</td>
+      <td>2.524900</td>
+      <td>393.760127</td>
+      <td>0.12</td>
+      <td>58.333333</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>This is all very similar to the measurement wheel, except you don’t have access to 3D forces. Similar to the measurement wheel data, all of the above can be achieved with the <code class="docutils literal notranslate"><span class="pre">auto_process</span></code> function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wl</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">plot_ergometer_pushes</span><span class="p">(</span><span class="n">ergo_data</span><span class="p">,</span> <span class="n">pushes</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ex_kinetics_ergo_17_0.png" src="../../_images/ex_kinetics_ergo_17_0.png" />
+</div>
+</div>
+<p>Very festive! 🎄</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters/examples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../examples.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Minimal examples</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="ex_kinetics_mw.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Working with measurement wheel data</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

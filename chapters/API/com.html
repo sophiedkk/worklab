@@ -1,0 +1,1192 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Communication (.com)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="IMU (.imu)" href="imu.html" />
+    <link rel="prev" title="Analyses (.ana)" href="ana.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../setup.html">
+   Installation &amp; general info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ergometer.html">
+   Ergometer testing
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_kinetics_ergo.html">
+   Working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_kinetics_mw.html">
+   Working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_move_imu.html">
+   Working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_physio_spiro.html">
+   Working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Documentation
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../package.html">
+   Package documentation
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../developer.html">
+   Developers
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/API/com.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/API/com.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/chapters/API/com.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Communication (.com)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="communication-com">
+<h1>Communication (.com)<a class="headerlink" href="#communication-com" title="Permalink to this headline">#</a></h1>
+<p>Contains functions for reading data from any worklab device. If you
+abide by regular naming conventions you will only need the load function
+which will infer the correct function for you. You can also use
+device-specific load functions if needed.</p>
+<span class="target" id="module-worklab.com"></span><dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load" title="Permalink to this definition">#</a></dt>
+<dd><p>Attempt to load a common data format.</p>
+<p>Most important function in the module. Provides high level loading function to load common data formats.
+If no filename is given will try to load filename using a file dialog. Will try to infer data source from filename.
+Try to use a specific load function if load cannot infer the datatype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – name or path to file of interest</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – raw data, format depends on source, but is usually a dict or pandas DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#worklab.com.load_bike" title="worklab.com.load_bike"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_bike</span></code></a>, <a class="reference internal" href="#worklab.com.load_esseda" title="worklab.com.load_esseda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_esseda</span></code></a>, <a class="reference internal" href="#worklab.com.load_hsb" title="worklab.com.load_hsb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_hsb</span></code></a>, <a class="reference internal" href="#worklab.com.load_n3d" title="worklab.com.load_n3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_n3d</span></code></a>, <a class="reference internal" href="#worklab.com.load_opti" title="worklab.com.load_opti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_opti</span></code></a>, <a class="reference internal" href="#worklab.com.load_optitrack" title="worklab.com.load_optitrack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_optitrack</span></code></a>, <a class="reference internal" href="#worklab.com.load_imu" title="worklab.com.load_imu"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_imu</span></code></a>, <a class="reference internal" href="#worklab.com.load_spiro" title="worklab.com.load_spiro"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_spiro</span></code></a>, <a class="reference internal" href="#worklab.com.load_spline" title="worklab.com.load_spline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_spline</span></code></a>, <a class="reference internal" href="#worklab.com.load_sw" title="worklab.com.load_sw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sw</span></code></a>, <a class="reference internal" href="#worklab.com.load_opti_offset" title="worklab.com.load_opti_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_opti_offset</span></code></a></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_bike">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_bike</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_bike"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_bike" title="Permalink to this definition">#</a></dt>
+<dd><p>Load bicycle ergometer data from LEM datafile.</p>
+<p>Loads bicycle ergometer data from LEM to a pandas DataFrame containing time, load, rpm, and heart rate (HR).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from LEM Excel sheet (.xls)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – DataFrame with time, load, rpm, and HR data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_drag_test">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_drag_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_drag_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_drag_test" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads a drag test file.</p>
+<p>Loads drag test data (angle and force) from an ADA .txt file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>dragtest</strong> – DataFrame with angles and corresponding forces.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_esseda">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_esseda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_esseda"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_esseda" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads HSB ergometer data from LEM datafile.</p>
+<p>Loads ergometer data measured with LEM and returns the data in a dictionary for the left and right module with a
+DataFrame each that contains time, force (on wheel), and speed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from LEM Excel sheet (.xls)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – dictionary with DataFrame for left and right module</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#worklab.com.load_wheelchair" title="worklab.com.load_wheelchair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_wheelchair</span></code></a></dt><dd><p>Load wheelchair information from LEM datafile.</p>
+</dd>
+<dt><a class="reference internal" href="#worklab.com.load_spline" title="worklab.com.load_spline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_spline</span></code></a></dt><dd><p>Load calibration splines from LEM datafile.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_hsb">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_hsb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_hsb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_hsb" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads HSB ergometer data from HSB datafile.</p>
+<p>Loads ergometer data measured with the HSBlogger2 and returns the data in a dictionary for the left and right module
+with a DataFrame each that contains time, force, and speed. HSB files are generally only for troubleshooting and
+testing that is beyond the scope of LEM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from HSB .csv file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – dictionary with DataFrame for left and right module</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_imu">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_imu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_imu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_imu" title="Permalink to this definition">#</a></dt>
+<dd><p>Imports NGIMU session in nested dictionary with all devices and sensors.</p>
+<p>Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_dir</strong> (<em>str</em>) – directory where session is located</p></li>
+<li><p><strong>filenames</strong> (<em>list</em><em>, </em><em>optional</em>) – list of sensor names or single sensor name that you would like to include, only loads sensor if not specified</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sessiondata</strong> – returns nested object sensordata[device][dataframe]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example">https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_movesense">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_movesense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_movesense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_movesense" title="Permalink to this definition">#</a></dt>
+<dd><p>Imports MoveSense data in nested dictionary with all sensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_dir</strong> (<em>str</em>) – directory where session is located</p></li>
+<li><p><strong>right</strong> (<em>str</em>) – 12 digit identity code of right sensor</p></li>
+<li><p><strong>frame</strong> (<em>str</em>) – 12 digit identity code of frame sensor</p></li>
+<li><p><strong>left</strong> (<em>str</em>) – 12 digit identity code of left sensor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sessiondata</strong> – returns nested object sensordata[device][dataframe]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_n3d">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_n3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_n3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_n3d" title="Permalink to this definition">#</a></dt>
+<dd><p>Reads NDI-Optotrak data files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – Optotrak data file (.n3d)</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Print some information about the data from the file.
+If True (default) it prints the information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>optodata</strong> – Multidimensional numpy array with marker positions (in m) in sample x xyz x marker dimensions.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_opti">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_opti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_opti"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_opti" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads Optipush data from .data file.</p>
+<p>Loads Optipush data to a pandas DataFrame, converts angle to radians, and flips torque (Tz). Returns a DataFrame
+with:</p>
+<table class="table">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 49%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>sample time</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>fx</p></td>
+<td><p>force on local x-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-even"><td><p>fy</p></td>
+<td><p>force on local y-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-odd"><td><p>fz</p></td>
+<td><p>force on local z-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-even"><td><p>mx</p></td>
+<td><p>torque around x-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-odd"><td><p>my</p></td>
+<td><p>torque around y-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-even"><td><p>torque</p></td>
+<td><p>torque around z-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-odd"><td><p>angle</p></td>
+<td><p>unwrapped wheel angle</p></td>
+<td><p>rad</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optipush uses a local coordinate system, option to rotate Fx and Fy available in &gt;1.6</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – filename or path to Optipush .data (.csv) file</p></li>
+<li><p><strong>rotate</strong> (<em>bool</em>) – whether or not to rotate from a local rotating axis system to a global non-rotating one, default is True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>opti_df</strong> – Raw Optipush data in a pandas DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#worklab.com.load_sw" title="worklab.com.load_sw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_sw</span></code></a></dt><dd><p>Load measurement wheel data from a SMARTwheel</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_opti_offset">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_opti_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_opti_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_opti_offset" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads Offset Optipush data from .xls file.</p>
+<p>Loads Offset Optipush data to a pandas DataFrame, converts angle to radians, and flips torque (Tz).
+Returns a DataFrame with:</p>
+<table class="table">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 49%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>fx</p></td>
+<td><p>force on local x-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-odd"><td><p>fy</p></td>
+<td><p>force on local y-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-even"><td><p>fz</p></td>
+<td><p>force on local z-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-odd"><td><p>mx</p></td>
+<td><p>torque around x-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-even"><td><p>my</p></td>
+<td><p>torque around y-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-odd"><td><p>torque</p></td>
+<td><p>torque around z-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-even"><td><p>angle</p></td>
+<td><p>unwrapped wheel angle</p></td>
+<td><p>rad</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optipush uses a local coordinate system</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – filename or path to Optipush offset .xls (.csv) file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>offset_opti_df</strong> – Offset Optipush data in a pandas DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_optitrack">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_optitrack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_header</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_optitrack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_optitrack" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads Optitrack marker data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – full path to filename or filename in current path</p></li>
+<li><p><strong>include_header</strong> (<em>bool</em>) – whether or not to include the header in the output default is False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>marker_data</strong> – Marker data in dictionary, metadata in dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_spiro">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_spiro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_spiro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_spiro" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads COSMED spirometer data from Excel file.</p>
+<p>Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
+computes weights from the time difference between samples, if no heart rate data is available it fills
+the column with np.NaNs. Returns a DataFrame with:</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 55%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>time at breath</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>HR</p></td>
+<td><p>heart rate</p></td>
+<td><p>bpm</p></td>
+</tr>
+<tr class="row-even"><td><p>EE</p></td>
+<td><p>energy expenditure</p></td>
+<td><p>J/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RER</p></td>
+<td><p>exchange ratio</p></td>
+<td><p>VCO2/VO2</p></td>
+</tr>
+<tr class="row-even"><td><p>VO2</p></td>
+<td><p>oxygen</p></td>
+<td><p>l/min</p></td>
+</tr>
+<tr class="row-odd"><td><p>VCO2</p></td>
+<td><p>carbon dioxide</p></td>
+<td><p>l/min</p></td>
+</tr>
+<tr class="row-even"><td><p>VE</p></td>
+<td><p>ventilation</p></td>
+<td><p>l/min</p></td>
+</tr>
+<tr class="row-odd"><td><p>VE/VO2</p></td>
+<td><p>ratio VE/VO2| -</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>VE/VCO2</p></td>
+<td><p>ratio VE/VCO2</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>O2pulse</p></td>
+<td><p>oxygen pulse  (VO2/HR)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>PetO2</p></td>
+<td><p>end expiratory O2 tension</p></td>
+<td><p>mmHg</p></td>
+</tr>
+<tr class="row-odd"><td><p>PetCO2</p></td>
+<td><p>end expiratory CO2 tension</p></td>
+<td><p>mmHg</p></td>
+</tr>
+<tr class="row-even"><td><p>VT</p></td>
+<td><p>tidal volume</p></td>
+<td><p>l</p></td>
+</tr>
+<tr class="row-odd"><td><p>weights</p></td>
+<td><p>sample weight</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from COSMED spirometer</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Spirometer data in pandas DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_spiro_metamax">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_spiro_metamax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_spiro_metamax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_spiro_metamax" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads METAMAX 3B spirometer data from Excel file.</p>
+<p>Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
+computes weights from the time difference between samples, if no heart rate data is available it fills
+the column with np.NaNs. Returns a DataFrame with:</p>
+<table class="table">
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 55%" />
+<col style="width: 22%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head" colspan="2"><p>Data                        | Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>time at breath</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>HR</p></td>
+<td><p>heart rate</p></td>
+<td><p>bpm</p></td>
+</tr>
+<tr class="row-even"><td><p>EE</p></td>
+<td><p>energy expenditure</p></td>
+<td><p>J/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>RER</p></td>
+<td><p>exchange ratio</p></td>
+<td><p>VCO2/VO2</p></td>
+</tr>
+<tr class="row-even"><td><p>VO2</p></td>
+<td><p>oxygen</p></td>
+<td><p>l/min</p></td>
+</tr>
+<tr class="row-odd"><td><p>VCO2</p></td>
+<td><p>carbon dioxide</p></td>
+<td><p>l/min</p></td>
+</tr>
+<tr class="row-even"><td><p>VE</p></td>
+<td><p>ventilation</p></td>
+<td><p>l/min</p></td>
+</tr>
+<tr class="row-odd"><td><p>VE/VO2</p></td>
+<td><p>ratio VE/VO2</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>VE/VCO2</p></td>
+<td><p>ratio VE/VCO2</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>O2pulse</p></td>
+<td><p>oxygen pulse  (VO2/HR)</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>PetO2</p></td>
+<td><p>end expiratory O2 tension</p></td>
+<td><p>mmHg</p></td>
+</tr>
+<tr class="row-odd"><td><p>PetCO2</p></td>
+<td><p>end expiratory CO2 tension</p></td>
+<td><p>mmHg</p></td>
+</tr>
+<tr class="row-even"><td><p>VT</p></td>
+<td><p>tidal volume</p></td>
+<td><p>l</p></td>
+</tr>
+<tr class="row-odd"><td><p>weights</p></td>
+<td><p>sample weight</p></td>
+<td><ul class="simple">
+<li></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from METAMAX 3B spirometer</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – Spirometer data in pandas DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_spline">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_spline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_spline" title="Permalink to this definition">#</a></dt>
+<dd><p>Load wheelchair ergometer calibration spline from LEM datafile.</p>
+<p>Loads Esseda calibration spline from LEM which includes all forces (at the roller) at the different calibration
+points (1:10:1 km/h).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>object</em>) – full file path or file in existing path from LEM excel file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – left and right calibration values</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_sw">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_sw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_sw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_sw" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads SMARTwheel data from .txt file.</p>
+<p>Loads SMARTwheel data to a pandas DataFrame, converts angle to radians and unwraps it. Returns a DataFrame with:</p>
+<table class="table">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 50%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>time</p></td>
+<td><p>sample time</p></td>
+<td><p>s</p></td>
+</tr>
+<tr class="row-odd"><td><p>fx</p></td>
+<td><p>force on global x-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-even"><td><p>fy</p></td>
+<td><p>force on global y-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-odd"><td><p>fz</p></td>
+<td><p>force on global z-axis</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-even"><td><p>mx</p></td>
+<td><p>torque around x-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-odd"><td><p>my</p></td>
+<td><p>torque around y-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-even"><td><p>torque</p></td>
+<td><p>torque around z-axis</p></td>
+<td><p>Nm</p></td>
+</tr>
+<tr class="row-odd"><td><p>angle</p></td>
+<td><p>unwrapped wheel angle</p></td>
+<td><p>rad</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SMARTwheel uses a global coordinate system</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – filename or path to SMARTwheel .data (.csv) file</p></li>
+<li><p><strong>sfreq</strong> (<em>int</em>) – sample frequency of SMARTwheel, default is 200Hz</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sw_df</strong> – Raw SMARTwheel data in a pandas DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#worklab.com.load_opti" title="worklab.com.load_opti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_opti</span></code></a></dt><dd><p>Load measurement wheel data from an Optipush wheel.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_wheelchair">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_wheelchair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_wheelchair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_wheelchair" title="Permalink to this definition">#</a></dt>
+<dd><p>Loads wheelchair from LEM datafile.</p>
+<p>Loads the wheelchair data from a LEM datafile. Returns:</p>
+<table class="table">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 52%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p>Unit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>chair name</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>rimsize</p></td>
+<td><p>radius of handrim</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>wheelsize</p></td>
+<td><p>radius of the wheel</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-odd"><td><p>wheelbase</p></td>
+<td><p>width of the wheelchair</p></td>
+<td><p>m</p></td>
+</tr>
+<tr class="row-even"><td><p>weight</p></td>
+<td><p>weight of the chair</p></td>
+<td><p>kg</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from LEM Excel sheet (.xls)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>wheelchair</strong> – dictionary with wheelchair information</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters/API"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="ana.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Analyses (.ana)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="imu.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">IMU (.imu)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

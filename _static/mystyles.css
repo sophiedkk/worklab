@@ -1,0 +1,11 @@
+.bd-content .section table {
+    display: table;
+}
+
+.table td, .table th {
+    padding: .1rem;
+}
+
+main.bd-content #main-content .footnote-reference, main.bd-content #main-content a.bibtex.internal, main.bd-content #print-main-content .footnote-reference, main.bd-content #print-main-content a.bibtex.internal{
+ font-size: 0.8em !important;
+}

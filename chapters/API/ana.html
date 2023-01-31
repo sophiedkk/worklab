@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Analyses (.ana)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Communication (.com)" href="com.html" />
+    <link rel="prev" title="Package documentation" href="../package.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../setup.html">
+   Installation &amp; general info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ergometer.html">
+   Ergometer testing
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_kinetics_ergo.html">
+   Working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_kinetics_mw.html">
+   Working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_move_imu.html">
+   Working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_physio_spiro.html">
+   Working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Documentation
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../package.html">
+   Package documentation
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../developer.html">
+   Developers
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/API/ana.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/API/ana.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/chapters/API/ana.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Analyses (.ana)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="module-worklab.ana">
+<span id="analyses-ana"></span><h1>Analyses (.ana)<a class="headerlink" href="#module-worklab.ana" title="Permalink to this headline">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.ana_sprint">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">ana_sprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">half</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#ana_sprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.ana_sprint" title="Permalink to this definition">#</a></dt>
+<dd><p>Sprint test analyse. Plot a figure with the power, speed and distance for
+left and right seperate. Also saves important outcomes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – processed and cutted ergometer data dictionary with dataframes</p></li>
+<li><p><strong>data_pbp</strong> (<em>dict</em>) – processed and cutted push_by_push ergometer data dictionary with dataframes</p></li>
+<li><p><strong>half</strong> (<em>float</em><em>, </em><em>optional</em>) – half time of the sprint, default is 5 s</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – title of figure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
+<li><p><strong>outcomes</strong> (<em>dataframe</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.ana_submax">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">ana_submax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_ergo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_spiro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#ana_submax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.ana_submax" title="Permalink to this definition">#</a></dt>
+<dd><p>Sub maximal test analyse. Plot a figure with the pushes for left, right
+and the mean. Also saves important outcomes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_ergo</strong> (<em>pd.DataFrame</em>) – processed and cutted ergometer data</p></li>
+<li><p><strong>data_pbp</strong> (<em>pd.DataFrame</em>) – processed and cutted ergometer data</p></li>
+<li><p><strong>data_spiro</strong> (<em>pd.DataFrame</em>) – processed and cutted spirometer data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>pushes</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
+<li><p><strong>outcomes</strong> (<em>pd.DataFrame</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.cut_data">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">cut_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#cut_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.cut_data" title="Permalink to this definition">#</a></dt>
+<dd><p>Cuts data to time of interest</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – processed ergometer data dictionary with dataframes</p></li>
+<li><p><strong>start</strong> (<em>float</em>) – start time [s]</p></li>
+<li><p><strong>end</strong> (<em>float</em>) – end time [s]</p></li>
+<li><p><strong>distance</strong> (<em>bool</em><em>, </em><em>optional</em>) – resets distance to 0 at start, default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – data cutted to time of interest</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.isometricforce">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">isometricforce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#isometricforce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.isometricforce" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates the three seconds maximal user force and plots it against time (darkblue).
+Peaks are annotated with a dot and with the height of the peak, max value is shown in the corner.
+Plot velocity optional &amp; possibility to scale manually</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – processed ergometer data dictionary with dataframes</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – plotted on top of graph, default is None</p></li>
+<li><p><strong>height</strong> (<em>float</em><em>, </em><em>optional</em>) – minimal height of peak, default is 40 N</p></li>
+<li><p><strong>distance</strong> (<em>float</em><em>, </em><em>optional</em>) – minimal distance between peaks, default is 500 samples</p></li>
+<li><p><strong>vel</strong> (<em>bool</em>) – plot velocity, default is True</p></li>
+<li><p><strong>ylim</strong> (<em>list</em><em> [</em><em>min</em><em>, </em><em>max</em><em>] </em><em>of floats</em><em> or </em><em>int</em><em>, </em><em>optional</em>) – list of the minimal and maximal ylim for user force in N</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
+<li><p><strong>peaks_y</strong> (<em>series</em>) – peaks of maximal user force (averaged over left and right)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.maximal1min">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">maximal1min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#maximal1min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.maximal1min" title="Permalink to this definition">#</a></dt>
+<dd><p>Maximal exercise test analyse. Gives a plot with the power (green) and velocity (red)
+for each step, also prints the important performance indicators per step:
+- Work [J]
+- Mean power [W]
+- Maximal power [W]
+- Mean velocity [ms]
+- Push time [s]
+- Cycle time [s]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – processed and cutted ergometer data dictionary with dataframes</p></li>
+<li><p><strong>data_pbp</strong> (<em>dict</em>) – processed and cutted push_by_push ergometer data dictionary with dataframes</p></li>
+<li><p><strong>dur</strong> (<em>int</em>) – duration of max test in seconds</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – title of figure</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
+<li><p><strong>outcomes</strong> (<em>dataframe</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.mean_data">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">mean_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#mean_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.mean_data" title="Permalink to this definition">#</a></dt>
+<dd><p>Combined data of left and right module
+Time, speed, aspeed, acc and dist are averaged
+Force, torque, power, work and uforce are averaged and multiplied with two</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – processed ergometer data dictionary with dataframes for left and right</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>data</strong> – with left, right and mean module</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.protocol_max">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">protocol_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.39</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#protocol_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.protocol_max" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates the protocol for the Maximal exercise test on a wheelchair ergometer,
+based on the regression equations between the isometric force, anaerobic
+and aerobic power.</p>
+<p>(Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.
+Isometric strength sprint power and anaerobic power in individuals with a
+spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.
+doi:10.1249/00005768-199307000-00016)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P30</strong> (<em>float</em>) – average power over a 30-sec Wingate test</p></li>
+<li><p><strong>muser</strong> (<em>float/int</em>) – mass user</p></li>
+<li><p><strong>mwc</strong> (<em>float/int</em>) – mass wheelchair</p></li>
+<li><p><strong>folder</strong> (<em>str</em><em>, </em><em>optional</em>) – file path, protocol will be saved here</p></li>
+<li><p><strong>v</strong> (<em>float</em><em>, </em><em>optional</em>) – constant comfortable velocity for the test, default is 1.39 m/s</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Print the P30, the POpeak, the aimed mean velocity and the resistance for each step,</em></p></li>
+<li><p><em>option to save in folder</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.protocol_wingate">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">protocol_wingate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fiso</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#protocol_wingate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.protocol_wingate" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates the protocol for the Wingate test on a wheelchair ergometer,
+based on the regression equations between the isometric force, anaerobic
+and aerobic power.</p>
+<p>(Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.
+Isometric strength sprint power and anaerobic power in individuals with a
+spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.
+doi:10.1249/00005768-199307000-00016)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fiso</strong> (<em>float</em>) – maximal 3 seconds force in N, average of left and right</p></li>
+<li><p><strong>muser</strong> (<em>float/int</em>) – mass user</p></li>
+<li><p><strong>mwc</strong> (<em>float/int</em>) – mass wheelchair</p></li>
+<li><p><strong>folder</strong> (<em>str</em><em>, </em><em>optional</em>) – file path, protocol will be saved here</p></li>
+<li><p><strong>v</strong> (<em>float/int</em><em>, </em><em>optional</em>) – mean velocity wingate, default is 2 m/s</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>Print the maximal three seconds force, the predicted P30, the aimed mean velocity</em></p></li>
+<li><p><em>and the calculated resistance. Option to save in folder</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.ana.wingate">
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">wingate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">box</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#wingate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.wingate" title="Permalink to this definition">#</a></dt>
+<dd><p>Wingate test analyse. Gives a plot with the power (green) and velocity (red),
+also prints the important performance indicators</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>dict</em>) – processed and cutted ergometer data dictionary with dataframes</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – title of figure</p></li>
+<li><p><strong>box</strong> (<em>bool</em>) – prints important performance indicators on figure, default is False</p></li>
+<li><p><strong>ylim</strong> (<em>float</em><em>, </em><em>optional</em>) – sets the ylim of the graph, defaul is 5 ms</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
+<li><p><strong>outcomes</strong> (<em>dataframe</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters/API"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../package.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Package documentation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="com.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Communication (.com)</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,1099 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>worklab.utils</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/setup.html">
+   Installation &amp; general info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/ergometer.html">
+   Ergometer testing
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
+   Working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
+   Working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
+   Working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
+   Working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Documentation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapters/package.html">
+   Package documentation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/developer.html">
+   Developers
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/utils.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for worklab.utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
+<span class="kn">from</span> <span class="nn">tkinter.filedialog</span> <span class="kn">import</span> <span class="n">askopenfilename</span><span class="p">,</span> <span class="n">askopenfilenames</span><span class="p">,</span> <span class="n">asksaveasfilename</span><span class="p">,</span> <span class="n">askdirectory</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">,</span> <span class="n">interp1d</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">sosfiltfilt</span>
+
+
+<div class="viewcode-block" id="pick_file"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_file">[docs]</a><span class="k">def</span> <span class="nf">pick_file</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open a window to select a single file</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initialdir : str</span>
+<span class="sd">        directory to start from</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        full path to picked file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># no root window</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">askopenfilename</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="n">initialdir</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Open data file or files&quot;</span><span class="p">)</span>  <span class="c1"># return path to selected file</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You selected: &quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filename</span></div>
+
+
+<div class="viewcode-block" id="pick_files"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_files">[docs]</a><span class="k">def</span> <span class="nf">pick_files</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open a window to select multiple files</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initialdir : str</span>
+<span class="sd">        directory to start from</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    filename : list</span>
+<span class="sd">        full path to picked file</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># no root window</span>
+    <span class="n">filenames</span> <span class="o">=</span> <span class="n">askopenfilenames</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="n">initialdir</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Open data file or files&quot;</span><span class="p">)</span>  <span class="c1"># path to selected files</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You selected: &quot;</span><span class="p">,</span> <span class="n">filenames</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filenames</span></div>
+
+
+<div class="viewcode-block" id="pick_directory"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_directory">[docs]</a><span class="k">def</span> <span class="nf">pick_directory</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open a window to select a directory</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initialdir : str</span>
+<span class="sd">        directory to start from</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    directory : str</span>
+<span class="sd">        full path to selected directory</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># no root window</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">askdirectory</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="n">initialdir</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select data directory&quot;</span><span class="p">)</span>  <span class="c1"># return path to selected directory</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You selected: &quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">directory</span></div>
+
+
+<div class="viewcode-block" id="pick_save_file"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_save_file">[docs]</a><span class="k">def</span> <span class="nf">pick_save_file</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open a window to select a savefile</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initialdir : str</span>
+<span class="sd">        directory to start from</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    directory : str</span>
+<span class="sd">        full path to selected savefile</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>  <span class="c1"># no root window</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">asksaveasfilename</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="n">initialdir</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Save file or files&quot;</span><span class="p">)</span>  <span class="c1"># return path to selected file</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;You selected: &quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">filename</span></div>
+
+
+<div class="viewcode-block" id="make_calibration_spline"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.make_calibration_spline">[docs]</a><span class="k">def</span> <span class="nf">make_calibration_spline</span><span class="p">(</span><span class="n">calibration_points</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Makes a pre-1.0.4 calibration spline for the Esseda wheelchair ergometer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    calibration_points : dict</span>
+<span class="sd">        dict with left: np.array, right: np.array</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    spl_line : dict</span>
+<span class="sd">        dict with left: np.array, right: np.array containing the interpolated splines</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spl_line</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">spl_line</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">spl</span> <span class="o">=</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">calibration_points</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">spl_line</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">spl</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))</span>  <span class="c1"># Spline with 0.01 increments</span>
+        <span class="n">spl_line</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spl_line</span><span class="p">[</span><span class="n">side</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">99</span><span class="p">,</span> <span class="n">spl_line</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">spl_line</span></div>
+
+
+<div class="viewcode-block" id="make_linear_calibration_spline"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.make_linear_calibration_spline">[docs]</a><span class="k">def</span> <span class="nf">make_linear_calibration_spline</span><span class="p">(</span><span class="n">calibration_points</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Makes a post-1.0.4 calibration spline for the Esseda wheelchair ergometer.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    calibration_points : dict</span>
+<span class="sd">        dict with left: np.array, right: np.array</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    spl_line : dict</span>
+<span class="sd">        dict with left: np.array, right: np.array containing the interpolated splines</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spl_line</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">spl_line</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+        <span class="n">spl_line</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">9.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">calibration_points</span><span class="p">[</span><span class="n">side</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">spl_line</span></div>
+
+
+<div class="viewcode-block" id="lowpass_butter"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.lowpass_butter">[docs]</a><span class="k">def</span> <span class="nf">lowpass_butter</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply a simple zero-phase low-pass Butterworth filter on an array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : np.array</span>
+<span class="sd">        input array to be filtered</span>
+<span class="sd">    sfreq : float</span>
+<span class="sd">        sample frequency of the signal, default is 100</span>
+<span class="sd">    cutoff : float</span>
+<span class="sd">        cutoff frequency for the filter, default is 20</span>
+<span class="sd">    order : int</span>
+<span class="sd">        order of the filter, default is 2</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    array : np.array</span>
+<span class="sd">        filtered array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># noinspection PyTupleAssignmentBalance</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="n">sos</span> <span class="o">=</span> <span class="n">butter</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">btype</span><span class="o">=</span><span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;sos&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">array</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="interpolate_array"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.interpolate_array">[docs]</a><span class="k">def</span> <span class="nf">interpolate_array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">,</span> <span class="n">assume</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple function to interpolate an array with Scipy&#39;s interp1d. Also extrapolates NaNs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : np.array</span>
+<span class="sd">        time array (without NaNs)</span>
+<span class="sd">    y : np.array</span>
+<span class="sd">        array with potential NaNs</span>
+<span class="sd">    kind : str</span>
+<span class="sd">        kind of filter, default is &quot;linear&quot;</span>
+<span class="sd">    fill_value : str</span>
+<span class="sd">        fill value, default is &quot;extrapolate&quot;</span>
+<span class="sd">    assume : bool</span>
+<span class="sd">        assume that the array is sorted (performance), default is True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    y : np.array</span>
+<span class="sd">        interpolated y-array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">y_fun</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">)],</span> <span class="n">y</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">)],</span> <span class="n">kind</span><span class="o">=</span><span class="n">kind</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="n">fill_value</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="n">assume</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y_fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pd_dt_to_s"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pd_dt_to_s">[docs]</a><span class="k">def</span> <span class="nf">pd_dt_to_s</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates time in seconds from datetime or string.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dt : pd.Series</span>
+<span class="sd">        datetime instance or a string with H:m:s data</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    time : pd.Series</span>
+<span class="sd">        time in seconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">dt</span><span class="o">.</span><span class="n">second</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">time</span></div>
+
+
+<div class="viewcode-block" id="pd_interp"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pd_interp">[docs]</a><span class="k">def</span> <span class="nf">pd_interp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">interp_column</span><span class="p">,</span> <span class="n">at</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resamples (and extrapolates) DataFrame with Scipy&#39;s interp1d, this was more performant than the pandas one for some</span>
+<span class="sd">    reason.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        target DataFrame</span>
+<span class="sd">    interp_column : str</span>
+<span class="sd">        column to interpolate on, e.g. &quot;time&quot;</span>
+<span class="sd">    at : np.array</span>
+<span class="sd">        column to interpolate to</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    interp_df : pd.DataFrame</span>
+<span class="sd">        interpolated DataFrame</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">interp_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">interp1d</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">interp_column</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">)</span>
+        <span class="n">interp_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">at</span><span class="p">)</span>
+    <span class="n">interp_df</span><span class="p">[</span><span class="n">interp_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">at</span>
+    <span class="k">return</span> <span class="n">interp_df</span></div>
+
+
+<div class="viewcode-block" id="merge_chars"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.merge_chars">[docs]</a><span class="k">def</span> <span class="nf">merge_chars</span><span class="p">(</span><span class="n">chars</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Merges list or tuple of binary characters to single string</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    chars : list, tuple</span>
+<span class="sd">        list or tuple of binary characters</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        concatenated characters</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">char</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">chars</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="find_peaks"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.find_peaks">[docs]</a><span class="k">def</span> <span class="nf">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">minpeak</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds positive peaks in signal and returns indices of start and stop.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.Series, np.array</span>
+<span class="sd">        any signal that contains peaks above minpeak that dip below cutoff</span>
+<span class="sd">    cutoff : float</span>
+<span class="sd">        where the peak gets cut off at the bottom, basically a hysteresis band</span>
+<span class="sd">    minpeak : float</span>
+<span class="sd">        minimum peak height of wave</span>
+<span class="sd">    min_dist : int</span>
+<span class="sd">        minimum sample distance between peak candidates, can be used to speed up algorithm</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    peaks : dict</span>
+<span class="sd">        dictionary with start, end, and peak **index** of each peak</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">peaks</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># coercing to an array if necessary</span>
+    <span class="n">data_slice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">data</span> <span class="o">&gt;</span> <span class="n">minpeak</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># indices of nonzero values</span>
+    <span class="n">data_slice</span> <span class="o">=</span> <span class="n">data_slice</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">data_slice</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="mf">10e100</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">min_dist</span><span class="p">]</span>  <span class="c1"># remove duplicate samples from push</span>
+    <span class="k">for</span> <span class="n">prom</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span><span class="n">data_slice</span><span class="p">):</span>
+        <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">prom</span><span class="p">:])</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">data</span><span class="p">[:</span><span class="n">prom</span><span class="p">]))</span> <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>  <span class="c1"># did we find a start and stop?</span>
+            <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">prom</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prom</span> <span class="o">-</span> <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">peaks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">peaks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># remove possible duplicates</span>
+    <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">start</span> <span class="p">:</span> <span class="n">stop</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">start</span> <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">])]</span>
+    <span class="k">return</span> <span class="n">peaks</span></div>
+
+
+<div class="viewcode-block" id="coast_down_velocity"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.coast_down_velocity">[docs]</a><span class="k">def</span> <span class="nf">coast_down_velocity</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Solution for the non-linear differential equation M(dv/dt) + c1*v**2 + c2 = 0. Returns the instantaneous</span>
+<span class="sd">    velocity decreasing with time (t) for the friction coefficients c1 and c2 for an object with a fixed mass (M)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    t : np.array</span>
+<span class="sd">    v0 : float</span>
+<span class="sd">    c1 : float</span>
+<span class="sd">    c2 : float</span>
+<span class="sd">    m : float</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c2</span> <span class="o">/</span> <span class="n">c1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">v0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c1</span> <span class="o">/</span> <span class="n">c2</span><span class="p">))</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c1</span> <span class="o">*</span> <span class="n">c2</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="nonlinear_fit_coast_down"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.nonlinear_fit_coast_down">[docs]</a><span class="k">def</span> <span class="nf">nonlinear_fit_coast_down</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">total_weight</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs a nonlinear fit on coast-down data, returning c1 and c2.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    time : np.array</span>
+<span class="sd">    vel : np.array</span>
+<span class="sd">    total_weight : float</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        c1, c2</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># try to determine c1 and c2 with curve_fit for non-linear approach</span>
+    <span class="n">initial_velocity</span> <span class="o">=</span> <span class="n">vel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">vel_func</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">:</span> <span class="n">coast_down_velocity</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">initial_velocity</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">total_weight</span><span class="p">)</span>  <span class="c1"># noqa, lock variables</span>
+    <span class="p">(</span><span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span><span class="p">),</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">vel_func</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">]))</span>  <span class="c1"># &#39;trf&#39; method but &#39;lm&#39; would also work</span>
+    <span class="k">return</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span></div>
+
+
+<div class="viewcode-block" id="mask_from_iterable"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.mask_from_iterable">[docs]</a><span class="k">def</span> <span class="nf">mask_from_iterable</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">floor_values</span><span class="p">,</span> <span class="n">ceil_values</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combines multiple masks from iterable into one mask (e.g. can be used to select multiple time slices).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : np.array</span>
+<span class="sd">        array to apply mask on</span>
+<span class="sd">    floor_values : list</span>
+<span class="sd">        minimum values in array</span>
+<span class="sd">    ceil_values : list</span>
+<span class="sd">        maximum values in array</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mask : np.array</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># start off with all data deselected</span>
+    <span class="k">for</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">floor</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">ceil_values</span><span class="p">,</span> <span class="n">floor_values</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span> <span class="o">|</span> <span class="p">((</span><span class="n">array</span> <span class="o">&gt;</span> <span class="n">floor</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">array</span> <span class="o">&lt;</span> <span class="n">ceil</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">mask</span></div>
+
+
+<div class="viewcode-block" id="calc_inertia"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.calc_inertia">[docs]</a><span class="k">def</span> <span class="nf">calc_inertia</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.295</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.675</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the inertia of an object based on the trifilar pendulum equation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    weight : float</span>
+<span class="sd">        total mass of the object, default is 0.8</span>
+<span class="sd">    radius : float</span>
+<span class="sd">        radius of the object, default is 0.295</span>
+<span class="sd">    length : float</span>
+<span class="sd">        length of the trifilar pendulum</span>
+<span class="sd">    period : float</span>
+<span class="sd">        observed oscillation period</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    inertia : float</span>
+<span class="sd">        inertia [kgm2]</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">weight</span> <span class="o">*</span> <span class="mf">9.81</span> <span class="o">*</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">period</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="zerocross1d"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.zerocross1d">[docs]</a><span class="k">def</span> <span class="nf">zerocross1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the zero crossing points in 1d data.</span>
+
+<span class="sd">    Find the zero crossing events in a discrete data set. Linear interpolation is used to determine the actual</span>
+<span class="sd">    locations of the zero crossing between two data points showing a change in sign. Data point which are zero</span>
+<span class="sd">    are counted in as zero crossings if a sign change occurs across them. Note that the first and last data point will</span>
+<span class="sd">    not be considered whether or not they are zero.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : np.array, pd.Series</span>
+<span class="sd">        time/sample variable</span>
+<span class="sd">    y : np.array, pd.Series</span>
+<span class="sd">        y variable</span>
+<span class="sd">    indices : bool</span>
+<span class="sd">        return indices or not, default is False</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        position in time and optionally the index of the sample before the zero-crossing</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="c1"># Indices of points *before* zero-crossing</span>
+    <span class="n">indi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Find the zero crossing by linear interpolation</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">indi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="n">indi</span><span class="p">]</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">indi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">indi</span><span class="p">]</span>
+    <span class="n">zc</span> <span class="o">=</span> <span class="o">-</span><span class="n">y</span><span class="p">[</span><span class="n">indi</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">dx</span> <span class="o">/</span> <span class="n">dy</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="n">indi</span><span class="p">]</span>
+
+    <span class="c1"># What about the points, which are actually zero</span>
+    <span class="n">zi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Do nothing about the first and last point should they be zero</span>
+    <span class="n">zi</span> <span class="o">=</span> <span class="n">zi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="n">zi</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">zi</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))]</span>
+    <span class="c1"># Select those point, where zero is crossed (sign change across the point)</span>
+    <span class="n">zi</span> <span class="o">=</span> <span class="n">zi</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">zi</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">y</span><span class="p">[</span><span class="n">zi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">)]</span>
+
+    <span class="c1"># Concatenate indices</span>
+    <span class="n">zeroc_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">indi</span><span class="p">,</span> <span class="n">zi</span><span class="p">))</span>
+    <span class="c1"># Concatenate zc and locations corresponding to zi</span>
+    <span class="n">zeroc_xvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">zc</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="n">zi</span><span class="p">]))</span>
+
+    <span class="c1"># Sort by x-value</span>
+    <span class="n">sind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">zeroc_xvalues</span><span class="p">)</span>
+    <span class="n">zeroc_xvalues</span><span class="p">,</span> <span class="n">zeroc_indices</span> <span class="o">=</span> <span class="n">zeroc_xvalues</span><span class="p">[</span><span class="n">sind</span><span class="p">],</span> <span class="n">zeroc_indices</span><span class="p">[</span><span class="n">sind</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">zeroc_xvalues</span><span class="p">,</span> <span class="n">zeroc_indices</span><span class="p">)</span> <span class="k">if</span> <span class="n">indices</span> <span class="k">else</span> <span class="n">zeroc_xvalues</span></div>
+
+
+<div class="viewcode-block" id="camel_to_snake"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.camel_to_snake">[docs]</a><span class="k">def</span> <span class="nf">camel_to_snake</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Turns CamelCased text into snake_cased text.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        StringToConvert</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    str</span>
+<span class="sd">        converted_string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">s1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;(.)([A-Z][a-z]+)&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1_\2&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;([a-z0-9])([A-Z])&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1_\2&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="find_nearest"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.find_nearest">[docs]</a><span class="k">def</span> <span class="nf">find_nearest</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the nearest value in an array or the index thereof.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : np.array</span>
+<span class="sd">        array which has to be searched</span>
+<span class="sd">    value : float</span>
+<span class="sd">        value that you are looking for</span>
+<span class="sd">    index : bool</span>
+<span class="sd">        whether or not you want the index</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array</span>
+<span class="sd">        value or index of nearest value</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">array</span> <span class="o">-</span> <span class="n">value</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">idx</span> <span class="k">if</span> <span class="n">index</span> <span class="k">else</span> <span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="split_dataframe"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.split_dataframe">[docs]</a><span class="k">def</span> <span class="nf">split_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Split a dataframe on a list of indices. For example a dataframe that contains multiple sessions of wheelchair</span>
+<span class="sd">    ergometer data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        target dataframe</span>
+<span class="sd">    inds : list</span>
+<span class="sd">        list of indices where the dataframe should be split</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        list of dataframes</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">inds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)]</span>  <span class="c1"># add first and last index for slicing</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">::],</span> <span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">::])]</span></div>
+
+
+<div class="viewcode-block" id="binned_stats"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.binned_stats">[docs]</a><span class="k">def</span> <span class="nf">binned_stats</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">nan_func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply a compatible Numpy function to every bins samples (e.g. mean or std).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : np.array</span>
+<span class="sd">        array which has to be searched</span>
+<span class="sd">    bins : int</span>
+<span class="sd">        number of samples to be averaged</span>
+<span class="sd">    pad : bool</span>
+<span class="sd">        whether or not to pad the array with NaNs if needed</span>
+<span class="sd">    func</span>
+<span class="sd">        function that is used when no padding is applied</span>
+<span class="sd">    nan_func</span>
+<span class="sd">        function that is used when padding is applied</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    means: np.array</span>
+<span class="sd">        array with the mean for every bins samples.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># make sure we have an array</span>
+    <span class="k">if</span> <span class="n">pad</span><span class="p">:</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bins</span> <span class="o">-</span> <span class="n">array</span><span class="o">.</span><span class="n">size</span> <span class="o">%</span> <span class="n">bins</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+        <span class="n">means</span> <span class="o">=</span> <span class="n">nan_func</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">means</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">array</span><span class="p">[:</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">//</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="n">bins</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">means</span></div>
+
+
+<div class="viewcode-block" id="TimerError"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.TimerError">[docs]</a><span class="k">class</span> <span class="nc">TimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom exception used to report errors in use of Timer class&quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple timer for timing code(blocks).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        name of timer, gets saved in Timer.timers optional</span>
+<span class="sd">    text : str</span>
+<span class="sd">        custom text, optional</span>
+<span class="sd">    start : bool</span>
+<span class="sd">        automatically start the timer when it&#39;s initialized, default is True</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    start</span>
+<span class="sd">        start the timer</span>
+<span class="sd">    stop</span>
+<span class="sd">        stop the timer, prints and returns the time</span>
+<span class="sd">    lap</span>
+<span class="sd">        print the time between this lap and the previous one</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">timers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Elapsed time: </span><span class="si">{:0.4f}</span><span class="s2"> seconds&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Add new named timers to dictionary of timers</span>
+        <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Timer.start"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TimerError</span><span class="p">(</span><span class="s2">&quot;Timer is already running. Use .stop() to stop it&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Timer.lap"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.lap">[docs]</a>    <span class="k">def</span> <span class="nf">lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lap_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TimerError</span><span class="p">(</span><span class="s2">&quot;Timer is not running. Use .start() to start it&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span><span class="p">:</span>
+            <span class="n">current_lap</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span> <span class="o">+=</span> <span class="n">current_lap</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span>
+            <span class="n">current_lap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span>
+
+        <span class="k">if</span> <span class="n">lap_name</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">lap_name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_lap</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Timer.stop"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">TimerError</span><span class="p">(</span><span class="s2">&quot;Timer is not running. Use .start() to start it&quot;</span><span class="p">)</span>
+
+        <span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elapsed_time</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">elapsed_time</span>
+        <span class="k">return</span> <span class="n">elapsed_time</span></div></div>
+
+
+<div class="viewcode-block" id="power_per_min"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.power_per_min">[docs]</a><span class="k">def</span> <span class="nf">power_per_min</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">start_spiro</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the power achieved per min in a graded exercise test, needed for</span>
+<span class="sd">    the Wasserman plot</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    data_ergo : pd.DataFrame</span>
+<span class="sd">        processed ergometer data dictionary with dataframes</span>
+<span class="sd">    dur : int</span>
+<span class="sd">        duration of max test in seconds</span>
+<span class="sd">    start_spiro : float or int</span>
+<span class="sd">        duration of the rest measurement just before the maximal exercise test.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    power : pd.DataFrame</span>
+<span class="sd">        a dataframe containing the mean power output per step, showed as a continu signal</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dur</span> <span class="o">/</span> <span class="mi">60</span><span class="p">))]</span>  <span class="c1"># define amount of steps</span>
+    <span class="n">mean_power</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># define mean_power</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">data_ergo</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))]</span>  <span class="c1"># cut every step</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)]</span>  <span class="c1"># takes last 20s of step</span>
+        <span class="n">mean_p</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">mean_power</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_p</span><span class="p">)</span>
+
+    <span class="n">outcome</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_power</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean_power&quot;</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="n">outcome</span><span class="p">[</span><span class="s2">&quot;mean_power&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">*</span> <span class="mi">60</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">power</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">power</span> <span class="o">=</span> <span class="n">power</span> <span class="o">+</span> <span class="n">q</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">start_spiro</span><span class="p">)</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">power</span>
+    <span class="n">power</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">power</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">power</span></div>
+
+
+<div class="viewcode-block" id="metamax_to_s"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.metamax_to_s">[docs]</a><span class="k">def</span> <span class="nf">metamax_to_s</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates time in seconds from h:mm:ss.000 to seconds</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dt : pd.Series</span>
+<span class="sd">        series with h:mm:ss.000</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    time : pd.Series</span>
+<span class="sd">        time in seconds</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">dt</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3600</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">time</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,947 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>worklab.kin &#8212; Worklab Docs</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Worklab Docs</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Theory
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/setup.html">
+   Setup
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
+   Minimal example for working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
+   Minimal example for working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
+   Minimal example for working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
+   Minimal example for working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Package documentation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/ana.html">
+   Analyses (.ana)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/com.html">
+   Communication (.com)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/imu.html">
+   IMU (.imu)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/kin.html">
+   Kinetics (.kin)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/move.html">
+   Kinematics (.move)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/physio.html">
+   Physiology (.physio)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/plots.html">
+   Plotting (.plots)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/API/utils.html">
+   Utilities (.utils)
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/kin.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for worklab.kin</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">cumtrapz</span>
+<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">savgol_filter</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">lowpass_butter</span><span class="p">,</span> <span class="n">find_peaks</span>
+<span class="kn">from</span> <span class="nn">.move</span> <span class="kn">import</span> <span class="n">rotate_matrix</span>
+
+
+<div class="viewcode-block" id="auto_process"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.auto_process">[docs]</a><span class="k">def</span> <span class="nf">auto_process</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">wheelsize</span><span class="o">=</span><span class="mf">0.31</span><span class="p">,</span>
+    <span class="n">rimsize</span><span class="o">=</span><span class="mf">0.27</span><span class="p">,</span>
+    <span class="n">sfreq</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">co_f</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+    <span class="n">ord_f</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">co_s</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">ord_s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">speed</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">variable</span><span class="o">=</span><span class="s2">&quot;torque&quot;</span><span class="p">,</span>
+    <span class="n">cutoff</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">wl</span><span class="o">=</span><span class="mi">201</span><span class="p">,</span>
+    <span class="n">ord_a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">minpeak</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Top level processing function that performs all processing steps for mw/ergo data.</span>
+
+<span class="sd">    Contains all signal processing steps in fixed order. It is advised to use this function for all (pre-)processing.</span>
+<span class="sd">    If needed take a look at a specific function to see how it works.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame, dict</span>
+<span class="sd">        raw ergometer or measurement wheel data</span>
+<span class="sd">    wheelsize : float</span>
+<span class="sd">        wheel radius [m]</span>
+<span class="sd">    rimsize : float</span>
+<span class="sd">        handrim radius [m]</span>
+<span class="sd">    sfreq : int</span>
+<span class="sd">        sample frequency [Hz]</span>
+<span class="sd">    co_f : int</span>
+<span class="sd">        cutoff frequency force filter [Hz]</span>
+<span class="sd">    ord_f : int</span>
+<span class="sd">        order force filter [..]</span>
+<span class="sd">    co_s : int</span>
+<span class="sd">        cutoff frequency force filter [Hz]</span>
+<span class="sd">    ord_s : int</span>
+<span class="sd">        order speed filter [..]</span>
+<span class="sd">    force : bool</span>
+<span class="sd">        force filter toggle, default is True</span>
+<span class="sd">    speed : bool</span>
+<span class="sd">        speed filter toggle, default is True</span>
+<span class="sd">    variable : str</span>
+<span class="sd">        variable name used for peak (push) detection</span>
+<span class="sd">    cutoff : float</span>
+<span class="sd">        noise level for peak (push) detection</span>
+<span class="sd">    wl : int</span>
+<span class="sd">        window length angle filter</span>
+<span class="sd">    ord_a : int</span>
+<span class="sd">        order angle filter [..]</span>
+<span class="sd">    minpeak : float</span>
+<span class="sd">        min peak height for peak (push) detection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pd.DataFrame, dict</span>
+<span class="sd">    pushes : pd.DataFrame, dict</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    filter_mw, process_mw, push_by_push_mw, filter_ergo, process_ergo, push_by_push_ergo</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;right&quot;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">filter_ergo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">co_f</span><span class="p">,</span> <span class="n">ord_f</span><span class="p">,</span> <span class="n">co_s</span><span class="p">,</span> <span class="n">ord_s</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">process_ergo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">wheelsize</span><span class="p">,</span> <span class="n">rimsize</span><span class="p">)</span>
+        <span class="n">pushes</span> <span class="o">=</span> <span class="n">push_by_push_ergo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">minpeak</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">filter_mw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">co_f</span><span class="p">,</span> <span class="n">ord_f</span><span class="p">,</span> <span class="n">wl</span><span class="p">,</span> <span class="n">ord_a</span><span class="p">,</span> <span class="n">force</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">process_mw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">wheelsize</span><span class="p">,</span> <span class="n">rimsize</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">)</span>
+        <span class="n">pushes</span> <span class="o">=</span> <span class="n">push_by_push_mw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">variable</span><span class="p">,</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">minpeak</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">pushes</span></div>
+
+
+<div class="viewcode-block" id="filter_mw"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.filter_mw">[docs]</a><span class="k">def</span> <span class="nf">filter_mw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mf">200.0</span><span class="p">,</span> <span class="n">co_f</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">ord_f</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">wl</span><span class="o">=</span><span class="mi">201</span><span class="p">,</span> <span class="n">ord_a</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filters measurement wheel data.</span>
+
+<span class="sd">    Filters raw measurement wheel data. Should be used before further processing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        raw measurement wheel data</span>
+<span class="sd">    sfreq : float</span>
+<span class="sd">        sample frequency [Hz]</span>
+<span class="sd">    co_f : float</span>
+<span class="sd">        cutoff frequency force filter [Hz]</span>
+<span class="sd">    ord_f : int</span>
+<span class="sd">        order force filter [..]</span>
+<span class="sd">    wl : int</span>
+<span class="sd">        window length angle filter</span>
+<span class="sd">    ord_a : int</span>
+<span class="sd">        order angle filter [..]</span>
+<span class="sd">    force : bool</span>
+<span class="sd">        force filter toggle, default is True</span>
+<span class="sd">    speed : bool</span>
+<span class="sd">        speed filter toggle, default is True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">    Same data but filtered.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    .utils.lowpass_butter</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+        <span class="n">frel</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fx&quot;</span><span class="p">,</span> <span class="s2">&quot;fy&quot;</span><span class="p">,</span> <span class="s2">&quot;fz&quot;</span><span class="p">,</span> <span class="s2">&quot;mx&quot;</span><span class="p">,</span> <span class="s2">&quot;my&quot;</span><span class="p">,</span> <span class="s2">&quot;torque&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">frel</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">var</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">co_f</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">ord_f</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">speed</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">savgol_filter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">],</span> <span class="n">window_length</span><span class="o">=</span><span class="n">wl</span><span class="p">,</span> <span class="n">polyorder</span><span class="o">=</span><span class="n">ord_a</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="filter_ergo"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.filter_ergo">[docs]</a><span class="k">def</span> <span class="nf">filter_ergo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">co_f</span><span class="o">=</span><span class="mf">15.0</span><span class="p">,</span> <span class="n">ord_f</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">co_s</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">ord_s</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Filters ergometer data.</span>
+
+<span class="sd">    Filters raw ergometer data. Should be used before further processing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        raw measurement wheel data</span>
+<span class="sd">    co_f : float</span>
+<span class="sd">        cutoff frequency force filter [Hz]</span>
+<span class="sd">    ord_f : int</span>
+<span class="sd">        order force filter [..]</span>
+<span class="sd">    co_s : float</span>
+<span class="sd">        cutoff frequency speed filter [Hz]</span>
+<span class="sd">    ord_s : int</span>
+<span class="sd">        order speed filter [..]</span>
+<span class="sd">    force : bool</span>
+<span class="sd">        force filter toggle, default is True</span>
+<span class="sd">    speed : bool</span>
+<span class="sd">        speed filter toggle, default is True</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        Same data but filtered.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    .utils.lowpass_butter</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;force&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;force&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">co_f</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">ord_f</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">speed</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">cutoff</span><span class="o">=</span><span class="n">co_s</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">ord_s</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="process_mw"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.process_mw">[docs]</a><span class="k">def</span> <span class="nf">process_mw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">wheelsize</span><span class="o">=</span><span class="mf">0.31</span><span class="p">,</span> <span class="n">rimsize</span><span class="o">=</span><span class="mf">0.275</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Basic processing for measurement wheel data.</span>
+
+<span class="sd">    Basic processing for measurement wheel data (e.g. speed to distance). Should be performed after filtering.</span>
+<span class="sd">    Added columns:</span>
+
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | Column     | Data                 | Unit      |</span>
+<span class="sd">    +============+======================+===========+</span>
+<span class="sd">    | aspeed     | angular velocity     | rad/s     |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | speed      | velocity             | m/s       |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | dist       | cumulative distance  | m         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | acc        | acceleration         | m/s^2     |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | ftot       | total combined force | N         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | uforce     | effective force      | N         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | force      | force on wheel       | N         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | power      | power                | W         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | work       | instantanious work   | J         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        raw measurement wheel data</span>
+<span class="sd">    wheelsize : float</span>
+<span class="sd">        wheel radius [m]</span>
+<span class="sd">    rimsize : float</span>
+<span class="sd">        handrim radius [m]</span>
+<span class="sd">    sfreq : int</span>
+<span class="sd">        sample frequency [Hz]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : pd.DataFrame</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    .com.load_opti, .com.load_sw</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspeed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspeed&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wheelsize</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;acc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;ftot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;fx&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;fy&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;fz&quot;</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;torque&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">rimsize</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;feff&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;ftot&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;force&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;torque&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">wheelsize</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;torque&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;aspeed&quot;</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="process_ergo"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.process_ergo">[docs]</a><span class="k">def</span> <span class="nf">process_ergo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">wheelsize</span><span class="o">=</span><span class="mf">0.31</span><span class="p">,</span> <span class="n">rimsize</span><span class="o">=</span><span class="mf">0.275</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Basic processing for ergometer data.</span>
+
+<span class="sd">    Basic processing for ergometer data (e.g. speed to distance). Should be performed after filtering.</span>
+<span class="sd">    Added columns:</span>
+
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | Column     | Data                 | Unit      |</span>
+<span class="sd">    +============+======================+===========+</span>
+<span class="sd">    | angle      | angle                | rad       |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | aspeed     | angular velocity     | rad/s     |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | acc        | acceleration         | m/s^2     |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | dist       | cumulative distance  | m         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | power      | power                | W         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | work       | instantanious work   | J         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | uforce     | effective force      | N         |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+<span class="sd">    | torque     | torque around wheel  | Nm        |</span>
+<span class="sd">    +------------+----------------------+-----------+</span>
+
+<span class="sd">    .. note:: the force column contains force on the wheels, uforce (user force) is force on the handrim</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        raw ergometer data</span>
+<span class="sd">    wheelsize : float</span>
+<span class="sd">        wheel radius [m]</span>
+<span class="sd">    rimsize : float</span>
+<span class="sd">        handrim radius [m]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : dict</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    .com.load_esseda</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># ergometer is always 100Hz</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;aspeed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">wheelsize</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;angle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;aspeed&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;torque&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;force&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wheelsize</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;acc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;force&quot;</span><span class="p">]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;work&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;force&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">wheelsize</span> <span class="o">/</span> <span class="n">rimsize</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="push_by_push_mw"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.push_by_push_mw">[docs]</a><span class="k">def</span> <span class="nf">push_by_push_mw</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="s2">&quot;torque&quot;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">minpeak</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">mindist</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Push-by-push analysis for measurement wheel data.</span>
+
+<span class="sd">    Push detection and push-by-push analysis for measurement wheel data. Returns a pandas DataFrame with:</span>
+
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | Column             | Data                 | Unit      |</span>
+<span class="sd">    +====================+======================+===========+</span>
+<span class="sd">    | start/stop/peak    | respective indices   |           |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | tstart/tstop/tpeak | respective samples   | s         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | cangle             | contact angle        | rad       |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | cangle_deg         | contact angle        | degrees   |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxpower      | power per push       | W         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxtorque     | torque per push      | Nm        |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxforce      | force per push       | N         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxuforce     | (rim) force per push | N         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxfeff       | feffective per push  | %         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxftot       | ftotal per push      | N         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | work               | work per push        | J         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | cwork              | work per cycle       | J         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | negwork            | negative work/cycle  | J         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | slope              | slope onset to peak  | Nm/s      |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | smoothness         | mean/peak force      |           |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | ptime              | push time            | s         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | ctime              | cycle time           | s         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | reltime            | relative push/cycle  | %         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        measurement wheel DataFrame</span>
+<span class="sd">    variable : str</span>
+<span class="sd">        variable name used for peak (push) detection</span>
+<span class="sd">    cutoff : float</span>
+<span class="sd">        noise level for peak (push) detection</span>
+<span class="sd">    minpeak : float</span>
+<span class="sd">        min peak height for peak (push) detection</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pbp : pd.DataFrame</span>
+<span class="sd">        push-by-push DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">variable</span><span class="p">],</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">minpeak</span><span class="p">,</span> <span class="n">mindist</span><span class="p">)</span>
+
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;start&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peak&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tstart&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tstop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tpeak&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cangle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cangle_deg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ptime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanpower&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxpower&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meantorque&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxtorque&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanuforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxuforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;work&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanfeff&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxfeff&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanftot&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxftot&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;slope&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;smoothness&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ctime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reltime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cwork&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;negwork&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">pbp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">keys</span><span class="p">)</span>  <span class="c1"># preallocate dataframe</span>
+
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># get .values so indices align</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tpeak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstop&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;reltime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ctime&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cangle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;angle&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cangle_deg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cangle&quot;</span><span class="p">])</span>
+
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">bins</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">push_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">bins</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>  <span class="c1"># slice dataframe from push start:stop</span>
+    <span class="n">push_group</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">push_bins</span><span class="p">)</span>
+    <span class="n">grouped</span> <span class="o">=</span> <span class="n">push_group</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">])[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">grouped</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}{</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">grouped</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>  <span class="c1"># collapse multiindex to match cols with pbp</span>
+
+    <span class="n">mean_max_variables</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">keys</span> <span class="k">if</span> <span class="s2">&quot;mean&quot;</span> <span class="ow">in</span> <span class="n">var</span> <span class="ow">or</span> <span class="s2">&quot;max&quot;</span> <span class="ow">in</span> <span class="n">var</span><span class="p">]</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="n">mean_max_variables</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped</span><span class="p">[</span><span class="n">mean_max_variables</span><span class="p">]</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;maxtorque&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tpeak&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">])</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;smoothness&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;meanforce&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;maxforce&quot;</span><span class="p">]</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">push_group</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">cycle_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cwork&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;work&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cycle_bins</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">negative_work</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">negative_work</span><span class="p">[</span><span class="n">negative_work</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;negwork&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">negative_work</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cycle_bins</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pbp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pbp</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;cwork&quot;</span><span class="p">,</span> <span class="s2">&quot;negwork&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pbp</span><span class="p">)</span><span class="si">}</span><span class="s2"> pushes!</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pbp</span></div>
+
+
+<div class="viewcode-block" id="push_by_push_ergo"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.push_by_push_ergo">[docs]</a><span class="k">def</span> <span class="nf">push_by_push_ergo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">variable</span><span class="o">=</span><span class="s2">&quot;power&quot;</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">minpeak</span><span class="o">=</span><span class="mf">50.0</span><span class="p">,</span> <span class="n">mindist</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Push-by-push analysis for wheelchair ergometer data.</span>
+
+<span class="sd">    Push detection and push-by-push analysis for ergometer data. Returns a pandas DataFrame with:</span>
+
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | Column             | Data                 | Unit      |</span>
+<span class="sd">    +====================+======================+===========+</span>
+<span class="sd">    | start/stop/peak    | respective indices   |           |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | tstart/tstop/tpeak | respective samples   | s         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | cangle             | contact angle        | rad       |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | cangle_deg         | contact angle        | degrees   |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxpower      | power per push       | W         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxtorque     | torque per push      | Nm        |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxforce      | force per push       | N         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxuforce     | (rim) force per push | N         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | mean/maxspeed      | velocity per push    | ms        |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | work               | work per push        | J         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | cwork              | work per cycle       | J         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | negwork            | negative work/cycle  | J         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | slope              | slope onset to peak  | Nm/s      |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | smoothness         | mean/peak force      |           |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | ptime              | push time            | s         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | ctime              | cycle time           | s         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+<span class="sd">    | reltime            | relative push/cycle  | %         |</span>
+<span class="sd">    +--------------------+----------------------+-----------+</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        wheelchair ergometer dictionary</span>
+<span class="sd">    variable : str</span>
+<span class="sd">        variable name used for peak (push) detection, default = power</span>
+<span class="sd">    cutoff : float</span>
+<span class="sd">        noise level for peak (push) detection, default = 0</span>
+<span class="sd">    minpeak : float</span>
+<span class="sd">        min peak height for peak (push) detection, default = 50.0</span>
+<span class="sd">    mindist : int</span>
+<span class="sd">        minimum sample distance between peak candidates, can be used to speed up algorithm</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pbp : dict</span>
+<span class="sd">        dictionary with left, right and mean push-by-push DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pbp_sides</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;start&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;peak&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tstart&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tstop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tpeak&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cangle&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cangle_deg&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ptime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanpower&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxpower&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meantorque&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxtorque&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanuforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxuforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxforce&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;meanspeed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;maxspeed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;work&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;slope&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;smoothness&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ctime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;reltime&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cwork&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;negwork&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">):</span>
+            <span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="n">variable</span><span class="p">],</span> <span class="n">cutoff</span><span class="p">,</span> <span class="n">minpeak</span><span class="p">,</span> <span class="n">mindist</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+            <span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="n">variable</span><span class="p">],</span> <span class="n">cutoff</span><span class="p">,</span> <span class="p">(</span><span class="n">minpeak</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span> <span class="n">mindist</span><span class="p">)</span>
+        <span class="n">pbp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">keys</span><span class="p">)</span>  <span class="c1"># preallocate</span>
+
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>  <span class="c1"># get .values so indices align</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tpeak&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;peak&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstop&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;reltime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;ctime&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cangle&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;angle&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;angle&quot;</span><span class="p">][</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cangle_deg&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cangle&quot;</span><span class="p">])</span>
+
+        <span class="n">bins</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;stop&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">bins</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">push_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">bins</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>  <span class="c1"># slice dataframe from push start:stop</span>
+        <span class="n">push_group</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">push_bins</span><span class="p">)</span>
+        <span class="n">grouped</span> <span class="o">=</span> <span class="n">push_group</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">])[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">grouped</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}{</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">grouped</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>  <span class="c1"># collapse multiindex to match cols with pbp</span>
+
+        <span class="n">mean_max_variables</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">keys</span> <span class="k">if</span> <span class="s2">&quot;mean&quot;</span> <span class="ow">in</span> <span class="n">var</span> <span class="ow">or</span> <span class="s2">&quot;max&quot;</span> <span class="ow">in</span> <span class="n">var</span><span class="p">]</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="n">mean_max_variables</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped</span><span class="p">[</span><span class="n">mean_max_variables</span><span class="p">]</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;maxtorque&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tpeak&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">])</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;smoothness&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;meanforce&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;maxforce&quot;</span><span class="p">]</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">push_group</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">cycle_bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;cwork&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][[</span><span class="s2">&quot;work&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cycle_bins</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">negative_work</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;work&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">negative_work</span><span class="p">[</span><span class="n">negative_work</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pbp</span><span class="p">[</span><span class="s2">&quot;negwork&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">negative_work</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">cycle_bins</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">pbp</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">pbp</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;cwork&quot;</span><span class="p">,</span> <span class="s2">&quot;negwork&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
+
+        <span class="n">pbp_sides</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pbp</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Found left: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pbp_sides</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> , &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;right: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pbp_sides</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> and &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;mean: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">pbp_sides</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2"> pushes!</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">pbp_sides</span></div>
+
+
+<div class="viewcode-block" id="camber_correct"><a class="viewcode-back" href="../../chapters/API/kin.html#worklab.kin.camber_correct">[docs]</a><span class="k">def</span> <span class="nf">camber_correct</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ang</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Correct for camber angle in measurement wheel data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : pd.DataFrame()</span>
+<span class="sd">        measurement wheel data with forces/torques in 3D</span>
+
+<span class="sd">    ang : int</span>
+<span class="sd">        camber angle to correct</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data: pd.DataFrame()</span>
+<span class="sd">        measurement wheel data with forces/torques in 3D</span>
+<span class="sd">        corrected for camber angle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">force</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;fx&quot;</span><span class="p">,</span> <span class="s2">&quot;fy&quot;</span><span class="p">,</span> <span class="s2">&quot;fz&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">torques</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;mx&quot;</span><span class="p">,</span> <span class="s2">&quot;my&quot;</span><span class="p">,</span> <span class="s2">&quot;torque&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">rotmat</span> <span class="o">=</span> <span class="n">rotate_matrix</span><span class="p">(</span><span class="n">ang</span> <span class="o">/</span> <span class="p">(</span><span class="mi">180</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;fx&quot;</span><span class="p">,</span> <span class="s2">&quot;fy&quot;</span><span class="p">,</span> <span class="s2">&quot;fz&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rotmat</span><span class="p">,</span> <span class="n">force</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;mx&quot;</span><span class="p">,</span> <span class="s2">&quot;my&quot;</span><span class="p">,</span> <span class="s2">&quot;torque&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">rotmat</span><span class="p">,</span> <span class="n">torques</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,1049 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>worklab.ana</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/setup.html">
+   Quick Start Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/ergometer.html">
+   Ergometer testing
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
+   Working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
+   Working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
+   Working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
+   Working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Documentation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapters/package.html">
+   Package documentation
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/developer.html">
+   Developers
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/ana.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for worklab.ana</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">find_peaks</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">it</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">.plots</span> <span class="kn">import</span> <span class="n">plot_power_speed_dist</span><span class="p">,</span> <span class="n">plot_pushes_ergo</span>
+<span class="kn">from</span> <span class="nn">.physio</span> <span class="kn">import</span> <span class="n">calc_weighted_average</span>
+
+
+<div class="viewcode-block" id="mean_data"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.mean_data">[docs]</a><span class="k">def</span> <span class="nf">mean_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Combined data of left and right module</span>
+<span class="sd">    Time, speed, aspeed, acc and dist are averaged</span>
+<span class="sd">    Force, torque, power, work and uforce are averaged and multiplied with two</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        processed ergometer data dictionary with dataframes for left and right</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        with left, right and mean module</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">target_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;force&quot;</span><span class="p">,</span> <span class="s2">&quot;torque&quot;</span><span class="p">,</span> <span class="s2">&quot;power&quot;</span><span class="p">,</span> <span class="s2">&quot;work&quot;</span><span class="p">,</span> <span class="s2">&quot;uforce&quot;</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="n">target_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="n">target_cols</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="cut_data"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.cut_data">[docs]</a><span class="k">def</span> <span class="nf">cut_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cuts data to time of interest</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        processed ergometer data dictionary with dataframes</span>
+<span class="sd">    start : float</span>
+<span class="sd">        start time [s]</span>
+<span class="sd">    end : float</span>
+<span class="sd">        end time [s]</span>
+<span class="sd">    distance : bool, optional</span>
+<span class="sd">        resets distance to 0 at start, default is True.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        data cutted to time of interest</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">start</span>
+        <span class="k">if</span> <span class="n">distance</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="isometricforce"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.isometricforce">[docs]</a><span class="k">def</span> <span class="nf">isometricforce</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the three seconds maximal user force and plots it against time (darkblue).</span>
+<span class="sd">    Peaks are annotated with a dot and with the height of the peak, max value is shown in the corner.</span>
+<span class="sd">    Plot velocity optional &amp; possibility to scale manually</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        processed ergometer data dictionary with dataframes</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        plotted on top of graph, default is None</span>
+<span class="sd">    height : float, optional</span>
+<span class="sd">        minimal height of peak, default is 40 N</span>
+<span class="sd">    distance : float, optional</span>
+<span class="sd">        minimal distance between peaks, default is 500 samples</span>
+<span class="sd">    vel : bool</span>
+<span class="sd">        plot velocity, default is True</span>
+<span class="sd">    ylim : list [min, max] of floats or int, optional</span>
+<span class="sd">        list of the minimal and maximal ylim for user force in N</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig : matplotlib.figure.Figure</span>
+<span class="sd">    peaks_y : series</span>
+<span class="sd">        peaks of maximal user force (averaged over left and right)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># calculate 3s rolling average</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;timed&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;timed&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;3s&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s2">&quot;3s&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># plot figure, force in blue en velocity (optional) in red</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">peaks_y_all</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">side</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="n">peaks</span> <span class="o">=</span> <span class="n">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;3s&quot;</span><span class="p">],</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="n">distance</span><span class="p">)</span>
+        <span class="n">peaks_x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">peaks_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;peak_heights&quot;</span><span class="p">]))</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;3s&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumblue&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">peaks_x</span><span class="p">],</span> <span class="n">peaks_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumblue&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ylim</span><span class="p">:</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ylim</span><span class="p">:</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">vel</span><span class="p">:</span>
+            <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;firebrick&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="c1"># annotate peaks in plot</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">peaks_y</span><span class="p">)</span>
+        <span class="n">x_peaks</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">peaks_x</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">txt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="p">(</span><span class="n">x_peaks</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">peaks_y</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="mf">0.85</span><span class="p">,</span>
+            <span class="mf">0.07</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+            <span class="n">s</span><span class="o">=</span><span class="s2">&quot;max = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># style plot</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+                    <span class="s2">&quot;Isometric force production (3 seconds) for left, right and the average </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">),</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+                <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Isometric force production (3 seconds) for left, right and the average&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Force [N]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;mediumblue&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">vel</span><span class="p">:</span>
+                <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Velocity [m/s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+                <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;firebrick&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+        <span class="n">peaks_y</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">peaks_y</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">side</span><span class="p">])</span>
+        <span class="n">peaks_y_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">peaks_y</span><span class="p">)</span>
+
+    <span class="n">peaks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_y_all</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_y_all</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">peaks</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">peaks_y_all</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">peaks</span></div>
+
+
+<div class="viewcode-block" id="protocol_wingate"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.protocol_wingate">[docs]</a><span class="k">def</span> <span class="nf">protocol_wingate</span><span class="p">(</span><span class="n">fiso</span><span class="p">,</span> <span class="n">muser</span><span class="p">,</span> <span class="n">mwc</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the protocol for the Wingate test on a wheelchair ergometer,</span>
+<span class="sd">    based on the regression equations between the isometric force, anaerobic</span>
+<span class="sd">    and aerobic power.</span>
+
+<span class="sd">    (Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.</span>
+<span class="sd">    Isometric strength sprint power and anaerobic power in individuals with a</span>
+<span class="sd">    spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.</span>
+<span class="sd">    doi:10.1249/00005768-199307000-00016)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fiso : float</span>
+<span class="sd">        maximal 3 seconds force in N, average of left and right</span>
+<span class="sd">    muser : float/int</span>
+<span class="sd">        mass user</span>
+<span class="sd">    mwc : float/int</span>
+<span class="sd">        mass wheelchair</span>
+<span class="sd">    folder : str, optional</span>
+<span class="sd">        file path, protocol will be saved here</span>
+<span class="sd">    v : float/int, optional</span>
+<span class="sd">        mean velocity wingate, default is 2 m/s</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Print the maximal three seconds force, the predicted P30, the aimed mean velocity</span>
+<span class="sd">    and the calculated resistance. Option to save in folder</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mtotal</span> <span class="o">=</span> <span class="n">muser</span> <span class="o">+</span> <span class="n">mwc</span>
+
+    <span class="n">fisokg</span> <span class="o">=</span> <span class="n">fiso</span> <span class="o">/</span> <span class="n">muser</span>
+    <span class="n">p30</span> <span class="o">=</span> <span class="mf">0.51</span> <span class="o">*</span> <span class="n">fisokg</span> <span class="o">-</span> <span class="mf">0.18</span>
+    <span class="n">ptotal</span> <span class="o">=</span> <span class="n">p30</span> <span class="o">*</span> <span class="n">muser</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">ptotal</span> <span class="o">/</span> <span class="n">v</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">f</span> <span class="o">/</span> <span class="p">(</span><span class="n">mtotal</span> <span class="o">*</span> <span class="mf">9.81</span><span class="p">)</span>
+
+    <span class="n">protocol</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> The maximal three second force is: &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">fiso</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot; N&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> The predicted P30 = &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">ptotal</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Aimed is for an average velocity of &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> The calculated resistance for the Wingate test is: &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+
+    <span class="c1"># save print in folder (optional)</span>
+    <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
+        <span class="n">original_stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>  <span class="c1"># original standard output</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">folder</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="s2">&quot;isometricwingate.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">f</span>  <span class="c1"># change the standard output to the file we created</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">original_stdout</span>  <span class="c1"># reset the standard output</span></div>
+
+
+<div class="viewcode-block" id="wingate"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.wingate">[docs]</a><span class="k">def</span> <span class="nf">wingate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wingate test analyse. Gives a plot with the power (green) and velocity (red),</span>
+<span class="sd">    also prints the important performance indicators</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        processed and cutted ergometer data dictionary with dataframes</span>
+<span class="sd">    title : str</span>
+<span class="sd">        title of figure</span>
+<span class="sd">    box : bool</span>
+<span class="sd">        prints important performance indicators on figure, default is False</span>
+<span class="sd">    ylim : float, optional</span>
+<span class="sd">        sets the ylim of the graph, defaul is 5 ms</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig : matplotlib.figure.Figure</span>
+<span class="sd">    outcomes : dataframe</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># rolling average over 5 seconds</span>
+    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># plot figure with power and velocity</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;power&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Power [W]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;firebrick&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;speed&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;speed [m/s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;firebrick&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ylim</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+    <span class="c1"># calculate outcomes</span>
+    <span class="n">P30</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">Pmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">P5max</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">P5start</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">499</span><span class="p">]</span>
+    <span class="n">P5min</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">P5end</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">rfmaxmin</span> <span class="o">=</span> <span class="p">((</span><span class="n">P5max</span> <span class="o">-</span> <span class="n">P5min</span><span class="p">)</span> <span class="o">/</span> <span class="n">P5max</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">rfstartend</span> <span class="o">=</span> <span class="p">((</span><span class="n">P5start</span> <span class="o">-</span> <span class="n">P5end</span><span class="p">)</span> <span class="o">/</span> <span class="n">P5start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">vmean</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">vmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;P30&quot;</span><span class="p">:</span> <span class="n">P30</span><span class="p">,</span>
+            <span class="s2">&quot;Pmax&quot;</span><span class="p">:</span> <span class="n">Pmax</span><span class="p">,</span>
+            <span class="s2">&quot;P5max&quot;</span><span class="p">:</span> <span class="n">P5max</span><span class="p">,</span>
+            <span class="s2">&quot;P5min&quot;</span><span class="p">:</span> <span class="n">P5min</span><span class="p">,</span>
+            <span class="s2">&quot;rfmaxmin&quot;</span><span class="p">:</span> <span class="n">rfmaxmin</span><span class="p">,</span>
+            <span class="s2">&quot;P5start&quot;</span><span class="p">:</span> <span class="n">P5start</span><span class="p">,</span>
+            <span class="s2">&quot;P5end&quot;</span><span class="p">:</span> <span class="n">P5end</span><span class="p">,</span>
+            <span class="s2">&quot;rfstartend&quot;</span><span class="p">:</span> <span class="n">rfstartend</span><span class="p">,</span>
+            <span class="s2">&quot;vmean&quot;</span><span class="p">:</span> <span class="n">vmean</span><span class="p">,</span>
+            <span class="s2">&quot;vmax&quot;</span><span class="p">:</span> <span class="n">vmax</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">box</span><span class="p">:</span>
+        <span class="c1"># annotate important outcomes in figure</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="mf">0.80</span><span class="p">,</span>
+            <span class="mf">0.1</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+            <span class="n">s</span><span class="o">=</span><span class="s2">&quot;P30 = &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">P30</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot; W&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pmax = &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">Pmax</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot;W&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">P5max = &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">P5max</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot; W&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">vmax = &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">vmax</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">RF = &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">rfstartend</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="o">+</span> <span class="s2">&quot; %&quot;</span><span class="p">,</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">),</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Wingate test </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Wingate test&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">outcomes</span></div>
+
+
+<div class="viewcode-block" id="protocol_max"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.protocol_max">[docs]</a><span class="k">def</span> <span class="nf">protocol_max</span><span class="p">(</span><span class="n">P30</span><span class="p">,</span> <span class="n">muser</span><span class="p">,</span> <span class="n">mwc</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mf">1.39</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the protocol for the Maximal exercise test on a wheelchair ergometer,</span>
+<span class="sd">    based on the regression equations between the isometric force, anaerobic</span>
+<span class="sd">    and aerobic power.</span>
+
+<span class="sd">    (Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.</span>
+<span class="sd">    Isometric strength sprint power and anaerobic power in individuals with a</span>
+<span class="sd">    spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.</span>
+<span class="sd">    doi:10.1249/00005768-199307000-00016)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    P30 : float</span>
+<span class="sd">        average power over a 30-sec Wingate test</span>
+<span class="sd">    muser : float/int</span>
+<span class="sd">        mass user</span>
+<span class="sd">    mwc : float/int</span>
+<span class="sd">        mass wheelchair</span>
+<span class="sd">    folder : str, optional</span>
+<span class="sd">        file path, protocol will be saved here</span>
+<span class="sd">    v : float, optional</span>
+<span class="sd">        constant comfortable velocity for the test, default is 1.39 m/s</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Print the P30, the POpeak, the aimed mean velocity and the resistance for each step,</span>
+<span class="sd">    option to save in folder</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mtotal</span> <span class="o">=</span> <span class="n">muser</span> <span class="o">+</span> <span class="n">mwc</span>
+
+    <span class="n">p30kg</span> <span class="o">=</span> <span class="n">P30</span> <span class="o">/</span> <span class="n">muser</span>
+
+    <span class="n">poaer</span> <span class="o">=</span> <span class="mf">0.67</span> <span class="o">*</span> <span class="n">p30kg</span> <span class="o">+</span> <span class="mf">0.11</span>  <span class="c1"># (Janssen)</span>
+    <span class="n">pototal</span> <span class="o">=</span> <span class="n">poaer</span> <span class="o">*</span> <span class="n">muser</span>
+    <span class="n">postart</span> <span class="o">=</span> <span class="mf">0.20</span> <span class="o">*</span> <span class="n">pototal</span>  <span class="c1"># start at 20% of POpeak</span>
+    <span class="n">posubmax2</span> <span class="o">=</span> <span class="mf">0.40</span> <span class="o">*</span> <span class="n">pototal</span>  <span class="c1"># 40% of POpeak</span>
+
+    <span class="c1"># calculate resistance start, submax2 &amp; end</span>
+    <span class="n">f0</span> <span class="o">=</span> <span class="n">postart</span> <span class="o">/</span> <span class="n">v</span>
+    <span class="n">mu0</span> <span class="o">=</span> <span class="n">f0</span> <span class="o">/</span> <span class="p">(</span><span class="n">mtotal</span> <span class="o">*</span> <span class="mf">9.81</span><span class="p">)</span>  <span class="c1"># resistance start</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">posubmax2</span> <span class="o">/</span> <span class="n">v</span>
+    <span class="n">mu1</span> <span class="o">=</span> <span class="n">f1</span> <span class="o">/</span> <span class="p">(</span><span class="n">mtotal</span> <span class="o">*</span> <span class="mf">9.81</span><span class="p">)</span>  <span class="c1"># resistance submax2</span>
+    <span class="n">fend</span> <span class="o">=</span> <span class="n">pototal</span> <span class="o">/</span> <span class="n">v</span>
+    <span class="n">muend</span> <span class="o">=</span> <span class="n">fend</span> <span class="o">/</span> <span class="p">(</span><span class="n">mtotal</span> <span class="o">*</span> <span class="mf">9.81</span><span class="p">)</span>  <span class="c1"># resistance end</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">muend</span> <span class="o">-</span> <span class="n">mu0</span>
+
+    <span class="n">protocol</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> P30 = &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">P30</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Predicted POpeak = &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pototal</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Submaximal 20%POpeak = &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
+        <span class="o">+</span> <span class="s2">&quot; and velocity is &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Submaximal 40%POpeak = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span> <span class="o">+</span> <span class="s2">&quot; and velocity is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-</span><span class="se">\n</span><span class="s2"> The start resistance for the maximal exercise test should be &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> After 10 minutes the resistance should be &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">muend</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> The step length is thus &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="n">diff</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Velocity is always &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Make sure to prolong the protocol for 25 minutes.&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+
+    <span class="c1"># option to save print in folder</span>
+    <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
+        <span class="n">original_stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>  <span class="c1"># original standard output</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">folder</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="s2">&quot;wingatemax.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">f</span>  <span class="c1"># change the standard output to the file we created.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">original_stdout</span>  <span class="c1"># reset the standard output</span></div>
+
+
+<div class="viewcode-block" id="maximal1min"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.maximal1min">[docs]</a><span class="k">def</span> <span class="nf">maximal1min</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Maximal exercise test analyse. Gives a plot with the power (green) and velocity (red)</span>
+<span class="sd">    for each step, also prints the important performance indicators per step:</span>
+<span class="sd">    - Work [J]</span>
+<span class="sd">    - Mean power [W]</span>
+<span class="sd">    - Maximal power [W]</span>
+<span class="sd">    - Mean velocity [ms]</span>
+<span class="sd">    - Push time [s]</span>
+<span class="sd">    - Cycle time [s]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        processed and cutted ergometer data dictionary with dataframes</span>
+<span class="sd">    data_pbp : dict</span>
+<span class="sd">        processed and cutted push_by_push ergometer data dictionary with dataframes</span>
+<span class="sd">    dur : int</span>
+<span class="sd">        duration of max test in seconds</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        title of figure</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig : matplotlib.figure.Figure</span>
+<span class="sd">    outcomes : dataframe</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># plot figure with 4 columns and x rows (depending on duration test)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">dur</span> <span class="o">/</span> <span class="mi">60</span><span class="p">))]</span>
+    <span class="n">ncolumns</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># columns in the figure</span>
+    <span class="n">nrows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(((</span><span class="nb">max</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">ncolumns</span><span class="p">))</span>  <span class="c1"># rows in the figure</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncolumns</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
+            <span class="s2">&quot;Analysis of maximal exercise test for: &quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Increments = 1 min, last 20sec of each minute shown&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Analysis of maximal exercise test&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Increments = 1 min, last 20sec of each minute shown&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">+</span> <span class="n">x</span>  <span class="c1"># rows in the figure</span>
+
+    <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">*</span> <span class="mi">7</span>  <span class="c1"># columns in the figure</span>
+
+    <span class="c1"># variables of interest for each step</span>
+    <span class="n">mean_power</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">max_power</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mean_vel</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">push_time</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cycle_time</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+        <span class="c1"># slice mean data for each step</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">])</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)]</span>
+
+        <span class="c1"># slice push by push data for each step</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">])</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">z</span><span class="p">[(</span><span class="n">z</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="s2">&quot;tstop&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))]</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)]</span>
+
+        <span class="c1"># calculate variables for each step (last 20 seconds)</span>
+        <span class="n">mean_p</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">mean_power</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_p</span><span class="p">)</span>
+        <span class="n">max_p</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">max_power</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_p</span><span class="p">)</span>
+        <span class="n">mean_v</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">mean_vel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_v</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+        <span class="n">work</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">push</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">push_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">push</span><span class="p">)</span>
+        <span class="n">cycle</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">cycle_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cycle</span><span class="p">)</span>
+
+        <span class="c1"># plot power versus time and the start and stop of each step</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]],</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]],</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+        <span class="c1"># plot velocity on the second y axis</span>
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;firebrick&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+        <span class="c1"># set title and box with mean power per step</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Step &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="mf">0.50</span><span class="p">,</span>
+            <span class="mf">0.05</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+            <span class="n">s</span><span class="o">=</span><span class="s2">&quot;mean_power = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_p</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;wheat&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+    <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">work</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">work</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">mean_power</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_power</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean_power&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">max_power</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">max_power</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;max_power&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">mean_vel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_vel</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean_vel&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">push_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">push_time</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;push_time&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">cycle_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cycle_time</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cycle_time&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">step</span><span class="p">,</span> <span class="n">work</span><span class="p">,</span> <span class="n">mean_power</span><span class="p">,</span> <span class="n">max_power</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">,</span> <span class="n">push_time</span><span class="p">,</span> <span class="n">cycle_time</span><span class="p">])</span>
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">outcomes</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">outcomes</span></div>
+
+
+<div class="viewcode-block" id="ana_sprint"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.ana_sprint">[docs]</a><span class="k">def</span> <span class="nf">ana_sprint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">half</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sprint test analyse. Plot a figure with the power, speed and distance for</span>
+<span class="sd">    left and right seperate. Also saves important outcomes</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : dict</span>
+<span class="sd">        processed and cutted ergometer data dictionary with dataframes</span>
+<span class="sd">    data_pbp : dict</span>
+<span class="sd">        processed and cutted push_by_push ergometer data dictionary with dataframes</span>
+<span class="sd">    half : float, optional</span>
+<span class="sd">        half time of the sprint, default is 5 s</span>
+<span class="sd">    title : str, optional</span>
+<span class="sd">        title of figure</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    fig : matplotlib.figure.Figure</span>
+<span class="sd">    outcomes : dataframe</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_power_speed_dist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_power_speed_dist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+    <span class="n">half</span> <span class="o">=</span> <span class="n">half</span> <span class="o">*</span> <span class="mi">100</span>  <span class="c1"># to get right index</span>
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;distance_half&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">half</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;distance_half_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">half</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;distance_half_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">half</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;distance&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;distance_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;distance_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;max_vel&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;max_vel_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;max_vel_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;mean_vel&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;mean_vel_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;mean_vel_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;max_power&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;max_power_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;max_power_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;mean_power&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;mean_power_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;mean_power_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;maxpowerafter3&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;maxpower&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;maxpowerafter3_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;maxpower&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;maxpowerafter3_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;maxpower&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;maxvelafter3&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;maxspeed&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;maxvelafter3_l&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;maxspeed&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;maxvelafter3_r&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;maxspeed&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;ctime&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="s2">&quot;p_time&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">outcomes</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">outcomes</span></div>
+
+
+<div class="viewcode-block" id="ana_submax"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.ana_submax">[docs]</a><span class="k">def</span> <span class="nf">ana_submax</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">data_spiro</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sub maximal test analyse. Plot a figure with the pushes for left, right</span>
+<span class="sd">    and the mean. Also saves important outcomes</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data_ergo : pd.DataFrame</span>
+<span class="sd">        processed and cutted ergometer data</span>
+<span class="sd">    data_pbp : pd.DataFrame</span>
+<span class="sd">        processed and cutted ergometer data</span>
+<span class="sd">    data_spiro : pd.DataFrame</span>
+<span class="sd">        processed and cutted spirometer data</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pushes : matplotlib.figure.Figure</span>
+<span class="sd">    outcomes : pd.DataFrame</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pushes</span> <span class="o">=</span> <span class="n">plot_pushes_ergo</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">)</span>
+
+    <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">calc_weighted_average</span><span class="p">(</span><span class="n">data_spiro</span><span class="p">[[</span><span class="s2">&quot;RER&quot;</span><span class="p">,</span> <span class="s2">&quot;EE&quot;</span><span class="p">,</span> <span class="s2">&quot;HR&quot;</span><span class="p">,</span> <span class="s2">&quot;VO2&quot;</span><span class="p">]],</span> <span class="n">data_spiro</span><span class="p">[</span><span class="s2">&quot;weights&quot;</span><span class="p">])</span>
+    <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_spiro</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">mean_ergo</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;mean_vel&quot;</span><span class="p">:</span> <span class="n">data_ergo</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;meanpower&quot;</span><span class="p">:</span> <span class="n">data_ergo</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;ptime_l&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;ptime_r&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;ctime_l&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;ctime_r&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;ca_l&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;cangle_deg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;ca_r&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;cangle_deg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;meanpowerperpush&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;meanpower&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;maxpowerperpush&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;maxpower&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;angle_deg&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;cangle_deg&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;slope&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;slope&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;smoothness&quot;</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;smoothness&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;freq&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+
+    <span class="n">mean_ergo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_ergo</span><span class="p">)</span>
+
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mean_ergo</span><span class="p">,</span> <span class="n">mean_spiro</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">outcomes</span><span class="p">[</span><span class="s2">&quot;me&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">outcomes</span><span class="p">[</span><span class="s2">&quot;meanpower&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">outcomes</span><span class="p">[</span><span class="s2">&quot;EE&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">return</span> <span class="n">pushes</span><span class="p">,</span> <span class="n">outcomes</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

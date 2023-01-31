@@ -1,0 +1,994 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Utilities (.utils)</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Developers" href="../developer.html" />
+    <link rel="prev" title="Plotting (.plots)" href="plots.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../setup.html">
+   Installation &amp; general info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ergometer.html">
+   Ergometer testing
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Examples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_kinetics_ergo.html">
+   Working with ergometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_kinetics_mw.html">
+   Working with measurement wheel data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_move_imu.html">
+   Working with NGIMU data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_physio_spiro.html">
+   Working with spirometer data
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Documentation
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../package.html">
+   Package documentation
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../developer.html">
+   Developers
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/rickdkk/worklab"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/API/utils.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/API/utils.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="headerbtn__text-container">suggest edit</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/chapters/API/utils.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Utilities (.utils)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="utilities-utils">
+<h1>Utilities (.utils)<a class="headerlink" href="#utilities-utils" title="Permalink to this headline">#</a></h1>
+<p>This module contains utility functions used by all modules or functions
+that have multiple applications such as filtering, finding
+zero-crossings, finding the nearest value in a signal.</p>
+<span class="target" id="module-worklab.utils"></span><dl class="py class">
+<dt class="sig sig-object py" id="worklab.utils.Timer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">Timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Elapsed</span> <span class="pre">time:</span> <span class="pre">{:0.4f}</span> <span class="pre">seconds'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#Timer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.Timer" title="Permalink to this definition">#</a></dt>
+<dd><p>Simple timer for timing code(blocks).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of timer, gets saved in Timer.timers optional</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – custom text, optional</p></li>
+<li><p><strong>start</strong> (<em>bool</em>) – automatically start the timer when it’s initialized, default is True</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="worklab.utils.Timer.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#Timer.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.Timer.start" title="Permalink to this definition">#</a></dt>
+<dd><p>start the timer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="worklab.utils.Timer.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#Timer.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.Timer.stop" title="Permalink to this definition">#</a></dt>
+<dd><p>stop the timer, prints and returns the time</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="worklab.utils.Timer.lap">
+<span class="sig-name descname"><span class="pre">lap</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#Timer.lap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.Timer.lap" title="Permalink to this definition">#</a></dt>
+<dd><p>print the time between this lap and the previous one</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="worklab.utils.TimerError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">TimerError</span></span><a class="reference internal" href="../../_modules/worklab/utils.html#TimerError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.TimerError" title="Permalink to this definition">#</a></dt>
+<dd><p>A custom exception used to report errors in use of Timer class</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.binned_stats">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">binned_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_func=&lt;function</span> <span class="pre">nanmean&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#binned_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.binned_stats" title="Permalink to this definition">#</a></dt>
+<dd><p>Apply a compatible Numpy function to every bins samples (e.g. mean or std).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.array</em>) – array which has to be searched</p></li>
+<li><p><strong>bins</strong> (<em>int</em>) – number of samples to be averaged</p></li>
+<li><p><strong>pad</strong> (<em>bool</em>) – whether or not to pad the array with NaNs if needed</p></li>
+<li><p><strong>func</strong> – function that is used when no padding is applied</p></li>
+<li><p><strong>nan_func</strong> – function that is used when padding is applied</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>means</strong> – array with the mean for every bins samples.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.calc_inertia">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">calc_inertia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.295</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.675</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#calc_inertia"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.calc_inertia" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate the inertia of an object based on the trifilar pendulum equation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>weight</strong> (<em>float</em>) – total mass of the object, default is 0.8</p></li>
+<li><p><strong>radius</strong> (<em>float</em>) – radius of the object, default is 0.295</p></li>
+<li><p><strong>length</strong> (<em>float</em>) – length of the trifilar pendulum</p></li>
+<li><p><strong>period</strong> (<em>float</em>) – observed oscillation period</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>inertia</strong> – inertia [kgm2]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.camel_to_snake">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">camel_to_snake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#camel_to_snake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.camel_to_snake" title="Permalink to this definition">#</a></dt>
+<dd><p>Turns CamelCased text into snake_cased text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – StringToConvert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted_string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.coast_down_velocity">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">coast_down_velocity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">m</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#coast_down_velocity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.coast_down_velocity" title="Permalink to this definition">#</a></dt>
+<dd><p>Solution for the non-linear differential equation M(dv/dt) + c1*v**2 + c2 = 0. Returns the instantaneous
+velocity decreasing with time (t) for the friction coefficients c1 and c2 for an object with a fixed mass (M)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>np.array</em>) – </p></li>
+<li><p><strong>v0</strong> (<em>float</em>) – </p></li>
+<li><p><strong>c1</strong> (<em>float</em>) – </p></li>
+<li><p><strong>c2</strong> (<em>float</em>) – </p></li>
+<li><p><strong>m</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.find_nearest">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">find_nearest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#find_nearest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.find_nearest" title="Permalink to this definition">#</a></dt>
+<dd><p>Find the nearest value in an array or the index thereof.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.array</em>) – array which has to be searched</p></li>
+<li><p><strong>value</strong> (<em>float</em>) – value that you are looking for</p></li>
+<li><p><strong>index</strong> (<em>bool</em>) – whether or not you want the index</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>value or index of nearest value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.find_peaks">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">find_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minpeak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_dist</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#find_peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.find_peaks" title="Permalink to this definition">#</a></dt>
+<dd><p>Finds positive peaks in signal and returns indices of start and stop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.Series</em><em>, </em><em>np.array</em>) – any signal that contains peaks above minpeak that dip below cutoff</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – where the peak gets cut off at the bottom, basically a hysteresis band</p></li>
+<li><p><strong>minpeak</strong> (<em>float</em>) – minimum peak height of wave</p></li>
+<li><p><strong>min_dist</strong> (<em>int</em>) – minimum sample distance between peak candidates, can be used to speed up algorithm</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>peaks</strong> – dictionary with start, end, and peak <strong>index</strong> of each peak</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.interpolate_array">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">interpolate_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fill_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'extrapolate'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assume</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#interpolate_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.interpolate_array" title="Permalink to this definition">#</a></dt>
+<dd><p>Simple function to interpolate an array with Scipy’s interp1d. Also extrapolates NaNs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.array</em>) – time array (without NaNs)</p></li>
+<li><p><strong>y</strong> (<em>np.array</em>) – array with potential NaNs</p></li>
+<li><p><strong>kind</strong> (<em>str</em>) – kind of filter, default is “linear”</p></li>
+<li><p><strong>fill_value</strong> (<em>str</em>) – fill value, default is “extrapolate”</p></li>
+<li><p><strong>assume</strong> (<em>bool</em>) – assume that the array is sorted (performance), default is True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>y</strong> – interpolated y-array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.lowpass_butter">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">lowpass_butter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#lowpass_butter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.lowpass_butter" title="Permalink to this definition">#</a></dt>
+<dd><p>Apply a simple zero-phase low-pass Butterworth filter on an array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.array</em>) – input array to be filtered</p></li>
+<li><p><strong>sfreq</strong> (<em>float</em>) – sample frequency of the signal, default is 100</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – cutoff frequency for the filter, default is 20</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – order of the filter, default is 2</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>array</strong> – filtered array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.make_calibration_spline">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">make_calibration_spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calibration_points</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#make_calibration_spline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.make_calibration_spline" title="Permalink to this definition">#</a></dt>
+<dd><p>Makes a pre-1.0.4 calibration spline for the Esseda wheelchair ergometer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>calibration_points</strong> (<em>dict</em>) – dict with left: np.array, right: np.array</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>spl_line</strong> – dict with left: np.array, right: np.array containing the interpolated splines</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.make_linear_calibration_spline">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">make_linear_calibration_spline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calibration_points</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#make_linear_calibration_spline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.make_linear_calibration_spline" title="Permalink to this definition">#</a></dt>
+<dd><p>Makes a post-1.0.4 calibration spline for the Esseda wheelchair ergometer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>calibration_points</strong> (<em>dict</em>) – dict with left: np.array, right: np.array</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>spl_line</strong> – dict with left: np.array, right: np.array containing the interpolated splines</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.mask_from_iterable">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">mask_from_iterable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">floor_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ceil_values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#mask_from_iterable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.mask_from_iterable" title="Permalink to this definition">#</a></dt>
+<dd><p>Combines multiple masks from iterable into one mask (e.g. can be used to select multiple time slices).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>np.array</em>) – array to apply mask on</p></li>
+<li><p><strong>floor_values</strong> (<em>list</em>) – minimum values in array</p></li>
+<li><p><strong>ceil_values</strong> (<em>list</em>) – maximum values in array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>mask</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.merge_chars">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">merge_chars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#merge_chars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.merge_chars" title="Permalink to this definition">#</a></dt>
+<dd><p>Merges list or tuple of binary characters to single string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>chars</strong> (<em>list</em><em>, </em><em>tuple</em>) – list or tuple of binary characters</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>concatenated characters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.metamax_to_s">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">metamax_to_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#metamax_to_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.metamax_to_s" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates time in seconds from h:mm:ss.000 to seconds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt</strong> (<em>pd.Series</em>) – series with h:mm:ss.000</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>time</strong> – time in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.nonlinear_fit_coast_down">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">nonlinear_fit_coast_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_weight</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#nonlinear_fit_coast_down"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.nonlinear_fit_coast_down" title="Permalink to this definition">#</a></dt>
+<dd><p>Performs a nonlinear fit on coast-down data, returning c1 and c2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>np.array</em>) – </p></li>
+<li><p><strong>vel</strong> (<em>np.array</em>) – </p></li>
+<li><p><strong>total_weight</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>c1, c2</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.pd_dt_to_s">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">pd_dt_to_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dt</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#pd_dt_to_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.pd_dt_to_s" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates time in seconds from datetime or string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dt</strong> (<em>pd.Series</em>) – datetime instance or a string with H:m:s data</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>time</strong> – time in seconds</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.pd_interp">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">pd_interp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interp_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">at</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#pd_interp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.pd_interp" title="Permalink to this definition">#</a></dt>
+<dd><p>Resamples (and extrapolates) DataFrame with Scipy’s interp1d, this was more performant than the pandas one for some
+reason.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – target DataFrame</p></li>
+<li><p><strong>interp_column</strong> (<em>str</em>) – column to interpolate on, e.g. “time”</p></li>
+<li><p><strong>at</strong> (<em>np.array</em>) – column to interpolate to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>interp_df</strong> – interpolated DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.pick_directory">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">pick_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#pick_directory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.pick_directory" title="Permalink to this definition">#</a></dt>
+<dd><p>Open a window to select a directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>initialdir</strong> (<em>str</em>) – directory to start from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>directory</strong> – full path to selected directory</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.pick_file">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">pick_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#pick_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.pick_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Open a window to select a single file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>initialdir</strong> (<em>str</em>) – directory to start from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>filename</strong> – full path to picked file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.pick_files">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">pick_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#pick_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.pick_files" title="Permalink to this definition">#</a></dt>
+<dd><p>Open a window to select multiple files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>initialdir</strong> (<em>str</em>) – directory to start from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>filename</strong> – full path to picked file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.pick_save_file">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">pick_save_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initialdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#pick_save_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.pick_save_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Open a window to select a savefile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>initialdir</strong> (<em>str</em>) – directory to start from</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>directory</strong> – full path to selected savefile</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.power_per_min">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">power_per_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_ergo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_spiro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#power_per_min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.power_per_min" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculates the power achieved per min in a graded exercise test, needed for
+the Wasserman plot</p>
+<dl class="simple">
+<dt>data_ergo<span class="classifier">pd.DataFrame</span></dt><dd><p>processed ergometer data dictionary with dataframes</p>
+</dd>
+<dt>dur<span class="classifier">int</span></dt><dd><p>duration of max test in seconds</p>
+</dd>
+<dt>start_spiro<span class="classifier">float or int</span></dt><dd><p>duration of the rest measurement just before the maximal exercise test.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>power</strong> – a dataframe containing the mean power output per step, showed as a continu signal</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.split_dataframe">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">split_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#split_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.split_dataframe" title="Permalink to this definition">#</a></dt>
+<dd><p>Split a dataframe on a list of indices. For example a dataframe that contains multiple sessions of wheelchair
+ergometer data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – target dataframe</p></li>
+<li><p><strong>inds</strong> (<em>list</em>) – list of indices where the dataframe should be split</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of dataframes</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.zerocross1d">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">zerocross1d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#zerocross1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.zerocross1d" title="Permalink to this definition">#</a></dt>
+<dd><p>Find the zero crossing points in 1d data.</p>
+<p>Find the zero crossing events in a discrete data set. Linear interpolation is used to determine the actual
+locations of the zero crossing between two data points showing a change in sign. Data point which are zero
+are counted in as zero crossings if a sign change occurs across them. Note that the first and last data point will
+not be considered whether or not they are zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.array</em><em>, </em><em>pd.Series</em>) – time/sample variable</p></li>
+<li><p><strong>y</strong> (<em>np.array</em><em>, </em><em>pd.Series</em>) – y variable</p></li>
+<li><p><strong>indices</strong> (<em>bool</em>) – return indices or not, default is False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>position in time and optionally the index of the sample before the zero-crossing</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./chapters/API"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="plots.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Plotting (.plots)</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../developer.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Developers</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
