@@ -350,7 +350,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5,
     mindist : int
         minimum sample distance between peak candidates, can be used to speed up algorithm
     verbose : Boolean
-        can be used to print out the number of pushes for left, right and mean, default = True
+        can be used to print out the number of pushes, default = True
 
     Returns
     -------
