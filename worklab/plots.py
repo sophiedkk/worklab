@@ -14,7 +14,9 @@ def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax
     Parameters
     ----------
     data : pd.DataFrame
+        measurement wheel dataframe or the selected side from the ergometer dict, left, right or mean
     pushes : pd.DataFrame
+        measurement wheel push by push dataframe or the selected side from the ergometer dict, left, right or mean
     var : str
         variable to plot, default is torque
     start : bool

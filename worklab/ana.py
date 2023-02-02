@@ -99,7 +99,7 @@ def isometricforce(data, title=None, height=40, distance=500, vel=False, ylim=No
         data[side]["3s"] = data[side]["uforce"].rolling(window="3s").mean()
 
     # plot figure, force in blue en velocity (optional) in red
-    fig, ax = plt.subplots(3, figsize=[20, 9], sharex=True, sharey=True)
+    fig, ax = plt.subplots(3, figsize=[20, 9], sharex="all", sharey="all")
     idx = [0, 1, 2]
 
     peaks_y_all = []
@@ -153,8 +153,8 @@ def isometricforce(data, title=None, height=40, distance=500, vel=False, ylim=No
             ax[x].set_ylabel("Force [N]", fontsize=16)
             ax[x].yaxis.label.set_color("mediumblue")
             if vel:
-                ax1.set_ylabel("Velocity [m/s]", fontsize=16)
-                ax1.yaxis.label.set_color("firebrick")
+                ax[x].set_ylabel("Velocity [m/s]", fontsize=16)
+                ax[x].yaxis.label.set_color("firebrick")
 
         if x == 2:
             ax[x].set_xlabel("Time [s]", fontsize=16)
@@ -452,8 +452,9 @@ def maximal1min(data, data_pbp, dur, title=None):
     n = [*range(math.ceil(dur / 60))]
     ncolumns = 4  # columns in the figure
     nrows = math.ceil(((max(n) + 1) / ncolumns))  # rows in the figure
+    rows = []
 
-    fig, ax = plt.subplots(nrows, ncolumns, sharey=True, figsize=(20, 16))
+    fig, ax = plt.subplots(nrows, ncolumns, sharey="all", figsize=(20, 16))
     if title:
         plt.suptitle(
             "Analysis of maximal exercise test for: "
@@ -526,7 +527,7 @@ def maximal1min(data, data_pbp, dur, title=None):
 
     plt.subplots_adjust(top=0.90, hspace=0.4)
 
-    step = (pd.DataFrame(n, columns=["step"]).T) + 1
+    step = pd.DataFrame(n, columns=["step"]).T + 1
     work = pd.DataFrame(work, columns=["work"]).T
     mean_power = pd.DataFrame(mean_power, columns=["mean_power"]).T
     max_power = pd.DataFrame(max_power, columns=["max_power"]).T
@@ -563,7 +564,7 @@ def ana_sprint(data, data_pbp, half=5, title=None):
     """
     if title:
         fig = plot_power_speed_dist(data, title)
-    if not title:
+    else:
         fig = plot_power_speed_dist(data, title=" ")
 
     half = half * 100  # to get right index
@@ -610,9 +611,9 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
 
     Parameters
     ----------
-    data_ergo : pd.DataFrame
+    data_ergo : dict
         processed and cutted ergometer data
-    data_pbp : pd.DataFrame
+    data_pbp : dict
         processed and cutted ergometer data
     data_spiro : pd.DataFrame
         processed and cutted spirometer data
