@@ -347,6 +347,10 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5,
         noise level for peak (push) detection
     minpeak : float
         min peak height for peak (push) detection
+    mindist : int
+        minimum sample distance between peak candidates, can be used to speed up algorithm
+    verbose : Boolean
+        can be used to print out the number of pushes for left, right and mean, default = True
 
     Returns
     -------
@@ -471,7 +475,7 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
     Parameters
     ----------
     data : dict
-        wheelchair ergometer dictionary
+        wheelchair ergometer dictionary  with left, right and mean DataFrame
     variable : str
         variable name used for peak (push) detection, default = power
     cutoff : float
@@ -480,6 +484,8 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         min peak height for peak (push) detection, default = 50.0
     mindist : int
         minimum sample distance between peak candidates, can be used to speed up algorithm
+    verbose : Boolean
+        can be used to print out the number of pushes for left, right and mean, default = True
 
     Returns
     -------
@@ -519,7 +525,7 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
     for side in data:
         if (side == "left") | (side == "right"):
             peaks = find_peaks(data[side][variable], cutoff, minpeak, mindist)
-        if side == "mean":
+        else:
             peaks = find_peaks(data[side][variable], cutoff, (minpeak * 2), mindist)
         pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.NaN), columns=keys)  # preallocate
 
