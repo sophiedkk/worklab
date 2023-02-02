@@ -4,9 +4,9 @@ from scipy import signal
 import numpy as np
 
 
-def test_signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=True):
+def signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=True):
     """
-    Data alignment function, that can align two devices.
+    Data alignment function, based on cross-correlation, that can align two devices.
 
     Aligns 2 datasets based on given input variables, after low bandpass filtering.
     It is advised to use speed data for alignment.
@@ -45,11 +45,8 @@ def test_signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=Tru
     y2 = lowpass_butter(y2, sfreq=sfreq, cutoff=cutoff, order=order)
     n = len(y1)
 
-    plot = True
-    verbose = True
-
-    corr = signal.correlate(y2, y1, mode='same') / np.sqrt(
-        signal.correlate(y1, y1, mode='same')[int(n/2)] * signal.correlate(y2, y2, mode='same')[int(n/2)])
+    corr = correlate(y2, y1, mode='same') / np.sqrt(
+        correlate(y1, y1, mode='same')[int(n/2)] * correlate(y2, y2, mode='same')[int(n/2)])
     delay_arr = np.linspace(-0.5*n, 0.5*n, n)
     maxcorr = np.argmax(corr)
     delay = int(round(delay_arr[maxcorr]))
