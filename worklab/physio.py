@@ -329,7 +329,7 @@ def aerobic_threshold(data_spiro, power, start_spiro, muser):
             time = find_nearest(data_spiro["time"], time)
             line1 = ax[0, 0].axvline(x=data_spiro["VO2"][data_spiro["time"] == time].values, color="k", linestyle="--")
 
-        if time < 10:
+        else:
             time = find_nearest(data_spiro["VO2"], time)
             time = data_spiro["time"][data_spiro["VO2"] == time].values[0]
             line1 = ax[0, 0].axvline(x=data_spiro["VO2"][data_spiro["time"] == time].values, color="k", linestyle="--")

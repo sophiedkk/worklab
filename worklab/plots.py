@@ -446,11 +446,11 @@ def imu_push_plot(time, vel, acc_raw, name=""):
 
     Parameters
     ----------
-    time : dict
+    time : np.array, pd.Series
         time structure
-    vel : dict
+    vel : np.array, pd.Series
         velocity structure
-    acc_raw : dict
+    acc_raw : np.array, pd.Series
         raw acceleration structure
     name : str
         name of a session
