@@ -4,7 +4,7 @@ from scipy import signal
 import numpy as np
 
 
-def signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=True):
+def test_signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=True):
     """
     Data alignment function, that can align two devices.
 
