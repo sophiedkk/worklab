@@ -318,7 +318,7 @@ def find_peaks(data, cutoff=1.0, minpeak=5.0, min_dist=5):
             peaks["start"].append(prom - tmp["start"])
     for key, value in peaks.items():
         peaks[key] = np.unique(value)  # remove possible duplicates
-    peaks["peak"] = [np.argmax(data[start : stop + 1]) + start for start, stop in zip(peaks["start"], peaks["stop"])]
+    peaks["peak"] = [np.argmax(data[start: stop + 1]) + start for start, stop in zip(peaks["start"], peaks["stop"])]
     return peaks
 
 
@@ -748,8 +748,8 @@ def signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=True):
     n = len(y1)
 
     corr = correlate(y2, y1, mode='same') / np.sqrt(
-        correlate(y1, y1, mode='same')[int(n/2)] * correlate(y2, y2, mode='same')[int(n/2)])
-    delay_arr = np.linspace(-0.5*n, 0.5*n, n)
+        correlate(y1, y1, mode='same')[int(n / 2)] * correlate(y2, y2, mode='same')[int(n/2)])
+    delay_arr = np.linspace(-0.5 * n, 0.5 * n, n)
     maxcorr = np.argmax(corr)
     delay = int(round(delay_arr[maxcorr]))
 

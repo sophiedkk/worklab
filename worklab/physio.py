@@ -97,14 +97,14 @@ def wasserman(data_spiro, power, title=None):
     ax[0, 0].plot(data_spiro["time"], data_spiro["VE"].rolling(window=15).mean(), color="darkblue")
     ax[0, 0].set_xlabel("time [s]")
     ax[0, 0].set_ylabel("VE [l/min]", {"color": "darkblue"})
-    VEmax = data_spiro["VE"].rolling(window=15).mean().max()
-    ax[0, 0].text(0.05, 0.9, transform=ax[0, 0].transAxes, s="VEmax: " + str(round(VEmax, 1)), color="darkblue")
+    vemax = data_spiro["VE"].rolling(window=15).mean().max()
+    ax[0, 0].text(0.05, 0.9, transform=ax[0, 0].transAxes, s="VEmax: " + str(round(vemax, 1)), color="darkblue")
     ax1 = ax[0, 0].twinx()
     ax1.plot(power.index, power["power"], color="forestgreen", linestyle="dashed")
     ax1.fill_between(power.index, power["power"], color="forestgreen", alpha=0.15)
     ax1.set_ylabel("Power [W]", {"color": "forestgreen"})
-    POpeak = power.max()
-    ax1.text(0.05, 0.8, transform=ax1.transAxes, s="POpeak: " + str(round(POpeak[0], 1)), color="forestgreen")
+    popeak = power.max()
+    ax1.text(0.05, 0.8, transform=ax1.transAxes, s="POpeak: " + str(round(popeak[0], 1)), color="forestgreen")
 
     # Plot 2: Heart rate & VO2/HR vs time
 
@@ -113,8 +113,8 @@ def wasserman(data_spiro, power, title=None):
     ax[0, 1].set_xlabel("time [s]")
     ax[0, 1].set_ylabel("HR [b/min]", {"color": "firebrick"})
     ax[0, 1].set_ylim(0, 220)
-    HRmax = data_spiro["HR"].max()
-    ax[0, 1].text(0.05, 0.9, transform=ax[0, 1].transAxes, s="HRmax: " + str(HRmax), color="firebrick")
+    hrmax = data_spiro["HR"].max()
+    ax[0, 1].text(0.05, 0.9, transform=ax[0, 1].transAxes, s="HRmax: " + str(hrmax), color="firebrick")
     ax1 = ax[0, 1].twinx()
     ax1.plot(data_spiro["time"], data_spiro["O2pulse"].rolling(window=15).mean(), color="darkblue", linestyle="dashed")
     ax1.set_ylim(0, 0.024)
@@ -127,8 +127,8 @@ def wasserman(data_spiro, power, title=None):
     ax[0, 2].set_xlabel("time [s]")
     ax[0, 2].set_ylabel("VO2 [l/min]", {"color": "darkblue"})
     ax[0, 2].set_ylim(0, 1.05 * data_spiro["VCO2"].max())
-    VO2max = data_spiro["VO2"].rolling(window=10).mean().max()
-    ax[0, 2].text(0.05, 0.9, transform=ax[0, 2].transAxes, s="VO2_max: " + str(round(VO2max, 1)), color="darkblue")
+    vo2max = data_spiro["VO2"].rolling(window=10).mean().max()
+    ax[0, 2].text(0.05, 0.9, transform=ax[0, 2].transAxes, s="VO2_max: " + str(round(vo2max, 1)), color="darkblue")
     ax1 = ax[0, 2].twinx()
     ax1.plot(data_spiro["time"], data_spiro["VCO2"].rolling(window=15).mean(), color="firebrick")
     ax1.set_ylabel("VCO2 [l/min]", {"color": "firebrick"})
@@ -189,8 +189,8 @@ def wasserman(data_spiro, power, title=None):
     ax[2, 1].set_xlabel("time")
     ax[2, 1].set_ylabel("RER", {"color": "lightblue"})
     ax[2, 1].set_ylim(0, 1.6)
-    RERmax = data_spiro["RER"].rolling(window=15).mean().max()
-    ax[2, 1].text(0.05, 0.9, transform=ax[2, 1].transAxes, s="RER_max: " + str(round(RERmax, 3)), color="lightblue")
+    rermax = data_spiro["RER"].rolling(window=15).mean().max()
+    ax[2, 1].text(0.05, 0.9, transform=ax[2, 1].transAxes, s="RER_max: " + str(round(rermax, 3)), color="lightblue")
     ax[2, 1].hlines(1.1, data_spiro["time"][1], data_spiro["time"].iloc[-1], alpha=0.5, colors="k")
 
     # Plot 9: PetO2 & PetCO2 vs time
@@ -215,7 +215,7 @@ def wasserman(data_spiro, power, title=None):
     plt.subplots_adjust(top=0.90, hspace=0.5)
 
     # Save relevant outcomes from ergometer and spirometer
-    result_gxt = [{"POpeak": POpeak[0], "VO2peak": VO2max, "HRmax": HRmax, "RERmax": RERmax, "VEmax": VEmax}]
+    result_gxt = [{"POpeak": popeak[0], "VO2peak": vo2max, "HRmax": hrmax, "RERmax": rermax, "VEmax": vemax}]
     result_gxt = pd.DataFrame(result_gxt)
 
     return fig, result_gxt
@@ -319,8 +319,8 @@ def aerobic_threshold(data_spiro, power, start_spiro, muser):
     plt.subplots_adjust(top=0.90, hspace=0.5)
 
     # Click on the place where VT1 is, python plots a line at the same timepoint in all four plots.
-    # If you are satisfied with the result --> y and the outcomes are printed
-    # If you are not satisfied with the result --> n and you can place a new line
+    # If you are satisfied with the result --> y, and the outcomes are printed
+    # If you are not satisfied with the result --> n, and you can place a new line
 
     while True:
         pts = plt.ginput(1)
@@ -339,8 +339,8 @@ def aerobic_threshold(data_spiro, power, start_spiro, muser):
         line4 = ax[1, 1].axvline(x=time, color="k", linestyle="--")
         plt.pause(0.05)
 
-        ROOT = tk.Tk()
-        ROOT.withdraw()
+        root = tk.Tk()
+        root.withdraw()
         agree = simpledialog.askstring(title="Evaluation", prompt="Are you satisfied (y/n)?:")
         if agree == "y":
             break
@@ -418,14 +418,14 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
     ax[0, 0].plot(data_spiro["time"], data_spiro["VE"].rolling(window=15).mean(), color="darkblue")
     ax[0, 0].set_xlabel("time [s]")
     ax[0, 0].set_ylabel("VE [l/min]", {"color": "darkblue"})
-    VEmax = data_spiro["VE"].rolling(window=30).mean().max()
-    ax[0, 0].text(0.1, 0.9, transform=ax[0, 0].transAxes, s="VEmax: " + str(round(VEmax, 1)), color="darkblue")
+    vemax = data_spiro["VE"].rolling(window=30).mean().max()
+    ax[0, 0].text(0.1, 0.9, transform=ax[0, 0].transAxes, s="VEmax: " + str(round(vemax, 1)), color="darkblue")
     ax1 = ax[0, 0].twinx()
     ax1.plot(power.index, power["power"], color="forestgreen", linestyle="dashed")
     ax1.fill_between(power.index, power["power"], color="forestgreen", alpha=0.15)
     ax1.set_ylabel("Power [W]", {"color": "forestgreen"})
-    POpeak = power.max()
-    ax1.text(0.1, 0.8, transform=ax[0, 0].transAxes, s="POpeak: " + str(round(POpeak[0], 1)), color="forestgreen")
+    popeak = power.max()
+    ax1.text(0.1, 0.8, transform=ax[0, 0].transAxes, s="POpeak: " + str(round(popeak[0], 1)), color="forestgreen")
 
     # Plot 6: VE/VO2 & VE/VCO2 vs time
     # VT2 if VE/VCO2 (red line) switches from decrease to increase
@@ -446,7 +446,7 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
     ax2.set_ylabel("Power [W]", {"color": "forestgreen"})
 
     # Plot 8: RER vs time
-    # VT2 should have an higher RER than VT1
+    # VT2 should have a higher RER than VT1
 
     ax[1, 0].set_title("Plot - 8", fontweight="bold")
     ax[1, 0].plot(data_spiro["time"], data_spiro["RER"], color="lightblue")
@@ -478,8 +478,8 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
     plt.subplots_adjust(top=0.90, hspace=0.5)
 
     # Click on the place where VT2 is, python plots a line at the same timepoint in all four plots.
-    # If you are satisfied with the result --> y and the outcomes are printed
-    # If you are not satisfied with the result --> n and you can place a new line
+    # If you are satisfied with the result --> y, and the outcomes are printed
+    # If you are not satisfied with the result --> n, and you can place a new line
 
     while True:
         pts = plt.ginput(1)
@@ -491,8 +491,8 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
         line4 = ax[1, 1].axvline(x=time, color="k", linestyle="--")
         plt.pause(0.05)
 
-        ROOT = tk.Tk()
-        ROOT.withdraw()
+        root = tk.Tk()
+        root.withdraw()
         agree = simpledialog.askstring(title="Evaluation", prompt="Are you satisfied (y/n)?:")
         if agree == "y":
             break

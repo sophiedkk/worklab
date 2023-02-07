@@ -26,7 +26,7 @@ def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax
     peak : bool
         plot push peaks, default is True
     ax : axis object
-        Axis to plot on, you can add your own or it will make a new one.
+        Axis to plot on, you can add your own, or it will make a new one.
 
     Returns
     -------
@@ -102,7 +102,7 @@ def bland_altman_plot(data1, data2, ax=None, condition=None):
     data2 : np.array, pd.Series
         Second variable
     ax : axis object, optional
-        Axis to plot on, you can add your own or it will make a new one.
+        Axis to plot on, you can add your own, or it will make a new one.
     condition : str, optional
         add labels to the plot
 

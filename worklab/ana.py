@@ -413,7 +413,7 @@ def maximal1min(data, dur, title=None):
     # plot figure with 4 columns and x rows (depending on duration test)
     n = [*range(math.ceil(dur / 60))]
     ncolumns = 4  # columns in the figure
-    nrows = math.ceil(((max(n)+1)/ncolumns))  # rows in the figure
+    nrows = math.ceil(((max(n) + 1) / ncolumns))  # rows in the figure
 
     fig, ax = plt.subplots(nrows, ncolumns, sharey="all", figsize=(20, 16))
     if title:
@@ -423,8 +423,8 @@ def maximal1min(data, dur, title=None):
             + "\nIncrements = 1 min, last 20sec of each minute shown"
         )
     else:
-        plt.suptitle("Analysis of maximal exercise test" +
-                     "\nIncrements = 1 min, last 20sec of each minute shown")
+        plt.suptitle("Analysis of maximal exercise test"
+                     + "\nIncrements = 1 min, last 20sec of each minute shown")
 
     for i in list(range(0, 5)):
         x = list(it.repeat(i, 4))

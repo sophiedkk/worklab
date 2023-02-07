@@ -609,7 +609,8 @@ def load_imu(root_dir, filenames=None, inplace=False):
         directory where session is located
     filenames : list, optional
         list of sensor names or single sensor name that you would like to include, only loads sensor if not specified
-
+    inplace : bool, default False
+        Whether to modify the DataFrame rather than creating a new one.
     Returns
     -------
     sessiondata : dict
