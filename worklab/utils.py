@@ -709,6 +709,7 @@ def metamax_to_s(dt):
 def signal_lag(y1, y2, sfreq=100, cutoff=6, order=2, plot=True, verbose=True):
     """
     Data alignment function, based on cross-correlation, that can align two devices.
+    Input parameters need to be equal sample frequencies (i.e., a priori interpolation)
 
     Aligns 2 datasets based on given input variables, after low bandpass filtering.
     It is advised to use speed data for alignment.
