@@ -162,9 +162,9 @@ def protocol_wingate(fiso, muser, mwc, v=2):
     based on the regression equations between the isometric force, anaerobic
     and aerobic power.
 
-    (Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.
+    (Janssen T.W.J., Van Oers C.A.J.M., Hollander A.P., Veeger H.E.J., Van der Woude L.H.V.
     Isometric strength sprint power and anaerobic power in individuals with a
-    spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.
+    spinal cord injury. Med Sci Sports Exercise 1993;25(7):863-870.
     doi:10.1249/00005768-199307000-00016)
 
     Parameters
@@ -226,7 +226,7 @@ def wingate(data, title=None, box=False, ylim=5):
     box : bool
         prints important performance indicators on figure, default is False
     ylim : float, optional
-        sets the ylim of the graph, defaul is 5 ms
+        sets the ylim of the graph, default is 5 ms
 
     Returns
     -------
@@ -324,9 +324,9 @@ def protocol_max(p30, muser, mwc, v=1.39):
     based on the regression equations between the isometric force, anaerobic
     and aerobic power.
 
-    (Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.
+    (Janssen T.W.J., Van Oers C.A.J.M., Hollander A.P., Veeger H.E.J., Van der Woude L.H.V.
     Isometric strength sprint power and anaerobic power in individuals with a
-    spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.
+    spinal cord injury. Med Sci Sports Exercise 1993;25(7):863-870.
     doi:10.1249/00005768-199307000-00016)
 
     Parameters
@@ -351,8 +351,8 @@ def protocol_max(p30, muser, mwc, v=1.39):
 
     poaer = 0.67 * p30kg + 0.11  # (Janssen)
     pototal = poaer * muser
-    postart = 0.20 * pototal  # start at 20% of POpeak
-    posubmax2 = 0.40 * pototal  # 40% of POpeak
+    postart = 0.20 * pototal  # start at 20% of PO-peak
+    posubmax2 = 0.40 * pototal  # 40% of PO-peak
 
     # calculate resistance start, submax2 & end
     f0 = postart / v
@@ -367,15 +367,15 @@ def protocol_max(p30, muser, mwc, v=1.39):
         "-" * 60
         + "\n P30 = "
         + str(round(p30, 3))
-        + "\n Predicted POpeak = "
+        + "\n Predicted PO-peak = "
         + str(round(pototal, 3))
-        + "\n Submaximal 20%POpeak = "
+        + "\n Sub-maximal 20%PO-peak = "
         + str(round(mu0, 4))
         + " mu"
         + " and velocity is "
         + str(round(v, 2))
         + " m/s"
-        "\n Submaximal 40%POpeak = " + str(round(mu1, 4)) + " mu" + " and velocity is " + str(round(v, 2)) + " m/s"
+        "\n Sub-maximal 40%PO-peak = " + str(round(mu1, 4)) + " mu" + " and velocity is " + str(round(v, 2)) + " m/s"
         "\n-\n The start resistance for the maximal exercise test should be " + str(round(mu0, 4)) + " mu"
         "\n After 10 minutes the resistance should be " + str(round(muend, 4)) + " mu"
         "\n The step length is thus " + str(round((1 / 9) * diff, 4)) + " mu"
@@ -425,11 +425,9 @@ def maximal1min(data, dur, title=None):
     else:
         plt.suptitle("Analysis of maximal exercise test"
                      + "\nIncrements = 1 min, last 20sec of each minute shown")
-
+    rows = []
     for i in list(range(0, 5)):
         x = list(it.repeat(i, 4))
-        if i == 0:
-            rows = []
         rows = rows + x  # rows in the figure
 
     columns = list(range(0, 4)) * 7  # columns in the figure
@@ -488,7 +486,7 @@ def maximal1min(data, dur, title=None):
 def ana_sprint(data, data_pbp, half=5, title=None):
     """
     Sprint test analyse. Plot a figure with the power, speed and distance for
-    left and right seperate. Also saves important outcomes
+    left and right separate. Also saves important outcomes
 
     Parameters
     ----------

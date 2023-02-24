@@ -167,7 +167,7 @@ def load_spiro(filename):
 
 def load_spiro_metamax(filename):
     """
-    Loads METAMAX 3B spirometer data from Excel file.
+    Loads metamax 3B spirometer data from Excel file.
 
     Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
     computes weights from the time difference between samples, if no heart rate data is available it fills
@@ -208,7 +208,7 @@ def load_spiro_metamax(filename):
     Parameters
     ----------
     filename : str
-        full file path or file in existing path from METAMAX 3B spirometer
+        full file path or file in existing path from metamax 3B spirometer
 
     Returns
     -------
@@ -535,7 +535,7 @@ def load_spline(filename):
         left and right calibration values
 
     """
-    gear_ratio = 4  # Roller to loadcell
+    gear_ratio = 4  # Roller to load cell
     data = {"left": None, "right": None}
     df = pd.read_excel(filename, sheet_name="Devices", header=5, skiprows=0)
     df = df.iloc[:, [1, 2]]  # Remove random columns
@@ -574,7 +574,7 @@ def load_n3d(filename, verbose=True):
     items = unpack("h", content[1:3])[0]  # int16, number of markers
     subitems = unpack("h", content[3:5])[0]  # int16, number of dimensions (usually 3)
     numframes = unpack("i", content[5:9])[0]  # int32, number of frames
-    sfrq = unpack("f", content[9:13])[0]  # float32, sample frequency
+    sfreq = unpack("f", content[9:13])[0]  # float32, sample frequency
     # usercomment = merge_chars(unpack('c' * 60, content[13:73]))  # char
     # sys_comment = merge_chars(unpack('c' * 60, content[73:133]))
     # descrp_file = merge_chars(unpack('c' * 30, content[133:163]))
@@ -585,7 +585,7 @@ def load_n3d(filename, verbose=True):
 
     if verbose:
         print("-" * 50)
-        print(f"Reading data from {filename}, recorded on {coll_date} at {coll_time} with {sfrq} Hz.")
+        print(f"Reading data from {filename}, recorded on {coll_date} at {coll_time} with {sfreq} Hz.")
         print("-" * 50)
 
     num_total = items * subitems * numframes  # total number of 'samples'
@@ -709,7 +709,7 @@ def load_optitrack(filename, include_header=False):
     filename : str
         full path to filename or filename in current path
     include_header : bool
-        whether or not to include the header in the output default is False
+        include the header in the output, default is False
 
     Returns
     -------
@@ -821,7 +821,7 @@ def load_movesense(root_dir, right, frame=None, left=None):
 
     """
     sessiondata = dict()
-
+    sensor_name = str()
     right_sensors = sorted(glob(root_dir + right + "*"))
     sensors = [right_sensors]
     if frame is not None:

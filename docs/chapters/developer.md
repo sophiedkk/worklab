@@ -1,6 +1,6 @@
 # Developers
 
-The current section contains information that people that wish to contribute to the package. I you just with to use the
+The current section contains information that people that wish to contribute to the package. If you just wish to use the
 package you can skip this section.
 
 ## Development environment

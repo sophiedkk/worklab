@@ -12,7 +12,7 @@ def resample_imu(sessiondata, sfreq=400.0):
     """
     Resample all devices and sensors to new sample frequency.
 
-    Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with NGIMU's so resampling
+    Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with ngimu so resampling
     before further analysis is recommended. Translated from xio-Technologies.
 
     Parameters
@@ -50,7 +50,7 @@ def resample_imu(sessiondata, sfreq=400.0):
     return sessiondata
 
 
-def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type="ngimu", inplace=False):
+def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type='ngimu', inplace=False):
     """
     Calculate wheelchair kinematic variables based on NGIMU data
 
@@ -71,6 +71,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     inplace : bool
         performs operation inplace
 
+
     Returns
     -------
     sessiondata : dict
@@ -79,8 +80,6 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     """
     if not inplace:
         sessiondata = copy.deepcopy(sessiondata)
-    if n_sensors == 3:
-        left = sessiondata["left"]
     frame = sessiondata["frame"]
     right = sessiondata["right"]
 
@@ -88,14 +87,12 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
     # Wheelchair camber correction
     deg2rad = np.pi / 180
-    right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad) * (
-        frame["gyroscope_z"] * np.cos(camber * deg2rad)
-    )
-
+    right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad)*(
+                        frame["gyroscope_z"] * np.cos(camber * deg2rad))
     if n_sensors == 3:
-        left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-            frame["gyroscope_z"] * np.cos(camber * deg2rad)
-        )
+        left = sessiondata["left"]
+        left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad)*(
+                           frame["gyroscope_z"] * np.cos(camber * deg2rad))
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     else:
         frame["gyro_cor"] = right["gyro_cor"]
@@ -120,45 +117,46 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
     frame["vel"] = lowpass_butter(frame["vel"], sfreq=sfreq, cutoff=10)
     frame["acc_wheel"] = np.gradient(frame["vel"]) * sfreq  # mean acceleration from velocity
+    frame['acc_wheel'] = lowpass_butter(frame['acc_wheel'], sfreq=sfreq, cutoff=10)
 
-    if sensor_type == "ngimu":  # Acceleration for NGIMU is in g
+    if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
-    frame["acc"] = lowpass_butter(frame["accelerometer_x"], sfreq=sfreq, cutoff=20)
+    frame['acc'] = lowpass_butter(frame['accelerometer_x'], sfreq=sfreq, cutoff=10)
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))), initial=0.0
-    )
+        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+        initial=0.0)
     frame["dist_x"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))), initial=0.0
-    )
+        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+        initial=0.0)
 
-    # Van der Slikke, R. M. A., et. al. https://doi.org/10.1016/j.proeng.2015.07.201
-    frame["skid_vel_right"] = right["vel"]  # Calculate frame centre distance
-    frame["skid_vel_right"] -= np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
+    """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
+    Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
+    Procedia Engineering, 112, 207-212."""
+    frame["centre_vel_right"] = right["vel"]  # Calculate frame centre distance
+    frame["centre_vel_right"] -= np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
 
     if n_sensors == 3:
-        frame["skid_vel_left"] = left["vel"]
-        frame["skid_vel_left"] += np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
+        frame["centre_vel_left"] = left["vel"]
+        frame["centre_vel_left"] += np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
 
         r_ratio0 = np.abs(right["vel"]) / (np.abs(right["vel"]) + np.abs(left["vel"]))  # Ratio left and right
         l_ratio0 = np.abs(left["vel"]) / (np.abs(right["vel"]) + np.abs(left["vel"]))
-        r_ratio1 = np.abs(np.gradient(left["vel"])) / (
-            np.abs(np.gradient(right["vel"])) + np.abs(np.gradient(left["vel"]))
-        )
-        l_ratio1 = np.abs(np.gradient(right["vel"])) / (
-            np.abs(np.gradient(right["vel"])) + np.abs(np.gradient(left["vel"]))
-        )
+        r_ratio1 = np.abs(np.gradient(left["vel"])) / (np.abs(np.gradient(right["vel"]))
+                                                       + np.abs(np.gradient(left["vel"])))
+        l_ratio1 = np.abs(np.gradient(right["vel"])) / (np.abs(np.gradient(right["vel"]))
+                                                        + np.abs(np.gradient(left["vel"])))
 
         comb_ratio = (r_ratio0 * r_ratio1) / ((r_ratio0 * r_ratio1) + (l_ratio0 * l_ratio1))  # Combine speed ratios
-        comb_ratio.fillna(value=0.0, inplace=True)
+        comb_ratio.fillna(value=0., inplace=True)
         comb_ratio = lowpass_butter(comb_ratio, sfreq=sfreq, cutoff=20)  # Filter the signal
-        comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combratio values, not in df
-        frame["skid_vel"] = (frame["skid_vel_right"] * comb_ratio) + (frame["skid_vel_left"] * (1 - comb_ratio))
+        comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combine ratio values, not in df
+        frame["skid_vel"] = (frame["centre_vel_right"] * comb_ratio) + (frame["centre_vel_left"] * (1 - comb_ratio))
+        frame["centre_vel"] = (frame["centre_vel_right"] + frame["centre_vel_left"]) / 2
     else:
-        frame["skid_vel"] = frame["skid_vel_right"]
+        frame["centre_vel"] = frame["centre_vel_right"]
 
-    # frame["skid_vel"] = lowpass_butter(frame["skid_vel"], sfreq=sfreq, cutoff=10)
-    frame["skid_dist"] = cumtrapz(frame["skid_vel"], initial=0.0) / sfreq  # Combined skid distance
+    frame["centre_dist"] = cumtrapz(frame["centre_vel"], initial=0.0) / sfreq  # Combined distance
     return sessiondata
 
 
@@ -213,7 +211,7 @@ def push_imu(acceleration, sfreq=400.0):
     min_freq = 1.2
     f, pxx = periodogram(acceleration - np.mean(acceleration), sfreq)
     min_freq_f = len(f[f < min_freq])
-    max_freq_ind_temp = np.argmax(pxx[min_freq_f : min_freq_f * 5])
+    max_freq_ind_temp = np.argmax(pxx[min_freq_f: min_freq_f * 5])
     max_freq = f[min_freq_f + max_freq_ind_temp]
     max_freq = min(max_freq, 3.0)
     cutoff_freq = 1.5 * max_freq
@@ -230,3 +228,47 @@ def push_imu(acceleration, sfreq=400.0):
         cycle_time.append((push_idx[n + 1] / sfreq) - (push_idx[n] / sfreq))
 
     return push_idx, acc_filt, n_pushes, cycle_time, push_freq
+
+
+def movesense_offset(data, n_sensors=2):
+    """
+    Remove offset MoveSense sensors
+
+    Parameters
+    ----------
+    data : dict
+        resampled sessiondata structure
+    n_sensors: float
+        number of sensors used, 2: right wheel and frame, 3: right, left wheel and frame
+
+    Returns
+    -------
+    data : dict
+        sessiondata with offset removed
+
+    """
+    offset_indices = (np.abs(data['frame']['gyroscope_z']) < 5) & (np.abs(data['right']['gyroscope_y']) < 5)
+
+    offset_frame_x = np.mean(data['frame']['gyroscope_x'][offset_indices])
+    offset_frame_y = np.mean(data['frame']['gyroscope_y'][offset_indices])
+    offset_frame_z = np.mean(data['frame']['gyroscope_z'][offset_indices])
+    offset_right_y = np.mean(data['right']['gyroscope_y'][offset_indices])
+    offset_right_z = np.mean(data['right']['gyroscope_z'][offset_indices])
+    offset_right_x = np.mean(data['right']['gyroscope_x'][offset_indices])
+
+    data['frame']['gyroscope_x'] -= offset_frame_x
+    data['frame']['gyroscope_y'] -= offset_frame_y
+    data['frame']['gyroscope_z'] -= offset_frame_z
+    data['right']['gyroscope_y'] -= offset_right_y
+    data['right']['gyroscope_z'] -= offset_right_z
+    data['right']['gyroscope_x'] -= offset_right_x
+
+    if n_sensors == 3:
+        offset_left_y = np.mean(data['left']['gyroscope_y'][offset_indices])
+        offset_left_z = np.mean(data['left']['gyroscope_z'][offset_indices])
+        offset_left_x = np.mean(data['left']['gyroscope_x'][offset_indices])
+        data['left']['gyroscope_y'] -= offset_left_y
+        data['left']['gyroscope_z'] -= offset_left_z
+        data['left']['gyroscope_x'] -= offset_left_x
+
+    return data

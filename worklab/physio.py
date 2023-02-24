@@ -72,7 +72,7 @@ def wasserman(data_spiro, power, title=None):
     data_spiro : pd.DataFrame
         spirometer data
     power : pd.DataFrame
-         a dataframe containing the mean power output per step, showed as a continu signal
+         a dataframe containing the mean power output per step, showed as a continuous signal
          (use function: power_per_min)
     title : str, optional
         title of the plot. The default is None.
@@ -114,7 +114,7 @@ def wasserman(data_spiro, power, title=None):
     ax[0, 1].set_ylabel("HR [b/min]", {"color": "firebrick"})
     ax[0, 1].set_ylim(0, 220)
     hrmax = data_spiro["HR"].max()
-    ax[0, 1].text(0.05, 0.9, transform=ax[0, 1].transAxes, s="HRmax: " + str(hrmax), color="firebrick")
+    ax[0, 1].text(0.05, 0.9, transform=ax[0, 1].transAxes, s="HR-max: " + str(hrmax), color="firebrick")
     ax1 = ax[0, 1].twinx()
     ax1.plot(data_spiro["time"], data_spiro["O2pulse"].rolling(window=15).mean(), color="darkblue", linestyle="dashed")
     ax1.set_ylim(0, 0.024)
@@ -234,7 +234,7 @@ def aerobic_threshold(data_spiro, power, start_spiro, muser):
     data_spiro : pd.DataFrame
         dataframe containing spirometer data
     power : pd.DataFrame
-        dataframe containing the mean power output per step, showed as a continu signal (see power_per_min)
+        dataframe containing the mean power output per step, showed as a continuous signal (see power_per_min)
     start_spiro : float
         start of maximal exercise test on spirometer
     muser : float
@@ -318,7 +318,7 @@ def aerobic_threshold(data_spiro, power, start_spiro, muser):
     plt.tight_layout()
     plt.subplots_adjust(top=0.90, hspace=0.5)
 
-    # Click on the place where VT1 is, python plots a line at the same timepoint in all four plots.
+    # Click on the place where VT1 is, python plots a line at the same time point in all four plots.
     # If you are satisfied with the result --> y, and the outcomes are printed
     # If you are not satisfied with the result --> n, and you can place a new line
 
@@ -393,7 +393,7 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
     data_spiro : pd.DataFrame
         dataframe containing spirometer data
     power : pd.DataFrame
-        dataframe containing the mean power output per step, showed as a continu signal (see power_per_min)
+        dataframe containing the mean power output per step, showed as a continuous signal (see power_per_min)
     start_spiro : float
         start of maximal exercise test on spirometer
     muser : float
@@ -477,7 +477,7 @@ def anaerobic_threshold(data_spiro, power, start_spiro, muser):
     plt.tight_layout()
     plt.subplots_adjust(top=0.90, hspace=0.5)
 
-    # Click on the place where VT2 is, python plots a line at the same timepoint in all four plots.
+    # Click on the place where VT2 is, python plots a line at the same time point in all four plots.
     # If you are satisfied with the result --> y, and the outcomes are printed
     # If you are not satisfied with the result --> n, and you can place a new line
 

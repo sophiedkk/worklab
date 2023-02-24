@@ -414,7 +414,7 @@ def rot_vel_plot(time, rot_vel, name=""):
     ax.tick_params(axis="y", colors="b", labelsize=12)
     ax.tick_params(axis="x", labelsize=12)
     ax.yaxis.label.set_color("b")
-    ax.set_title(f"{name} Rotational Velociy")
+    ax.set_title(f"{name} Rotational velocity")
     ax.set_ylim(np.min(rot_vel) - 10, np.max(rot_vel) + 10)
     ax.autoscale(axis="x", tight=True)
 
@@ -499,7 +499,7 @@ def imu_push_plot(time, vel, acc_raw, name=""):
 def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim_distance=None):
     """
     Plot power, speed and distance versus time for left (solid line) and
-    right (dotted line) seperately
+    right (dotted line) separately
 
     Figure scales automatically, unless you specify it manually with the ylim_* arguments
 

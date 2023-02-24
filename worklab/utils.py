@@ -421,7 +421,7 @@ def zerocross1d(x, y, indices=False):
     Find the zero crossing events in a discrete data set. Linear interpolation is used to determine the actual
     locations of the zero crossing between two data points showing a change in sign. Data point which are zero
     are counted in as zero crossings if a sign change occurs across them. Note that the first and last data point will
-    not be considered whether or not they are zero.
+    not be considered whether they are zero.
 
     Parameters
     ----------
@@ -497,12 +497,12 @@ def find_nearest(array, value, index=False):
     value : float
         value that you are looking for
     index : bool
-        whether or not you want the index
+        whether you want the index
 
     Returns
     -------
     np.array
-        value or index of nearest value
+        value or index of the nearest value
 
     """
     array = np.asarray(array)
@@ -535,7 +535,7 @@ def split_dataframe(df, inds):
 
 def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
     """
-    Apply a compatible Numpy function to every bins samples (e.g. mean or std).
+    Apply a compatible Numpy function to every bin samples (e.g. mean or std).
 
     Parameters
     ----------
@@ -544,7 +544,7 @@ def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
     bins : int
         number of samples to be averaged
     pad : bool
-        whether or not to pad the array with NaNs if needed
+        whether to pad the array with NaNs if needed
     func
         function that is used when no padding is applied
     nan_func
@@ -553,7 +553,7 @@ def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
     Returns
     -------
     means: np.array
-        array with the mean for every bins samples.
+        array with the mean for every bin samples.
 
     """
     array = np.array(array, dtype=float)  # make sure we have an array
@@ -656,13 +656,14 @@ def power_per_min(data_ergo, dur, start_spiro):
     Returns
     -------
     power : pd.DataFrame
-        a dataframe containing the mean power output per step, showed as a continu signal
+        a dataframe containing the mean power output per step, showed as a continuous signal
 
 
     """
 
     n = [*range(math.ceil(dur / 60))]  # define amount of steps
     mean_power = []  # define mean_power
+    power = []
 
     for i in n:
         x = data_ergo["mean"]
@@ -674,8 +675,6 @@ def power_per_min(data_ergo, dur, start_spiro):
     outcome = pd.DataFrame(mean_power, columns=["mean_power"])
     for i in n:
         q = [outcome["mean_power"][i]] * 60
-        if i == 0:
-            power = []
         power = power + q
 
     x = [0] * int(start_spiro)

@@ -14,11 +14,11 @@ def get_perp_vector(vector2d, clockwise=True, normalized=True):
     clockwise : bool
         clockwise or counterclockwise rotation
     normalized : bool
-        whether or not to normalize the result, default is True
+        normalising the result, default is True
 
     Returns
     -------
-    perp_vector2d : np.array
+    perp_vector2d : numpy array
         rotated vector
 
     """
@@ -52,13 +52,13 @@ def get_rotation_matrix(new_frame, local_to_world=True):
         rotation matrix that can be used to rotate marker data, e.g.: rotation_matrix @ marker
 
     """
-    x1 = np.array([1, 0, 0])  # X axis of the world
-    x2 = np.array([0, 1, 0])  # Y axis of the world
-    x3 = np.array([0, 0, 1])  # Z axis of the world
+    x1 = np.array([1, 0, 0])  # X-axis of the world
+    x2 = np.array([0, 1, 0])  # Y-axis of the world
+    x3 = np.array([0, 0, 1])  # Z-axis of the world
 
-    x1_prime = new_frame[:, 0]  # X axis of the local frame
-    x2_prime = new_frame[:, 1]  # Y axis of the local frame
-    x3_prime = new_frame[:, 2]  # Z axis of the local frame
+    x1_prime = new_frame[:, 0]  # X-axis of the local frame
+    x2_prime = new_frame[:, 1]  # Y-axis of the local frame
+    x3_prime = new_frame[:, 2]  # Z-axis of the local frame
 
     if local_to_world:
         rotation_matrix = np.array(
@@ -92,7 +92,7 @@ def get_orthonormal_frame(point1, point2, point3, mean=False):
     point3: np.array
         third marker point
     mean: bool
-        whether or not the mean should be used as origin, default is False
+        using the mean as the origin, default is False
 
     Returns
     -------
@@ -155,7 +155,7 @@ def scale(vector3d, x=1.0, y=1.0, z=1.0):
         x-axis scaling
     y: float
         y-axis scaling
-    z: floag
+    z: float
         z-axis scaling
 
     Returns
@@ -216,7 +216,7 @@ def rotate(vector3d, angle, deg=False, axis="z"):
 
 def magnitude(vector3d):
     """
-    Calculates the vector magnitude using an l2 norm. Works with [1, 3] or [n, 3] vectors.
+    Calculates the vector magnitude using a l2 norm. Works with [1, 3] or [n, 3] vectors.
 
     Parameters
     ----------
@@ -237,7 +237,7 @@ def magnitude(vector3d):
 
 def normalize(vector3d):
     """
-    Normalizes [n, 3] marker data using an l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.
+    Normalizes [n, 3] marker data using a l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.
 
     Parameters
     ----------
@@ -320,7 +320,7 @@ def is_unit_length(vector3d, atol=1.0e-8):
     return np.allclose(magnitude(vector3d), 1.0, rtol=0, atol=atol)
 
 
-def acs_to_car_ang(acs, order=[0, 1, 2]):
+def acs_to_car_ang(acs, order=list):
     """Anatomical coordinate system to cardanic angles
 
     Note: Only works if used in the DSEM coordinate system
@@ -349,7 +349,7 @@ def acs_to_car_ang(acs, order=[0, 1, 2]):
     else:
         a = -1
 
-    if i != k:  # Cardan angles
+    if i != k:  # cardanic angles
         a1 = np.arctan2(-a * acs[:, j, k], acs[:, k, k])
         a2 = np.arcsin(a * acs[:, i, k])
         a3 = np.arctan2(-a * acs[:, i, j], acs[:, i, i])
@@ -614,7 +614,7 @@ def make_acs_th(IJ, PX, C7, T8, DSEM=False):
 
 
 def make_acs_cl(SC, AC, IJ, PX, C7, T8, AA=None, DSEM=False):
-    """Make the anatomical coordinate system of the clavicule based on ISB recommendations
+    """Make the anatomical coordinate system of the clavicle based on ISB recommendations
 
     Y is pointing upwards
     X is pointing to the front
@@ -650,13 +650,13 @@ def make_acs_cl(SC, AC, IJ, PX, C7, T8, AA=None, DSEM=False):
     Returns
     -------
     local : dict[np.array]
-        local coordinate system of the clavicule
+        local coordinate system of the clavicle
 
     acs : np.array
-        anatomical coordinate system of the clavicule
+        anatomical coordinate system of the clavicle
 
     origin: np.array
-        origin of the local coordinate system of the clavicule
+        origin of the local coordinate system of the clavicle
     """
 
     origin = SC
@@ -893,7 +893,7 @@ def flexext_prosup(GH, EL, EM, US, RS):
     local_fa, acs_fa, origin_fa = make_acs_fa(US, RS, EL, EM, DSEM=True)
 
     elbow = solve(acs_hu, acs_fa)
-    angles = acs_to_car_ang(elbow, order=[0, 2, 1], DSEM=True) * 180 / np.pi
+    angles = acs_to_car_ang(elbow, order=[0, 2, 1]) * 180 / np.pi
     angles = angles[:, 0:2]
 
     return angles

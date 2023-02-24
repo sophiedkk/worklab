@@ -27,7 +27,7 @@ def auto_process(
     Top level processing function that performs all processing steps for mw/ergo data.
 
     Contains all signal processing steps in fixed order. It is advised to use this function for all (pre-)processing.
-    If needed take a look at a specific function to see how it works.
+    If needed to take a look at a specific function to see how it works.
 
     Parameters
     ----------
@@ -195,7 +195,7 @@ def process_mw(data, wheelsize=0.31, rimsize=0.275, sfreq=200):
     +------------+----------------------+-----------+
     | power      | power                | W         |
     +------------+----------------------+-----------+
-    | work       | instantanious work   | J         |
+    | work       | instantaneous work   | J         |
     +------------+----------------------+-----------+
 
     Parameters
@@ -251,7 +251,7 @@ def process_ergo(data, wheelsize=0.31, rimsize=0.275):
     +------------+----------------------+-----------+
     | power      | power                | W         |
     +------------+----------------------+-----------+
-    | work       | instantanious work   | J         |
+    | work       | instantaneous work   | J         |
     +------------+----------------------+-----------+
     | uforce     | effective force      | N         |
     +------------+----------------------+-----------+
