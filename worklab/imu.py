@@ -88,7 +88,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     # Wheelchair camber correction
     deg2rad = np.pi / 180
     right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad) * (
-            frame["gyroscope_z"] * np.cos(camber * deg2rad))
+        frame["gyroscope_z"] * np.cos(camber * deg2rad))
     if n_sensors == 3:
         left = sessiondata["left"]
         left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
