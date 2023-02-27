@@ -87,12 +87,12 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
     # Wheelchair camber correction
     deg2rad = np.pi / 180
-    right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad)*(
-                        frame["gyroscope_z"] * np.cos(camber * deg2rad))
+    right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad) * (
+            frame["gyroscope_z"] * np.cos(camber * deg2rad))
     if n_sensors == 3:
         left = sessiondata["left"]
-        left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad)*(
-                           frame["gyroscope_z"] * np.cos(camber * deg2rad))
+        left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
+            frame["gyroscope_z"] * np.cos(camber * deg2rad))
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     else:
         frame["gyro_cor"] = right["gyro_cor"]
@@ -130,8 +130,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
 
-    """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al. 
-    Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. 
+    """Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al.
+    Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors.
     Procedia Engineering, 112, 207-212."""
     frame["centre_vel_right"] = right["vel"]  # Calculate frame centre distance
     frame["centre_vel_right"] -= np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq

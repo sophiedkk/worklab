@@ -590,5 +590,5 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
     mean_ergo = pd.DataFrame(mean_ergo)
 
     outcomes = pd.concat([mean_ergo, mean_spiro], axis=1)
-    outcomes["me"] = (outcomes["meanpower"]/outcomes["EE"]) * 100
+    outcomes["me"] = (outcomes["meanpower"] / outcomes["EE"]) * 100
     return outcomes
