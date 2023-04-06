@@ -132,7 +132,7 @@ def load_spiro(filename):
         Spirometer data in pandas DataFrame
 
     """
-    data = pd.read_excel(filename, skiprows=[1, 2], usecols="J:XX")
+    data = pd.read_excel(filename, skiprows=[1, 2])
     data["time"] = data.apply(lambda row: pd_dt_to_s(row["t"]), axis=1)  # hh:mm:ss to s
     data["EE"] = data["EEm"] * 4184 / 60  # kcal/min to J/s
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
