@@ -487,6 +487,7 @@ def load_wheelchair(filename):
     """
 
     data = pd.read_excel(filename, sheet_name=2)
+    data.iloc[10, 1] = data.iloc[10, 1].replace(",", ".")
     wheelchair = {
         "name": data.iloc[1, 1],
         "rimsize": float(data.iloc[7, 1]) / 1000 / 2,
