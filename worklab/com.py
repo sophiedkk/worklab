@@ -657,18 +657,26 @@ def load_imu(root_dir, filenames=None, inplace=False):
     if not inplace:
         sessiondata = copy.deepcopy(sessiondata)
 
-    sessiondata["right"] = (
-        sessiondata["right"]["sensors"] if "right" in sessiondata.keys() else print("No right sensor imported")
-    )
-    sessiondata["frame"] = (
-        sessiondata["frame"]["sensors"] if "frame" in sessiondata.keys() else print("No frame sensor imported")
-    )
-    sessiondata["left"] = (
-        sessiondata["left"]["sensors"] if "left" in sessiondata.keys() else print("No left sensor imported")
-    )
-    sessiondata["trunk"] = (
-        sessiondata["trunk"]["sensors"] if "trunk" in sessiondata.keys() else print("No trunk sensor imported")
-    )
+    if 'right' in sessiondata.keys():
+         sessiondata["right"] = sessiondata["right"]["sensors"]
+         sessiondata["right"]["time"] -= sessiondata["right"]["time"][0]
+    else:
+        print('No right sensor imported')
+    if 'frame' in sessiondata.keys():
+         sessiondata["frame"] = sessiondata["frame"]["sensors"]
+         sessiondata["frame"]["time"] -= sessiondata["frame"]["time"][0]
+    else:
+        print('No frame sensor imported')
+    if 'left' in sessiondata.keys():
+         sessiondata["left"] = sessiondata["left"]["sensors"]
+         sessiondata["left"]["time"] -= sessiondata["left"]["time"][0]
+    else:
+        print('No left sensor imported')
+    if 'trunk' in sessiondata.keys():
+         sessiondata["trunk"] = sessiondata["trunk"]["sensors"]
+         sessiondata["trunk"]["time"] -= sessiondata["trunk"]["time"][0]
+    else:
+        print('No trunk sensor imported')
 
     sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
 
@@ -800,7 +808,7 @@ def load_opti_offset(filename):
     return opti_offset_df
 
 
-def load_movesense(root_dir, right, frame=None, left=None):
+def load_movesense(root_dir, right=None, frame=None, left=None):
     """
     Imports MoveSense data in nested dictionary with all sensors.
 
@@ -820,40 +828,59 @@ def load_movesense(root_dir, right, frame=None, left=None):
     sessiondata : dict
         returns nested object sensordata[device][dataframe]
 
+
     """
     sessiondata = dict()
-    sensor_name = str()
-    right_sensors = sorted(glob(root_dir + right + "*"))
-    sensors = [right_sensors]
+    sfreq = dict()
+    sensors = []
+    if right is not None:
+        right_sensors = sorted(glob(root_dir + right + '*'))
+        sensors.append(right_sensors)
     if frame is not None:
-        frame_sensors = sorted(glob(root_dir + frame + "*"))
+        frame_sensors = sorted(glob(root_dir + frame + '*'))
         sensors.append(frame_sensors)
     if left is not None:
-        left_sensors = sorted(glob(root_dir + left + "*"))
+        left_sensors = sorted(glob(root_dir + left + '*'))
         sensors.append(left_sensors)
 
     for sensor in sensors:
-        if right in sensor[0]:
-            sensor_name = "right"
+        if right is not None:
+            if right in sensor[0]: sensor_name = 'right'
         if frame is not None:
-            if frame in sensor[0]:
-                sensor_name = "frame"
+            if frame in sensor[0]: sensor_name = 'frame'
         if left is not None:
-            if left in sensor[0]:
-                sensor_name = "left"
+            if left in sensor[0]: sensor_name = 'left'
 
         acc = pd.read_csv(sensor[0])
-        acc["x"] *= -1
+        acc['x'] *= -1
         gyro = pd.read_csv(sensor[1])
-        gyro["x"] *= -1
-        acc.rename(columns={"x": "accelerometer_y", "y": "accelerometer_x", "z": "accelerometer_z"}, inplace=True)
-        gyro.rename(columns={"x": "gyroscope_y", "y": "gyroscope_x", "z": "gyroscope_z"}, inplace=True)
+        gyro['x'] *= -1
+        acc.rename(columns={'x': 'accelerometer_y', 'y': 'accelerometer_x',
+                            'z': 'accelerometer_z'}, inplace=True)
+        gyro.rename(columns={'x': 'gyroscope_y', 'y': 'gyroscope_x',
+                             'z': 'gyroscope_z'}, inplace=True)
 
-        acc["time"] = pd.to_datetime(acc["timestamp"], unit="ms")
-        acc["time"] -= acc["time"][0]
-        acc["time"] = acc["time"].dt.total_seconds()
+        acc_time = pd.to_datetime(acc['timestamp'], unit='ms')
+        acc_time -= acc_time[0]
+        acc_time = acc_time.dt.total_seconds()
+        gyro_time = pd.to_datetime(gyro['timestamp'], unit='ms')
+        gyro_time -= gyro_time[0]
+        gyro_time = gyro_time.dt.total_seconds()
 
-        sessiondata[sensor_name] = pd.concat([gyro, acc], axis=1, join="inner")
-        sessiondata[sensor_name] = sessiondata[sensor_name].drop(["timestamp"], axis=1)
+        sfreq_acc = int(1 / acc_time.diff().mean())
+        sfreq_gyro = int(1 / gyro_time.diff().mean())
 
-    return sessiondata
+        if sfreq_acc / sfreq_gyro > 1.1 or sfreq_acc / sfreq_gyro < 0.9:
+            print('Sampling frequencies are not equal')
+            print(sensor_name + ' sfreq Acc: ' + str(sfreq_acc))
+            print(sensor_name + ' sfreq Gyro: ' + str(sfreq_gyro))
+
+        sfreq[sensor_name] = min(sfreq_acc, sfreq_gyro)
+
+        sessiondata[sensor_name] = gyro.merge(acc, on='timestamp',
+                                              how='inner')
+        sessiondata[sensor_name] = sessiondata[sensor_name].drop(['timestamp'], axis=1)
+        sessiondata[sensor_name]['time'] = gyro_time
+    sfreq = sfreq[min(sfreq, key=sfreq.get)]
+
+    return sessiondata, sfreq
