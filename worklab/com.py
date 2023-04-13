@@ -658,23 +658,23 @@ def load_imu(root_dir, filenames=None, inplace=False):
         sessiondata = copy.deepcopy(sessiondata)
 
     if 'right' in sessiondata.keys():
-         sessiondata["right"] = sessiondata["right"]["sensors"]
-         sessiondata["right"]["time"] -= sessiondata["right"]["time"][0]
+        sessiondata["right"] = sessiondata["right"]["sensors"]
+        sessiondata["right"]["time"] -= sessiondata["right"]["time"][0]
     else:
         print('No right sensor imported')
     if 'frame' in sessiondata.keys():
-         sessiondata["frame"] = sessiondata["frame"]["sensors"]
-         sessiondata["frame"]["time"] -= sessiondata["frame"]["time"][0]
+        sessiondata["frame"] = sessiondata["frame"]["sensors"]
+        sessiondata["frame"]["time"] -= sessiondata["frame"]["time"][0]
     else:
         print('No frame sensor imported')
     if 'left' in sessiondata.keys():
-         sessiondata["left"] = sessiondata["left"]["sensors"]
-         sessiondata["left"]["time"] -= sessiondata["left"]["time"][0]
+        sessiondata["left"] = sessiondata["left"]["sensors"]
+        sessiondata["left"]["time"] -= sessiondata["left"]["time"][0]
     else:
         print('No left sensor imported')
     if 'trunk' in sessiondata.keys():
-         sessiondata["trunk"] = sessiondata["trunk"]["sensors"]
-         sessiondata["trunk"]["time"] -= sessiondata["trunk"]["time"][0]
+        sessiondata["trunk"] = sessiondata["trunk"]["sensors"]
+        sessiondata["trunk"]["time"] -= sessiondata["trunk"]["time"][0]
     else:
         print('No trunk sensor imported')
 
@@ -845,11 +845,14 @@ def load_movesense(root_dir, right=None, frame=None, left=None):
 
     for sensor in sensors:
         if right is not None:
-            if right in sensor[0]: sensor_name = 'right'
+            if right in sensor[0]:
+                sensor_name = 'right'
         if frame is not None:
-            if frame in sensor[0]: sensor_name = 'frame'
+            if frame in sensor[0]:
+                sensor_name = 'frame'
         if left is not None:
-            if left in sensor[0]: sensor_name = 'left'
+            if left in sensor[0]:
+                sensor_name = 'left'
 
         acc = pd.read_csv(sensor[0])
         acc['x'] *= -1

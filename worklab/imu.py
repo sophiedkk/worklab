@@ -197,7 +197,7 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     # Wheelchair camber correction
     deg2rad = np.pi / 180
     left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-            frame["gyroscope_z"] * np.cos(camber * deg2rad))
+        frame["gyroscope_z"] * np.cos(camber * deg2rad))
     frame["gyro_cor"] = left["gyro_cor"]
 
     # Calculation of rotations, rotational velocity and acceleration
@@ -329,10 +329,10 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True):
     """
     if right_wheel is True:
         offset_indices = (np.abs(sessiondata['frame']['gyroscope_z']) < 5) & (
-                    np.abs(sessiondata['right']['gyroscope_y']) < 5)
+            np.abs(sessiondata['right']['gyroscope_y']) < 5)
     else:
         offset_indices = (np.abs(sessiondata['frame']['gyroscope_z']) < 5) & (
-                    np.abs(sessiondata['left']['gyroscope_y']) < 5)
+            np.abs(sessiondata['left']['gyroscope_y']) < 5)
 
     if sum(offset_indices) > 10:
         offset_frame_x = np.mean(sessiondata['frame']['gyroscope_x'][offset_indices])
