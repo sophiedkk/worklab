@@ -21,9 +21,9 @@ the worklab, which means:
 -   Ergometer (Esseda) data processing
 -   Push-by-push analysis
 -   Spirometer (COSMED) data processing
--   IMU (NGIMU and MoveSense) data processing
+-   IMU (NGIMU, XIMU3 and MoveSense) data processing
 -   Kinematics (Optotrak/OptiTrack) data processing
--   more(?)
+-   More(?)
 
 # Documentation
 
@@ -33,7 +33,7 @@ For more detailed documentation you can look at the
 # Prerequisites
 
 You need a valid version of Python 3.6+ (because f-strings). This
-project has a bunch of dependencies for *reasons* so you will also need
+project has a bunch of dependencies for *reasons*, so you will also need
 the scipy ecosystem , which you probably already have.
 
 # Installing
