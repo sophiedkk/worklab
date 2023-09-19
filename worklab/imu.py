@@ -90,12 +90,12 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     # Wheelchair camber correction
     deg2rad = np.pi / 180
     right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad) * (
-            frame["rot_vel"] * np.cos(camber * deg2rad))
+        frame["rot_vel"] * np.cos(camber * deg2rad))
     if n_sensors == 3:
         left = sessiondata["left"]
         left['gyroscope_y'] = lowpass_butter(left['gyroscope_y'], sfreq=sfreq, cutoff=10)
         left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-                frame["rot_vel"] * np.cos(camber * deg2rad))
+            frame["rot_vel"] * np.cos(camber * deg2rad))
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     else:
         frame["gyro_cor"] = right["gyro_cor"]
@@ -207,7 +207,7 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     deg2rad = np.pi / 180
     left['gyroscope_y'] = lowpass_butter(left['gyroscope_y'], sfreq=sfreq, cutoff=10)
     left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-            frame["rot_vel"] * np.cos(camber * deg2rad))
+        frame["rot_vel"] * np.cos(camber * deg2rad))
     frame["gyro_cor"] = left["gyro_cor"]
 
     left["vel"] = left["gyro_cor"] * wsize * deg2rad
@@ -333,10 +333,10 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True):
     """
     if right_wheel is True:
         offset_indices = (np.abs(sessiondata['frame']['gyroscope_z']) < 5) & (
-                    np.abs(sessiondata['right']['gyroscope_y']) < 5)
+            np.abs(sessiondata['right']['gyroscope_y']) < 5)
     else:
         offset_indices = (np.abs(sessiondata['frame']['gyroscope_z']) < 5) & (
-                    np.abs(sessiondata['left']['gyroscope_y']) < 5)
+            np.abs(sessiondata['left']['gyroscope_y']) < 5)
 
     if sum(offset_indices) > 10:
         offset_frame_x = np.mean(sessiondata['frame']['gyroscope_x'][offset_indices])

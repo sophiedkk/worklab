@@ -460,7 +460,7 @@ def imu_push_plot(sessiondata, acc_frame=True, name='', dec=False):
     ax: axis object
 
     """
-    if type(sessiondata) == dict:
+    if type(sessiondata) is dict:
         sessiondata = sessiondata["frame"]
     sfreq = int(1 / sessiondata['time'].diff().mean())
 
@@ -479,7 +479,7 @@ def imu_push_plot(sessiondata, acc_frame=True, name='', dec=False):
     # Create time vs. velocity with push detection figure
     plt.style.use("seaborn-darkgrid")
     fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
-    ax1.set_ylim(-2, np.max(sessiondata['vel'])+0.5)
+    ax1.set_ylim(-2, np.max(sessiondata['vel']) + 0.5)
     ax1.plot(sessiondata['time'], sessiondata['vel'], 'r')
     ax1.plot(sessiondata['time'][push_idx],
              sessiondata['vel'][push_idx], 'k.', markersize=10)
