@@ -6,7 +6,7 @@
 #######################################################################################
 # Book settings
 title                       : ""  # The title of the book. Will be placed in the left navbar.
-author                      : Rick de Klerk, Thomas Rietveld, Rowie Janssen  # The author of the book
+author                      : Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma  # The author of the book
 copyright                   : "2023"  # Copyright year to be placed in the footer
 logo                        : "accessibility_icon_boost.svg"  # A path to the book logo
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")

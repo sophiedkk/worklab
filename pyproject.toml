@@ -9,7 +9,8 @@ keywords = ["biomechanics", "ergometry", "physiology"]
 authors = [
   {name = "Rick de Klerk", email = "r.de.klerk@pl.hanze.nl"},
   {name = "Thomas Rietveld", email = "t.rietveld@lboro.ac.uk"},
-  {name = "Rowie Janssen", email = "r.j.f.janssen@umcg.nl"}
+  {name = "Rowie Janssen", email = "r.j.f.janssen@umcg.nl"},
+  {name = "Jelmer Braaksma", email = "j.braaksma01@umcg.nl"}
 ]
 classifiers = [
   "Intended Audience :: Science/Research",
