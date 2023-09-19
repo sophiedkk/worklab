@@ -600,8 +600,6 @@ def load_n3d(filename, verbose=True):
 
 def load_imu(root_dir, filenames=None, inplace=False):
     """
-    Imports NGIMU session in nested dictionary with all devices and sensors.
-
     Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.
 
     Parameters
@@ -677,7 +675,6 @@ def load_imu(root_dir, filenames=None, inplace=False):
         sessiondata["trunk"]["time"] -= sessiondata["trunk"]["time"][0]
     else:
         print('No trunk sensor imported')
-
     sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
 
     return sessiondata
@@ -828,7 +825,6 @@ def load_movesense(root_dir, right=None, frame=None, left=None):
     sessiondata : dict
         returns nested object sensordata[device][dataframe]
 
-
     """
     sessiondata = dict()
     sfreq = dict()
@@ -882,8 +878,98 @@ def load_movesense(root_dir, right=None, frame=None, left=None):
 
         sessiondata[sensor_name] = gyro.merge(acc, on='timestamp',
                                               how='inner')
-        sessiondata[sensor_name] = sessiondata[sensor_name].drop(['timestamp'], axis=1)
-        sessiondata[sensor_name]['time'] = gyro_time
+        sessiondata[sensor_name]['time'] = pd.to_datetime(sessiondata[sensor_name]['timestamp'], unit='ms')
+        sessiondata[sensor_name]['time'] -= sessiondata[sensor_name]['time'][0]
+        sessiondata[sensor_name]['time'] = sessiondata[sensor_name]['time'].dt.total_seconds()
+
     sfreq = sfreq[min(sfreq, key=sfreq.get)]
 
     return sessiondata, sfreq
+
+
+def load_ximu3(root_dir, filenames=None, inplace=False):
+    """
+    Imports X-IMU3 session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.
+
+    Parameters
+    ----------
+    root_dir : str
+        directory where session is located
+    filenames : list, optional
+        list of sensor names or single sensor name that you would like to include, only loads Inertial if not specified
+    inplace : bool, default False
+        Whether to modify the DataFrame rather than creating a new one.
+    Returns
+    -------
+    sessiondata : dict
+        returns nested object sensordata[device][dataframe]
+
+    References
+    ----------
+    https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
+
+    """
+    directory_contents = listdir(root_dir)  # all content in directory
+    if not directory_contents:
+        raise Exception("No contents in directory")
+    directories = glob(f"{root_dir}/*/")  # folders of all devices
+    sessiondata = dict()
+    if not filenames:
+        filenames = ["Inertial"]
+
+    for sensordir in directories:  # loop through all sensor directories
+        sensor_files = glob(f"{sensordir}/*.csv")
+        device_name = path.split(path.split(sensordir)[0])[-1]
+        device_name = "left" if "links" in device_name.lower() or "left" in device_name.lower() else device_name
+        device_name = "right" if "rechts" in device_name.lower() or "right" in device_name.lower() else device_name
+        device_name = "frame" if "frame" in device_name.lower() else device_name
+        device_name = "trunk" if "trunk" in device_name.lower() else device_name
+
+        sessiondata[device_name] = dict()
+
+        for sensor_file in sensor_files:  # loop through all csv files
+            sensor_name = path.split(sensor_file)[-1].split(".csv")[0]  # sensor without path or extension
+
+            if sensor_name not in filenames:
+                continue  # skip if filenames is given and sensor not in filenames
+
+            sessiondata[device_name][sensor_name] = pd.read_csv(sensor_file).drop_duplicates()
+            new_col_names = sessiondata[device_name][sensor_name].columns
+            new_col_names = [col.lower().replace(" ", "_").rsplit("_", 1)[0] for col in new_col_names]
+            sessiondata[device_name][sensor_name].columns = new_col_names
+
+        if not sessiondata[device_name]:
+            raise Exception("No data was imported")
+
+    if not inplace:
+        sessiondata = copy.deepcopy(sessiondata)
+
+    if 'right' in sessiondata.keys():
+        sessiondata["right"] = sessiondata["right"]["Inertial"]
+        sessiondata["right"]["timestamp"] -= sessiondata["right"]["timestamp"][0]
+    else:
+        print('No right sensor imported')
+    if 'frame' in sessiondata.keys():
+        sessiondata["frame"] = sessiondata["frame"]["Inertial"]
+        sessiondata["frame"]["timestamp"] -= sessiondata["frame"]["timestamp"][0]
+    else:
+        print('No frame sensor imported')
+    if 'left' in sessiondata.keys():
+        sessiondata["left"] = sessiondata["left"]["Inertial"]
+        sessiondata["left"]["timestamp"] -= sessiondata["left"]["timestamp"][0]
+    else:
+        print('No left sensor imported')
+    if 'trunk' in sessiondata.keys():
+        sessiondata["trunk"] = sessiondata["trunk"]["Inertial"]
+        sessiondata["trunk"]["timestamp"] -= sessiondata["trunk"]["timestamp"][0]
+    else:
+        print('No trunk sensor imported')
+
+    for sensor in sessiondata:
+        sessiondata[sensor]['time'] = pd.to_datetime(sessiondata[sensor]['timestamp'], unit='us')
+        sessiondata[sensor]['time'] -= sessiondata[sensor]['time'][0]
+        sessiondata[sensor]['time'] = sessiondata[sensor]['time'].dt.total_seconds()
+
+    sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
+
+    return sessiondata

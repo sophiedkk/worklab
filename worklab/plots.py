@@ -440,58 +440,67 @@ def set_axes_equal_3d(axes):
     axes.set_zlim3d([z - radius, z + radius])
 
 
-def imu_push_plot(time, vel, acc_raw, name=""):
+def imu_push_plot(sessiondata, acc_frame=True, name='', dec=False):
     """
     Plot push detection with IMUs
 
     Parameters
     ----------
-    time : np.array, pd.Series
-        time structure
-    vel : np.array, pd.Series
-        velocity structure
-    acc_raw : np.array, pd.Series
-        raw acceleration structure
+    sessiondata : dict or pd.Series
+        processed sessiondata structure or pd.Series with frame data
+    acc_frame: boolean
+        set to True if frame acceleration is used, if False the wheel is used
     name : str
         name of a session
+    dec : boolean
+        set to True if main deceleration should be found
 
     Returns
     -------
     ax: axis object
 
     """
-    # Calculate push detection with function
-    sfreq = 1 / time.diff().mean()
-    push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc_raw, sfreq)
+    if type(sessiondata) == dict:
+        sessiondata = sessiondata["frame"]
+    sfreq = int(1 / sessiondata['time'].diff().mean())
 
-    # Calculate processed acceleration from velocity
-    acc = lowpass_butter(np.gradient(vel) * sfreq, sfreq=sfreq, cutoff=20)
+    if acc_frame is True:
+        acc = sessiondata['accelerometer_x']
+    else:
+        acc = lowpass_butter(np.gradient(sessiondata['vel']) * sfreq,
+                             sfreq=sfreq, cutoff=10)
+
+    # Changes signal if the main deceleration values should be found
+    if dec is True:
+        acc -= 1
+
+    push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc, sfreq)
 
     # Create time vs. velocity with push detection figure
     plt.style.use("seaborn-darkgrid")
     fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
-    ax1.set_ylim(-6, 6)
-    ax1.plot(time, vel, "r")
-    ax1.plot(time[push_idx], vel[push_idx], "k.", markersize=10)
+    ax1.set_ylim(-2, np.max(sessiondata['vel'])+0.5)
+    ax1.plot(sessiondata['time'], sessiondata['vel'], 'r')
+    ax1.plot(sessiondata['time'][push_idx],
+             sessiondata['vel'][push_idx], 'k.', markersize=10)
     ax1.set_xlabel("Time [s]", fontsize=12)
     ax1.set_ylabel("Velocity [m/s]", fontsize=12)
-    ax1.tick_params(axis="y", colors="r", labelsize=12)
-    ax1.tick_params(axis="x", labelsize=12)
-    ax1.yaxis.label.set_color("r")
+    ax1.tick_params(axis='y', colors='r', labelsize=12)
+    ax1.tick_params(axis='x', labelsize=12)
+    ax1.yaxis.label.set_color('r')
     ax1.set_title(f"{name} Push detection Sprint test")
-    ax1.autoscale(axis="x", tight=True)
 
     # Create time vs. acceleration with push detection figure
     ax2 = ax1.twinx()
-    ax2.set_ylim(-25, 25)
-    ax2.plot(time, acc, "C7", alpha=0.5)
-    ax2.plot(time, acc_filt, "b")
-    ax2.plot(time[push_idx], acc_filt[push_idx], "k.", markersize=10, label="Detected push")
+    ax2.set_ylim(-30, 30)
+    ax2.plot(sessiondata['time'], acc, 'C7', alpha=0.5)
+    ax2.plot(sessiondata['time'], acc_filt, 'b')
+    ax2.plot(sessiondata['time'][push_idx], acc_filt[push_idx], 'k.',
+             markersize=10, label="Detected push")
     ax2.set_ylabel("Acceleration [m/$s^2$]", fontsize=12)
-    ax2.tick_params(axis="y", colors="b", labelsize=12)
-    ax2.yaxis.label.set_color("b")
-    ax2.legend(frameon=True)
-    ax2.autoscale(axis="x", tight=True)
+    ax2.tick_params(axis='y', colors='b', labelsize=12)
+    ax2.yaxis.label.set_color('b')
+    ax2.legend(frameon=True, loc='lower right')
 
     return ax1, ax2
 

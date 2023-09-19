@@ -67,7 +67,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     n_sensors: float
         number of sensors used: 2: right wheel and frame, 3: right, left wheel and frame
     sensor_type: string
-        type of sensor, 'ngimu' is for xio-technologies, 'move' is for movesense
+        type of sensor, 'ngimu' or 'ximu3' is for xio-technologies, 'move' is for movesense
     inplace : bool
         performs operation inplace
 
@@ -84,21 +84,23 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     right = sessiondata["right"]
 
     sfreq = 1 / frame["time"].diff().mean()
+    frame["rot_vel"] = lowpass_butter(frame["gyroscope_z"], sfreq=sfreq, cutoff=6)
+    right['gyroscope_y'] = lowpass_butter(right['gyroscope_y'], sfreq=sfreq, cutoff=10)
 
     # Wheelchair camber correction
     deg2rad = np.pi / 180
     right["gyro_cor"] = right["gyroscope_y"] + np.tan(camber * deg2rad) * (
-        frame["gyroscope_z"] * np.cos(camber * deg2rad))
+            frame["rot_vel"] * np.cos(camber * deg2rad))
     if n_sensors == 3:
         left = sessiondata["left"]
+        left['gyroscope_y'] = lowpass_butter(left['gyroscope_y'], sfreq=sfreq, cutoff=10)
         left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-            frame["gyroscope_z"] * np.cos(camber * deg2rad))
+                frame["rot_vel"] * np.cos(camber * deg2rad))
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     else:
         frame["gyro_cor"] = right["gyro_cor"]
 
     # Calculation of rotations, rotational velocity and rotational acceleration
-    frame["rot_vel"] = lowpass_butter(frame["gyroscope_z"], sfreq=sfreq, cutoff=10)
     frame["rot"] = cumtrapz(abs(frame["rot_vel"]) / sfreq, initial=0.0)
     frame["rot_acc"] = np.gradient(frame["rot_vel"]) * sfreq
 
@@ -119,7 +121,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     frame["acc_wheel"] = np.gradient(frame["vel_wheel"]) * sfreq  # mean acceleration from velocity
     frame['acc_wheel'] = lowpass_butter(frame['acc_wheel'], sfreq=sfreq, cutoff=10)
 
-    if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
+    if sensor_type == 'ngimu' or sensor_type == 'ximu3':  # Acceleration for NGIMU/XIMU3 is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
     frame['acc'] = lowpass_butter(frame['accelerometer_x'], sfreq=sfreq, cutoff=10)
 
@@ -127,11 +129,11 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors.
     Procedia Engineering, 112, 207-212."""
     frame["vel_right"] = right["vel"]  # Calculate frame centre distance
-    frame["vel_right"] -= np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
+    frame["vel_right"] -= np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
 
     if n_sensors == 3:
         frame["vel_left"] = left["vel"]
-        frame["vel_left"] += np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
+        frame["vel_left"] += np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
 
         r_ratio0 = np.abs(right["vel"]) / (np.abs(right["vel"]) + np.abs(left["vel"]))  # Ratio left and right
         l_ratio0 = np.abs(left["vel"]) / (np.abs(right["vel"]) + np.abs(left["vel"]))
@@ -146,9 +148,10 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combine ratio values, not in df
         frame["skid_vel"] = (frame["vel_right"] * comb_ratio) + (frame["vel_left"] * (1 - comb_ratio))
         frame["vel"] = (frame["vel_right"] + frame["vel_left"]) / 2
+        frame['dist'] = cumtrapz(frame["skid_vel"], initial=0.0) / sfreq
     else:
         frame["vel"] = frame["vel_right"]
-    frame["dist"] = cumtrapz(frame["vel"], initial=0.0) / sfreq  # Combined distance
+        frame["dist"] = cumtrapz(frame["vel"], initial=0.0) / sfreq  # Combined distance
 
     # distance in the x and y direction
     frame["dist_y"] = cumtrapz(
@@ -177,7 +180,7 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     wbase : float
         width of wheelbase
     sensor_type: string
-        type of sensor, 'ngimu' is xio-technologies, 'move' is movesense
+        type of sensor, 'ngimu' or 'ximu3' is xio-technologies, 'move' is movesense
     inplace : bool
         performs operation inplace
 
@@ -194,17 +197,18 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     left = sessiondata["left"]
     sfreq = int(1 / frame["time"].diff().mean())
 
-    # Wheelchair camber correction
-    deg2rad = np.pi / 180
-    left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
-        frame["gyroscope_z"] * np.cos(camber * deg2rad))
-    frame["gyro_cor"] = left["gyro_cor"]
-
     # Calculation of rotations, rotational velocity and acceleration
     frame["rot_vel"] = lowpass_butter(frame["gyroscope_z"],
                                       sfreq=sfreq, cutoff=10)
     frame["rot"] = cumtrapz(abs(frame["rot_vel"]) / sfreq, initial=0.0)
     frame["rot_acc"] = np.gradient(frame["rot_vel"]) * sfreq
+
+    # Wheelchair camber correction
+    deg2rad = np.pi / 180
+    left['gyroscope_y'] = lowpass_butter(left['gyroscope_y'], sfreq=sfreq, cutoff=10)
+    left["gyro_cor"] = left["gyroscope_y"] - np.tan(camber * deg2rad) * (
+            frame["rot_vel"] * np.cos(camber * deg2rad))
+    frame["gyro_cor"] = left["gyro_cor"]
 
     left["vel"] = left["gyro_cor"] * wsize * deg2rad
     left["dist"] = cumtrapz(left["vel"] / sfreq, initial=0.0)
@@ -216,13 +220,13 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     frame['acc_wheel'] = lowpass_butter(frame['acc_wheel'],
                                         sfreq=sfreq, cutoff=10)
 
-    if sensor_type == 'ngimu':  # Acceleration for NGIMU is in g
+    if sensor_type == 'ngimu' or sensor_type == 'ximu3':  # Acceleration for NGIMU/XIMU3 is in g
         frame["accelerometer_x"] = frame["accelerometer_x"] * 9.81
     frame['acc'] = lowpass_butter(frame['accelerometer_x'],
                                   sfreq=sfreq, cutoff=10)
 
     frame["vel_left"] = left["vel"]
-    frame["vel_left"] += np.tan(np.deg2rad(frame["gyroscope_z"] / sfreq)) * wbase / 2 * sfreq
+    frame["vel_left"] += np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
     frame["vel"] = frame["vel_left"]
     frame["dist"] = cumtrapz(frame["vel"], initial=0.0) / sfreq
 
@@ -329,10 +333,10 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True):
     """
     if right_wheel is True:
         offset_indices = (np.abs(sessiondata['frame']['gyroscope_z']) < 5) & (
-            np.abs(sessiondata['right']['gyroscope_y']) < 5)
+                    np.abs(sessiondata['right']['gyroscope_y']) < 5)
     else:
         offset_indices = (np.abs(sessiondata['frame']['gyroscope_z']) < 5) & (
-            np.abs(sessiondata['left']['gyroscope_y']) < 5)
+                    np.abs(sessiondata['left']['gyroscope_y']) < 5)
 
     if sum(offset_indices) > 10:
         offset_frame_x = np.mean(sessiondata['frame']['gyroscope_x'][offset_indices])
