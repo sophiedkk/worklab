@@ -1,10 +1,7 @@
 # Worklab: a wheelchair biomechanics mini-package
 
 [![image](https://zenodo.org/badge/DOI/10.5281/zenodo.3268671.svg)](https://doi.org/10.5281/zenodo.3268671)
-
-[![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab)
-
-[![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE)
+[![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE)
 
 Essential data analysis and (pre-)processing scripts used in projects
 researching the Lode
