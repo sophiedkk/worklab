@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Measurement wheels</title>
+    <title>Exercise testing</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -26,6 +26,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -110,7 +111,22 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="setup.html">
-   Setup
+   Quick Start Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ergometer.html">
+   Ergometer testing
   </a>
  </li>
 </ul>
@@ -122,27 +138,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="examples.html">
-   Examples
+   Minimal examples
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="examples/ex_kinetics_ergo.html">
-   Minimal example for working with ergometer data
+   Working with ergometer data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="examples/ex_kinetics_mw.html">
-   Minimal example for working with measurement wheel data
+   Working with measurement wheel data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="examples/ex_move_imu.html">
-   Minimal example for working with NGIMU data
+   Working with NGIMU data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="examples/ex_physio_spiro.html">
-   Minimal example for working with spirometer data
+   Working with spirometer data
   </a>
  </li>
 </ul>
@@ -299,7 +315,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/general.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/Exercise testing.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -316,7 +332,7 @@ title="Open an issue"
       </li>
       
       <li>
-        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/general.md"
+        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/Exercise testing.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -344,7 +360,7 @@ title="Edit this page"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/chapters/general.md"
+        <a href="../_sources/chapters/Exercise testing.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -403,24 +419,19 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Measurement wheels
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#theory-on-wheelchair-specific-exercise-testing">
+   Theory on wheelchair-specific exercise testing
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#physiology">
-   Physiology
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#standardized-and-individualized-testing">
+   Standardized and Individualized testing
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#kinematics">
-   Kinematics
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-analysis">
+   Data analysis
   </a>
  </li>
 </ul>
@@ -432,7 +443,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Measurement wheels</h1>
+                <h1>Exercise testing</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -442,24 +453,19 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Measurement wheels
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#theory-on-wheelchair-specific-exercise-testing">
+   Theory on wheelchair-specific exercise testing
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#physiology">
-   Physiology
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#standardized-and-individualized-testing">
+   Standardized and Individualized testing
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#kinematics">
-   Kinematics
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-analysis">
+   Data analysis
   </a>
  </li>
 </ul>
@@ -472,17 +478,36 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="measurement-wheels">
-<h1>Measurement wheels<a class="headerlink" href="#measurement-wheels" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-testing">
+<h1>Exercise testing<a class="headerlink" href="#exercise-testing" title="Permalink to this headline">#</a></h1>
+<section id="theory-on-wheelchair-specific-exercise-testing">
+<h2>Theory on wheelchair-specific exercise testing<a class="headerlink" href="#theory-on-wheelchair-specific-exercise-testing" title="Permalink to this headline">#</a></h2>
+<p>In order to optimize wheelchair performance, exercise capacity testing are a central topic of interest for sport and rehabilitation scientists, coaches and athletes. The Esseda wheelchair ergometer can be used for standardized but individualized testing of the anaerobic and aerobic capacity of the wheelchair athlete.
+First of all, there is a lot of variation in past exercise testing which is explained in detail in the review below:</p>
+<ul class="simple">
+<li><p>Janssen RJF, de Groot S, van der Woude LHV, et al. Towards a standardized and individualized lab-based protocol for wheelchair-specific exercise capacity testing in wheelchair athletes: a scoping review. Am J Phys Med Rehabil. 2023 Mar 1;102(3):261-269. doi: 10.1097/PHM.0000000000001941</p></li>
+</ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="physiology">
-<h1>Physiology<a class="headerlink" href="#physiology" title="Permalink to this headline">#</a></h1>
+<section id="standardized-and-individualized-testing">
+<h2>Standardized and Individualized testing<a class="headerlink" href="#standardized-and-individualized-testing" title="Permalink to this headline">#</a></h2>
+<p>To decrease this variation, test protocols should be standardized to eliminate possible influences of protocol design on the attained outcomes, while still respecting the unique athlete. For this reason, we developed a standardized and individualized testing protocol which is explained in detail in the study below:</p>
+<ul class="simple">
+<li><p>Janssen RJF, Vegter RJK, Houdijk H, Van der Woude LHV, de Groot S (2022) Evaluation of a standardized test protocol to measure wheelchair-specific anaerobic and aerobic exercise capacity in healthy novices on an instrumented roller ergometer. PLoS ONE 17(9): e0274255. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0274255">https://doi.org/10.1371/journal.pone.0274255</a></p></li>
+</ul>
+<p>The proposed standardized and individualized test protocol makes use of five tests: Isometric force test, sprint test, Wingate test, submaximal test and maximal exercise test.
+First, a standardized isometric force test and 10s sprint test are performed. With the use of a previously developed set of regression equations from Janssen et al (1993), the individual’s isometric force outcome was used to estimate the anaerobic power, from which an effective individual Wingate resistance was derived. Thereafter, the sprint and Wingate test was performed. The subsequently measured anaerobic power was used to estimate the aerobic power, from which an effective submaximal power output (20% &amp; 40% of aerobic power) was established. The estimated aerobic power output was also used to scale the individual 1-min resistance steps for a graded exercise test. You can find all details in the above mentioned article.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="kinematics">
-<h1>Kinematics<a class="headerlink" href="#kinematics" title="Permalink to this headline">#</a></h1>
+<section id="data-analysis">
+<h2>Data analysis<a class="headerlink" href="#data-analysis" title="Permalink to this headline">#</a></h2>
+<p>When you have performed these measurements on the Esseda Wheelchair ergometer, data analyses can be done with this package. Examples for all five tests are provided in the example module:</p>
+<ul class="simple">
+<li><p>ex_data analysis Isometric force test</p></li>
+<li><p>ex_data analysis sprint test</p></li>
+<li><p>ex_data analysis Wingate test</p></li>
+<li><p>ex_data analysis submaximal test</p></li>
+<li><p>ex_data analysis maximal exercise test</p></li>
+</ul>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="references">
-<h1>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -519,7 +544,7 @@ title="Print to PDF"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>worklab.plots &#8212; Worklab Docs</title>
+    <title>worklab.plots</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -49,6 +50,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -87,9 +89,12 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
       
-      <h1 class="site-logo" id="site-title">Worklab Docs</h1>
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -99,13 +104,28 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item active">
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Theory
+  Introduction
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/setup.html">
-   Setup
+   Quick Start Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/ergometer.html">
+   Ergometer testing
   </a>
  </li>
 </ul>
@@ -116,70 +136,92 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
-   Minimal example for working with ergometer data
+   Working with ergometer data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
-   Minimal example for working with measurement wheel data
+   Working with measurement wheel data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
-   Minimal example for working with NGIMU data
+   Working with NGIMU data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
-   Minimal example for working with spirometer data
+   Working with spirometer data
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Package documentation
+  Documentation
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/ana.html">
-   Analyses (.ana)
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapters/package.html">
+   Package documentation
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/com.html">
-   Communication (.com)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/imu.html">
-   IMU (.imu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/kin.html">
-   Kinetics (.kin)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/move.html">
-   Kinematics (.move)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/physio.html">
-   Physiology (.physio)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/plots.html">
-   Plotting (.plots)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/utils.html">
-   Utilities (.utils)
+  <a class="reference internal" href="../../chapters/developer.html">
+   Developers
   </a>
  </li>
 </ul>
@@ -332,7 +374,9 @@ title="Open an issue"
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : pd.DataFrame</span>
+<span class="sd">        measurement wheel dataframe or the selected side from the ergometer dict, left, right or mean</span>
 <span class="sd">    pushes : pd.DataFrame</span>
+<span class="sd">        measurement wheel push by push dataframe or the selected side from the ergometer dict, left, right or mean</span>
 <span class="sd">    var : str</span>
 <span class="sd">        variable to plot, default is torque</span>
 <span class="sd">    start : bool</span>
@@ -342,7 +386,7 @@ title="Open an issue"
 <span class="sd">    peak : bool</span>
 <span class="sd">        plot push peaks, default is True</span>
 <span class="sd">    ax : axis object</span>
-<span class="sd">        Axis to plot on, you can add your own or it will make a new one.</span>
+<span class="sd">        Axis to plot on, you can add your own, or it will make a new one.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -418,7 +462,7 @@ title="Open an issue"
 <span class="sd">    data2 : np.array, pd.Series</span>
 <span class="sd">        Second variable</span>
 <span class="sd">    ax : axis object, optional</span>
-<span class="sd">        Axis to plot on, you can add your own or it will make a new one.</span>
+<span class="sd">        Axis to plot on, you can add your own, or it will make a new one.</span>
 <span class="sd">    condition : str, optional</span>
 <span class="sd">        add labels to the plot</span>
 
@@ -730,7 +774,7 @@ title="Open an issue"
     <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> Rotational Velociy&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> Rotational velocity&quot;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">rot_vel</span><span class="p">)</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">rot_vel</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -756,58 +800,67 @@ title="Open an issue"
     <span class="n">axes</span><span class="o">.</span><span class="n">set_zlim3d</span><span class="p">([</span><span class="n">z</span> <span class="o">-</span> <span class="n">radius</span><span class="p">,</span> <span class="n">z</span> <span class="o">+</span> <span class="n">radius</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="imu_push_plot"><a class="viewcode-back" href="../../chapters/API/plots.html#worklab.plots.imu_push_plot">[docs]</a><span class="k">def</span> <span class="nf">imu_push_plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">acc_raw</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="imu_push_plot"><a class="viewcode-back" href="../../chapters/API/plots.html#worklab.plots.imu_push_plot">[docs]</a><span class="k">def</span> <span class="nf">imu_push_plot</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">,</span> <span class="n">acc_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot push detection with IMUs</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    time : dict</span>
-<span class="sd">        time structure</span>
-<span class="sd">    vel : dict</span>
-<span class="sd">        velocity structure</span>
-<span class="sd">    acc_raw : dict</span>
-<span class="sd">        raw acceleration structure</span>
+<span class="sd">    sessiondata : dict or pd.Series</span>
+<span class="sd">        processed sessiondata structure or pd.Series with frame data</span>
+<span class="sd">    acc_frame: boolean</span>
+<span class="sd">        set to True if frame acceleration is used, if False the wheel is used</span>
 <span class="sd">    name : str</span>
 <span class="sd">        name of a session</span>
+<span class="sd">    dec : boolean</span>
+<span class="sd">        set to True if main deceleration should be found</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    ax: axis object</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Calculate push detection with function</span>
-    <span class="n">sfreq</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">time</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">push_idx</span><span class="p">,</span> <span class="n">acc_filt</span><span class="p">,</span> <span class="n">n_pushes</span><span class="p">,</span> <span class="n">cycle_time</span><span class="p">,</span> <span class="n">push_freq</span> <span class="o">=</span> <span class="n">push_imu</span><span class="p">(</span><span class="n">acc_raw</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">sessiondata</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
 
-    <span class="c1"># Calculate processed acceleration from velocity</span>
-    <span class="n">acc</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">vel</span><span class="p">)</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">acc_frame</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;accelerometer_x&#39;</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;vel&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span><span class="p">,</span>
+                             <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="c1"># Changes signal if the main deceleration values should be found</span>
+    <span class="k">if</span> <span class="n">dec</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">acc</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="n">push_idx</span><span class="p">,</span> <span class="n">acc_filt</span><span class="p">,</span> <span class="n">n_pushes</span><span class="p">,</span> <span class="n">cycle_time</span><span class="p">,</span> <span class="n">push_freq</span> <span class="o">=</span> <span class="n">push_imu</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">sfreq</span><span class="p">)</span>
 
     <span class="c1"># Create time vs. velocity with push detection figure</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-darkgrid&quot;</span><span class="p">)</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">push_idx</span><span class="p">],</span> <span class="n">vel</span><span class="p">[</span><span class="n">push_idx</span><span class="p">],</span> <span class="s2">&quot;k.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;vel&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;vel&#39;</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="n">push_idx</span><span class="p">],</span>
+             <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;vel&#39;</span><span class="p">][</span><span class="n">push_idx</span><span class="p">],</span> <span class="s1">&#39;k.&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Velocity [m/s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
     <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> Push detection Sprint test&quot;</span><span class="p">)</span>
-    <span class="n">ax1</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Create time vs. acceleration with push detection figure</span>
     <span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="s2">&quot;C7&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">acc_filt</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">[</span><span class="n">push_idx</span><span class="p">],</span> <span class="n">acc_filt</span><span class="p">[</span><span class="n">push_idx</span><span class="p">],</span> <span class="s2">&quot;k.&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Detected push&quot;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">acc</span><span class="p">,</span> <span class="s1">&#39;C7&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">acc_filt</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="n">push_idx</span><span class="p">],</span> <span class="n">acc_filt</span><span class="p">[</span><span class="n">push_idx</span><span class="p">],</span> <span class="s1">&#39;k.&#39;</span><span class="p">,</span>
+             <span class="n">markersize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Detected push&quot;</span><span class="p">)</span>
     <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Acceleration [m/$s^2$]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">ax2</span><span class="o">.</span><span class="n">autoscale</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">tight</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span></div>
 
@@ -815,7 +868,7 @@ title="Open an issue"
 <div class="viewcode-block" id="plot_power_speed_dist"><a class="viewcode-back" href="../../chapters/API/plots.html#worklab.plots.plot_power_speed_dist">[docs]</a><span class="k">def</span> <span class="nf">plot_power_speed_dist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">ylim_power</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylim_speed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ylim_distance</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot power, speed and distance versus time for left (solid line) and</span>
-<span class="sd">    right (dotted line) seperately</span>
+<span class="sd">    right (dotted line) separately</span>
 
 <span class="sd">    Figure scales automatically, unless you specify it manually with the ylim_* arguments</span>
 
@@ -916,7 +969,7 @@ title="Open an issue"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

@@ -130,6 +130,11 @@ const thebe_selector_output = ".output, .cell_output"
    Ergometer testing
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/exercise_testing.html">
+   Exercise testing
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -160,6 +165,31 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="chapters/examples/ex_physio_spiro.html">
    Working with spirometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/examples/ex_data_analysis_isometric_force_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/examples/ex_data_analysis_wingate_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/examples/ex_data_analysis_sprint_test.html">
+   Analysis of a sprint test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/examples/ex_data_analysis_submaximal_test.html">
+   Analysis of a submaximal test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapters/examples/ex_data_analysis_maximal_exercise_test.html">
+   Analysis of a maximal exercise test
   </a>
  </li>
 </ul>
@@ -492,7 +522,7 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="worklab-documentation">
 <h1>Worklab Documentation<a class="headerlink" href="#worklab-documentation" title="Permalink to this headline">#</a></h1>
 <p><a class="reference external" href="https://doi.org/10.5281/zenodo.3268671"><img alt="image" src="https://zenodo.org/badge/DOI/10.5281/zenodo.3268671.svg" /></a> <a class="reference external" href="https://badge.fury.io/py/worklab"><img alt="image" src="https://badge.fury.io/py/worklab.svg" /></a> <a class="reference external" href="https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE"><img alt="image" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a></p>
-<p><strong>Date</strong>: Jan 31, 2023</p>
+<p><strong>Date</strong>: Sep 20, 2023</p>
 <p>The current page contains information on wheelchair propulsion research in the worklab and the correspondingly named
 Python package. As such, the page contains a general outline of wheelchair propulsion research, but also some practical
 examples on how to work with that data together with the API-reference of the package. The worklab package aims
@@ -553,8 +583,9 @@ development environment up and running and your first pull request going.</p>
 <ul class="simple">
 <li><p><strong>Rick de Klerk</strong> - <em>Initial work</em> - <a class="reference external" href="https://orcid.org/0000-0003-2745-1963">ORCID</a></p></li>
 <li><p><strong>Thomas Rietveld</strong> - <a class="reference external" href="https://gitlab.com/Thomas2016">GitLab</a> -
-<a class="reference external" href="https://www.rug.nl/staff/t.rietveld">UMCG</a></p></li>
-<li><p><strong>Rowie Janssen</strong> - <a class="reference external" href="http://www.wheelpower.online">UMCG</a></p></li>
+<a class="reference external" href="https://orcid.org/0000-0002-7753-9958">ORCID</a></p></li>
+<li><p><strong>Rowie Janssen</strong> - <a class="reference external" href="https://orcid.org/0000-0001-7480-3779">ORCID</a></p></li>
+<li><p><strong>Jelmer Braaksma</strong> - <a class="reference external" href="https://orcid.org/0000-0002-9103-3590">ORCID</a></p></li>
 </ul>
 </section>
 <section id="citing">
@@ -578,14 +609,25 @@ SMARTwheel systems.</p></li>
 <p>Functions that use a specific algorithm or base have their references in the docstring. More generally, the analyses in
 this package are taken from:</p>
 <ul class="simple">
-<li><p>Vegter, R. J., Lamoth, C. J., De Groot, S., Veeger, D. H., &amp; Van der, Woude, L. H. (2013). Variability in bimanual
+<li><p>Janssen RJF, Vegter RJK, Houdijk H, Van der Woude LHV and De Groot S (2022). Evaluation of a standardized test protocol
+to measure wheelchair-specific anaerobic and aerobic exercise capacity in healthy novices on an instrumented roller
+ergometer. PLOS ONE 17(9): e0274255. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0274255">https://doi.org/10.1371/journal.pone.0274255</a></p></li>
+<li><p>De Klerk R, Vegter RJK, Veeger HEJ and Van der Woude LHV (2020). Technical Note: A Novel Servo-Driven
+Dual-Roller Handrim Wheelchair Ergometer. IEEE Transactions on Neural Systems and Rehabilitation Engineering,
+28(4), 953-960. <a class="reference external" href="https://doi.org/10.1109/TNSRE.2020.2965281">https://doi.org/10.1109/TNSRE.2020.2965281</a></p></li>
+<li><p>Rietveld T, Vegter RJK, van der Slikke RMA, Hoekstra AE, van der Woude LHV and de Groot S (2019). Wheelchair mobility
+performance of elite wheelchair tennis players during four field tests: Inter-trial reliability and construct validity.
+PLoS One 14(6): e0217514. <a class="reference external" href="https://doi.org/10.1371/journal.pone.0217514">https://doi.org/10.1371/journal.pone.0217514</a></p></li>
+<li><p>de Klerk R, Vegter RJK, Leving MT, de Groot S, Veeger HEJ, van der Woude LHV (2020). Determining and Controlling External
+Power Output During Regular Handrim Wheelchair Propulsion. J Vis Exp. 156. <a class="reference external" href="https://doi.org/10.3791/60492">https://doi.org/10.3791/60492</a></p></li>
+<li><p>Vegter RJK, Lamoth CJ, De Groot S, Veeger HEJ and Van der Woude LHV (2013). Variability in bimanual
 wheelchair propulsion: consistency of two instrumented wheels during handrim wheelchair propulsion on a motor driven
-treadmill. Journal of neuroengineering and rehabilitation, 10(1), 9.</p></li>
-<li><p>Van der Slikke, R. M. A., Berger, M. A. M., Bregman, D. J. J., &amp; Veeger, H. E. J. (2015). Wheel skid correction is
+treadmill. Journal of neuroengineering and rehabilitation, 10(1), 9. <a class="reference external" href="https://doi.org/10.1186/1743-0003-10-9">https://doi.org/10.1186/1743-0003-10-9</a></p></li>
+<li><p>Van der Slikke RMA, Berger MAM, Bregman DJJ, &amp; Veeger HEJ (2015). Wheel skid correction is
 a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors. Procedia Engineering, 112,
-207-212.</p></li>
-<li><p>van der Slikke, R., Berger, M., Bregman, D., &amp; Veeger, D. (2016). Push characteristics in wheelchair court sport
-sprinting. Procedia engineering, 147, 730-734.</p></li>
+207-212. <a class="reference external" href="https://doi.org/10.1016/j.proeng.2015.07.201">https://doi.org/10.1016/j.proeng.2015.07.201</a></p></li>
+<li><p>Van der Slikke RMA, Berger MAM, Bregman DJJ and Veeger HEJ (2016). Push characteristics in wheelchair court sport
+sprinting. Procedia engineering, 147, 730-734. <a class="reference external" href="https://doi.org/10.1016/j.proeng.2016.06.265">https://doi.org/10.1016/j.proeng.2016.06.265</a></p></li>
 </ul>
 </section>
 <div class="toctree-wrapper compound">
@@ -637,7 +679,7 @@ sprinting. Procedia engineering, 147, 730-734.</p></li>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

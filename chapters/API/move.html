@@ -430,7 +430,7 @@ If I have the time I will make a vector3d class. Most functions assume
 an [n, 3] or [1, 3] array or dataframe.</p>
 <span class="target" id="module-worklab.move"></span><dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.acs_to_car_ang">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">acs_to_car_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#acs_to_car_ang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.acs_to_car_ang" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">acs_to_car_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order=&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#acs_to_car_ang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.acs_to_car_ang" title="Permalink to this definition">#</a></dt>
 <dd><p>Anatomical coordinate system to cardanic angles</p>
 <p>Note: Only works if used in the DSEM coordinate system
 Y pointing upward, X pointing laterally to the right and Z point backwards</p>
@@ -545,7 +545,7 @@ marker points.</p>
 <li><p><strong>point1</strong> (<em>np.array</em>) – first marker point, used as origin if mean=False</p></li>
 <li><p><strong>point2</strong> (<em>np.array</em>) – second marker point, used as x-axis</p></li>
 <li><p><strong>point3</strong> (<em>np.array</em>) – third marker point</p></li>
-<li><p><strong>mean</strong> (<em>bool</em>) – whether or not the mean should be used as origin, default is False</p></li>
+<li><p><strong>mean</strong> (<em>bool</em>) – using the mean as the origin, default is False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -567,14 +567,14 @@ marker points.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vector2d</strong> (<em>np.array</em>) – [n, 3] vector data, only uses x and y</p></li>
 <li><p><strong>clockwise</strong> (<em>bool</em>) – clockwise or counterclockwise rotation</p></li>
-<li><p><strong>normalized</strong> (<em>bool</em>) – whether or not to normalize the result, default is True</p></li>
+<li><p><strong>normalized</strong> (<em>bool</em>) – normalising the result, default is True</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>perp_vector2d</strong> – rotated vector</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>np.array</p>
+<dd class="field-odd"><p>numpy array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -608,7 +608,7 @@ marker points.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.magnitude">
 <span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">magnitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.magnitude" title="Permalink to this definition">#</a></dt>
-<dd><p>Calculates the vector magnitude using an l2 norm. Works with [1, 3] or [n, 3] vectors.</p>
+<dd><p>Calculates the vector magnitude using a l2 norm. Works with [1, 3] or [n, 3] vectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>vector3d</strong> (<em>np.array</em>) – a [1, 3] or [n, 3] vector</p>
@@ -625,7 +625,7 @@ marker points.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_cl">
 <span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_cl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IJ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_cl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_cl" title="Permalink to this definition">#</a></dt>
-<dd><p>Make the anatomical coordinate system of the clavicule based on ISB recommendations</p>
+<dd><p>Make the anatomical coordinate system of the clavicle based on ISB recommendations</p>
 <p>Y is pointing upwards
 X is pointing to the front
 Z is pointing laterally to the right</p>
@@ -645,9 +645,9 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the clavicule</p></li>
-<li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the clavicule</p></li>
-<li><p><strong>origin</strong> (<em>np.array</em>) – origin of the local coordinate system of the clavicule</p></li>
+<li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the clavicle</p></li>
+<li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the clavicle</p></li>
+<li><p><strong>origin</strong> (<em>np.array</em>) – origin of the local coordinate system of the clavicle</p></li>
 </ul>
 </p>
 </dd>
@@ -859,7 +859,7 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.normalize">
 <span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.normalize" title="Permalink to this definition">#</a></dt>
-<dd><p>Normalizes [n, 3] marker data using an l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.</p>
+<dd><p>Normalizes [n, 3] marker data using a l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>vector3d</strong> (<em>np.array</em>) – marker data to be normalized</p>
@@ -925,7 +925,7 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 <li><p><strong>vector3d</strong> (<em>np.array</em>) – array to be scaled, also works on dataframes, assumes [n, xyz] data</p></li>
 <li><p><strong>x</strong> (<em>float</em>) – x-axis scaling</p></li>
 <li><p><strong>y</strong> (<em>float</em>) – y-axis scaling</p></li>
-<li><p><strong>z</strong> (<em>floag</em>) – z-axis scaling</p></li>
+<li><p><strong>z</strong> (<em>float</em>) – z-axis scaling</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -987,7 +987,7 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

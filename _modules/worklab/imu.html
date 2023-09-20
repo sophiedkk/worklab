@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -109,7 +110,22 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/setup.html">
-   Setup
+   Quick Start Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/ergometer.html">
+   Ergometer testing
   </a>
  </li>
 </ul>
@@ -121,27 +137,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples.html">
-   Examples
+   Minimal examples
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
-   Minimal example for working with ergometer data
+   Working with ergometer data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
-   Minimal example for working with measurement wheel data
+   Working with measurement wheel data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
-   Minimal example for working with NGIMU data
+   Working with NGIMU data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
-   Minimal example for working with spirometer data
+   Working with spirometer data
   </a>
  </li>
 </ul>
@@ -356,7 +372,7 @@ title="Open an issue"
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resample all devices and sensors to new sample frequency.</span>
 
-<span class="sd">    Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with NGIMU&#39;s so resampling</span>
+<span class="sd">    Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with ngimu so resampling</span>
 <span class="sd">    before further analysis is recommended. Translated from xio-Technologies.</span>
 
 <span class="sd">    Parameters</span>
@@ -394,7 +410,7 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">sessiondata</span></div>
 
 
-<div class="viewcode-block" id="process_imu"><a class="viewcode-back" href="../../chapters/API/imu.html#worklab.imu.process_imu">[docs]</a><span class="k">def</span> <span class="nf">process_imu</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">,</span> <span class="n">camber</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">wsize</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">wbase</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span> <span class="n">n_sensors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sensor_type</span><span class="o">=</span><span class="s2">&quot;ngimu&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="process_imu"><a class="viewcode-back" href="../../chapters/API/imu.html#worklab.imu.process_imu">[docs]</a><span class="k">def</span> <span class="nf">process_imu</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">,</span> <span class="n">camber</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">wsize</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">wbase</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span> <span class="n">n_sensors</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sensor_type</span><span class="o">=</span><span class="s1">&#39;ngimu&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate wheelchair kinematic variables based on NGIMU data</span>
 
@@ -409,11 +425,12 @@ title="Open an issue"
 <span class="sd">    wbase : float</span>
 <span class="sd">        width of wheelbase</span>
 <span class="sd">    n_sensors: float</span>
-<span class="sd">        number of sensors used, 1: right wheel, 2: right wheel and frame, 3: right, left wheel and frame</span>
+<span class="sd">        number of sensors used: 2: right wheel and frame, 3: right, left wheel and frame</span>
 <span class="sd">    sensor_type: string</span>
-<span class="sd">        type of sensor, &#39;ngimu&#39; is for xio-technologies, &#39;move&#39; is for movesense</span>
+<span class="sd">        type of sensor, &#39;ngimu&#39; or &#39;ximu3&#39; is for xio-technologies, &#39;move&#39; is for movesense</span>
 <span class="sd">    inplace : bool</span>
 <span class="sd">        performs operation inplace</span>
+
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -423,86 +440,164 @@ title="Open an issue"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">sessiondata</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">left</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span>
     <span class="n">frame</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
     <span class="n">right</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span>
 
     <span class="n">sfreq</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+    <span class="n">right</span><span class="p">[</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
     <span class="c1"># Wheelchair camber correction</span>
     <span class="n">deg2rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
     <span class="n">right</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;gyroscope_y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">)</span>
-    <span class="p">)</span>
-
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span>
+        <span class="n">left</span><span class="p">[</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
         <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyroscope_y&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
-            <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">)</span>
-        <span class="p">)</span>
+            <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">))</span>
         <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span>
 
-    <span class="c1"># Calculation of rotations, rotational velocity and acceleration</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="c1"># Calculation of rotations, rotational velocity and rotational acceleration</span>
     <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
     <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_acc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>
 
-    <span class="c1"># Calculation of speed, acceleration and distance</span>
+    <span class="c1"># Calculation of velocity, acceleration and distance</span>
     <span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wsize</span> <span class="o">*</span> <span class="n">deg2rad</span>  <span class="c1"># angular velocity to linear velocity</span>
     <span class="n">right</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># integral of velocity gives distance</span>
 
     <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
         <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wsize</span> <span class="o">*</span> <span class="n">deg2rad</span>
         <span class="n">left</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># mean velocity both sides</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># mean distance</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># mean velocity both sides</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># mean distance</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span>
 
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;acc_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>  <span class="c1"># mean acceleration from velocity</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;acc_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>  <span class="c1"># mean acceleration from velocity</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;acc_wheel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s1">&#39;acc_wheel&#39;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">sensor_type</span> <span class="o">==</span> <span class="s2">&quot;ngimu&quot;</span><span class="p">:</span>  <span class="c1"># Acceleration for NGIMU is in g</span>
+    <span class="k">if</span> <span class="n">sensor_type</span> <span class="o">==</span> <span class="s1">&#39;ngimu&#39;</span> <span class="ow">or</span> <span class="n">sensor_type</span> <span class="o">==</span> <span class="s1">&#39;ximu3&#39;</span><span class="p">:</span>  <span class="c1"># Acceleration for NGIMU/XIMU3 is in g</span>
         <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;accelerometer_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;accelerometer_x&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">9.81</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;acc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;accelerometer_x&quot;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-    <span class="c1"># distance in the x and y direction</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))),</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span>
-    <span class="p">)</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))),</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span>
-    <span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s1">&#39;accelerometer_x&#39;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-    <span class="c1"># Van der Slikke, R. M. A., et. al. https://doi.org/10.1016/j.proeng.2015.07.201</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>  <span class="c1"># Calculate frame centre distance</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_right&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">))</span> <span class="o">*</span> <span class="n">wbase</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sfreq</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform skid correction from Rienk vd Slikke, please refer and reference to: Van der Slikke, R. M. A., et. al.</span>
+<span class="sd">    Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors.</span>
+<span class="sd">    Procedia Engineering, 112, 207-212.&quot;&quot;&quot;</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>  <span class="c1"># Calculate frame centre distance</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_right&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">))</span> <span class="o">*</span> <span class="n">wbase</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sfreq</span>
 
     <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_left&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">))</span> <span class="o">*</span> <span class="n">wbase</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sfreq</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">))</span> <span class="o">*</span> <span class="n">wbase</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sfreq</span>
 
         <span class="n">r_ratio0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span>  <span class="c1"># Ratio left and right</span>
         <span class="n">l_ratio0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span>
-        <span class="n">r_ratio1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span> <span class="o">/</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span>
-        <span class="p">)</span>
-        <span class="n">l_ratio1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span> <span class="o">/</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span>
-        <span class="p">)</span>
+        <span class="n">r_ratio1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span>
+                                                       <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])))</span>
+        <span class="n">l_ratio1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">right</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]))</span>
+                                                        <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">])))</span>
 
         <span class="n">comb_ratio</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_ratio0</span> <span class="o">*</span> <span class="n">r_ratio1</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">r_ratio0</span> <span class="o">*</span> <span class="n">r_ratio1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">l_ratio0</span> <span class="o">*</span> <span class="n">l_ratio1</span><span class="p">))</span>  <span class="c1"># Combine speed ratios</span>
-        <span class="n">comb_ratio</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">comb_ratio</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">comb_ratio</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">comb_ratio</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>  <span class="c1"># Filter the signal</span>
-        <span class="n">comb_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">comb_ratio</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># clamp Combratio values, not in df</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_right&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">comb_ratio</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_left&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">comb_ratio</span><span class="p">))</span>
+        <span class="n">comb_ratio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">comb_ratio</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># clamp Combine ratio values, not in df</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_right&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">comb_ratio</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">comb_ratio</span><span class="p">))</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_right&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;dist&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel_right&quot;</span><span class="p">]</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_right&quot;</span><span class="p">]</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>  <span class="c1"># Combined distance</span>
 
-    <span class="c1"># frame[&quot;skid_vel&quot;] = lowpass_butter(frame[&quot;skid_vel&quot;], sfreq=sfreq, cutoff=10)</span>
-    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;skid_vel&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>  <span class="c1"># Combined skid distance</span>
+    <span class="c1"># distance in the x and y direction</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))),</span>
+        <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))),</span>
+        <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sessiondata</span></div>
+
+
+<div class="viewcode-block" id="process_imu_left"><a class="viewcode-back" href="../../chapters/API/imu.html#worklab.imu.process_imu_left">[docs]</a><span class="k">def</span> <span class="nf">process_imu_left</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">,</span> <span class="n">camber</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">wsize</span><span class="o">=</span><span class="mf">0.32</span><span class="p">,</span> <span class="n">wbase</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span>
+                     <span class="n">sensor_type</span><span class="o">=</span><span class="s1">&#39;ngimu&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate wheelchair kinematic variables based on NGIMU data</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sessiondata : dict</span>
+<span class="sd">        original sessiondata structure</span>
+<span class="sd">    camber : float</span>
+<span class="sd">        camber angle in degrees</span>
+<span class="sd">    wsize : float</span>
+<span class="sd">        radius of the wheels</span>
+<span class="sd">    wbase : float</span>
+<span class="sd">        width of wheelbase</span>
+<span class="sd">    sensor_type: string</span>
+<span class="sd">        type of sensor, &#39;ngimu&#39; or &#39;ximu3&#39; is xio-technologies, &#39;move&#39; is movesense</span>
+<span class="sd">    inplace : bool</span>
+<span class="sd">        performs operation inplace</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sessiondata : dict</span>
+<span class="sd">        sessiondata structure with processed data</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="n">sessiondata</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">)</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+    <span class="c1"># Calculation of rotations, rotational velocity and acceleration</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyroscope_z&quot;</span><span class="p">],</span>
+                                      <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_acc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>
+
+    <span class="c1"># Wheelchair camber correction</span>
+    <span class="n">deg2rad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+    <span class="n">left</span><span class="p">[</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyroscope_y&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">camber</span> <span class="o">*</span> <span class="n">deg2rad</span><span class="p">))</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span>
+
+    <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;gyro_cor&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">wsize</span> <span class="o">*</span> <span class="n">deg2rad</span>
+    <span class="n">left</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">],</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;acc_wheel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_wheel&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">sfreq</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;acc_wheel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s1">&#39;acc_wheel&#39;</span><span class="p">],</span>
+                                        <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">sensor_type</span> <span class="o">==</span> <span class="s1">&#39;ngimu&#39;</span> <span class="ow">or</span> <span class="n">sensor_type</span> <span class="o">==</span> <span class="s1">&#39;ximu3&#39;</span><span class="p">:</span>  <span class="c1"># Acceleration for NGIMU/XIMU3 is in g</span>
+        <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;accelerometer_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;accelerometer_x&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">9.81</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;acc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lowpass_butter</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s1">&#39;accelerometer_x&#39;</span><span class="p">],</span>
+                                  <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">))</span> <span class="o">*</span> <span class="n">wbase</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sfreq</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel_left&quot;</span><span class="p">]</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;vel&quot;</span><span class="p">],</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">sfreq</span>
+
+    <span class="c1"># distance in the x and y direction</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))),</span>
+        <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cumtrapz</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;dist&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="n">cumtrapz</span><span class="p">(</span><span class="n">frame</span><span class="p">[</span><span class="s2">&quot;rot_vel&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">,</span> <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))),</span>
+        <span class="n">initial</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="n">sessiondata</span></div>
 
 
@@ -557,7 +652,7 @@ title="Open an issue"
     <span class="n">min_freq</span> <span class="o">=</span> <span class="mf">1.2</span>
     <span class="n">f</span><span class="p">,</span> <span class="n">pxx</span> <span class="o">=</span> <span class="n">periodogram</span><span class="p">(</span><span class="n">acceleration</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">acceleration</span><span class="p">),</span> <span class="n">sfreq</span><span class="p">)</span>
     <span class="n">min_freq_f</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">f</span> <span class="o">&lt;</span> <span class="n">min_freq</span><span class="p">])</span>
-    <span class="n">max_freq_ind_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">pxx</span><span class="p">[</span><span class="n">min_freq_f</span> <span class="p">:</span> <span class="n">min_freq_f</span> <span class="o">*</span> <span class="mi">5</span><span class="p">])</span>
+    <span class="n">max_freq_ind_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">pxx</span><span class="p">[</span><span class="n">min_freq_f</span><span class="p">:</span> <span class="n">min_freq_f</span> <span class="o">*</span> <span class="mi">5</span><span class="p">])</span>
     <span class="n">max_freq</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">min_freq_f</span> <span class="o">+</span> <span class="n">max_freq_ind_temp</span><span class="p">]</span>
     <span class="n">max_freq</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">max_freq</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
     <span class="n">cutoff_freq</span> <span class="o">=</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">max_freq</span>
@@ -574,6 +669,62 @@ title="Open an issue"
         <span class="n">cycle_time</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">push_idx</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">push_idx</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">/</span> <span class="n">sfreq</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">push_idx</span><span class="p">,</span> <span class="n">acc_filt</span><span class="p">,</span> <span class="n">n_pushes</span><span class="p">,</span> <span class="n">cycle_time</span><span class="p">,</span> <span class="n">push_freq</span></div>
+
+
+<div class="viewcode-block" id="movesense_offset"><a class="viewcode-back" href="../../chapters/API/imu.html#worklab.imu.movesense_offset">[docs]</a><span class="k">def</span> <span class="nf">movesense_offset</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">,</span> <span class="n">n_sensors</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">right_wheel</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove offset MoveSense sensors</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sessiondata : dict</span>
+<span class="sd">        resampled sessiondata structure</span>
+<span class="sd">    right_wheel: boolean</span>
+<span class="sd">        if set to True, right wheel is used, if set to False, left wheel is used</span>
+<span class="sd">    n_sensors: float</span>
+<span class="sd">        number of sensors used, 2: right wheel and frame,</span>
+<span class="sd">        3: right, left wheel and frame</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sessiondata : dict</span>
+<span class="sd">        sessiondata with offset removed</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">right_wheel</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">offset_indices</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">offset_indices</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">offset_indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">offset_frame_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_x&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+        <span class="n">offset_frame_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+        <span class="n">offset_frame_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_x&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_frame_x</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_frame_y</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_frame_z</span>
+
+        <span class="k">if</span> <span class="n">right_wheel</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">offset_right_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+            <span class="n">offset_right_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+            <span class="n">offset_right_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_x&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_right_y</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_right_z</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_x&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_right_x</span>
+
+        <span class="k">if</span> <span class="n">n_sensors</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">or</span> <span class="n">right_wheel</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">offset_left_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+            <span class="n">offset_left_z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+            <span class="n">offset_left_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_x&#39;</span><span class="p">][</span><span class="n">offset_indices</span><span class="p">])</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_y&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_left_y</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_z&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_left_z</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;gyroscope_x&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset_left_x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No offset corrected&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sessiondata</span></div>
 </pre></div>
 
               </div>
@@ -590,7 +741,7 @@ title="Open an issue"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

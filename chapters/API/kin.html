@@ -433,7 +433,7 @@ top-level function <code class="docutils literal notranslate"><span class="pre">
 <span class="sig-prename descclassname"><span class="pre">worklab.kin.</span></span><span class="sig-name descname"><span class="pre">auto_process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wheelsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.31</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rimsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.27</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">co_f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ord_f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">co_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ord_s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'torque'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">201</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ord_a</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minpeak</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/kin.html#auto_process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.kin.auto_process" title="Permalink to this definition">#</a></dt>
 <dd><p>Top level processing function that performs all processing steps for mw/ergo data.</p>
 <p>Contains all signal processing steps in fixed order. It is advised to use this function for all (pre-)processing.
-If needed take a look at a specific function to see how it works.</p>
+If needed to take a look at a specific function to see how it works.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -591,7 +591,7 @@ Added columns:</p>
 <td><p>W</p></td>
 </tr>
 <tr class="row-odd"><td><p>work</p></td>
-<td><p>instantanious work</p></td>
+<td><p>instantaneous work</p></td>
 <td><p>J</p></td>
 </tr>
 <tr class="row-even"><td><p>uforce</p></td>
@@ -681,7 +681,7 @@ Added columns:</p>
 <td><p>W</p></td>
 </tr>
 <tr class="row-even"><td><p>work</p></td>
-<td><p>instantanious work</p></td>
+<td><p>instantaneous work</p></td>
 <td><p>J</p></td>
 </tr>
 </tbody>
@@ -799,11 +799,12 @@ Added columns:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>dict</em>) – wheelchair ergometer dictionary</p></li>
+<li><p><strong>data</strong> (<em>dict</em>) – wheelchair ergometer dictionary  with left, right and mean DataFrame</p></li>
 <li><p><strong>variable</strong> (<em>str</em>) – variable name used for peak (push) detection, default = power</p></li>
 <li><p><strong>cutoff</strong> (<em>float</em>) – noise level for peak (push) detection, default = 0</p></li>
 <li><p><strong>minpeak</strong> (<em>float</em>) – min peak height for peak (push) detection, default = 50.0</p></li>
 <li><p><strong>mindist</strong> (<em>int</em>) – minimum sample distance between peak candidates, can be used to speed up algorithm</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – can be used to print out the number of pushes for left, right and mean, default = True</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -914,6 +915,8 @@ Added columns:</p>
 <li><p><strong>variable</strong> (<em>str</em>) – variable name used for peak (push) detection</p></li>
 <li><p><strong>cutoff</strong> (<em>float</em>) – noise level for peak (push) detection</p></li>
 <li><p><strong>minpeak</strong> (<em>float</em>) – min peak height for peak (push) detection</p></li>
+<li><p><strong>mindist</strong> (<em>int</em>) – minimum sample distance between peak candidates, can be used to speed up algorithm</p></li>
+<li><p><strong>verbose</strong> (<em>Boolean</em>) – can be used to print out the number of pushes, default = True</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -975,7 +978,7 @@ Added columns:</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

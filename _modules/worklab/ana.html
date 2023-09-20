@@ -364,9 +364,8 @@ title="Open an issue"
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span> <span class="nn">.plots</span> <span class="kn">import</span> <span class="n">plot_power_speed_dist</span><span class="p">,</span> <span class="n">plot_pushes_ergo</span>
+<span class="kn">from</span> <span class="nn">.plots</span> <span class="kn">import</span> <span class="n">plot_power_speed_dist</span>
 <span class="kn">from</span> <span class="nn">.physio</span> <span class="kn">import</span> <span class="n">calc_weighted_average</span>
 
 
@@ -425,11 +424,11 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="isometricforce"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.isometricforce">[docs]</a><span class="k">def</span> <span class="nf">isometricforce</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">vel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="isometricforce"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.isometricforce">[docs]</a><span class="k">def</span> <span class="nf">isometricforce</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the three seconds maximal user force and plots it against time (darkblue).</span>
 <span class="sd">    Peaks are annotated with a dot and with the height of the peak, max value is shown in the corner.</span>
-<span class="sd">    Plot velocity optional &amp; possibility to scale manually</span>
+<span class="sd">    Possibility to scale manually</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -441,15 +440,13 @@ title="Open an issue"
 <span class="sd">        minimal height of peak, default is 40 N</span>
 <span class="sd">    distance : float, optional</span>
 <span class="sd">        minimal distance between peaks, default is 500 samples</span>
-<span class="sd">    vel : bool</span>
-<span class="sd">        plot velocity, default is True</span>
 <span class="sd">    ylim : list [min, max] of floats or int, optional</span>
 <span class="sd">        list of the minimal and maximal ylim for user force in N</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    fig : matplotlib.figure.Figure</span>
-<span class="sd">    peaks_y : series</span>
+<span class="sd">    peaks : series</span>
 <span class="sd">        peaks of maximal user force (averaged over left and right)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># calculate 3s rolling average</span>
@@ -458,8 +455,8 @@ title="Open an issue"
         <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">]</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;timed&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;3s&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="s2">&quot;3s&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-    <span class="c1"># plot figure, force in blue en velocity (optional) in red</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># plot force in blue and annotate peaks</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">)</span>
     <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 
     <span class="n">peaks_y_all</span> <span class="o">=</span> <span class="p">[]</span>
@@ -472,16 +469,10 @@ title="Open an issue"
         <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">peaks_x</span><span class="p">],</span> <span class="n">peaks_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;mediumblue&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">ylim</span><span class="p">:</span>
             <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">ylim</span><span class="p">:</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;uforce&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
         <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
         <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">vel</span><span class="p">:</span>
-            <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
-            <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="n">side</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;firebrick&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-            <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
-            <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 
         <span class="c1"># annotate peaks in plot</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">peaks_y</span><span class="p">)</span>
@@ -505,16 +496,12 @@ title="Open an issue"
             <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
                 <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
                     <span class="s2">&quot;Isometric force production (3 seconds) for left, right and the average </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">),</span>
-                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
-                <span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
                 <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Isometric force production (3 seconds) for left, right and the average&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Force [N]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
             <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;mediumblue&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">vel</span><span class="p">:</span>
-                <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Velocity [m/s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-                <span class="n">ax1</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;firebrick&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
             <span class="n">ax</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Time [s]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
@@ -529,15 +516,15 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">peaks</span></div>
 
 
-<div class="viewcode-block" id="protocol_wingate"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.protocol_wingate">[docs]</a><span class="k">def</span> <span class="nf">protocol_wingate</span><span class="p">(</span><span class="n">fiso</span><span class="p">,</span> <span class="n">muser</span><span class="p">,</span> <span class="n">mwc</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<div class="viewcode-block" id="protocol_wingate"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.protocol_wingate">[docs]</a><span class="k">def</span> <span class="nf">protocol_wingate</span><span class="p">(</span><span class="n">fiso</span><span class="p">,</span> <span class="n">muser</span><span class="p">,</span> <span class="n">mwc</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the protocol for the Wingate test on a wheelchair ergometer,</span>
 <span class="sd">    based on the regression equations between the isometric force, anaerobic</span>
 <span class="sd">    and aerobic power.</span>
 
-<span class="sd">    (Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.</span>
+<span class="sd">    (Janssen T.W.J., Van Oers C.A.J.M., Hollander A.P., Veeger H.E.J., Van der Woude L.H.V.</span>
 <span class="sd">    Isometric strength sprint power and anaerobic power in individuals with a</span>
-<span class="sd">    spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.</span>
+<span class="sd">    spinal cord injury. Med Sci Sports Exercise 1993;25(7):863-870.</span>
 <span class="sd">    doi:10.1249/00005768-199307000-00016)</span>
 
 <span class="sd">    Parameters</span>
@@ -548,15 +535,13 @@ title="Open an issue"
 <span class="sd">        mass user</span>
 <span class="sd">    mwc : float/int</span>
 <span class="sd">        mass wheelchair</span>
-<span class="sd">    folder : str, optional</span>
-<span class="sd">        file path, protocol will be saved here</span>
 <span class="sd">    v : float/int, optional</span>
 <span class="sd">        mean velocity wingate, default is 2 m/s</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Print the maximal three seconds force, the predicted P30, the aimed mean velocity</span>
-<span class="sd">    and the calculated resistance. Option to save in folder</span>
+<span class="sd">    Print the maximal three seconds force, the predicted p30, the aimed mean velocity</span>
+<span class="sd">    and the calculated resistance.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mtotal</span> <span class="o">=</span> <span class="n">muser</span> <span class="o">+</span> <span class="n">mwc</span>
@@ -584,15 +569,7 @@ title="Open an issue"
         <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
-
-    <span class="c1"># save print in folder (optional)</span>
-    <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
-        <span class="n">original_stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>  <span class="c1"># original standard output</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">folder</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="s2">&quot;isometricwingate.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">f</span>  <span class="c1"># change the standard output to the file we created</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">original_stdout</span>  <span class="c1"># reset the standard output</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="wingate"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.wingate">[docs]</a><span class="k">def</span> <span class="nf">wingate</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
@@ -609,7 +586,7 @@ title="Open an issue"
 <span class="sd">    box : bool</span>
 <span class="sd">        prints important performance indicators on figure, default is False</span>
 <span class="sd">    ylim : float, optional</span>
-<span class="sd">        sets the ylim of the graph, defaul is 5 ms</span>
+<span class="sd">        sets the ylim of the graph, default is 5 ms</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -641,26 +618,26 @@ title="Open an issue"
     <span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 
     <span class="c1"># calculate outcomes</span>
-    <span class="n">P30</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">Pmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="n">P5max</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="n">P5start</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">499</span><span class="p">]</span>
-    <span class="n">P5min</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-    <span class="n">P5end</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">rfmaxmin</span> <span class="o">=</span> <span class="p">((</span><span class="n">P5max</span> <span class="o">-</span> <span class="n">P5min</span><span class="p">)</span> <span class="o">/</span> <span class="n">P5max</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="n">rfstartend</span> <span class="o">=</span> <span class="p">((</span><span class="n">P5start</span> <span class="o">-</span> <span class="n">P5end</span><span class="p">)</span> <span class="o">/</span> <span class="n">P5start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">p30</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">pmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">p5max</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">p5start</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">499</span><span class="p">]</span>
+    <span class="n">p5min</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">p5end</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;p5&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">rfmaxmin</span> <span class="o">=</span> <span class="p">((</span><span class="n">p5max</span> <span class="o">-</span> <span class="n">p5min</span><span class="p">)</span> <span class="o">/</span> <span class="n">p5max</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">rfstartend</span> <span class="o">=</span> <span class="p">((</span><span class="n">p5start</span> <span class="o">-</span> <span class="n">p5end</span><span class="p">)</span> <span class="o">/</span> <span class="n">p5start</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
     <span class="n">vmean</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
     <span class="n">vmax</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
     <span class="n">outcomes</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="s2">&quot;P30&quot;</span><span class="p">:</span> <span class="n">P30</span><span class="p">,</span>
-            <span class="s2">&quot;Pmax&quot;</span><span class="p">:</span> <span class="n">Pmax</span><span class="p">,</span>
-            <span class="s2">&quot;P5max&quot;</span><span class="p">:</span> <span class="n">P5max</span><span class="p">,</span>
-            <span class="s2">&quot;P5min&quot;</span><span class="p">:</span> <span class="n">P5min</span><span class="p">,</span>
+            <span class="s2">&quot;P30&quot;</span><span class="p">:</span> <span class="n">p30</span><span class="p">,</span>
+            <span class="s2">&quot;Pmax&quot;</span><span class="p">:</span> <span class="n">pmax</span><span class="p">,</span>
+            <span class="s2">&quot;P5max&quot;</span><span class="p">:</span> <span class="n">p5max</span><span class="p">,</span>
+            <span class="s2">&quot;P5min&quot;</span><span class="p">:</span> <span class="n">p5min</span><span class="p">,</span>
             <span class="s2">&quot;rfmaxmin&quot;</span><span class="p">:</span> <span class="n">rfmaxmin</span><span class="p">,</span>
-            <span class="s2">&quot;P5start&quot;</span><span class="p">:</span> <span class="n">P5start</span><span class="p">,</span>
-            <span class="s2">&quot;P5end&quot;</span><span class="p">:</span> <span class="n">P5end</span><span class="p">,</span>
+            <span class="s2">&quot;P5start&quot;</span><span class="p">:</span> <span class="n">p5start</span><span class="p">,</span>
+            <span class="s2">&quot;P5end&quot;</span><span class="p">:</span> <span class="n">p5end</span><span class="p">,</span>
             <span class="s2">&quot;rfstartend&quot;</span><span class="p">:</span> <span class="n">rfstartend</span><span class="p">,</span>
             <span class="s2">&quot;vmean&quot;</span><span class="p">:</span> <span class="n">vmean</span><span class="p">,</span>
             <span class="s2">&quot;vmax&quot;</span><span class="p">:</span> <span class="n">vmax</span><span class="p">,</span>
@@ -675,13 +652,13 @@ title="Open an issue"
             <span class="mf">0.1</span><span class="p">,</span>
             <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
             <span class="n">s</span><span class="o">=</span><span class="s2">&quot;P30 = &quot;</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">P30</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p30</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
             <span class="o">+</span> <span class="s2">&quot; W&quot;</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pmax = &quot;</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">Pmax</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pmax</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
             <span class="o">+</span> <span class="s2">&quot;W&quot;</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">P5max = &quot;</span>
-            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">P5max</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p5max</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
             <span class="o">+</span> <span class="s2">&quot; W&quot;</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">vmax = &quot;</span>
             <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">vmax</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -695,50 +672,47 @@ title="Open an issue"
 
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Wingate test </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Wingate test&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">outcomes</span></div>
 
 
-<div class="viewcode-block" id="protocol_max"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.protocol_max">[docs]</a><span class="k">def</span> <span class="nf">protocol_max</span><span class="p">(</span><span class="n">P30</span><span class="p">,</span> <span class="n">muser</span><span class="p">,</span> <span class="n">mwc</span><span class="p">,</span> <span class="n">folder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mf">1.39</span><span class="p">):</span>
+<div class="viewcode-block" id="protocol_max"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.protocol_max">[docs]</a><span class="k">def</span> <span class="nf">protocol_max</span><span class="p">(</span><span class="n">p30</span><span class="p">,</span> <span class="n">muser</span><span class="p">,</span> <span class="n">mwc</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="mf">1.39</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the protocol for the Maximal exercise test on a wheelchair ergometer,</span>
 <span class="sd">    based on the regression equations between the isometric force, anaerobic</span>
 <span class="sd">    and aerobic power.</span>
 
-<span class="sd">    (Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.</span>
+<span class="sd">    (Janssen T.W.J., Van Oers C.A.J.M., Hollander A.P., Veeger H.E.J., Van der Woude L.H.V.</span>
 <span class="sd">    Isometric strength sprint power and anaerobic power in individuals with a</span>
-<span class="sd">    spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.</span>
+<span class="sd">    spinal cord injury. Med Sci Sports Exercise 1993;25(7):863-870.</span>
 <span class="sd">    doi:10.1249/00005768-199307000-00016)</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    P30 : float</span>
+<span class="sd">    p30 : float</span>
 <span class="sd">        average power over a 30-sec Wingate test</span>
 <span class="sd">    muser : float/int</span>
 <span class="sd">        mass user</span>
 <span class="sd">    mwc : float/int</span>
 <span class="sd">        mass wheelchair</span>
-<span class="sd">    folder : str, optional</span>
-<span class="sd">        file path, protocol will be saved here</span>
 <span class="sd">    v : float, optional</span>
 <span class="sd">        constant comfortable velocity for the test, default is 1.39 m/s</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    Print the P30, the POpeak, the aimed mean velocity and the resistance for each step,</span>
-<span class="sd">    option to save in folder</span>
+<span class="sd">    Print the p30, the popeak, the aimed mean velocity and the resistance for each step.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mtotal</span> <span class="o">=</span> <span class="n">muser</span> <span class="o">+</span> <span class="n">mwc</span>
 
-    <span class="n">p30kg</span> <span class="o">=</span> <span class="n">P30</span> <span class="o">/</span> <span class="n">muser</span>
+    <span class="n">p30kg</span> <span class="o">=</span> <span class="n">p30</span> <span class="o">/</span> <span class="n">muser</span>
 
     <span class="n">poaer</span> <span class="o">=</span> <span class="mf">0.67</span> <span class="o">*</span> <span class="n">p30kg</span> <span class="o">+</span> <span class="mf">0.11</span>  <span class="c1"># (Janssen)</span>
     <span class="n">pototal</span> <span class="o">=</span> <span class="n">poaer</span> <span class="o">*</span> <span class="n">muser</span>
-    <span class="n">postart</span> <span class="o">=</span> <span class="mf">0.20</span> <span class="o">*</span> <span class="n">pototal</span>  <span class="c1"># start at 20% of POpeak</span>
-    <span class="n">posubmax2</span> <span class="o">=</span> <span class="mf">0.40</span> <span class="o">*</span> <span class="n">pototal</span>  <span class="c1"># 40% of POpeak</span>
+    <span class="n">postart</span> <span class="o">=</span> <span class="mf">0.20</span> <span class="o">*</span> <span class="n">pototal</span>  <span class="c1"># start at 20% of PO-peak</span>
+    <span class="n">posubmax2</span> <span class="o">=</span> <span class="mf">0.40</span> <span class="o">*</span> <span class="n">pototal</span>  <span class="c1"># 40% of PO-peak</span>
 
     <span class="c1"># calculate resistance start, submax2 &amp; end</span>
     <span class="n">f0</span> <span class="o">=</span> <span class="n">postart</span> <span class="o">/</span> <span class="n">v</span>
@@ -752,16 +726,16 @@ title="Open an issue"
     <span class="n">protocol</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">60</span>
         <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> P30 = &quot;</span>
-        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">P30</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Predicted POpeak = &quot;</span>
+        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">p30</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Predicted PO-peak = &quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">pototal</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Submaximal 20%POpeak = &quot;</span>
+        <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Sub-maximal 20%PO-peak = &quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
         <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
         <span class="o">+</span> <span class="s2">&quot; and velocity is &quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
         <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
-        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Submaximal 40%POpeak = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span> <span class="o">+</span> <span class="s2">&quot; and velocity is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Sub-maximal 40%PO-peak = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span> <span class="o">+</span> <span class="s2">&quot; and velocity is &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; m/s&quot;</span>
         <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">-</span><span class="se">\n</span><span class="s2"> The start resistance for the maximal exercise test should be &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">mu0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
         <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> After 10 minutes the resistance should be &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">muend</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
         <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> The step length is thus &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">9</span><span class="p">)</span> <span class="o">*</span> <span class="n">diff</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot; mu&quot;</span>
@@ -769,34 +743,22 @@ title="Open an issue"
         <span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Make sure to prolong the protocol for 25 minutes.&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="mi">60</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span>
     <span class="p">)</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
-
-    <span class="c1"># option to save print in folder</span>
-    <span class="k">if</span> <span class="n">folder</span><span class="p">:</span>
-        <span class="n">original_stdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>  <span class="c1"># original standard output</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">folder</span> <span class="o">+</span> <span class="s2">&quot;//&quot;</span> <span class="o">+</span> <span class="s2">&quot;wingatemax.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">f</span>  <span class="c1"># change the standard output to the file we created.</span>
-            <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">original_stdout</span>  <span class="c1"># reset the standard output</span></div>
+    <span class="nb">print</span><span class="p">(</span><span class="n">protocol</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="maximal1min"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.maximal1min">[docs]</a><span class="k">def</span> <span class="nf">maximal1min</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="maximal1min"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.maximal1min">[docs]</a><span class="k">def</span> <span class="nf">maximal1min</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maximal exercise test analyse. Gives a plot with the power (green) and velocity (red)</span>
 <span class="sd">    for each step, also prints the important performance indicators per step:</span>
-<span class="sd">    - Work [J]</span>
-<span class="sd">    - Mean power [W]</span>
-<span class="sd">    - Maximal power [W]</span>
-<span class="sd">    - Mean velocity [ms]</span>
-<span class="sd">    - Push time [s]</span>
-<span class="sd">    - Cycle time [s]</span>
+<span class="sd">        Work [J]</span>
+<span class="sd">        Mean power [W]</span>
+<span class="sd">        Maximal power [W]</span>
+<span class="sd">        Mean velocity [ms]</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    data : dict</span>
 <span class="sd">        processed and cutted ergometer data dictionary with dataframes</span>
-<span class="sd">    data_pbp : dict</span>
-<span class="sd">        processed and cutted push_by_push ergometer data dictionary with dataframes</span>
 <span class="sd">    dur : int</span>
 <span class="sd">        duration of max test in seconds</span>
 <span class="sd">    title : str, optional</span>
@@ -813,20 +775,19 @@ title="Open an issue"
     <span class="n">ncolumns</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># columns in the figure</span>
     <span class="n">nrows</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(((</span><span class="nb">max</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">ncolumns</span><span class="p">))</span>  <span class="c1"># rows in the figure</span>
 
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncolumns</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncolumns</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">16</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span>
             <span class="s2">&quot;Analysis of maximal exercise test for: &quot;</span>
             <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
             <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Increments = 1 min, last 20sec of each minute shown&quot;</span>
         <span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Analysis of maximal exercise test&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Increments = 1 min, last 20sec of each minute shown&quot;</span><span class="p">)</span>
-
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Analysis of maximal exercise test&quot;</span>
+                     <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Increments = 1 min, last 20sec of each minute shown&quot;</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">it</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">+</span> <span class="n">x</span>  <span class="c1"># rows in the figure</span>
 
     <span class="n">columns</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">*</span> <span class="mi">7</span>  <span class="c1"># columns in the figure</span>
@@ -836,19 +797,12 @@ title="Open an issue"
     <span class="n">max_power</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">mean_vel</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">work</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">push_time</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">cycle_time</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
         <span class="c1"># slice mean data for each step</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">])</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="p">[(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))]</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)]</span>
-
-        <span class="c1"># slice push by push data for each step</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">])</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">z</span><span class="p">[(</span><span class="n">z</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-</span> <span class="mi">60</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="s2">&quot;tstop&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))]</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;tstart&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="mi">20</span><span class="p">)]</span>
 
         <span class="c1"># calculate variables for each step (last 20 seconds)</span>
         <span class="n">mean_p</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -859,17 +813,9 @@ title="Open an issue"
         <span class="n">mean_vel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_v</span><span class="p">)</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="n">work</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-        <span class="n">push</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;ptime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="n">push_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">push</span><span class="p">)</span>
-        <span class="n">cycle</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="s2">&quot;ctime&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-        <span class="n">cycle_time</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cycle</span><span class="p">)</span>
 
-        <span class="c1"># plot power versus time and the start and stop of each step</span>
+        <span class="c1"># plot power versus time and velocity on the second y-axis</span>
         <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]],</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-        <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">][</span><span class="n">p</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]],</span> <span class="s2">&quot;ok&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-        <span class="c1"># plot velocity on the second y axis</span>
         <span class="n">ax1</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="s2">&quot;speed&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;firebrick&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;mean&quot;</span><span class="p">][</span><span class="s2">&quot;speed&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
@@ -886,15 +832,13 @@ title="Open an issue"
 
     <span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">top</span><span class="o">=</span><span class="mf">0.90</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 
-    <span class="n">step</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;step&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">work</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">work</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;work&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
     <span class="n">mean_power</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_power</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean_power&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
     <span class="n">max_power</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">max_power</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;max_power&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
     <span class="n">mean_vel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_vel</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean_vel&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">push_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">push_time</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;push_time&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
-    <span class="n">cycle_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cycle_time</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;cycle_time&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
 
-    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">step</span><span class="p">,</span> <span class="n">work</span><span class="p">,</span> <span class="n">mean_power</span><span class="p">,</span> <span class="n">max_power</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">,</span> <span class="n">push_time</span><span class="p">,</span> <span class="n">cycle_time</span><span class="p">])</span>
+    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">step</span><span class="p">,</span> <span class="n">work</span><span class="p">,</span> <span class="n">mean_power</span><span class="p">,</span> <span class="n">max_power</span><span class="p">,</span> <span class="n">mean_vel</span><span class="p">])</span>
     <span class="n">outcomes</span> <span class="o">=</span> <span class="n">outcomes</span><span class="o">.</span><span class="n">T</span>
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">outcomes</span></div>
 
@@ -902,7 +846,7 @@ title="Open an issue"
 <div class="viewcode-block" id="ana_sprint"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.ana_sprint">[docs]</a><span class="k">def</span> <span class="nf">ana_sprint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">half</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sprint test analyse. Plot a figure with the power, speed and distance for</span>
-<span class="sd">    left and right seperate. Also saves important outcomes</span>
+<span class="sd">    left and right separate. Also saves important outcomes</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -911,7 +855,7 @@ title="Open an issue"
 <span class="sd">    data_pbp : dict</span>
 <span class="sd">        processed and cutted push_by_push ergometer data dictionary with dataframes</span>
 <span class="sd">    half : float, optional</span>
-<span class="sd">        half time of the sprint, default is 5 s</span>
+<span class="sd">        half-time of the sprint, default is 5 s</span>
 <span class="sd">    title : str, optional</span>
 <span class="sd">        title of figure</span>
 
@@ -923,7 +867,7 @@ title="Open an issue"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_power_speed_dist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_power_speed_dist</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
 
     <span class="n">half</span> <span class="o">=</span> <span class="n">half</span> <span class="o">*</span> <span class="mi">100</span>  <span class="c1"># to get right index</span>
@@ -965,8 +909,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="ana_submax"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.ana_submax">[docs]</a><span class="k">def</span> <span class="nf">ana_submax</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">data_spiro</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Sub maximal test analyse. Plot a figure with the pushes for left, right</span>
-<span class="sd">    and the mean. Also saves important outcomes</span>
+<span class="sd">    Sub maximal test analyse. Saves important outcomes</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -979,12 +922,9 @@ title="Open an issue"
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    pushes : matplotlib.figure.Figure</span>
 <span class="sd">    outcomes : pd.DataFrame</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">pushes</span> <span class="o">=</span> <span class="n">plot_pushes_ergo</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">)</span>
-
     <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">calc_weighted_average</span><span class="p">(</span><span class="n">data_spiro</span><span class="p">[[</span><span class="s2">&quot;RER&quot;</span><span class="p">,</span> <span class="s2">&quot;EE&quot;</span><span class="p">,</span> <span class="s2">&quot;HR&quot;</span><span class="p">,</span> <span class="s2">&quot;VO2&quot;</span><span class="p">]],</span> <span class="n">data_spiro</span><span class="p">[</span><span class="s2">&quot;weights&quot;</span><span class="p">])</span>
     <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_spiro</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
@@ -1011,7 +951,7 @@ title="Open an issue"
 
     <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mean_ergo</span><span class="p">,</span> <span class="n">mean_spiro</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">outcomes</span><span class="p">[</span><span class="s2">&quot;me&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">outcomes</span><span class="p">[</span><span class="s2">&quot;meanpower&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">outcomes</span><span class="p">[</span><span class="s2">&quot;EE&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
-    <span class="k">return</span> <span class="n">pushes</span><span class="p">,</span> <span class="n">outcomes</span></div>
+    <span class="k">return</span> <span class="n">outcomes</span></div>
 </pre></div>
 
               </div>
@@ -1028,7 +968,7 @@ title="Open an issue"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

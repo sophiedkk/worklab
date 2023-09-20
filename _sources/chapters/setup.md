@@ -39,8 +39,9 @@ import worklab as wl
 
 If that returns no errors you are (probably) good to go. That's it.
 
-## TL;DR
+## Modules
 
+- **ana:** Contains functions to analyse submax, isometric force, wingate tests and more.
 - **com:** Provides functions for reading and writing data, use `load` to infer filetype and automatically read it. If 
 you use a different naming scheme you can always call the specific load functions.
 - **kinetics:** Contains all essentials for measurement wheel and ergometer data. You only need the top-level function 

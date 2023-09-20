@@ -540,13 +540,13 @@ testing that is beyond the scope of LEM.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.com.load_imu">
 <span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_imu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_imu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_imu" title="Permalink to this definition">#</a></dt>
-<dd><p>Imports NGIMU session in nested dictionary with all devices and sensors.</p>
-<p>Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</p>
+<dd><p>Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>root_dir</strong> (<em>str</em>) – directory where session is located</p></li>
 <li><p><strong>filenames</strong> (<em>list</em><em>, </em><em>optional</em>) – list of sensor names or single sensor name that you would like to include, only loads sensor if not specified</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em><em>, </em><em>default False</em>) – Whether to modify the DataFrame rather than creating a new one.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -562,7 +562,7 @@ testing that is beyond the scope of LEM.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.com.load_movesense">
-<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_movesense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_movesense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_movesense" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_movesense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_movesense"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_movesense" title="Permalink to this definition">#</a></dt>
 <dd><p>Imports MoveSense data in nested dictionary with all sensors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -757,7 +757,7 @@ Returns a DataFrame with:</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>filename</strong> (<em>str</em>) – full path to filename or filename in current path</p></li>
-<li><p><strong>include_header</strong> (<em>bool</em>) – whether or not to include the header in the output default is False</p></li>
+<li><p><strong>include_header</strong> (<em>bool</em>) – include the header in the output, default is False</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -872,7 +872,7 @@ the column with np.NaNs. Returns a DataFrame with:</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.com.load_spiro_metamax">
 <span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_spiro_metamax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_spiro_metamax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_spiro_metamax" title="Permalink to this definition">#</a></dt>
-<dd><p>Loads METAMAX 3B spirometer data from Excel file.</p>
+<dd><p>Loads metamax 3B spirometer data from Excel file.</p>
 <p>Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
 computes weights from the time difference between samples, if no heart rate data is available it fills
 the column with np.NaNs. Returns a DataFrame with:</p>
@@ -960,7 +960,7 @@ the column with np.NaNs. Returns a DataFrame with:</p>
 </table>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from METAMAX 3B spirometer</p>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – full file path or file in existing path from metamax 3B spirometer</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>data</strong> – Spirometer data in pandas DataFrame</p>
@@ -1122,6 +1122,29 @@ points (1:10:1 km/h).</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.com.load_ximu3">
+<span class="sig-prename descclassname"><span class="pre">worklab.com.</span></span><span class="sig-name descname"><span class="pre">load_ximu3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filenames</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/com.html#load_ximu3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.com.load_ximu3" title="Permalink to this definition">#</a></dt>
+<dd><p>Imports X-IMU3 session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_dir</strong> (<em>str</em>) – directory where session is located</p></li>
+<li><p><strong>filenames</strong> (<em>list</em><em>, </em><em>optional</em>) – list of sensor names or single sensor name that you would like to include, only loads Inertial if not specified</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em><em>, </em><em>default False</em>) – Whether to modify the DataFrame rather than creating a new one.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sessiondata</strong> – returns nested object sensordata[device][dataframe]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example">https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example</a></p>
+</dd></dl>
+
 </section>
 
     <script type="text/x-thebe-config">
@@ -1172,7 +1195,7 @@ points (1:10:1 km/h).</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

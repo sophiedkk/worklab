@@ -470,19 +470,19 @@ zero-crossings, finding the nearest value in a signal.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.utils.binned_stats">
 <span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">binned_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins=10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pad=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func=&lt;function</span> <span class="pre">mean&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan_func=&lt;function</span> <span class="pre">nanmean&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#binned_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.binned_stats" title="Permalink to this definition">#</a></dt>
-<dd><p>Apply a compatible Numpy function to every bins samples (e.g. mean or std).</p>
+<dd><p>Apply a compatible Numpy function to every bin samples (e.g. mean or std).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>np.array</em>) – array which has to be searched</p></li>
 <li><p><strong>bins</strong> (<em>int</em>) – number of samples to be averaged</p></li>
-<li><p><strong>pad</strong> (<em>bool</em>) – whether or not to pad the array with NaNs if needed</p></li>
+<li><p><strong>pad</strong> (<em>bool</em>) – whether to pad the array with NaNs if needed</p></li>
 <li><p><strong>func</strong> – function that is used when no padding is applied</p></li>
 <li><p><strong>nan_func</strong> – function that is used when padding is applied</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>means</strong> – array with the mean for every bins samples.</p>
+<dd class="field-even"><p><strong>means</strong> – array with the mean for every bin samples.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.array</p>
@@ -559,11 +559,11 @@ velocity decreasing with time (t) for the friction coefficients c1 and c2 for an
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>np.array</em>) – array which has to be searched</p></li>
 <li><p><strong>value</strong> (<em>float</em>) – value that you are looking for</p></li>
-<li><p><strong>index</strong> (<em>bool</em>) – whether or not you want the index</p></li>
+<li><p><strong>index</strong> (<em>bool</em>) – whether you want the index</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>value or index of nearest value</p>
+<dd class="field-even"><p>value or index of the nearest value</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>np.array</p>
@@ -869,12 +869,45 @@ the Wasserman plot</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>power</strong> – a dataframe containing the mean power output per step, showed as a continu signal</p>
+<dd class="field-even"><p><strong>power</strong> – a dataframe containing the mean power output per step, showed as a continuous signal</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.utils.signal_lag">
+<span class="sig-prename descclassname"><span class="pre">worklab.utils.</span></span><span class="sig-name descname"><span class="pre">signal_lag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/utils.html#signal_lag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.utils.signal_lag" title="Permalink to this definition">#</a></dt>
+<dd><p>Data alignment function, based on cross-correlation, that can align two devices.
+Input parameters need to be equal sample frequencies (i.e., a priori interpolation)</p>
+<p>Aligns 2 datasets based on given input variables, after low bandpass filtering.
+It is advised to use speed data for alignment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y1</strong> (<em>np.array</em><em>, </em><em>pd.Series</em>) – Variable from first device which lag of y2 is calculated on, preferably velocity array</p></li>
+<li><p><strong>y2</strong> (<em>np.array</em><em>, </em><em>pd.Series</em>) – Variable from second device which is compared to y1, preferably velocity array</p></li>
+<li><p><strong>sfreq</strong> (<em>float</em>) – sample frequency of the signal, default is 100</p></li>
+<li><p><strong>cutoff</strong> (<em>float</em>) – cutoff frequency for the filter, default is 6</p></li>
+<li><p><strong>order</strong> (<em>int</em>) – order of the filter, default is 2</p></li>
+<li><p><strong>plot</strong> (<em>boolean</em>) – can be used to plot the correlation line, default = True</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em>) – can be used to print out the samples that y2 lags compared to y1, default = True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>delay</strong> (<em>int</em>) – the number of samples that y2 should be shifted to correlate maximally to y1</p></li>
+<li><p><strong>maxcorr</strong> (<em>int</em>) – the correlation between y2 and y1, if shifted according to the delay</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#worklab.utils.lowpass_butter" title="worklab.utils.lowpass_butter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lowpass_butter</span></code></a></p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -905,7 +938,7 @@ ergometer data.</p>
 <p>Find the zero crossing events in a discrete data set. Linear interpolation is used to determine the actual
 locations of the zero crossing between two data points showing a change in sign. Data point which are zero
 are counted in as zero crossings if a sign change occurs across them. Note that the first and last data point will
-not be considered whether or not they are zero.</p>
+not be considered whether they are zero.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -973,7 +1006,7 @@ not be considered whether or not they are zero.</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

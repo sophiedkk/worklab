@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -109,7 +110,22 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/setup.html">
-   Setup
+   Quick Start Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/ergometer.html">
+   Ergometer testing
   </a>
  </li>
 </ul>
@@ -121,27 +137,27 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples.html">
-   Examples
+   Minimal examples
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
-   Minimal example for working with ergometer data
+   Working with ergometer data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
-   Minimal example for working with measurement wheel data
+   Working with measurement wheel data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
-   Minimal example for working with NGIMU data
+   Working with NGIMU data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
-   Minimal example for working with spirometer data
+   Working with spirometer data
   </a>
  </li>
 </ul>
@@ -476,7 +492,7 @@ title="Open an issue"
 <span class="sd">        Spirometer data in pandas DataFrame</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">usecols</span><span class="o">=</span><span class="s2">&quot;J:XX&quot;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">pd_dt_to_s</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># hh:mm:ss to s</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;EE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;EEm&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4184</span> <span class="o">/</span> <span class="mi">60</span>  <span class="c1"># kcal/min to J/s</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;weights&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># used for calculating weighted average</span>
@@ -511,7 +527,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="load_spiro_metamax"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spiro_metamax">[docs]</a><span class="k">def</span> <span class="nf">load_spiro_metamax</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Loads METAMAX 3B spirometer data from Excel file.</span>
+<span class="sd">    Loads metamax 3B spirometer data from Excel file.</span>
 
 <span class="sd">    Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,</span>
 <span class="sd">    computes weights from the time difference between samples, if no heart rate data is available it fills</span>
@@ -552,7 +568,7 @@ title="Open an issue"
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
-<span class="sd">        full file path or file in existing path from METAMAX 3B spirometer</span>
+<span class="sd">        full file path or file in existing path from metamax 3B spirometer</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -831,6 +847,7 @@ title="Open an issue"
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
     <span class="n">wheelchair</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
         <span class="s2">&quot;rimsize&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
@@ -879,7 +896,7 @@ title="Open an issue"
 <span class="sd">        left and right calibration values</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">gear_ratio</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># Roller to loadcell</span>
+    <span class="n">gear_ratio</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># Roller to load cell</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;left&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;Devices&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>  <span class="c1"># Remove random columns</span>
@@ -918,7 +935,7 @@ title="Open an issue"
     <span class="n">items</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># int16, number of markers</span>
     <span class="n">subitems</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># int16, number of dimensions (usually 3)</span>
     <span class="n">numframes</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;i&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">9</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># int32, number of frames</span>
-    <span class="n">sfrq</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">13</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># float32, sample frequency</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="n">content</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">13</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># float32, sample frequency</span>
     <span class="c1"># usercomment = merge_chars(unpack(&#39;c&#39; * 60, content[13:73]))  # char</span>
     <span class="c1"># sys_comment = merge_chars(unpack(&#39;c&#39; * 60, content[73:133]))</span>
     <span class="c1"># descrp_file = merge_chars(unpack(&#39;c&#39; * 30, content[133:163]))</span>
@@ -929,7 +946,7 @@ title="Open an issue"
 
     <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading data from </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">, recorded on </span><span class="si">{</span><span class="n">coll_date</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">coll_time</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">sfrq</span><span class="si">}</span><span class="s2"> Hz.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Reading data from </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">, recorded on </span><span class="si">{</span><span class="n">coll_date</span><span class="si">}</span><span class="s2"> at </span><span class="si">{</span><span class="n">coll_time</span><span class="si">}</span><span class="s2"> with </span><span class="si">{</span><span class="n">sfreq</span><span class="si">}</span><span class="s2"> Hz.&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
 
     <span class="n">num_total</span> <span class="o">=</span> <span class="n">items</span> <span class="o">*</span> <span class="n">subitems</span> <span class="o">*</span> <span class="n">numframes</span>  <span class="c1"># total number of &#39;samples&#39;</span>
@@ -943,8 +960,6 @@ title="Open an issue"
 
 <div class="viewcode-block" id="load_imu"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_imu">[docs]</a><span class="k">def</span> <span class="nf">load_imu</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Imports NGIMU session in nested dictionary with all devices and sensors.</span>
-
 <span class="sd">    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</span>
 
 <span class="sd">    Parameters</span>
@@ -953,7 +968,8 @@ title="Open an issue"
 <span class="sd">        directory where session is located</span>
 <span class="sd">    filenames : list, optional</span>
 <span class="sd">        list of sensor names or single sensor name that you would like to include, only loads sensor if not specified</span>
-
+<span class="sd">    inplace : bool, default False</span>
+<span class="sd">        Whether to modify the DataFrame rather than creating a new one.</span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    sessiondata : dict</span>
@@ -999,19 +1015,26 @@ title="Open an issue"
     <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
         <span class="n">sessiondata</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">)</span>
 
-    <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;right&quot;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No right sensor imported&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;frame&quot;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No frame sensor imported&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;left&quot;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No left sensor imported&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="s2">&quot;trunk&quot;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">else</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No trunk sensor imported&quot;</span><span class="p">)</span>
-    <span class="p">)</span>
-
+    <span class="k">if</span> <span class="s1">&#39;right&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No right sensor imported&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;frame&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No frame sensor imported&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;left&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No left sensor imported&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;trunk&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;sensors&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No trunk sensor imported&#39;</span><span class="p">)</span>
     <span class="n">sessiondata</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">sessiondata</span></div>
@@ -1052,7 +1075,7 @@ title="Open an issue"
 <span class="sd">    filename : str</span>
 <span class="sd">        full path to filename or filename in current path</span>
 <span class="sd">    include_header : bool</span>
-<span class="sd">        whether or not to include the header in the output default is False</span>
+<span class="sd">        include the header in the output, default is False</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -1142,7 +1165,7 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">opti_offset_df</span></div>
 
 
-<div class="viewcode-block" id="load_movesense"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_movesense">[docs]</a><span class="k">def</span> <span class="nf">load_movesense</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="load_movesense"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_movesense">[docs]</a><span class="k">def</span> <span class="nf">load_movesense</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Imports MoveSense data in nested dictionary with all sensors.</span>
 
@@ -1164,39 +1187,150 @@ title="Open an issue"
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">sessiondata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-
-    <span class="n">right_sensors</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">root_dir</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span><span class="p">))</span>
-    <span class="n">sensors</span> <span class="o">=</span> <span class="p">[</span><span class="n">right_sensors</span><span class="p">]</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">sensors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">right_sensors</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">root_dir</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
+        <span class="n">sensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">right_sensors</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">frame_sensors</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">root_dir</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span><span class="p">))</span>
+        <span class="n">frame_sensors</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">root_dir</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
         <span class="n">sensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">frame_sensors</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">left_sensors</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">root_dir</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span><span class="p">))</span>
+        <span class="n">left_sensors</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">root_dir</span> <span class="o">+</span> <span class="n">left</span> <span class="o">+</span> <span class="s1">&#39;*&#39;</span><span class="p">))</span>
         <span class="n">sensors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">left_sensors</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">sensor</span> <span class="ow">in</span> <span class="n">sensors</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">sensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="n">sensor_name</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+        <span class="k">if</span> <span class="n">right</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">sensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span>
         <span class="k">if</span> <span class="n">frame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">sensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="n">sensor_name</span> <span class="o">=</span> <span class="s2">&quot;frame&quot;</span>
+                <span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;frame&#39;</span>
         <span class="k">if</span> <span class="n">left</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">left</span> <span class="ow">in</span> <span class="n">sensor</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="n">sensor_name</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+                <span class="n">sensor_name</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
 
         <span class="n">acc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sensor</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">acc</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">acc</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="n">gyro</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sensor</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-        <span class="n">gyro</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="n">acc</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;accelerometer_y&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;accelerometer_x&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="s2">&quot;accelerometer_z&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">gyro</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;gyroscope_y&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;gyroscope_x&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="s2">&quot;gyroscope_z&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">gyro</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">acc</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;accelerometer_y&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;accelerometer_x&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="s1">&#39;accelerometer_z&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">gyro</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;gyroscope_y&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="s1">&#39;gyroscope_x&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="s1">&#39;gyroscope_z&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">acc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">acc</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;ms&quot;</span><span class="p">)</span>
-        <span class="n">acc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">acc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">acc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">acc</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">acc_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">acc</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+        <span class="n">acc_time</span> <span class="o">-=</span> <span class="n">acc_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">acc_time</span> <span class="o">=</span> <span class="n">acc_time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+        <span class="n">gyro_time</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">gyro</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+        <span class="n">gyro_time</span> <span class="o">-=</span> <span class="n">gyro_time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">gyro_time</span> <span class="o">=</span> <span class="n">gyro_time</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
 
-        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">gyro</span><span class="p">,</span> <span class="n">acc</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">join</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s2">&quot;timestamp&quot;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sfreq_acc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">acc_time</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+        <span class="n">sfreq_gyro</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">gyro_time</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">sfreq_acc</span> <span class="o">/</span> <span class="n">sfreq_gyro</span> <span class="o">&gt;</span> <span class="mf">1.1</span> <span class="ow">or</span> <span class="n">sfreq_acc</span> <span class="o">/</span> <span class="n">sfreq_gyro</span> <span class="o">&lt;</span> <span class="mf">0.9</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Sampling frequencies are not equal&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39; sfreq Acc: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sfreq_acc</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">sensor_name</span> <span class="o">+</span> <span class="s1">&#39; sfreq Gyro: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sfreq_gyro</span><span class="p">))</span>
+
+        <span class="n">sfreq</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">sfreq_acc</span><span class="p">,</span> <span class="n">sfreq_gyro</span><span class="p">)</span>
+
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">gyro</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">acc</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span>
+                                              <span class="n">how</span><span class="o">=</span><span class="s1">&#39;inner&#39;</span><span class="p">)</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor_name</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="n">sfreq</span><span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">sfreq</span><span class="o">.</span><span class="n">get</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">sessiondata</span><span class="p">,</span> <span class="n">sfreq</span></div>
+
+
+<div class="viewcode-block" id="load_ximu3"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_ximu3">[docs]</a><span class="k">def</span> <span class="nf">load_ximu3</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Imports X-IMU3 session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    root_dir : str</span>
+<span class="sd">        directory where session is located</span>
+<span class="sd">    filenames : list, optional</span>
+<span class="sd">        list of sensor names or single sensor name that you would like to include, only loads Inertial if not specified</span>
+<span class="sd">    inplace : bool, default False</span>
+<span class="sd">        Whether to modify the DataFrame rather than creating a new one.</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sessiondata : dict</span>
+<span class="sd">        returns nested object sensordata[device][dataframe]</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">directory_contents</span> <span class="o">=</span> <span class="n">listdir</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span>  <span class="c1"># all content in directory</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">directory_contents</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No contents in directory&quot;</span><span class="p">)</span>
+    <span class="n">directories</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">root_dir</span><span class="si">}</span><span class="s2">/*/&quot;</span><span class="p">)</span>  <span class="c1"># folders of all devices</span>
+    <span class="n">sessiondata</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filenames</span><span class="p">:</span>
+        <span class="n">filenames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sensordir</span> <span class="ow">in</span> <span class="n">directories</span><span class="p">:</span>  <span class="c1"># loop through all sensor directories</span>
+        <span class="n">sensor_files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">sensordir</span><span class="si">}</span><span class="s2">/*.csv&quot;</span><span class="p">)</span>
+        <span class="n">device_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sensordir</span><span class="p">)[</span><span class="mi">0</span><span class="p">])[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span> <span class="k">if</span> <span class="s2">&quot;links&quot;</span> <span class="ow">in</span> <span class="n">device_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;left&quot;</span> <span class="ow">in</span> <span class="n">device_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="n">device_name</span>
+        <span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span> <span class="k">if</span> <span class="s2">&quot;rechts&quot;</span> <span class="ow">in</span> <span class="n">device_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="s2">&quot;right&quot;</span> <span class="ow">in</span> <span class="n">device_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="n">device_name</span>
+        <span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;frame&quot;</span> <span class="k">if</span> <span class="s2">&quot;frame&quot;</span> <span class="ow">in</span> <span class="n">device_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="n">device_name</span>
+        <span class="n">device_name</span> <span class="o">=</span> <span class="s2">&quot;trunk&quot;</span> <span class="k">if</span> <span class="s2">&quot;trunk&quot;</span> <span class="ow">in</span> <span class="n">device_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="n">device_name</span>
+
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">device_name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">sensor_file</span> <span class="ow">in</span> <span class="n">sensor_files</span><span class="p">:</span>  <span class="c1"># loop through all csv files</span>
+            <span class="n">sensor_name</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">sensor_file</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># sensor without path or extension</span>
+
+            <span class="k">if</span> <span class="n">sensor_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filenames</span><span class="p">:</span>
+                <span class="k">continue</span>  <span class="c1"># skip if filenames is given and sensor not in filenames</span>
+
+            <span class="n">sessiondata</span><span class="p">[</span><span class="n">device_name</span><span class="p">][</span><span class="n">sensor_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sensor_file</span><span class="p">)</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+            <span class="n">new_col_names</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">device_name</span><span class="p">][</span><span class="n">sensor_name</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span>
+            <span class="n">new_col_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">new_col_names</span><span class="p">]</span>
+            <span class="n">sessiondata</span><span class="p">[</span><span class="n">device_name</span><span class="p">][</span><span class="n">sensor_name</span><span class="p">]</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">new_col_names</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">device_name</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No data was imported&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">inplace</span><span class="p">:</span>
+        <span class="n">sessiondata</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;right&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No right sensor imported&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;frame&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No frame sensor imported&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;left&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No left sensor imported&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;trunk&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No trunk sensor imported&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">sensor</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="p">:</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;us&#39;</span><span class="p">)</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
+
+    <span class="n">sessiondata</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">sessiondata</span></div>
 </pre></div>
@@ -1215,7 +1349,7 @@ title="Open an issue"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

@@ -503,7 +503,7 @@ different assays.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data1</strong> (<em>np.array</em><em>, </em><em>pd.Series</em>) – First variable</p></li>
 <li><p><strong>data2</strong> (<em>np.array</em><em>, </em><em>pd.Series</em>) – Second variable</p></li>
-<li><p><strong>ax</strong> (<em>axis object</em><em>, </em><em>optional</em>) – Axis to plot on, you can add your own or it will make a new one.</p></li>
+<li><p><strong>ax</strong> (<em>axis object</em><em>, </em><em>optional</em>) – Axis to plot on, you can add your own, or it will make a new one.</p></li>
 <li><p><strong>condition</strong> (<em>str</em><em>, </em><em>optional</em>) – add labels to the plot</p></li>
 </ul>
 </dd>
@@ -518,15 +518,15 @@ different assays.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.plots.imu_push_plot">
-<span class="sig-prename descclassname"><span class="pre">worklab.plots.</span></span><span class="sig-name descname"><span class="pre">imu_push_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_raw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/plots.html#imu_push_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.plots.imu_push_plot" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.plots.</span></span><span class="sig-name descname"><span class="pre">imu_push_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sessiondata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acc_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/plots.html#imu_push_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.plots.imu_push_plot" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot push detection with IMUs</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>time</strong> (<em>dict</em>) – time structure</p></li>
-<li><p><strong>vel</strong> (<em>dict</em>) – velocity structure</p></li>
-<li><p><strong>acc_raw</strong> (<em>dict</em>) – raw acceleration structure</p></li>
+<li><p><strong>sessiondata</strong> (<em>dict</em><em> or </em><em>pd.Series</em>) – processed sessiondata structure or pd.Series with frame data</p></li>
+<li><p><strong>acc_frame</strong> (<em>boolean</em>) – set to True if frame acceleration is used, if False the wheel is used</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – name of a session</p></li>
+<li><p><strong>dec</strong> (<em>boolean</em>) – set to True if main deceleration should be found</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -542,7 +542,7 @@ different assays.</p>
 <dt class="sig sig-object py" id="worklab.plots.plot_power_speed_dist">
 <span class="sig-prename descclassname"><span class="pre">worklab.plots.</span></span><span class="sig-name descname"><span class="pre">plot_power_speed_dist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim_speed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim_distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/plots.html#plot_power_speed_dist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.plots.plot_power_speed_dist" title="Permalink to this definition">#</a></dt>
 <dd><p>Plot power, speed and distance versus time for left (solid line) and
-right (dotted line) seperately</p>
+right (dotted line) separately</p>
 <p>Figure scales automatically, unless you specify it manually with the ylim_* arguments</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -571,13 +571,13 @@ right (dotted line) seperately</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – </p></li>
-<li><p><strong>pushes</strong> (<em>pd.DataFrame</em>) – </p></li>
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – measurement wheel dataframe or the selected side from the ergometer dict, left, right or mean</p></li>
+<li><p><strong>pushes</strong> (<em>pd.DataFrame</em>) – measurement wheel push by push dataframe or the selected side from the ergometer dict, left, right or mean</p></li>
 <li><p><strong>var</strong> (<em>str</em>) – variable to plot, default is torque</p></li>
 <li><p><strong>start</strong> (<em>bool</em>) – plot push starts, default is True</p></li>
 <li><p><strong>stop</strong> (<em>bool</em>) – plot push stops, default is True</p></li>
 <li><p><strong>peak</strong> (<em>bool</em>) – plot push peaks, default is True</p></li>
-<li><p><strong>ax</strong> (<em>axis object</em>) – Axis to plot on, you can add your own or it will make a new one.</p></li>
+<li><p><strong>ax</strong> (<em>axis object</em>) – Axis to plot on, you can add your own, or it will make a new one.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -760,7 +760,7 @@ right (dotted line) seperately</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

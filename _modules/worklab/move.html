@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>worklab.move &#8212; Worklab Docs</title>
+    <title>worklab.move</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -25,6 +25,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -49,6 +50,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -87,9 +89,12 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
       
       
-      <h1 class="site-logo" id="site-title">Worklab Docs</h1>
+      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
+      
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -99,13 +104,28 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item active">
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Theory
+  Introduction
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/setup.html">
-   Setup
+   Quick Start Guide
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/overground.html">
+   Overground testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/treadmill.html">
+   Treadmill testing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/ergometer.html">
+   Ergometer testing
   </a>
  </li>
 </ul>
@@ -116,70 +136,92 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../../chapters/examples.html">
+   Minimal examples
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
-   Minimal example for working with ergometer data
+   Working with ergometer data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
-   Minimal example for working with measurement wheel data
+   Working with measurement wheel data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
-   Minimal example for working with NGIMU data
+   Working with NGIMU data
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
-   Minimal example for working with spirometer data
+   Working with spirometer data
   </a>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Package documentation
+  Documentation
  </span>
 </p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/ana.html">
-   Analyses (.ana)
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../chapters/package.html">
+   Package documentation
   </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/ana.html">
+     Analyses (.ana)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/com.html">
+     Communication (.com)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/imu.html">
+     IMU (.imu)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/kin.html">
+     Kinetics (.kin)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/move.html">
+     Kinematics (.move)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/physio.html">
+     Physiology (.physio)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/plots.html">
+     Plotting (.plots)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../chapters/API/utils.html">
+     Utilities (.utils)
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/com.html">
-   Communication (.com)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/imu.html">
-   IMU (.imu)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/kin.html">
-   Kinetics (.kin)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/move.html">
-   Kinematics (.move)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/physio.html">
-   Physiology (.physio)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/plots.html">
-   Plotting (.plots)
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/API/utils.html">
-   Utilities (.utils)
+  <a class="reference internal" href="../../chapters/developer.html">
+   Developers
   </a>
  </li>
 </ul>
@@ -332,11 +374,11 @@ title="Open an issue"
 <span class="sd">    clockwise : bool</span>
 <span class="sd">        clockwise or counterclockwise rotation</span>
 <span class="sd">    normalized : bool</span>
-<span class="sd">        whether or not to normalize the result, default is True</span>
+<span class="sd">        normalising the result, default is True</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    perp_vector2d : np.array</span>
+<span class="sd">    perp_vector2d : numpy array</span>
 <span class="sd">        rotated vector</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -370,13 +412,13 @@ title="Open an issue"
 <span class="sd">        rotation matrix that can be used to rotate marker data, e.g.: rotation_matrix @ marker</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># X axis of the world</span>
-    <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Y axis of the world</span>
-    <span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Z axis of the world</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># X-axis of the world</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>  <span class="c1"># Y-axis of the world</span>
+    <span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># Z-axis of the world</span>
 
-    <span class="n">x1_prime</span> <span class="o">=</span> <span class="n">new_frame</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># X axis of the local frame</span>
-    <span class="n">x2_prime</span> <span class="o">=</span> <span class="n">new_frame</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Y axis of the local frame</span>
-    <span class="n">x3_prime</span> <span class="o">=</span> <span class="n">new_frame</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Z axis of the local frame</span>
+    <span class="n">x1_prime</span> <span class="o">=</span> <span class="n">new_frame</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># X-axis of the local frame</span>
+    <span class="n">x2_prime</span> <span class="o">=</span> <span class="n">new_frame</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># Y-axis of the local frame</span>
+    <span class="n">x3_prime</span> <span class="o">=</span> <span class="n">new_frame</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Z-axis of the local frame</span>
 
     <span class="k">if</span> <span class="n">local_to_world</span><span class="p">:</span>
         <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
@@ -410,7 +452,7 @@ title="Open an issue"
 <span class="sd">    point3: np.array</span>
 <span class="sd">        third marker point</span>
 <span class="sd">    mean: bool</span>
-<span class="sd">        whether or not the mean should be used as origin, default is False</span>
+<span class="sd">        using the mean as the origin, default is False</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -473,7 +515,7 @@ title="Open an issue"
 <span class="sd">        x-axis scaling</span>
 <span class="sd">    y: float</span>
 <span class="sd">        y-axis scaling</span>
-<span class="sd">    z: floag</span>
+<span class="sd">    z: float</span>
 <span class="sd">        z-axis scaling</span>
 
 <span class="sd">    Returns</span>
@@ -534,7 +576,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="magnitude"><a class="viewcode-back" href="../../chapters/API/move.html#worklab.move.magnitude">[docs]</a><span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="n">vector3d</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the vector magnitude using an l2 norm. Works with [1, 3] or [n, 3] vectors.</span>
+<span class="sd">    Calculates the vector magnitude using a l2 norm. Works with [1, 3] or [n, 3] vectors.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -555,7 +597,7 @@ title="Open an issue"
 
 <div class="viewcode-block" id="normalize"><a class="viewcode-back" href="../../chapters/API/move.html#worklab.move.normalize">[docs]</a><span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="n">vector3d</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Normalizes [n, 3] marker data using an l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.</span>
+<span class="sd">    Normalizes [n, 3] marker data using a l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -638,7 +680,7 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">magnitude</span><span class="p">(</span><span class="n">vector3d</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="acs_to_car_ang"><a class="viewcode-back" href="../../chapters/API/move.html#worklab.move.acs_to_car_ang">[docs]</a><span class="k">def</span> <span class="nf">acs_to_car_ang</span><span class="p">(</span><span class="n">acs</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]):</span>
+<div class="viewcode-block" id="acs_to_car_ang"><a class="viewcode-back" href="../../chapters/API/move.html#worklab.move.acs_to_car_ang">[docs]</a><span class="k">def</span> <span class="nf">acs_to_car_ang</span><span class="p">(</span><span class="n">acs</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="nb">list</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Anatomical coordinate system to cardanic angles</span>
 
 <span class="sd">    Note: Only works if used in the DSEM coordinate system</span>
@@ -667,7 +709,7 @@ title="Open an issue"
     <span class="k">else</span><span class="p">:</span>
         <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 
-    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>  <span class="c1"># Cardan angles</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">k</span><span class="p">:</span>  <span class="c1"># cardanic angles</span>
         <span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="o">-</span><span class="n">a</span> <span class="o">*</span> <span class="n">acs</span><span class="p">[:,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">],</span> <span class="n">acs</span><span class="p">[:,</span> <span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
         <span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">acs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
         <span class="n">a3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">(</span><span class="o">-</span><span class="n">a</span> <span class="o">*</span> <span class="n">acs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">acs</span><span class="p">[:,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
@@ -932,7 +974,7 @@ title="Open an issue"
 
 
 <div class="viewcode-block" id="make_acs_cl"><a class="viewcode-back" href="../../chapters/API/move.html#worklab.move.make_acs_cl">[docs]</a><span class="k">def</span> <span class="nf">make_acs_cl</span><span class="p">(</span><span class="n">SC</span><span class="p">,</span> <span class="n">AC</span><span class="p">,</span> <span class="n">IJ</span><span class="p">,</span> <span class="n">PX</span><span class="p">,</span> <span class="n">C7</span><span class="p">,</span> <span class="n">T8</span><span class="p">,</span> <span class="n">AA</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">DSEM</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make the anatomical coordinate system of the clavicule based on ISB recommendations</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make the anatomical coordinate system of the clavicle based on ISB recommendations</span>
 
 <span class="sd">    Y is pointing upwards</span>
 <span class="sd">    X is pointing to the front</span>
@@ -968,13 +1010,13 @@ title="Open an issue"
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    local : dict[np.array]</span>
-<span class="sd">        local coordinate system of the clavicule</span>
+<span class="sd">        local coordinate system of the clavicle</span>
 
 <span class="sd">    acs : np.array</span>
-<span class="sd">        anatomical coordinate system of the clavicule</span>
+<span class="sd">        anatomical coordinate system of the clavicle</span>
 
 <span class="sd">    origin: np.array</span>
-<span class="sd">        origin of the local coordinate system of the clavicule</span>
+<span class="sd">        origin of the local coordinate system of the clavicle</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">origin</span> <span class="o">=</span> <span class="n">SC</span>
@@ -1211,7 +1253,7 @@ title="Open an issue"
     <span class="n">local_fa</span><span class="p">,</span> <span class="n">acs_fa</span><span class="p">,</span> <span class="n">origin_fa</span> <span class="o">=</span> <span class="n">make_acs_fa</span><span class="p">(</span><span class="n">US</span><span class="p">,</span> <span class="n">RS</span><span class="p">,</span> <span class="n">EL</span><span class="p">,</span> <span class="n">EM</span><span class="p">,</span> <span class="n">DSEM</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">elbow</span> <span class="o">=</span> <span class="n">solve</span><span class="p">(</span><span class="n">acs_hu</span><span class="p">,</span> <span class="n">acs_fa</span><span class="p">)</span>
-    <span class="n">angles</span> <span class="o">=</span> <span class="n">acs_to_car_ang</span><span class="p">(</span><span class="n">elbow</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">DSEM</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">angles</span> <span class="o">=</span> <span class="n">acs_to_car_ang</span><span class="p">(</span><span class="n">elbow</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
     <span class="n">angles</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">angles</span></div>
@@ -1271,7 +1313,7 @@ title="Open an issue"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

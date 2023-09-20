@@ -429,13 +429,13 @@ title="Print to PDF"
 <dt class="sig sig-object py" id="worklab.ana.ana_sprint">
 <span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">ana_sprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">half</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#ana_sprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.ana_sprint" title="Permalink to this definition">#</a></dt>
 <dd><p>Sprint test analyse. Plot a figure with the power, speed and distance for
-left and right seperate. Also saves important outcomes</p>
+left and right separate. Also saves important outcomes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>dict</em>) – processed and cutted ergometer data dictionary with dataframes</p></li>
 <li><p><strong>data_pbp</strong> (<em>dict</em>) – processed and cutted push_by_push ergometer data dictionary with dataframes</p></li>
-<li><p><strong>half</strong> (<em>float</em><em>, </em><em>optional</em>) – half time of the sprint, default is 5 s</p></li>
+<li><p><strong>half</strong> (<em>float</em><em>, </em><em>optional</em>) – half-time of the sprint, default is 5 s</p></li>
 <li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – title of figure</p></li>
 </ul>
 </dd>
@@ -452,8 +452,7 @@ left and right seperate. Also saves important outcomes</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.ana.ana_submax">
 <span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">ana_submax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_ergo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_spiro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#ana_submax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.ana_submax" title="Permalink to this definition">#</a></dt>
-<dd><p>Sub maximal test analyse. Plot a figure with the pushes for left, right
-and the mean. Also saves important outcomes</p>
+<dd><p>Sub maximal test analyse. Saves important outcomes</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -463,11 +462,10 @@ and the mean. Also saves important outcomes</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>pushes</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
-<li><p><strong>outcomes</strong> (<em>pd.DataFrame</em>)</p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>outcomes</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
@@ -496,10 +494,10 @@ and the mean. Also saves important outcomes</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.ana.isometricforce">
-<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">isometricforce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#isometricforce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.isometricforce" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">isometricforce</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#isometricforce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.isometricforce" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the three seconds maximal user force and plots it against time (darkblue).
 Peaks are annotated with a dot and with the height of the peak, max value is shown in the corner.
-Plot velocity optional &amp; possibility to scale manually</p>
+Possibility to scale manually</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -507,14 +505,13 @@ Plot velocity optional &amp; possibility to scale manually</p>
 <li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – plotted on top of graph, default is None</p></li>
 <li><p><strong>height</strong> (<em>float</em><em>, </em><em>optional</em>) – minimal height of peak, default is 40 N</p></li>
 <li><p><strong>distance</strong> (<em>float</em><em>, </em><em>optional</em>) – minimal distance between peaks, default is 500 samples</p></li>
-<li><p><strong>vel</strong> (<em>bool</em>) – plot velocity, default is True</p></li>
 <li><p><strong>ylim</strong> (<em>list</em><em> [</em><em>min</em><em>, </em><em>max</em><em>] </em><em>of floats</em><em> or </em><em>int</em><em>, </em><em>optional</em>) – list of the minimal and maximal ylim for user force in N</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>fig</strong> (<em>matplotlib.figure.Figure</em>)</p></li>
-<li><p><strong>peaks_y</strong> (<em>series</em>) – peaks of maximal user force (averaged over left and right)</p></li>
+<li><p><strong>peaks</strong> (<em>series</em>) – peaks of maximal user force (averaged over left and right)</p></li>
 </ul>
 </p>
 </dd>
@@ -523,20 +520,19 @@ Plot velocity optional &amp; possibility to scale manually</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.ana.maximal1min">
-<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">maximal1min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#maximal1min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.maximal1min" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">maximal1min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#maximal1min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.maximal1min" title="Permalink to this definition">#</a></dt>
 <dd><p>Maximal exercise test analyse. Gives a plot with the power (green) and velocity (red)
-for each step, also prints the important performance indicators per step:
-- Work [J]
-- Mean power [W]
-- Maximal power [W]
-- Mean velocity [ms]
-- Push time [s]
-- Cycle time [s]</p>
+for each step, also prints the important performance indicators per step:</p>
+<blockquote>
+<div><p>Work [J]
+Mean power [W]
+Maximal power [W]
+Mean velocity [ms]</p>
+</div></blockquote>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>dict</em>) – processed and cutted ergometer data dictionary with dataframes</p></li>
-<li><p><strong>data_pbp</strong> (<em>dict</em>) – processed and cutted push_by_push ergometer data dictionary with dataframes</p></li>
 <li><p><strong>dur</strong> (<em>int</em>) – duration of max test in seconds</p></li>
 <li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – title of figure</p></li>
 </ul>
@@ -572,43 +568,38 @@ Force, torque, power, work and uforce are averaged and multiplied with two</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.ana.protocol_max">
-<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">protocol_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.39</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#protocol_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.protocol_max" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">protocol_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p30</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.39</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#protocol_max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.protocol_max" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the protocol for the Maximal exercise test on a wheelchair ergometer,
 based on the regression equations between the isometric force, anaerobic
 and aerobic power.</p>
-<p>(Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.
+<p>(Janssen T.W.J., Van Oers C.A.J.M., Hollander A.P., Veeger H.E.J., Van der Woude L.H.V.
 Isometric strength sprint power and anaerobic power in individuals with a
-spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.
+spinal cord injury. Med Sci Sports Exercise 1993;25(7):863-870.
 doi:10.1249/00005768-199307000-00016)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>P30</strong> (<em>float</em>) – average power over a 30-sec Wingate test</p></li>
+<li><p><strong>p30</strong> (<em>float</em>) – average power over a 30-sec Wingate test</p></li>
 <li><p><strong>muser</strong> (<em>float/int</em>) – mass user</p></li>
 <li><p><strong>mwc</strong> (<em>float/int</em>) – mass wheelchair</p></li>
-<li><p><strong>folder</strong> (<em>str</em><em>, </em><em>optional</em>) – file path, protocol will be saved here</p></li>
 <li><p><strong>v</strong> (<em>float</em><em>, </em><em>optional</em>) – constant comfortable velocity for the test, default is 1.39 m/s</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>Print the P30, the POpeak, the aimed mean velocity and the resistance for each step,</em></p></li>
-<li><p><em>option to save in folder</em></p></li>
-</ul>
-</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Print the p30, the popeak, the aimed mean velocity and the resistance for each step.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.ana.protocol_wingate">
-<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">protocol_wingate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fiso</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#protocol_wingate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.protocol_wingate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">protocol_wingate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fiso</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">muser</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mwc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#protocol_wingate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.protocol_wingate" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the protocol for the Wingate test on a wheelchair ergometer,
 based on the regression equations between the isometric force, anaerobic
 and aerobic power.</p>
-<p>(Janssen TWJ, Van Oers CAJM, Hollander AP, Veeger HEJ, Van der Woude LHV.
+<p>(Janssen T.W.J., Van Oers C.A.J.M., Hollander A.P., Veeger H.E.J., Van der Woude L.H.V.
 Isometric strength sprint power and anaerobic power in individuals with a
-spinal cord injury. Med Sci Sports Exerc. 1993;25(7):863-870.
+spinal cord injury. Med Sci Sports Exercise 1993;25(7):863-870.
 doi:10.1249/00005768-199307000-00016)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -616,14 +607,13 @@ doi:10.1249/00005768-199307000-00016)</p>
 <li><p><strong>fiso</strong> (<em>float</em>) – maximal 3 seconds force in N, average of left and right</p></li>
 <li><p><strong>muser</strong> (<em>float/int</em>) – mass user</p></li>
 <li><p><strong>mwc</strong> (<em>float/int</em>) – mass wheelchair</p></li>
-<li><p><strong>folder</strong> (<em>str</em><em>, </em><em>optional</em>) – file path, protocol will be saved here</p></li>
 <li><p><strong>v</strong> (<em>float/int</em><em>, </em><em>optional</em>) – mean velocity wingate, default is 2 m/s</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><em>Print the maximal three seconds force, the predicted P30, the aimed mean velocity</em></p></li>
-<li><p><em>and the calculated resistance. Option to save in folder</em></p></li>
+<li><p><em>Print the maximal three seconds force, the predicted p30, the aimed mean velocity</em></p></li>
+<li><p><em>and the calculated resistance.</em></p></li>
 </ul>
 </p>
 </dd>
@@ -641,7 +631,7 @@ also prints the important performance indicators</p>
 <li><p><strong>data</strong> (<em>dict</em>) – processed and cutted ergometer data dictionary with dataframes</p></li>
 <li><p><strong>title</strong> (<em>str</em>) – title of figure</p></li>
 <li><p><strong>box</strong> (<em>bool</em>) – prints important performance indicators on figure, default is False</p></li>
-<li><p><strong>ylim</strong> (<em>float</em><em>, </em><em>optional</em>) – sets the ylim of the graph, defaul is 5 ms</p></li>
+<li><p><strong>ylim</strong> (<em>float</em><em>, </em><em>optional</em>) – sets the ylim of the graph, default is 5 ms</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -704,7 +694,7 @@ also prints the important performance indicators</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

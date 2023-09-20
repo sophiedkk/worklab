@@ -446,6 +446,28 @@ title="Print to PDF"
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="worklab.imu.movesense_offset">
+<span class="sig-prename descclassname"><span class="pre">worklab.imu.</span></span><span class="sig-name descname"><span class="pre">movesense_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sessiondata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_wheel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/imu.html#movesense_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.imu.movesense_offset" title="Permalink to this definition">#</a></dt>
+<dd><p>Remove offset MoveSense sensors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sessiondata</strong> (<em>dict</em>) – resampled sessiondata structure</p></li>
+<li><p><strong>right_wheel</strong> (<em>boolean</em>) – if set to True, right wheel is used, if set to False, left wheel is used</p></li>
+<li><p><strong>n_sensors</strong> (<em>float</em>) – number of sensors used, 2: right wheel and frame,
+3: right, left wheel and frame</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sessiondata</strong> – sessiondata with offset removed</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="worklab.imu.process_imu">
 <span class="sig-prename descclassname"><span class="pre">worklab.imu.</span></span><span class="sig-name descname"><span class="pre">process_imu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sessiondata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wbase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sensors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ngimu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/imu.html#process_imu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.imu.process_imu" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculate wheelchair kinematic variables based on NGIMU data</p>
@@ -456,8 +478,32 @@ title="Print to PDF"
 <li><p><strong>camber</strong> (<em>float</em>) – camber angle in degrees</p></li>
 <li><p><strong>wsize</strong> (<em>float</em>) – radius of the wheels</p></li>
 <li><p><strong>wbase</strong> (<em>float</em>) – width of wheelbase</p></li>
-<li><p><strong>n_sensors</strong> (<em>float</em>) – number of sensors used, 1: right wheel, 2: right wheel and frame, 3: right, left wheel and frame</p></li>
-<li><p><strong>sensor_type</strong> (<em>string</em>) – type of sensor, ‘ngimu’ is for xio-technologies, ‘move’ is for movesense</p></li>
+<li><p><strong>n_sensors</strong> (<em>float</em>) – number of sensors used: 2: right wheel and frame, 3: right, left wheel and frame</p></li>
+<li><p><strong>sensor_type</strong> (<em>string</em>) – type of sensor, ‘ngimu’ or ‘ximu3’ is for xio-technologies, ‘move’ is for movesense</p></li>
+<li><p><strong>inplace</strong> (<em>bool</em>) – performs operation inplace</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sessiondata</strong> – sessiondata structure with processed data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="worklab.imu.process_imu_left">
+<span class="sig-prename descclassname"><span class="pre">worklab.imu.</span></span><span class="sig-name descname"><span class="pre">process_imu_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sessiondata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">camber</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">18</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wbase</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensor_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ngimu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/imu.html#process_imu_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.imu.process_imu_left" title="Permalink to this definition">#</a></dt>
+<dd><p>Calculate wheelchair kinematic variables based on NGIMU data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sessiondata</strong> (<em>dict</em>) – original sessiondata structure</p></li>
+<li><p><strong>camber</strong> (<em>float</em>) – camber angle in degrees</p></li>
+<li><p><strong>wsize</strong> (<em>float</em>) – radius of the wheels</p></li>
+<li><p><strong>wbase</strong> (<em>float</em>) – width of wheelbase</p></li>
+<li><p><strong>sensor_type</strong> (<em>string</em>) – type of sensor, ‘ngimu’ or ‘ximu3’ is xio-technologies, ‘move’ is movesense</p></li>
 <li><p><strong>inplace</strong> (<em>bool</em>) – performs operation inplace</p></li>
 </ul>
 </dd>
@@ -494,7 +540,7 @@ sprinting. Procedia engineering, 147, 730-734.</p>
 <dt class="sig sig-object py" id="worklab.imu.resample_imu">
 <span class="sig-prename descclassname"><span class="pre">worklab.imu.</span></span><span class="sig-name descname"><span class="pre">resample_imu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sessiondata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sfreq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">400.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/imu.html#resample_imu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.imu.resample_imu" title="Permalink to this definition">#</a></dt>
 <dd><p>Resample all devices and sensors to new sample frequency.</p>
-<p>Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with NGIMU’s so resampling
+<p>Resamples all devices and sensors to new sample frequency. Sample intervals are not fixed with ngimu so resampling
 before further analysis is recommended. Translated from xio-Technologies.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -564,7 +610,7 @@ before further analysis is recommended. Translated from xio-Technologies.</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>

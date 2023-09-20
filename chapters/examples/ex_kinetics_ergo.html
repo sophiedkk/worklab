@@ -467,7 +467,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;example_data&#39;</span><span class="p">,</span> <span class="s1">&#39;Esseda_example_LEM.xls&#39;</span><span class="p">)</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;example_data&#39;</span><span class="p">,</span> <span class="s1">&#39;Esseda_example_LEM.xls&#39;</span><span class="p">)</span>
 <span class="n">ergo_data</span> <span class="o">=</span> <span class="n">wl</span><span class="o">.</span><span class="n">com</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ergometer data is stored in a: &quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">ergo_data</span><span class="p">))</span>
 </pre></div>
@@ -475,7 +475,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
-Initializing loading for C:\Users\rick_\Development\worklab2\example_data\Esseda_example_LEM.xls ...
+Initializing loading for C:\Users\Janssen\PycharmProjects\worklab\docs\chapters\examples\example_data\Esseda_example_LEM.xls ...
 File identified as Esseda datafile. Attempting to load ...
 Data loaded!
 ================================================================================
@@ -929,7 +929,7 @@ dict_keys([&#39;left&#39;, &#39;right&#39;])
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen<br/>
+    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
   
       &copy; Copyright 2023.<br/>
 </p>
