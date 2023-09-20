@@ -1,14 +1,11 @@
 name: Publish worklab package to PyPI
 
 # Only run this when a release is made
-on:
-  release:
-    types: [created]
+on: [push]
 
 jobs:
   build-n-publish:
     name: Build and publish package
-    if: github.event_name == 'release' && github.event.action == 'created'
     runs-on: ubuntu-latest
     
     steps:
