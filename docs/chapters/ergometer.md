@@ -50,8 +50,6 @@ calibration procedure starts at 0 m/s and steadily increases in small steps
 to 2.5 m/s. Although every calibration procedure is unique for the 
 wheelchair-user combination, all calibrations follow a similar pattern.
 
-## Drift
-
 ## Noise
 
 The measurement signal of the Esseda wheelchair ergometer is subject to
