@@ -131,6 +131,11 @@ const thebe_selector_output = ".output, .cell_output"
    Ergometer testing
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise_testing.html">
+   Exercise testing
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -161,6 +166,31 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../examples/ex_physio_spiro.html">
    Working with spirometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_isometric_force_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_wingate_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_sprint_test.html">
+   Analysis of a sprint test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_submaximal_test.html">
+   Analysis of a submaximal test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_maximal_exercise_test.html">
+   Analysis of a maximal exercise test
   </a>
  </li>
 </ul>
@@ -423,9 +453,10 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="module-worklab.imu">
-<span id="imu-imu"></span><h1>IMU (.imu)<a class="headerlink" href="#module-worklab.imu" title="Permalink to this headline">#</a></h1>
-<dl class="py function">
+  <section class="tex2jax_ignore mathjax_ignore" id="imu-imu">
+<h1>IMU (.imu)<a class="headerlink" href="#imu-imu" title="Permalink to this headline">#</a></h1>
+<p>Contains functions for resampling, processing and correcting IMU data.</p>
+<span class="target" id="module-worklab.imu"></span><dl class="py function">
 <dt class="sig sig-object py" id="worklab.imu.change_imu_orientation">
 <span class="sig-prename descclassname"><span class="pre">worklab.imu.</span></span><span class="sig-name descname"><span class="pre">change_imu_orientation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sessiondata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/imu.html#change_imu_orientation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.imu.change_imu_orientation" title="Permalink to this definition">#</a></dt>
 <dd><p>Changes IMU orientation from in-wheel to on-wheel</p>

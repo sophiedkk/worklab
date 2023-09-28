@@ -131,6 +131,11 @@ const thebe_selector_output = ".output, .cell_output"
    Ergometer testing
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise_testing.html">
+   Exercise testing
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -161,6 +166,31 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../examples/ex_physio_spiro.html">
    Working with spirometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_isometric_force_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_wingate_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_sprint_test.html">
+   Analysis of a sprint test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_submaximal_test.html">
+   Analysis of a submaximal test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../examples/ex_data_analysis_maximal_exercise_test.html">
+   Analysis of a maximal exercise test
   </a>
  </li>
 </ul>
@@ -423,9 +453,11 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="module-worklab.ana">
-<span id="analyses-ana"></span><h1>Analyses (.ana)<a class="headerlink" href="#module-worklab.ana" title="Permalink to this headline">#</a></h1>
-<dl class="py function">
+  <section class="tex2jax_ignore mathjax_ignore" id="analyses-ana">
+<h1>Analyses (.ana)<a class="headerlink" href="#analyses-ana" title="Permalink to this headline">#</a></h1>
+<p>Contains functions to analyse isometric tests, Wingate tests,
+Sprint tests, and Submax tests on the wheelchair ergometer.</p>
+<span class="target" id="module-worklab.ana"></span><dl class="py function">
 <dt class="sig sig-object py" id="worklab.ana.ana_sprint">
 <span class="sig-prename descclassname"><span class="pre">worklab.ana.</span></span><span class="sig-name descname"><span class="pre">ana_sprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_pbp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">half</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/ana.html#ana_sprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.ana.ana_sprint" title="Permalink to this definition">#</a></dt>
 <dd><p>Sprint test analyse. Plot a figure with the power, speed and distance for

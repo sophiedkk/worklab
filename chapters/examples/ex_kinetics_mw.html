@@ -131,6 +131,11 @@ const thebe_selector_output = ".output, .cell_output"
    Ergometer testing
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise_testing.html">
+   Exercise testing
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -161,6 +166,31 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="ex_physio_spiro.html">
    Working with spirometer data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_data_analysis_isometric_force_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_data_analysis_wingate_test.html">
+   Analysis of a Wingate test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_data_analysis_sprint_test.html">
+   Analysis of a sprint test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_data_analysis_submaximal_test.html">
+   Analysis of a submaximal test
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ex_data_analysis_maximal_exercise_test.html">
+   Analysis of a maximal exercise test
   </a>
  </li>
 </ul>
@@ -839,7 +869,7 @@ Measurement wheel data is stored in a:  &lt;class &#39;pandas.core.frame.DataFra
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mw_data</span><span class="p">,</span> <span class="n">pushes</span> <span class="o">=</span> <span class="n">wl</span><span class="o">.</span><span class="n">kin</span><span class="o">.</span><span class="n">auto_process</span><span class="p">(</span><span class="n">mw_data</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Now make a christmas tree!</p>
+<p>Now make a Christmas tree!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">wl</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">plot_pushes</span><span class="p">(</span><span class="n">mw_data</span><span class="p">,</span> <span class="n">pushes</span><span class="p">);</span>
