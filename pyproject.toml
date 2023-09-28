@@ -31,7 +31,8 @@ dev = [
     "pytest",
     "Flake8-pyproject",
     "black",
-    "jupyter-book"
+    "jupyter-book",
+    "build"
 ]
 
 [project.urls]
