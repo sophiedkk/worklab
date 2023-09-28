@@ -1,8 +1,10 @@
 name: Publish worklab package to PyPI
 
 # Only run this when a release is made
-on: [push]
-
+on: 
+  push:
+    branches:
+    - main
 jobs:
   tests:
     uses: ./.github/workflows/tests.yml
@@ -23,6 +25,7 @@ jobs:
         pip install
         ".[dev]"
         --user
+
     - name: Build a binary wheel and a source tarball
       run: >-
         python -m
@@ -30,7 +33,22 @@ jobs:
         --sdist
         --wheel
         --outdir dist/
+
     - name: Publish package 📦 to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         password: ${{ secrets.PYPI_API_TOKEN }}
+        
+    # Build the docs
+    - name: Build the book
+      run: >-
+        jupyter-book 
+        build 
+        docs
+
+    # Push the book's HTML to github-pages
+    - name: GitHub Pages action
+      uses: peaceiris/actions-gh-pages@v3.6.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/_build/html
