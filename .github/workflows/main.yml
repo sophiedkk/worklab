@@ -4,8 +4,11 @@ name: Publish worklab package to PyPI
 on: [push]
 
 jobs:
+  tests:
+    uses: ./.github/workflows/tests.yml
   build-n-publish:
     name: Build and publish package
+    needs: [tests]
     runs-on: ubuntu-latest
     
     steps:
