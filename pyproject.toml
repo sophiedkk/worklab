@@ -14,7 +14,7 @@ authors = [
 ]
 classifiers = [
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: GNU GPLv3 License",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent"
 ]
