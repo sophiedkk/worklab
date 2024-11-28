@@ -33,19 +33,19 @@ def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax
     ax : axis object
 
     """
-    with plt.style.context("seaborn-white"):
-        if not ax:
-            _, ax = plt.subplots(1, 1)
-        ax.plot(data["time"], data[var])
-        if start:
-            ax.plot(data["time"][pushes["start"]], data[var][pushes["start"]], "C1o")
-        if stop:
-            ax.plot(data["time"][pushes["stop"]], data[var][pushes["stop"]], "C1o")
-        if peak:
-            ax.plot(data["time"][pushes["peak"]], data[var][pushes["peak"]], "C2o")
-        ax.set_xlabel("time")
-        ax.set_ylabel(var)
-        ax.set_title(f"{var} over time")
+
+    if not ax:
+        _, ax = plt.subplots(1, 1)
+    ax.plot(data["time"], data[var])
+    if start:
+        ax.plot(data["time"][pushes["start"]], data[var][pushes["start"]], "C1o")
+    if stop:
+        ax.plot(data["time"][pushes["stop"]], data[var][pushes["stop"]], "C1o")
+    if peak:
+        ax.plot(data["time"][pushes["peak"]], data[var][pushes["peak"]], "C2o")
+    ax.set_xlabel("time")
+    ax.set_ylabel(var)
+    ax.set_title(f"{var} over time")
     return ax
 
 
