@@ -532,7 +532,7 @@ def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim
         the three axes objects
 
     """
-    plt.style.use("seaborn-ticks")
+    # plt.style.use("seaborn-ticks") # old version seaborn
     fig = plt.figure()
 
     # Generate three axes
