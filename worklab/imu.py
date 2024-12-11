@@ -2,7 +2,7 @@ import copy
 from warnings import warn
 
 import numpy as np
-from scipy.integrate import cumtrapz
+from scipy.integrate import cumulative_trapezoid
 from scipy.signal import periodogram, find_peaks
 
 from .utils import lowpass_butter, pd_interp
@@ -101,16 +101,16 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         frame["gyro_cor"] = right["gyro_cor"]
 
     # Calculation of rotations, rotational velocity and rotational acceleration
-    frame["rot"] = cumtrapz(abs(frame["rot_vel"]) / sfreq, initial=0.0)
+    frame["rot"] = cumulative_trapezoid(abs(frame["rot_vel"]) / sfreq, initial=0.0)
     frame["rot_acc"] = np.gradient(frame["rot_vel"]) * sfreq
 
     # Calculation of velocity, acceleration and distance
     right["vel"] = right["gyro_cor"] * wsize * deg2rad  # angular velocity to linear velocity
-    right["dist"] = cumtrapz(right["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
+    right["dist"] = cumulative_trapezoid(right["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
 
     if n_sensors == 3:
         left["vel"] = left["gyro_cor"] * wsize * deg2rad
-        left["dist"] = cumtrapz(left["vel"] / sfreq, initial=0.0)
+        left["dist"] = cumulative_trapezoid(left["vel"] / sfreq, initial=0.0)
         frame["vel_wheel"] = (right["vel"] + left["vel"]) / 2  # mean velocity both sides
         frame["dist_wheel"] = (right["dist"] + left["dist"]) / 2  # mean distance
     else:
@@ -148,17 +148,17 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         comb_ratio = np.clip(comb_ratio, 0, 1)  # clamp Combine ratio values, not in df
         frame["skid_vel"] = (frame["vel_right"] * comb_ratio) + (frame["vel_left"] * (1 - comb_ratio))
         frame["vel"] = (frame["vel_right"] + frame["vel_left"]) / 2
-        frame['dist'] = cumtrapz(frame["skid_vel"], initial=0.0) / sfreq
+        frame['dist'] = cumulative_trapezoid(frame["skid_vel"], initial=0.0) / sfreq
     else:
         frame["vel"] = frame["vel_right"]
-        frame["dist"] = cumtrapz(frame["vel"], initial=0.0) / sfreq  # Combined distance
+        frame["dist"] = cumulative_trapezoid(frame["vel"], initial=0.0) / sfreq  # Combined distance
 
     # distance in the x and y direction
-    frame["dist_y"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+    frame["dist_y"] = cumulative_trapezoid(
+        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
-    frame["dist_x"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+    frame["dist_x"] = cumulative_trapezoid(
+        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
 
     return sessiondata
@@ -200,7 +200,7 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     # Calculation of rotations, rotational velocity and acceleration
     frame["rot_vel"] = lowpass_butter(frame["gyroscope_z"],
                                       sfreq=sfreq, cutoff=10)
-    frame["rot"] = cumtrapz(abs(frame["rot_vel"]) / sfreq, initial=0.0)
+    frame["rot"] = cumulative_trapezoid(abs(frame["rot_vel"]) / sfreq, initial=0.0)
     frame["rot_acc"] = np.gradient(frame["rot_vel"]) * sfreq
 
     # Wheelchair camber correction
@@ -211,10 +211,10 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     frame["gyro_cor"] = left["gyro_cor"]
 
     left["vel"] = left["gyro_cor"] * wsize * deg2rad
-    left["dist"] = cumtrapz(left["vel"] / sfreq, initial=0.0)
+    left["dist"] = cumulative_trapezoid(left["vel"] / sfreq, initial=0.0)
     frame["vel_wheel"] = left["vel"]
     frame["vel_wheel"] = lowpass_butter(frame["vel_wheel"], sfreq=sfreq, cutoff=10)
-    frame["dist_wheel"] = cumtrapz(frame["vel_wheel"] / sfreq, initial=0.0)
+    frame["dist_wheel"] = cumulative_trapezoid(frame["vel_wheel"] / sfreq, initial=0.0)
 
     frame["acc_wheel"] = np.gradient(frame["vel_wheel"]) * sfreq
     frame['acc_wheel'] = lowpass_butter(frame['acc_wheel'],
@@ -228,14 +228,14 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     frame["vel_left"] = left["vel"]
     frame["vel_left"] += np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
     frame["vel"] = frame["vel_left"]
-    frame["dist"] = cumtrapz(frame["vel"], initial=0.0) / sfreq
+    frame["dist"] = cumulative_trapezoid(frame["vel"], initial=0.0) / sfreq
 
     # distance in the x and y direction
-    frame["dist_y"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+    frame["dist_y"] = cumulative_trapezoid(
+        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
-    frame["dist_x"] = cumtrapz(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumtrapz(frame["rot_vel"] / sfreq, initial=0.0))),
+    frame["dist_x"] = cumulative_trapezoid(
+        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
 
     return sessiondata

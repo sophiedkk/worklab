@@ -5,7 +5,7 @@ import math
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from sklearn.linear_model import LinearRegression
+import sklearn
 import seaborn as sns
 
 from .plots import plot_power_speed_dist
@@ -621,9 +621,9 @@ def force_velocity_curve(data_pbp, upper_lim=800):
     y = np.array(data_pbp['maxforce'])
     data_pbp['x'] = np.array(data_pbp['maxspeed']).reshape((-1, 1))
     data_pbp['y'] = np.array(data_pbp['maxforce'])
-    model = LinearRegression()
+    model = sklearn.LinearRegression()
     model.fit(x, y)
-    model = LinearRegression().fit(x, y)
+    model = sklearn.LinearRegression().fit(x, y)
     r_sq = model.score(x, y)
     x1 = np.linspace(0, float(abs(model.intercept_ / model.coef_)), 100)
     xx = np.linspace(x.min(), x.max(), 100)
