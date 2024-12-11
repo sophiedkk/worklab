@@ -6,8 +6,8 @@
 #######################################################################################
 # Book settings
 title                       : ""  # The title of the book. Will be placed in the left navbar.
-author                      : Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma  # The author of the book
-copyright                   : "2023"  # Copyright year to be placed in the footer
+author                      : Sophie de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma  # The author of the book
+copyright                   : "2024"  # Copyright year to be placed in the footer
 logo                        : "accessibility_icon_boost.svg"  # A path to the book logo
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 exclude_patterns            : [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
@@ -78,7 +78,7 @@ latex:
 #  colab_url                 : "" # The URL of Google Colab (https://colab.research.google.com)
 
 repository:
-  url                       : https://github.com/rickdkk/worklab  # The URL to your book's repository
+  url                       : https://github.com/sophiedkk/worklab  # The URL to your book's repository
   path_to_book              : "docs"  # A path to your book's folder, relative to the repository root.
   branch                    : main  # Which branch of the repository should be used when creating links
 

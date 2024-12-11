@@ -8,7 +8,7 @@ package you can skip this section.
 First make sure you have the latest version of the code by cloning the repository on GitHub:
 
 ```shell
-git clone https://github.com/rickdkk/worklab.git
+git clone https://github.com/sophiedkk/worklab.git
 cd worklab
 ```
 

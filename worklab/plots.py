@@ -33,19 +33,19 @@ def plot_pushes(data, pushes, var="torque", start=True, stop=True, peak=True, ax
     ax : axis object
 
     """
-
-    if not ax:
-        _, ax = plt.subplots(1, 1)
-    ax.plot(data["time"], data[var])
-    if start:
-        ax.plot(data["time"][pushes["start"]], data[var][pushes["start"]], "C1o")
-    if stop:
-        ax.plot(data["time"][pushes["stop"]], data[var][pushes["stop"]], "C1o")
-    if peak:
-        ax.plot(data["time"][pushes["peak"]], data[var][pushes["peak"]], "C2o")
-    ax.set_xlabel("time")
-    ax.set_ylabel(var)
-    ax.set_title(f"{var} over time")
+    with plt.style.context("seaborn-v0_8-white"):
+        if not ax:
+            _, ax = plt.subplots(1, 1)
+        ax.plot(data["time"], data[var])
+        if start:
+            ax.plot(data["time"][pushes["start"]], data[var][pushes["start"]], "C1o")
+        if stop:
+            ax.plot(data["time"][pushes["stop"]], data[var][pushes["stop"]], "C1o")
+        if peak:
+            ax.plot(data["time"][pushes["peak"]], data[var][pushes["peak"]], "C2o")
+        ax.set_xlabel("time")
+        ax.set_ylabel(var)
+        ax.set_title(f"{var} over time")
     return ax
 
 
@@ -120,7 +120,7 @@ def bland_altman_plot(data1, data2, ax=None, condition=None):
     md = np.mean(diff)  # Mean of the difference
     sd = np.std(diff, axis=0)  # Standard deviation of the difference
 
-    with plt.style.context("seaborn-white"):
+    with plt.style.context("seaborn-v0_8-white"):
         ax.scatter(mean, diff)
         ax.axhline(0, color="dimgray", linestyle="-")
         ax.axhline(md, color="darkgray", linestyle="--")
@@ -152,7 +152,7 @@ def vel_plot(time, vel, name=""):
     ax: axis object
 
     """
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, vel, "r")
     ax.set_xlabel("Time [s]", fontsize=12)
@@ -190,7 +190,7 @@ def vel_peak_plot(time, vel, name=""):
     y_max_vel_value = np.max(vel)
 
     # Create time vs. velocity figure with vel_peak
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, vel, "r")
     ax.plot(time[y_max_vel], vel[y_max_vel], "ko", label="Vel$_{peak}$: " + str(round(y_max_vel_value, 2)) + " m/s")
@@ -232,7 +232,7 @@ def vel_peak_dist_plot(time, vel, dist, name=""):
     y_max_vel_value = np.max(vel)
 
     # Create time vs. velocity figure with vel_peak
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
     ax1.set_ylim(0, y_max_vel_value + 0.5)
     ax1.plot(time, vel, "r")
@@ -278,7 +278,7 @@ def acc_plot(time, acc, name=""):
 
     """
     # Create time vs. acceleration figure
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, acc, "g")
     ax.set_xlabel("Time [s]", fontsize=12)
@@ -316,7 +316,7 @@ def acc_peak_plot(time, acc, name=""):
     y_max_acc = acc.idxmax()
 
     # Create time vs. acceleration figure with acc_peak
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, acc, "g")
     ax.plot(time[y_max_acc], acc[y_max_acc], "k.", label="Acc$_{peak}$: " + str(round(y_max_acc_value, 2)) + " m/$s^2$")
@@ -358,7 +358,7 @@ def acc_peak_dist_plot(time, acc, dist, name=""):
     y_max_acc = acc.idxmax()
 
     # Create time vs. acceleration figure with acc_peak
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
     ax1.set_ylim(np.min(acc) - 1, y_max_acc_value + 1)
     ax1.plot(time, acc, "g")
@@ -406,7 +406,7 @@ def rot_vel_plot(time, rot_vel, name=""):
 
     """
     # Create time vs. rotational velocity figure
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax = plt.subplots(1, 1, figsize=[10, 6])
     ax.plot(time, rot_vel, "b")
     ax.set_xlabel("Time [s]", fontsize=12)
@@ -477,7 +477,7 @@ def imu_push_plot(sessiondata, acc_frame=True, name='', dec=False):
     push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc, sfreq)
 
     # Create time vs. velocity with push detection figure
-    plt.style.use("seaborn-darkgrid")
+    plt.style.use("seaborn-v0_8-darkgrid")
     fig, ax1 = plt.subplots(1, 1, figsize=[10, 6])
     ax1.set_ylim(-2, np.max(sessiondata['vel']) + 0.5)
     ax1.plot(sessiondata['time'], sessiondata['vel'], 'r')
@@ -532,7 +532,7 @@ def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim
         the three axes objects
 
     """
-    # plt.style.use("seaborn-ticks") # old version seaborn
+    plt.style.use("seaborn-v0_8-ticks")
     fig = plt.figure()
 
     # Generate three axes
