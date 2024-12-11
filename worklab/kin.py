@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from scipy.integrate import cumtrapz
+from scipy.integrate import cumulative_trapezoid
 from scipy.signal import savgol_filter
 from .utils import lowpass_butter, find_peaks
 from .move import rotate_matrix
@@ -220,7 +220,7 @@ def process_mw(data, wheelsize=0.31, rimsize=0.275, sfreq=200):
     """
     data["aspeed"] = np.gradient(data["angle"]) * sfreq
     data["speed"] = data["aspeed"] * wheelsize
-    data["dist"] = cumtrapz(data["speed"], initial=0.0) / sfreq
+    data["dist"] = cumulative_trapezoid(data["speed"], initial=0.0) / sfreq
     data["acc"] = np.gradient(data["speed"]) * sfreq
     data["ftot"] = (data["fx"] ** 2 + data["fy"] ** 2 + data["fz"] ** 2) ** 0.5
     data["uforce"] = data["torque"] / rimsize
@@ -281,11 +281,11 @@ def process_ergo(data, wheelsize=0.31, rimsize=0.275):
     sfreq = 100  # ergometer is always 100Hz
     for side in data:
         data[side]["aspeed"] = data[side]["speed"] / wheelsize
-        data[side]["angle"] = cumtrapz(data[side]["aspeed"], initial=0.0) / sfreq
+        data[side]["angle"] = cumulative_trapezoid(data[side]["aspeed"], initial=0.0) / sfreq
         data[side]["torque"] = data[side]["force"] * wheelsize
         data[side]["acc"] = np.gradient(data[side]["speed"]) * sfreq
         data[side]["power"] = data[side]["speed"] * data[side]["force"]
-        data[side]["dist"] = cumtrapz(data[side]["speed"], initial=0.0) / sfreq
+        data[side]["dist"] = cumulative_trapezoid(data[side]["speed"], initial=0.0) / sfreq
         data[side]["work"] = data[side]["power"] / sfreq
         data[side]["uforce"] = data[side]["force"] * (wheelsize / rimsize)
     return data

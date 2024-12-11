@@ -4,6 +4,9 @@ import copy
 import math
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.linear_model import LinearRegression
+import seaborn as sns
 
 from .plots import plot_power_speed_dist
 from .physio import calc_weighted_average
@@ -601,7 +604,7 @@ def force_velocity_curve(data_pbp, upper_lim=800):
     Parameters
     ----------
     data_pbp : dict
-        processed push-by-push ergometer data dictionary with dataframes for all sprints
+        processed push-by-push ergometer data dictionary with dataframes for all 6 sprints
     upper_lim : int
         upper limit recommendations for LP (800) and HP (1400)
 
@@ -622,12 +625,12 @@ def force_velocity_curve(data_pbp, upper_lim=800):
     model.fit(x, y)
     model = LinearRegression().fit(x, y)
     r_sq = model.score(x, y)
-    x1 = np.linspace(0, float(abs(model.intercept_/model.coef_)), 100)
+    x1 = np.linspace(0, float(abs(model.intercept_ / model.coef_)), 100)
     xx = np.linspace(x.min(), x.max(), 100)
 
-    pred_y = model.intercept_ + model.coef_*x
-    pred_y1 = model.intercept_ + model.coef_*x1
-    pred_y2 = model.intercept_ + model.coef_*xx
+    pred_y = model.intercept_ + model.coef_ * x
+    pred_y1 = model.intercept_ + model.coef_ * x1
+    pred_y2 = model.intercept_ + model.coef_ * xx
     power = xx * pred_y2
     power1 = x1 * pred_y1
     parabola = pd.DataFrame({'POmax': power1, 'vmax': x1})
