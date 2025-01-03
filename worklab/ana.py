@@ -603,8 +603,8 @@ def force_velocity_curve(data_pbp, upper_lim=800):
 
     Parameters
     ----------
-    data_pbp : dict
-        processed push-by-push ergometer data dictionary with dataframes for all 6 sprints
+    data_pbp : pd.DataFrame
+        processed push-by-push ergometer dataframe with output for all 6 sprints
     upper_lim : int
         upper limit recommendations for LP (800) and HP (1400)
 
@@ -656,7 +656,7 @@ def force_velocity_curve(data_pbp, upper_lim=800):
     ax.set_xlabel('Velocity [ms]', fontsize=14)
     ax.set_xlim(0, 9)
     ax.tick_params(axis='both', labelsize=12)
-    ax = sns.scatterplot('x', 'y', data=data_pbp, hue='Resistance')
+    ax = sns.scatterplot(data=data_pbp, x='x', y='y', hue='Resistance')
     ax.plot(x1, pred_y1, color='k', linestyle='--')
     ax.plot(x, pred_y, color='k')
     ax.annotate('R2 = ' + str(round(r_sq, 2)), xy=(0.75, 0.90), xycoords='axes fraction')
