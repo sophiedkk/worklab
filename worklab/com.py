@@ -165,7 +165,7 @@ def load_spiro(filename):
     ]
 
 
-def load_spiro_metamax(filename):
+def load_spiro_metamax(filename, sheet_name=0):
     """
     Loads metamax 3B spirometer data from Excel file.
 
@@ -209,6 +209,8 @@ def load_spiro_metamax(filename):
     ----------
     filename : str
         full file path or file in existing path from metamax 3B spirometer
+    sheet_name : str or int
+        sheet name, default = 0
 
     Returns
     -------
@@ -217,7 +219,15 @@ def load_spiro_metamax(filename):
 
 
     """
-    data = pd.read_excel(filename, skiprows=[*range(0, 124, 1)])
+    excel_data = pd.ExcelFile(filename)
+
+    # Loop through rows to find the one containing 't' in the first row
+    for index, row in enumerate(excel_data.parse(sheet_name=sheet_name, header=None).itertuples(index=False)):
+        if 't' in row:
+            skip_until = index
+            break
+
+    data = pd.read_excel(filename, skiprows=[*range(0, skip_until, 1)], sheet_name=sheet_name)
     # units = data.iloc[0, :]
     data.drop(0, inplace=True)
 

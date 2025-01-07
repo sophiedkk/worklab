@@ -434,43 +434,51 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
 
     Push detection and push-by-push analysis for ergometer data. Returns a pandas DataFrame with:
 
-    +--------------------+----------------------+-----------+
-    | Column             | Data                 | Unit      |
-    +====================+======================+===========+
-    | start/stop/peak    | respective indices   |           |
-    +--------------------+----------------------+-----------+
-    | tstart/tstop/tpeak | respective samples   | s         |
-    +--------------------+----------------------+-----------+
-    | cangle             | contact angle        | rad       |
-    +--------------------+----------------------+-----------+
-    | cangle_deg         | contact angle        | degrees   |
-    +--------------------+----------------------+-----------+
-    | mean/maxpower      | power per push       | W         |
-    +--------------------+----------------------+-----------+
-    | mean/maxtorque     | torque per push      | Nm        |
-    +--------------------+----------------------+-----------+
-    | mean/maxforce      | force per push       | N         |
-    +--------------------+----------------------+-----------+
-    | mean/maxuforce     | (rim) force per push | N         |
-    +--------------------+----------------------+-----------+
-    | mean/maxspeed      | velocity per push    | ms        |
-    +--------------------+----------------------+-----------+
-    | work               | work per push        | J         |
-    +--------------------+----------------------+-----------+
-    | cwork              | work per cycle       | J         |
-    +--------------------+----------------------+-----------+
-    | negwork            | negative work/cycle  | J         |
-    +--------------------+----------------------+-----------+
-    | slope              | slope onset to peak  | Nm/s      |
-    +--------------------+----------------------+-----------+
-    | smoothness         | mean/peak force      |           |
-    +--------------------+----------------------+-----------+
-    | ptime              | push time            | s         |
-    +--------------------+----------------------+-----------+
-    | ctime              | cycle time           | s         |
-    +--------------------+----------------------+-----------+
-    | reltime            | relative push/cycle  | %         |
-    +--------------------+----------------------+-----------+
+    +--------------------+-----------------------+-----------+
+    | Column             | Data                  | Unit      |
+    +====================+=======================+===========+
+    | start/stop/peak    | respective indices    |           |
+    +--------------------+-----------------------+-----------+
+    | tstart/tstop/tpeak | respective samples    | s         |
+    +--------------------+-----------------------+-----------+
+    | cangle             | contact angle         | rad       |
+    +--------------------+-----------------------+-----------+
+    | cangle_deg         | contact angle         | degrees   |
+    +--------------------+-----------------------+-----------+
+    | mean/maxpower      | power per push        | W         |
+    +--------------------+-----------------------+-----------+
+    | mean/maxtorque     | torque per push       | Nm        |
+    +--------------------+-----------------------+-----------+
+    | mean/maxforce      | force per push        | N         |
+    +--------------------+-----------------------+-----------+
+    | mean/maxuforce     | (rim) force per push  | N         |
+    +--------------------+-----------------------+-----------+
+    | mean/maxspeed      | velocity per push     | ms        |
+    +--------------------+-----------------------+-----------+
+    | work               | work per push         | J         |
+    +--------------------+-----------------------+-----------+
+    | cwork              | work per cycle        | J         |
+    +--------------------+-----------------------+-----------+
+    | negwork            | negative work/cycle   | J         |
+    +--------------------+-----------------------+-----------+
+    | slope              | slope onset to peak   | Nm/s      |
+    +--------------------+-----------------------+-----------+
+    | smoothness         | mean/peak force       | N         |
+    +--------------------+-----------------------+-----------+
+    | ptime              | push time             | s         |
+    +--------------------+-----------------------+-----------+
+    | ctime              | cycle time            | s         |
+    +--------------------+-----------------------+-----------+
+    | reltime            | relative push/cycle   | %         |
+    +--------------------+-----------------------+-----------+
+    | pnegpos            | neg power start push  | index    |
+    +--------------------+-----------------------+-----------+
+    | negpos             | neg power start push  | W        |
+    +--------------------+-----------------------+-----------+
+    | pnegpoe            | neg power start push  | index    |
+    +--------------------+-----------------------+-----------+
+    | negpoe             | neg power start push  | W        |
+    +--------------------+-----------------------+-----------+
 
     Parameters
     ----------
@@ -520,6 +528,10 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         "reltime",
         "cwork",
         "negwork",
+        "pnegpos",
+        "negpos"
+        "pnegpoe",
+        "negpoe",
     ]
 
     for side in data:
@@ -560,6 +572,23 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         negative_work[negative_work >= 0] = 0
         pbp["negwork"] = negative_work.groupby(cycle_bins).sum()[1:].reset_index(drop=True)
         pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.NaN
+
+        neg_before_all = []
+        neg_after_all = []
+
+        for sample, sample2 in zip(pbp['start'], pbp['stop']):
+            neg_before = data['mean'].loc[sample - 20:sample]
+            neg_before_min = neg_before[neg_before['power'] == min(neg_before['power'])]
+            neg_before_all.append(neg_before_min)
+            neg_after = data['mean'].loc[sample2:sample2 + 20]
+            neg_after_min = neg_after[neg_after['power'] == min(neg_after['power'])]
+            neg_after_all.append(neg_after_min)
+
+        for push in range(0, len(pbp)):
+            pbp.loc[push, "pnegpos"] = neg_before_all[push].index.item()
+            pbp.loc[push, "negpos"] = neg_before_all[push]['power'].item()
+            pbp.loc[push, "pnegpoe"] = neg_after_all[push].index.item()
+            pbp.loc[push, "negpoe"] = neg_after_all[push]['power'].item()
 
         pbp_sides[side] = pd.DataFrame(pbp)
 
