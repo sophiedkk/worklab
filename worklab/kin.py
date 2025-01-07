@@ -475,9 +475,9 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
     +--------------------+-----------------------+-----------+
     | negpos             | neg power start push  | W        |
     +--------------------+-----------------------+-----------+
-    | pnegpoe            | neg power start push  | index    |
+    | pnegpoe            | neg power end push    | index    |
     +--------------------+-----------------------+-----------+
-    | negpoe             | neg power start push  | W        |
+    | negpoe             | neg power end push    | W        |
     +--------------------+-----------------------+-----------+
 
     Parameters
