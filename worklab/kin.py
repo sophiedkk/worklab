@@ -529,7 +529,7 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         "cwork",
         "negwork",
         "pnegpos",
-        "negpos"
+        "negpos",
         "pnegpoe",
         "negpoe",
     ]
