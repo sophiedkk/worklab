@@ -577,10 +577,10 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         neg_after_all = []
 
         for sample, sample2 in zip(pbp['start'], pbp['stop']):
-            neg_before = data['mean'].loc[sample - 20:sample]
+            neg_before = data['mean'].loc[sample - 10:sample]
             neg_before_min = neg_before[neg_before['power'] == min(neg_before['power'])]
             neg_before_all.append(neg_before_min)
-            neg_after = data['mean'].loc[sample2:sample2 + 20]
+            neg_after = data['mean'].loc[sample2:sample2 + 10]
             neg_after_min = neg_after[neg_after['power'] == min(neg_after['power'])]
             neg_after_all.append(neg_after_min)
 
