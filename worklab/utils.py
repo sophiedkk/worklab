@@ -558,7 +558,7 @@ def binned_stats(array, bins=10, pad=True, func=np.mean, nan_func=np.nanmean):
     """
     array = np.array(array, dtype=float)  # make sure we have an array
     if pad:
-        array = np.pad(array, (0, bins - array.size % bins), mode="constant", constant_values=np.NaN)
+        array = np.pad(array, (0, bins - array.size % bins), mode="constant", constant_values=np.nan)
         means = nan_func(array.reshape(-1, bins), axis=1)
     else:
         means = func(array[: (len(array) // bins) * bins].reshape(-1, bins), axis=1)

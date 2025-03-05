@@ -87,7 +87,7 @@ def load_spiro(filename):
 
     Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,
     computes weights from the time difference between samples, if no heart rate data is available it fills
-    the column with np.NaNs. Returns a DataFrame with:
+    the column with nans. Returns a DataFrame with:
 
     +------------+----------------------------+-----------+
     | Column     | Data                       | Unit      |
@@ -139,7 +139,7 @@ def load_spiro(filename):
     data["VO2"] = data["VO2"] / 1000  # to l/min
     data["VCO2"] = data["VCO2"] / 1000  # to l/min
     data["RER"] = data["VCO2"] / data["VO2"]
-    data["HR"] = np.NaN if "HR" not in data else data["HR"]  # missing when sensor is not detected
+    data["HR"] = np.nan if "HR" not in data else data["HR"]  # missing when sensor is not detected
     data["O2pulse"] = data["VO2"] / data["HR"]
     data["VE/VO2"] = data["VE"] / data["VO2"]
     data["VE/VCO2"] = data["VE"] / data["VCO2"]
@@ -231,7 +231,7 @@ def load_spiro_metamax(filename, sheet_name=0):
     # units = data.iloc[0, :]
     data.drop(0, inplace=True)
 
-    data.replace("-", np.NaN, inplace=True)
+    data.replace("-", np.nan, inplace=True)
 
     data.rename(columns={"t": "time", "V'O2": "VO2", "V'E": "VE"}, inplace=True)
     data["VCO2"] = data["V'E/V'CO2"] * (data["VE"])
@@ -243,7 +243,7 @@ def load_spiro_metamax(filename, sheet_name=0):
     data["VO2"] = data["VO2"].astype(float)
     data["EE"] = ((4.94 * data["RER"] + 16.04) * (1000 * data["VO2"])) / 60
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
-    data["HR"] = (np.NaN if "HR" not in data else data["HR"]).astype(int)  # missing when sensor is not detected
+    data["HR"] = (np.nan if "HR" not in data else data["HR"]).astype(int)  # missing when sensor is not detected
     data["O2pulse"] = data["VO2"] / data["HR"]
     data["VCO2"].replace(0, 0.01, inplace=True)
     data["VO2"].replace(0, 0.01, inplace=True)

@@ -389,7 +389,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5,
         "cwork",
         "negwork",
     ]
-    pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.NaN), columns=keys)  # preallocate dataframe
+    pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.nan), columns=keys)  # preallocate dataframe
 
     pbp["start"] = peaks["start"]
     pbp["peak"] = peaks["peak"]
@@ -421,7 +421,7 @@ def push_by_push_mw(data, variable="torque", cutoff=0.0, minpeak=5.0, mindist=5,
     negative_work = data["work"].copy()
     negative_work[negative_work >= 0] = 0
     pbp["negwork"] = negative_work.groupby(cycle_bins).sum()[1:].reset_index(drop=True)
-    pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.NaN
+    pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.nan
 
     if verbose:
         print("\n" + "=" * 80 + f"\nFound {len(pbp)} pushes!\n" + "=" * 80 + "\n")
@@ -539,7 +539,7 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
             peaks = find_peaks(data[side][variable], cutoff, minpeak, mindist)
         else:
             peaks = find_peaks(data[side][variable], cutoff, (minpeak * 2), mindist)
-        pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.NaN), columns=keys)  # preallocate
+        pbp = pd.DataFrame(data=np.full((len(peaks["start"]), len(keys)), np.nan), columns=keys)  # preallocate
 
         pbp["start"] = peaks["start"]
         pbp["peak"] = peaks["peak"]
@@ -571,7 +571,7 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         negative_work = data[side]["work"].copy()
         negative_work[negative_work >= 0] = 0
         pbp["negwork"] = negative_work.groupby(cycle_bins).sum()[1:].reset_index(drop=True)
-        pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.NaN
+        pbp.loc[len(pbp) - 1, ["cwork", "negwork"]] = np.nan
 
         neg_before_all = []
         neg_after_all = []
