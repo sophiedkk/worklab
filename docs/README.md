@@ -1,6 +1,6 @@
 # Worklab Documentation
 
-[![image](https://zenodo.org/badge/DOI/10.5281/zenodo.8362963.svg)](https://doi.org/10.5281/zenodo.8362963) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE)
+[![image](https://zenodo.org/badge/DOI/10.5281/zenodo.8362963.svg)](https://doi.org/10.5281/zenodo.8362963) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/sophiedkk/worklab/tree/master/LICENCE)
 ```{eval-rst}
 **Date**: |today|
 ```
@@ -70,7 +70,7 @@ development environment up and running and your first pull request going.
 
 If you want to refer to this package please use this DOI: 10.5281/zenodo.8362962, or cite:
 
-Rick de Klerk, Thomas Rietveld, Rowie Janssen, & Jelmer Braaksma. (2023). Worklab: a wheelchair biomechanics mini-package. 
+Sophie de Klerk, Thomas Rietveld, Rowie Janssen, & Jelmer Braaksma. (2023). Worklab: a wheelchair biomechanics mini-package. 
 Zenodo. https://doi.org/10.5281/zenodo.8362963
 
 ## Acknowledgments

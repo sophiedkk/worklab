@@ -7,7 +7,7 @@ requires-python = ">=3.7"
 license = {file = "LICENSE"}
 keywords = ["biomechanics", "ergometry", "physiology"]
 authors = [
-  {name = "Rick de Klerk", email = "r.de.klerk@pl.hanze.nl"},
+  {name = "Sophie de Klerk", email = "r.de.klerk@pl.hanze.nl"},
   {name = "Thomas Rietveld", email = "t.rietveld@lboro.ac.uk"},
   {name = "Rowie Janssen", email = "r.j.f.janssen@umcg.nl"},
   {name = "Jelmer Braaksma", email = "j.braaksma01@umcg.nl"}
@@ -35,8 +35,8 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/rickdkk/worklab"
-"Bug Reports" = "https://github.com/rickdkk/worklab/issues"
+"Homepage" = "https://github.com/sophiedkk/worklab"
+"Bug Reports" = "https://github.com/sophiedkk/worklab/issues"
 
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
