@@ -8,7 +8,7 @@ message: >-
   metadata from this file.
 type: software
 authors:
-  - given-names: Rick
+  - given-names: Sophie
     family-names: de Klerk
     email: r.de.klerk@pl.hanze.nl
     affiliation: Hanze University of Applied Sciences
@@ -34,6 +34,6 @@ authors:
 identifiers:
   - type: doi
     value: 10.5281/zenodo.8362962
-repository-code: 'https://github.com/rickdkk/worklab'
-url: 'https://rickdkk.github.io/worklab/'
+repository-code: 'https://github.com/sophiedkk/worklab'
+url: 'https://sophiedkk.github.io/worklab/'
 license: GPL-3.0
