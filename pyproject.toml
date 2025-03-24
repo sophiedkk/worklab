@@ -23,7 +23,8 @@ dependencies = [
   "numpy",
   "pandas",
   "matplotlib",
-  "xlrd"
+  "xlrd",
+  "scikit-learn"
 ]
 
 [project.optional-dependencies]

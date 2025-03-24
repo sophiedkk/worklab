@@ -55,5 +55,6 @@ Thumbs.db
 /build
 /docs/_build
 /dist
+/.idea/
 docs/source/examples/.ipynb_checkpoints
 tests.py
