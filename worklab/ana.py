@@ -5,6 +5,7 @@ import math
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import sklearn
 import seaborn as sns
 
 from .plots import plot_power_speed_dist
@@ -594,3 +595,84 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
     outcomes = pd.concat([mean_ergo, mean_spiro], axis=1)
     outcomes["me"] = (outcomes["meanpower"] / outcomes["EE"]) * 100
     return outcomes
+
+
+def force_velocity_curve(data_pbp, upper_lim=800):
+    """
+    Creates force-velocity curves for wheelchair sports
+
+    Parameters
+    ----------
+    data_pbp : pd.DataFrame
+        processed push-by-push ergometer dataframe with output for all 6 sprints
+    upper_lim : int
+        upper limit recommendations for LP (800) and HP (1400)
+
+    Returns
+    -------
+    fig : figure
+        force-velocity plot
+    variables : pd.DataFrame
+        r2, optimal velocity/power, x/y coordinates and coefficient
+
+    """
+    data_pbp = data_pbp[data_pbp.index > 0]
+    x = np.array(data_pbp['maxspeed']).reshape((-1, 1))
+    y = np.array(data_pbp['maxforce'])
+    data_pbp['x'] = np.array(data_pbp['maxspeed']).reshape((-1, 1))
+    data_pbp['y'] = np.array(data_pbp['maxforce'])
+    model = sklearn.LinearRegression()
+    model.fit(x, y)
+    model = sklearn.LinearRegression().fit(x, y)
+    r_sq = model.score(x, y)
+    x1 = np.linspace(0, float(abs(model.intercept_ / model.coef_)), 100)
+    xx = np.linspace(x.min(), x.max(), 100)
+
+    pred_y = model.intercept_ + model.coef_ * x
+    pred_y1 = model.intercept_ + model.coef_ * x1
+    pred_y2 = model.intercept_ + model.coef_ * xx
+    power = xx * pred_y2
+    power1 = x1 * pred_y1
+    parabola = pd.DataFrame({'POmax': power1, 'vmax': x1})
+    pomax_pos = parabola['POmax'].idxmax()
+    pomax_opt = parabola['POmax'].max()
+    vmax_opt = parabola['vmax'][pomax_pos]
+
+    variables = pd.DataFrame([])
+    variables['R2'] = [r_sq]
+    variables['opt_vel'] = vmax_opt
+    variables['opt_pow'] = pomax_opt
+    variables['y_cor'] = model.intercept_
+    variables['x_cor'] = x1[-1]
+    variables['coef'] = model.coef_
+    variables = round(variables, 2)
+
+    sns.set_style('darkgrid')
+    col_pal = sns.color_palette("dark:#5A9_r")
+    sns.set_palette(col_pal)
+    fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+    ax.set_ylabel('Force [N]', fontsize=14)
+    ax.set_ylim(0, upper_lim)
+    ax.set_xlabel('Velocity [ms]', fontsize=14)
+    ax.set_xlim(0, 9)
+    ax.tick_params(axis='both', labelsize=12)
+    ax = sns.scatterplot(data=data_pbp, x='x', y='y', hue='Resistance')
+    ax.plot(x1, pred_y1, color='k', linestyle='--')
+    ax.plot(x, pred_y, color='k')
+    ax.annotate('R2 = ' + str(round(r_sq, 2)), xy=(0.75, 0.90), xycoords='axes fraction')
+    ax.annotate('y = ' + str(round(model.intercept_, 1)) + ' ' + str(round(model.coef_[0], 1)) + ' * x',
+                xy=(0.75, 0.85), xycoords='axes fraction')
+
+    ax1 = ax.twinx()
+    ax1.grid(False)
+    ax1.plot(x1, power1, color='grey', linestyle='--')
+    ax1.plot(xx, power, color='grey')
+    ax1.set_ylim(0, upper_lim)
+    ax1.set_ylabel('Power [W]', color='grey', fontsize=14)
+    ax1.yaxis.label.set_color('grey')
+    ax1.spines['right'].set_color('grey')
+    ax1.tick_params(axis='y', colors='grey')
+    ax1.tick_params(axis='both', labelsize=12)
+    ax1.annotate('Optimal velocity (' + str(round(vmax_opt, 1)) + ' ms)', xy=(0.75, 0.95), xycoords='axes fraction')
+
+    return fig, variables
