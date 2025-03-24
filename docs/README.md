@@ -1,9 +1,6 @@
 # Worklab Documentation
 
 [![image](https://zenodo.org/badge/DOI/10.5281/zenodo.8362963.svg)](https://doi.org/10.5281/zenodo.8362963) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/sophiedkk/worklab/tree/master/LICENCE)
-```{eval-rst}
-**Date**: |today|
-```
 
 The current page contains information on wheelchair propulsion research in the worklab and the correspondingly named 
 Python package. As such, the page contains a general outline of wheelchair propulsion research, but also some practical 
@@ -85,18 +82,18 @@ SMARTwheel systems.
 Functions that use a specific algorithm or base have their references in the docstring. More generally, the analyses in
 this package are taken from:
 
--   Janssen RJF, Vegter RJK, Houdijk H, Van der Woude LHV and De Groot S (2022). Evaluation of a standardized test protocol
+-   Janssen RJF, Vegter RJK, Houdijk H, van der Woude LHV and de Groot S (2022). Evaluation of a standardized test protocol
 to measure wheelchair-specific anaerobic and aerobic exercise capacity in healthy novices on an instrumented roller
 ergometer. PLOS ONE 17(9): e0274255. https://doi.org/10.1371/journal.pone.0274255
-- De Klerk R, Vegter RJK, Veeger HEJ and Van der Woude LHV (2020). Technical Note: A Novel Servo-Driven
+- De Klerk R, Vegter RJK, Veeger HEJ and van der Woude LHV (2020). Technical Note: A Novel Servo-Driven
 Dual-Roller Handrim Wheelchair Ergometer. IEEE Transactions on Neural Systems and Rehabilitation Engineering,
 28(4), 953-960. https://doi.org/10.1109/TNSRE.2020.2965281
+- De Klerk R, Vegter RJK, Leving MT, de Groot S, Veeger HEJ, van der Woude LHV (2020). Determining and Controlling External
+Power Output During Regular Handrim Wheelchair Propulsion. J Vis Exp. 156. https://doi.org/10.3791/60492
 - Rietveld T, Vegter RJK, van der Slikke RMA, Hoekstra AE, van der Woude LHV and de Groot S (2019). Wheelchair mobility
 performance of elite wheelchair tennis players during four field tests: Inter-trial reliability and construct validity.
 PLoS One 14(6): e0217514. https://doi.org/10.1371/journal.pone.0217514
-- de Klerk R, Vegter RJK, Leving MT, de Groot S, Veeger HEJ, van der Woude LHV (2020). Determining and Controlling External
-Power Output During Regular Handrim Wheelchair Propulsion. J Vis Exp. 156. https://doi.org/10.3791/60492
--   Vegter RJK, Lamoth CJ, De Groot S, Veeger HEJ and Van der Woude LHV (2013). Variability in bimanual 
+-   Vegter RJK, Lamoth CJ, de Groot S, Veeger HEJ and van der Woude LHV (2013). Variability in bimanual 
 wheelchair propulsion: consistency of two instrumented wheels during handrim wheelchair propulsion on a motor driven 
 treadmill. Journal of neuroengineering and rehabilitation, 10(1), 9. https://doi.org/10.1186/1743-0003-10-9
 -   Van der Slikke RMA, Berger MAM, Bregman DJJ, & Veeger HEJ (2015). Wheel skid correction is 

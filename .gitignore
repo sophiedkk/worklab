@@ -58,3 +58,4 @@ Thumbs.db
 /.idea/
 docs/source/examples/.ipynb_checkpoints
 tests.py
+.idea/

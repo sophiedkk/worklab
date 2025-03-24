@@ -1,6 +1,6 @@
 [project]
 name = "worklab"
-version = "2.0.dev"
+version = "2.0.0"
 description = "Basic scripts for worklab devices"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -14,7 +14,7 @@ authors = [
 ]
 classifiers = [
   "Intended Audience :: Science/Research",
-  "License :: OSI Approved :: GNU GPLv3 License",
+  "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
   "Programming Language :: Python :: 3",
   "Operating System :: OS Independent"
 ]
@@ -32,7 +32,8 @@ dev = [
     "pytest",
     "Flake8-pyproject",
     "black",
-    "jupyter-book"
+    "jupyter-book",
+    "build"
 ]
 
 [project.urls]

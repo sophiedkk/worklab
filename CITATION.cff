@@ -1,0 +1,39 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: 'Worklab: a wheelchair biomechanics mini-package'
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Rick
+    family-names: de Klerk
+    email: r.de.klerk@pl.hanze.nl
+    affiliation: Hanze University of Applied Sciences
+    orcid: 'https://orcid.org/0000-0003-2745-1963'
+  - given-names: Thomas
+    family-names: Rietveld
+    email: t.rietveld@lboro.ac.uk
+    orcid: 'https://orcid.org/0000-0002-7753-9958'
+    affiliation: >-
+      Peter Harrison Centre for Disability Sport, School of
+      Sport  Exercise & Health Sciences, Loughborough
+      University,  Loughborough, UK
+  - given-names: Rowie
+    family-names: Janssen
+    orcid: 'https://orcid.org/0000-0001-7480-3779'
+    email: r.j.f.janssen@umcg.nl
+    affiliation: University Medical Center Groningen
+  - given-names: Jelmer
+    family-names: Braaksma
+    email: j.braaksma01@umcg.nl
+    affiliation: University Medical Center Groningen
+    orcid: 'https://orcid.org/0000-0002-9103-3590'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.8362962
+repository-code: 'https://github.com/rickdkk/worklab'
+url: 'https://rickdkk.github.io/worklab/'
+license: GPL-3.0

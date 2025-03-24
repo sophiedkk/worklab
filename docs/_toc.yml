@@ -10,6 +10,7 @@ parts:
     - file: chapters/overground
     - file: chapters/treadmill
     - file: chapters/ergometer
+    - file: chapters/exercise_testing
   - caption: Examples
     chapters:
     - file: chapters/examples
@@ -17,6 +18,11 @@ parts:
     - file: chapters/examples/ex_kinetics_mw
     - file: chapters/examples/ex_move_imu
     - file: chapters/examples/ex_physio_spiro
+    - file: chapters/examples/ex_data_analysis_isometric_force_test
+    - file: chapters/examples/ex_data_analysis_wingate_test
+    - file: chapters/examples/ex_data_analysis_sprint_test
+    - file: chapters/examples/ex_data_analysis_submaximal_test
+    - file: chapters/examples/ex_data_analysis_maximal_exercise_test
   - caption: Documentation
     chapters:
     - file: chapters/package

@@ -1,10 +1,9 @@
 name: Python testing
 
-on: [push]
+on: [workflow_call]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
