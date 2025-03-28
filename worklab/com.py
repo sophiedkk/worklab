@@ -956,26 +956,39 @@ def load_ximu3(root_dir, filenames=None, inplace=False):
 
     if 'right' in sessiondata.keys():
         sessiondata["right"] = sessiondata["right"]["Inertial"]
-        sessiondata["right"]["timestamp"] -= sessiondata["right"]["timestamp"][0]
     else:
         print('No right sensor imported')
     if 'frame' in sessiondata.keys():
         sessiondata["frame"] = sessiondata["frame"]["Inertial"]
-        sessiondata["frame"]["timestamp"] -= sessiondata["frame"]["timestamp"][0]
     else:
         print('No frame sensor imported')
     if 'left' in sessiondata.keys():
         sessiondata["left"] = sessiondata["left"]["Inertial"]
-        sessiondata["left"]["timestamp"] -= sessiondata["left"]["timestamp"][0]
     else:
         print('No left sensor imported')
     if 'trunk' in sessiondata.keys():
         sessiondata["trunk"] = sessiondata["trunk"]["Inertial"]
-        sessiondata["trunk"]["timestamp"] -= sessiondata["trunk"]["timestamp"][0]
     else:
         print('No trunk sensor imported')
 
+    start_time = np.max([sessiondata['frame']['timestamp'].min(), sessiondata['left']['timestamp'].min(),
+                         sessiondata['right']['timestamp'].min()])
+    stop_time = np.min([sessiondata['frame']['timestamp'].max(), sessiondata['left']['timestamp'].max(),
+                        sessiondata['right']['timestamp'].max()])
+
     for sensor in sessiondata:
+        sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] >= start_time]
+        sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] <= stop_time]
+
+    start_time = np.max([sessiondata['frame']['timestamp'].min(), sessiondata['left']['timestamp'].min(),
+                         sessiondata['right']['timestamp'].min()])
+    stop_time = np.min([sessiondata['frame']['timestamp'].max(), sessiondata['left']['timestamp'].max(),
+                        sessiondata['right']['timestamp'].max()])
+
+    for sensor in sessiondata:
+        sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] >= start_time]
+        sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] <= stop_time]
+        sessiondata[sensor] = sessiondata[sensor].reset_index(drop=True)
         sessiondata[sensor]['time'] = pd.to_datetime(sessiondata[sensor]['timestamp'], unit='us')
         sessiondata[sensor]['time'] -= sessiondata[sensor]['time'][0]
         sessiondata[sensor]['time'] = sessiondata[sensor]['time'].dt.total_seconds()

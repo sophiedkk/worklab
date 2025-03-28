@@ -597,7 +597,7 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
     return outcomes
 
 
-def force_velocity_curve(data_pbp, upper_lim=800):
+def force_velocity_curve(data_pbp, upper_lim=800, var='max'):
     """
     Creates force-velocity curves for wheelchair sports
 
@@ -607,6 +607,8 @@ def force_velocity_curve(data_pbp, upper_lim=800):
         processed push-by-push ergometer dataframe with output for all 6 sprints
     upper_lim : int
         upper limit recommendations for LP (800) and HP (1400)
+    var : str
+        'max' force and velocity or 'mean' force and velocity
 
     Returns
     -------
@@ -616,11 +618,18 @@ def force_velocity_curve(data_pbp, upper_lim=800):
         r2, optimal velocity/power, x/y coordinates and coefficient
 
     """
+    if var == 'max':
+        speed = 'maxspeed'
+        force = 'maxuforce'
+    else:
+        speed = 'meanspeed'
+        force = 'meanuforce'
+
     data_pbp = data_pbp[data_pbp.index > 0]
-    x = np.array(data_pbp['maxspeed']).reshape((-1, 1))
-    y = np.array(data_pbp['maxforce'])
-    data_pbp['x'] = np.array(data_pbp['maxspeed']).reshape((-1, 1))
-    data_pbp['y'] = np.array(data_pbp['maxforce'])
+    x = np.array(data_pbp[speed]).reshape((-1, 1))
+    y = np.array(data_pbp[force])
+    data_pbp['x'] = np.array(data_pbp[speed]).reshape((-1, 1))
+    data_pbp['y'] = np.array(data_pbp[force])
     model = sklearn.LinearRegression()
     model.fit(x, y)
     model = sklearn.LinearRegression().fit(x, y)
@@ -654,7 +663,7 @@ def force_velocity_curve(data_pbp, upper_lim=800):
     ax.set_ylabel('Force [N]', fontsize=14)
     ax.set_ylim(0, upper_lim)
     ax.set_xlabel('Velocity [ms]', fontsize=14)
-    ax.set_xlim(0, 9)
+    ax.set_xlim(0, 6)
     ax.tick_params(axis='both', labelsize=12)
     ax = sns.scatterplot(data=data_pbp, x='x', y='y', hue='Resistance')
     ax.plot(x1, pred_y1, color='k', linestyle='--')

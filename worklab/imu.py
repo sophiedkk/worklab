@@ -3,7 +3,7 @@ from warnings import warn
 
 import numpy as np
 from scipy.integrate import cumulative_trapezoid
-from scipy.signal import periodogram, find_peaks
+from scipy.signal import periodogram, find_peaks, savgol_filter
 
 from .utils import lowpass_butter, pd_interp
 
@@ -32,10 +32,10 @@ def resample_imu(sessiondata, sfreq=400.0):
     https://github.com/xioTechnologies/NGIMU-MATLAB-Import-Logged-Data-Example
 
     """
-    end_time = 0
+    end_time = np.inf
     for device in sessiondata:
         max_time = sessiondata[device]["time"].max()
-        end_time = max_time if max_time > end_time else end_time
+        end_time = max_time if max_time < end_time else end_time
 
     new_time = np.arange(0, end_time, 1 / sfreq)
 
@@ -85,6 +85,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
     sfreq = 1 / frame["time"].diff().mean()
     frame["rot_vel"] = lowpass_butter(frame["gyroscope_z"], sfreq=sfreq, cutoff=6)
+    frame['rot_vel'] = savgol_filter(frame['rot_vel'], window_length=100, polyorder=3)
     right['gyroscope_y'] = lowpass_butter(right['gyroscope_y'], sfreq=sfreq, cutoff=10)
 
     # Wheelchair camber correction
@@ -155,10 +156,10 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
     # distance in the x and y direction
     frame["dist_y"] = cumulative_trapezoid(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
+        frame['vel'] / sfreq * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
     frame["dist_x"] = cumulative_trapezoid(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
+        frame['vel'] / sfreq * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
 
     return sessiondata
@@ -200,6 +201,7 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
     # Calculation of rotations, rotational velocity and acceleration
     frame["rot_vel"] = lowpass_butter(frame["gyroscope_z"],
                                       sfreq=sfreq, cutoff=10)
+    frame['rot_vel'] = savgol_filter(frame['rot_vel'], window_length=100, polyorder=3)
     frame["rot"] = cumulative_trapezoid(abs(frame["rot_vel"]) / sfreq, initial=0.0)
     frame["rot_acc"] = np.gradient(frame["rot_vel"]) * sfreq
 
@@ -232,10 +234,10 @@ def process_imu_left(sessiondata, camber=18, wsize=0.32, wbase=0.80,
 
     # distance in the x and y direction
     frame["dist_y"] = cumulative_trapezoid(
-        np.gradient(frame["dist"]) * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
+        frame['vel'] / sfreq * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
     frame["dist_x"] = cumulative_trapezoid(
-        np.gradient(frame["dist"]) * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
+        frame['vel'] / sfreq * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
         initial=0.0)
 
     return sessiondata
@@ -311,7 +313,7 @@ def push_imu(acceleration, sfreq=400.0):
     return push_idx, acc_filt, n_pushes, cycle_time, push_freq
 
 
-def movesense_offset(sessiondata, n_sensors=2, right_wheel=True):
+def movesense_offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=False):
     """
     Remove offset MoveSense sensors
 
@@ -324,6 +326,8 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True):
     n_sensors: float
         number of sensors used, 2: right wheel and frame,
         3: right, left wheel and frame
+    gyro_offset: boolean
+        if set to True, an additional gyroscope offset will be used
 
     Returns
     -------
@@ -363,5 +367,10 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True):
             sessiondata['left']['gyroscope_x'] -= offset_left_x
     else:
         print('No offset corrected')
+    if gyro_offset is True:
+        sessiondata['frame']['gyroscope_z'] = np.sign(sessiondata['frame']['gyroscope_z'])\
+                                              * np.sqrt(sessiondata['frame']['gyroscope_x']**2
+                                                        + sessiondata['frame']['gyroscope_y']**2
+                                                        + sessiondata['frame']['gyroscope_z']**2)
 
     return sessiondata
