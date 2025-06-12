@@ -231,31 +231,37 @@ def process_mw(data, wheelsize=0.31, rimsize=0.275, sfreq=200):
     return data
 
 
-def process_ergo(data, wheelsize=0.31, rimsize=0.275):
+def process_ergo(data, wheelsize=0.31, rimsize=0.275, unit="ms"):
     """
     Basic processing for ergometer data.
 
     Basic processing for ergometer data (e.g. speed to distance). Should be performed after filtering.
-    Added columns:
+    Returned columns:
 
     +------------+----------------------+-----------+
     | Column     | Data                 | Unit      |
     +============+======================+===========+
-    | angle      | angle                | rad       |
+    | time       | time                 | s         |
+    +------------+----------------------+-----------+
+    | force      | force (on wheel)     | N         |
+    +------------+----------------------+-----------+
+    | speed      | speed                | m/s       |
+    +------------+----------------------+-----------+
+    | acc        | acceleration         | m/s^2     |
     +------------+----------------------+-----------+
     | aspeed     | angular velocity     | rad/s     |
     +------------+----------------------+-----------+
-    | acc        | acceleration         | m/s^2     |
+    | angle      | angle                | rad       |
     +------------+----------------------+-----------+
     | dist       | cumulative distance  | m         |
     +------------+----------------------+-----------+
     | power      | power                | W         |
     +------------+----------------------+-----------+
-    | work       | instantaneous work   | J         |
+    | torque     | torque around wheel  | Nm        |
     +------------+----------------------+-----------+
     | uforce     | effective force      | N         |
     +------------+----------------------+-----------+
-    | torque     | torque around wheel  | Nm        |
+    | work       | instantaneous work   | J         |
     +------------+----------------------+-----------+
 
     .. note:: the force column contains force on the wheels, uforce (user force) is force on the handrim
@@ -268,6 +274,8 @@ def process_ergo(data, wheelsize=0.31, rimsize=0.275):
         wheel radius [m]
     rimsize : float
         handrim radius [m]
+    unit : str
+        unit of measured 'speed' column; ms, kmh or mph
 
     Returns
     -------
@@ -280,14 +288,23 @@ def process_ergo(data, wheelsize=0.31, rimsize=0.275):
     """
     sfreq = 100  # ergometer is always 100Hz
     for side in data:
+        if unit == "kmh":
+            data[side]["speed"] /= 3.6
+        elif unit == "mph":
+            data[side]["speed"] /= 2.23694
+        elif unit == "ms":
+            data[side]["speed"] = data[side]["speed"]
+        else:
+            raise Exception("Please specify either 'ms', 'kmh' or 'mph', data not processed!")
+
+        data[side]["acc"] = np.gradient(data[side]["speed"]) * sfreq
         data[side]["aspeed"] = data[side]["speed"] / wheelsize
         data[side]["angle"] = cumulative_trapezoid(data[side]["aspeed"], initial=0.0) / sfreq
-        data[side]["torque"] = data[side]["force"] * wheelsize
-        data[side]["acc"] = np.gradient(data[side]["speed"]) * sfreq
-        data[side]["power"] = data[side]["speed"] * data[side]["force"]
         data[side]["dist"] = cumulative_trapezoid(data[side]["speed"], initial=0.0) / sfreq
-        data[side]["work"] = data[side]["power"] / sfreq
+        data[side]["power"] = data[side]["speed"] * data[side]["force"]
+        data[side]["torque"] = data[side]["force"] * wheelsize
         data[side]["uforce"] = data[side]["force"] * (wheelsize / rimsize)
+        data[side]["work"] = data[side]["power"] / sfreq
     return data
 
 
