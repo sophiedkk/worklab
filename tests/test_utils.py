@@ -1,4 +1,4 @@
-from worklab.worklab.utils import find_nearest
+from worklab.utils import find_nearest
 
 import numpy as np
 
