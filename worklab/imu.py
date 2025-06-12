@@ -368,9 +368,9 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=Fal
     else:
         print('No offset corrected')
     if gyro_offset is True:
-        sessiondata['frame']['gyroscope_z'] = np.sign(sessiondata['frame']['gyroscope_z'])\
-                                            * np.sqrt(sessiondata['frame']['gyroscope_x']**2
-                                                      + sessiondata['frame']['gyroscope_y']**2
-                                                      + sessiondata['frame']['gyroscope_z']**2)
+        sessiondata['frame']['gyroscope_z'] = np.sign(sessiondata['frame']['gyroscope_z']) \
+                                              * np.sqrt(sessiondata['frame']['gyroscope_x']**2
+                                                        + sessiondata['frame']['gyroscope_y']**2
+                                                        + sessiondata['frame']['gyroscope_z']**2)
 
     return sessiondata
