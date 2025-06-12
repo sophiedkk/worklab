@@ -1,9 +1,6 @@
 # Worklab Documentation
 
-[![image](https://zenodo.org/badge/DOI/10.5281/zenodo.8362962.svg)](https://doi.org/10.5281/zenodo.8362962) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gitlab.com/Rickdkk/worklab/tree/master/LICENCE)
-```{eval-rst}
-**Date**: |today|
-```
+[![image](https://zenodo.org/badge/DOI/10.5281/zenodo.8362963.svg)](https://doi.org/10.5281/zenodo.8362963) [![image](https://badge.fury.io/py/worklab.svg)](https://badge.fury.io/py/worklab) [![image](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/sophiedkk/worklab/blob/main/LICENSE)
 
 The current page contains information on wheelchair propulsion research in the worklab and the correspondingly named 
 Python package. As such, the page contains a general outline of wheelchair propulsion research, but also some practical 
@@ -60,7 +57,7 @@ development environment up and running and your first pull request going.
 
 ## Authors
 
--  **Rick de Klerk** - *Initial work* - [ORCID](https://orcid.org/0000-0003-2745-1963)
+-  **Sophie de Klerk** - *Initial work* - [ORCID](https://orcid.org/0000-0003-2745-1963)
 -  **Thomas Rietveld** - [GitLab](https://gitlab.com/Thomas2016) -
     [ORCID](https://orcid.org/0000-0002-7753-9958)
 -  **Rowie Janssen** - [ORCID](https://orcid.org/0000-0001-7480-3779) 
@@ -68,10 +65,10 @@ development environment up and running and your first pull request going.
 
 ## Citing
 
-If you want to refer to this package please use this DOI:
-10.5281/zenodo.8362962, or cite:
+If you want to refer to this package please use this DOI: 10.5281/zenodo.8362962, or cite:
 
-Rick de Klerk, Thomas Rietveld, Rowie Janssen, & Jelmer Braaksma. (2023). Worklab: a wheelchair biomechanics mini-package. Zenodo. https://doi.org/10.5281/zenodo.8362963
+Sophie de Klerk, Thomas Rietveld, Rowie Janssen, & Jelmer Braaksma. (2023). Worklab: a wheelchair biomechanics mini-package. 
+Zenodo. https://doi.org/10.5281/zenodo.8362963
 
 ## Acknowledgments
 

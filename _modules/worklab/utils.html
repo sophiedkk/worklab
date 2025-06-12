@@ -1,410 +1,393 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>worklab.utils</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css?v=37144241" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/worklab/utils';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
         
       
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
       
-      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
+    
+    
+    <img src="../../_static/accessibility_icon_boost.svg" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../_static/accessibility_icon_boost.svg" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/setup.html">
-   Quick Start Guide
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/overground.html">
-   Overground testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/treadmill.html">
-   Treadmill testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/ergometer.html">
-   Ergometer testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/exercise_testing.html">
-   Exercise testing
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/setup.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/overground.html">Overground testing</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/treadmill.html">Treadmill testing</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/ergometer.html">Ergometer testing</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/exercise_testing.html">Exercise testing</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Examples
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples.html">
-   Minimal examples
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
-   Working with ergometer data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
-   Working with measurement wheel data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
-   Working with NGIMU data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
-   Working with spirometer data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_isometric_force_test.html">
-   Analysis of a Wingate test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_wingate_test.html">
-   Analysis of a Wingate test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_sprint_test.html">
-   Analysis of a sprint test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_submaximal_test.html">
-   Analysis of a submaximal test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_maximal_exercise_test.html">
-   Analysis of a maximal exercise test
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples.html">Minimal examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">Working with ergometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">Working with measurement wheel data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_move_imu.html">Working with NGIMU data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">Working with spirometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_isometric_force_test.html">Analysis of a Wingate test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_wingate_test.html">Analysis of a Wingate test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_sprint_test.html">Analysis of a sprint test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_submaximal_test.html">Analysis of a submaximal test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_maximal_exercise_test.html">Analysis of a maximal exercise test</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Documentation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapters/package.html">
-   Package documentation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/ana.html">
-     Analyses (.ana)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/com.html">
-     Communication (.com)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/imu.html">
-     IMU (.imu)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/kin.html">
-     Kinetics (.kin)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/move.html">
-     Kinematics (.move)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/physio.html">
-     Physiology (.physio)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/plots.html">
-     Plotting (.plots)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/utils.html">
-     Utilities (.utils)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/developer.html">
-   Developers
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapters/package.html">Package documentation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/ana.html">Analyses (.ana)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/com.html">Communication (.com)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/imu.html">IMU (.imu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/kin.html">Kinetics (.kin)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/move.html">Kinematics (.move)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/physio.html">Physiology (.physio)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/plots.html">Plotting (.plots)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/utils.html">Utilities (.utils)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/developer.html">Developers</a></li>
+
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/utils.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/rickdkk/worklab"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
       
-      <li>
-        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/utils.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
+    </div>
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
 </div>
+</div>
+              
+              
 
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
     </div>
 </div>
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1></h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for worklab.utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">datetime</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">Tk</span>
-<span class="kn">from</span> <span class="nn">tkinter.filedialog</span> <span class="kn">import</span> <span class="n">askopenfilename</span><span class="p">,</span> <span class="n">askopenfilenames</span><span class="p">,</span> <span class="n">asksaveasfilename</span><span class="p">,</span> <span class="n">askdirectory</span>
-<span class="kn">import</span> <span class="nn">math</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tkinter.filedialog</span><span class="w"> </span><span class="kn">import</span> <span class="n">askopenfilename</span><span class="p">,</span> <span class="n">askopenfilenames</span><span class="p">,</span> <span class="n">asksaveasfilename</span><span class="p">,</span> <span class="n">askdirectory</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">,</span> <span class="n">interp1d</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">curve_fit</span>
-<span class="kn">from</span> <span class="nn">scipy.signal</span> <span class="kn">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">sosfiltfilt</span><span class="p">,</span> <span class="n">correlate</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterpolatedUnivariateSpline</span><span class="p">,</span> <span class="n">interp1d</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.signal</span><span class="w"> </span><span class="kn">import</span> <span class="n">butter</span><span class="p">,</span> <span class="n">sosfiltfilt</span><span class="p">,</span> <span class="n">correlate</span>
 
 
-<div class="viewcode-block" id="pick_file"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_file">[docs]</a><span class="k">def</span> <span class="nf">pick_file</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="pick_file">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pick_file</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open a window to select a single file</span>
 
@@ -429,7 +412,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
-<div class="viewcode-block" id="pick_files"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_files">[docs]</a><span class="k">def</span> <span class="nf">pick_files</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="pick_files">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_files">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pick_files</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open a window to select multiple files</span>
 
@@ -454,7 +440,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">filenames</span></div>
 
 
-<div class="viewcode-block" id="pick_directory"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_directory">[docs]</a><span class="k">def</span> <span class="nf">pick_directory</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="pick_directory">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_directory">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pick_directory</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open a window to select a directory</span>
 
@@ -479,7 +468,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">directory</span></div>
 
 
-<div class="viewcode-block" id="pick_save_file"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_save_file">[docs]</a><span class="k">def</span> <span class="nf">pick_save_file</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="pick_save_file">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pick_save_file">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pick_save_file</span><span class="p">(</span><span class="n">initialdir</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open a window to select a savefile</span>
 
@@ -504,7 +496,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">filename</span></div>
 
 
-<div class="viewcode-block" id="make_calibration_spline"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.make_calibration_spline">[docs]</a><span class="k">def</span> <span class="nf">make_calibration_spline</span><span class="p">(</span><span class="n">calibration_points</span><span class="p">):</span>
+
+<div class="viewcode-block" id="make_calibration_spline">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.make_calibration_spline">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_calibration_spline</span><span class="p">(</span><span class="n">calibration_points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Makes a pre-1.0.4 calibration spline for the Esseda wheelchair ergometer.</span>
 
@@ -528,7 +523,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">spl_line</span></div>
 
 
-<div class="viewcode-block" id="make_linear_calibration_spline"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.make_linear_calibration_spline">[docs]</a><span class="k">def</span> <span class="nf">make_linear_calibration_spline</span><span class="p">(</span><span class="n">calibration_points</span><span class="p">):</span>
+
+<div class="viewcode-block" id="make_linear_calibration_spline">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.make_linear_calibration_spline">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_linear_calibration_spline</span><span class="p">(</span><span class="n">calibration_points</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Makes a post-1.0.4 calibration spline for the Esseda wheelchair ergometer.</span>
 
@@ -550,7 +548,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">spl_line</span></div>
 
 
-<div class="viewcode-block" id="lowpass_butter"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.lowpass_butter">[docs]</a><span class="k">def</span> <span class="nf">lowpass_butter</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+
+<div class="viewcode-block" id="lowpass_butter">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.lowpass_butter">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">lowpass_butter</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">20.0</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply a simple zero-phase low-pass Butterworth filter on an array.</span>
 
@@ -577,7 +578,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">sosfiltfilt</span><span class="p">(</span><span class="n">sos</span><span class="p">,</span> <span class="n">array</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="interpolate_array"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.interpolate_array">[docs]</a><span class="k">def</span> <span class="nf">interpolate_array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">,</span> <span class="n">assume</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="interpolate_array">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.interpolate_array">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">interpolate_array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="s2">&quot;extrapolate&quot;</span><span class="p">,</span> <span class="n">assume</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple function to interpolate an array with Scipy&#39;s interp1d. Also extrapolates NaNs.</span>
 
@@ -604,7 +608,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">y_fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="pd_dt_to_s"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pd_dt_to_s">[docs]</a><span class="k">def</span> <span class="nf">pd_dt_to_s</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+
+<div class="viewcode-block" id="pd_dt_to_s">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pd_dt_to_s">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pd_dt_to_s</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates time in seconds from datetime or string.</span>
 
@@ -627,7 +634,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">time</span></div>
 
 
-<div class="viewcode-block" id="pd_interp"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pd_interp">[docs]</a><span class="k">def</span> <span class="nf">pd_interp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">interp_column</span><span class="p">,</span> <span class="n">at</span><span class="p">):</span>
+
+<div class="viewcode-block" id="pd_interp">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.pd_interp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pd_interp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">interp_column</span><span class="p">,</span> <span class="n">at</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Resamples (and extrapolates) DataFrame with Scipy&#39;s interp1d, this was more performant than the pandas one for some</span>
 <span class="sd">    reason.</span>
@@ -655,7 +665,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">interp_df</span></div>
 
 
-<div class="viewcode-block" id="merge_chars"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.merge_chars">[docs]</a><span class="k">def</span> <span class="nf">merge_chars</span><span class="p">(</span><span class="n">chars</span><span class="p">):</span>
+
+<div class="viewcode-block" id="merge_chars">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.merge_chars">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">merge_chars</span><span class="p">(</span><span class="n">chars</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Merges list or tuple of binary characters to single string</span>
 
@@ -673,7 +686,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">char</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">chars</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="find_peaks"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.find_peaks">[docs]</a><span class="k">def</span> <span class="nf">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">minpeak</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+
+<div class="viewcode-block" id="find_peaks">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.find_peaks">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_peaks</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">minpeak</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">min_dist</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Finds positive peaks in signal and returns indices of start and stop.</span>
 
@@ -712,7 +728,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">peaks</span></div>
 
 
-<div class="viewcode-block" id="coast_down_velocity"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.coast_down_velocity">[docs]</a><span class="k">def</span> <span class="nf">coast_down_velocity</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+
+<div class="viewcode-block" id="coast_down_velocity">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.coast_down_velocity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">coast_down_velocity</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">v0</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Solution for the non-linear differential equation M(dv/dt) + c1*v**2 + c2 = 0. Returns the instantaneous</span>
 <span class="sd">    velocity decreasing with time (t) for the friction coefficients c1 and c2 for an object with a fixed mass (M)</span>
@@ -733,7 +752,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c2</span> <span class="o">/</span> <span class="n">c1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">(</span><span class="n">v0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c1</span> <span class="o">/</span> <span class="n">c2</span><span class="p">))</span> <span class="o">-</span> <span class="n">t</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c1</span> <span class="o">*</span> <span class="n">c2</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="nonlinear_fit_coast_down"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.nonlinear_fit_coast_down">[docs]</a><span class="k">def</span> <span class="nf">nonlinear_fit_coast_down</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">total_weight</span><span class="p">):</span>
+
+<div class="viewcode-block" id="nonlinear_fit_coast_down">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.nonlinear_fit_coast_down">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">nonlinear_fit_coast_down</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">total_weight</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs a nonlinear fit on coast-down data, returning c1 and c2.</span>
 
@@ -756,7 +778,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">coef1</span><span class="p">,</span> <span class="n">coef2</span></div>
 
 
-<div class="viewcode-block" id="mask_from_iterable"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.mask_from_iterable">[docs]</a><span class="k">def</span> <span class="nf">mask_from_iterable</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">floor_values</span><span class="p">,</span> <span class="n">ceil_values</span><span class="p">):</span>
+
+<div class="viewcode-block" id="mask_from_iterable">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.mask_from_iterable">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mask_from_iterable</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">floor_values</span><span class="p">,</span> <span class="n">ceil_values</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Combines multiple masks from iterable into one mask (e.g. can be used to select multiple time slices).</span>
 
@@ -780,7 +805,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">mask</span></div>
 
 
-<div class="viewcode-block" id="calc_inertia"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.calc_inertia">[docs]</a><span class="k">def</span> <span class="nf">calc_inertia</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.295</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.675</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+
+<div class="viewcode-block" id="calc_inertia">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.calc_inertia">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calc_inertia</span><span class="p">(</span><span class="n">weight</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.295</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mf">0.675</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the inertia of an object based on the trifilar pendulum equation.</span>
 
@@ -804,7 +832,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="p">(</span><span class="n">weight</span> <span class="o">*</span> <span class="mf">9.81</span> <span class="o">*</span> <span class="n">radius</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">period</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">length</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="zerocross1d"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.zerocross1d">[docs]</a><span class="k">def</span> <span class="nf">zerocross1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="zerocross1d">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.zerocross1d">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">zerocross1d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the zero crossing points in 1d data.</span>
 
@@ -857,7 +888,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="p">(</span><span class="n">zeroc_xvalues</span><span class="p">,</span> <span class="n">zeroc_indices</span><span class="p">)</span> <span class="k">if</span> <span class="n">indices</span> <span class="k">else</span> <span class="n">zeroc_xvalues</span></div>
 
 
-<div class="viewcode-block" id="camel_to_snake"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.camel_to_snake">[docs]</a><span class="k">def</span> <span class="nf">camel_to_snake</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+<div class="viewcode-block" id="camel_to_snake">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.camel_to_snake">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">camel_to_snake</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Turns CamelCased text into snake_cased text.</span>
 
@@ -876,7 +910,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;([a-z0-9])([A-Z])&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;\1_\2&quot;</span><span class="p">,</span> <span class="n">s1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="find_nearest"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.find_nearest">[docs]</a><span class="k">def</span> <span class="nf">find_nearest</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="find_nearest">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.find_nearest">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_nearest</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the nearest value in an array or the index thereof.</span>
 
@@ -900,7 +937,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">idx</span> <span class="k">if</span> <span class="n">index</span> <span class="k">else</span> <span class="n">array</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="split_dataframe"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.split_dataframe">[docs]</a><span class="k">def</span> <span class="nf">split_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
+
+<div class="viewcode-block" id="split_dataframe">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.split_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">split_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">inds</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split a dataframe on a list of indices. For example a dataframe that contains multiple sessions of wheelchair</span>
 <span class="sd">    ergometer data.</span>
@@ -923,7 +963,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inds</span><span class="p">[</span><span class="mi">0</span><span class="p">::],</span> <span class="n">inds</span><span class="p">[</span><span class="mi">1</span><span class="p">::])]</span></div>
 
 
-<div class="viewcode-block" id="binned_stats"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.binned_stats">[docs]</a><span class="k">def</span> <span class="nf">binned_stats</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">nan_func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">):</span>
+
+<div class="viewcode-block" id="binned_stats">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.binned_stats">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">binned_stats</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">,</span> <span class="n">nan_func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply a compatible Numpy function to every bin samples (e.g. mean or std).</span>
 
@@ -948,18 +991,24 @@ title="Open an issue"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  <span class="c1"># make sure we have an array</span>
     <span class="k">if</span> <span class="n">pad</span><span class="p">:</span>
-        <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bins</span> <span class="o">-</span> <span class="n">array</span><span class="o">.</span><span class="n">size</span> <span class="o">%</span> <span class="n">bins</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">)</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">bins</span> <span class="o">-</span> <span class="n">array</span><span class="o">.</span><span class="n">size</span> <span class="o">%</span> <span class="n">bins</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
         <span class="n">means</span> <span class="o">=</span> <span class="n">nan_func</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">means</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">array</span><span class="p">[:</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="p">)</span> <span class="o">//</span> <span class="n">bins</span><span class="p">)</span> <span class="o">*</span> <span class="n">bins</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">bins</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">means</span></div>
 
 
-<div class="viewcode-block" id="TimerError"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.TimerError">[docs]</a><span class="k">class</span> <span class="nc">TimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+
+<div class="viewcode-block" id="TimerError">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.TimerError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimerError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A custom exception used to report errors in use of Timer class&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="Timer"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer">[docs]</a><span class="k">class</span> <span class="nc">Timer</span><span class="p">:</span>
+
+<div class="viewcode-block" id="Timer">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Timer</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple timer for timing code(blocks).</span>
 
@@ -985,7 +1034,7 @@ title="Open an issue"
 
     <span class="n">timers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Elapsed time: </span><span class="si">{:0.4f}</span><span class="s2"> seconds&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Elapsed time: </span><span class="si">{:0.4f}</span><span class="s2"> seconds&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_lap_time</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -996,12 +1045,17 @@ title="Open an issue"
         <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Timer.start"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Timer.start">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.start">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">TimerError</span><span class="p">(</span><span class="s2">&quot;Timer is already running. Use .stop() to stop it&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Timer.lap"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.lap">[docs]</a>    <span class="k">def</span> <span class="nf">lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lap_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Timer.lap">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.lap">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">lap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lap_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">TimerError</span><span class="p">(</span><span class="s2">&quot;Timer is not running. Use .start() to start it&quot;</span><span class="p">)</span>
 
@@ -1016,7 +1070,10 @@ title="Open an issue"
             <span class="nb">print</span><span class="p">(</span><span class="n">lap_name</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_lap</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Timer.stop"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Timer.stop">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.Timer.stop">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">TimerError</span><span class="p">(</span><span class="s2">&quot;Timer is not running. Use .start() to start it&quot;</span><span class="p">)</span>
 
@@ -1026,10 +1083,14 @@ title="Open an issue"
         <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">elapsed_time</span><span class="p">))</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">timers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">+=</span> <span class="n">elapsed_time</span>
-        <span class="k">return</span> <span class="n">elapsed_time</span></div></div>
+        <span class="k">return</span> <span class="n">elapsed_time</span></div>
+</div>
 
 
-<div class="viewcode-block" id="power_per_min"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.power_per_min">[docs]</a><span class="k">def</span> <span class="nf">power_per_min</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">start_spiro</span><span class="p">):</span>
+
+<div class="viewcode-block" id="power_per_min">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.power_per_min">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">power_per_min</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">dur</span><span class="p">,</span> <span class="n">start_spiro</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the power achieved per min in a graded exercise test, needed for</span>
 <span class="sd">    the Wasserman plot</span>
@@ -1074,7 +1135,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">power</span></div>
 
 
-<div class="viewcode-block" id="metamax_to_s"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.metamax_to_s">[docs]</a><span class="k">def</span> <span class="nf">metamax_to_s</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+
+<div class="viewcode-block" id="metamax_to_s">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.metamax_to_s">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">metamax_to_s</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates time in seconds from h:mm:ss.000 to seconds</span>
 
@@ -1095,7 +1159,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">time</span></div>
 
 
-<div class="viewcode-block" id="signal_lag"><a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.signal_lag">[docs]</a><span class="k">def</span> <span class="nf">signal_lag</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="signal_lag">
+<a class="viewcode-back" href="../../chapters/API/utils.html#worklab.utils.signal_lag">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">signal_lag</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Data alignment function, based on cross-correlation, that can align two devices.</span>
 <span class="sd">    Input parameters need to be equal sample frequencies (i.e., a priori interpolation)</span>
@@ -1155,38 +1222,73 @@ title="Open an issue"
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Signal y2 is </span><span class="si">{</span><span class="n">delay</span><span class="si">}</span><span class="s2"> samples off from y1!</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">delay</span><span class="p">,</span> <span class="n">maxcorr</span></div>
+
 </pre></div>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Sophie de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

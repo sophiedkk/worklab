@@ -1,407 +1,390 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>worklab.com</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css?v=37144241" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/worklab/com';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
         
       
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
       
-      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
+    
+    
+    <img src="../../_static/accessibility_icon_boost.svg" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../_static/accessibility_icon_boost.svg" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/setup.html">
-   Quick Start Guide
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/overground.html">
-   Overground testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/treadmill.html">
-   Treadmill testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/ergometer.html">
-   Ergometer testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/exercise_testing.html">
-   Exercise testing
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/setup.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/overground.html">Overground testing</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/treadmill.html">Treadmill testing</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/ergometer.html">Ergometer testing</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/exercise_testing.html">Exercise testing</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Examples
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples.html">
-   Minimal examples
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">
-   Working with ergometer data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">
-   Working with measurement wheel data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_move_imu.html">
-   Working with NGIMU data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">
-   Working with spirometer data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_isometric_force_test.html">
-   Analysis of a Wingate test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_wingate_test.html">
-   Analysis of a Wingate test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_sprint_test.html">
-   Analysis of a sprint test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_submaximal_test.html">
-   Analysis of a submaximal test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/examples/ex_data_analysis_maximal_exercise_test.html">
-   Analysis of a maximal exercise test
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples.html">Minimal examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_kinetics_ergo.html">Working with ergometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_kinetics_mw.html">Working with measurement wheel data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_move_imu.html">Working with NGIMU data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_physio_spiro.html">Working with spirometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_isometric_force_test.html">Analysis of a Wingate test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_wingate_test.html">Analysis of a Wingate test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_sprint_test.html">Analysis of a sprint test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_submaximal_test.html">Analysis of a submaximal test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/examples/ex_data_analysis_maximal_exercise_test.html">Analysis of a maximal exercise test</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Documentation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../chapters/package.html">
-   Package documentation
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/ana.html">
-     Analyses (.ana)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/com.html">
-     Communication (.com)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/imu.html">
-     IMU (.imu)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/kin.html">
-     Kinetics (.kin)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/move.html">
-     Kinematics (.move)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/physio.html">
-     Physiology (.physio)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/plots.html">
-     Plotting (.plots)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../../chapters/API/utils.html">
-     Utilities (.utils)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../../chapters/developer.html">
-   Developers
-  </a>
- </li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../chapters/package.html">Package documentation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/ana.html">Analyses (.ana)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/com.html">Communication (.com)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/imu.html">IMU (.imu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/kin.html">Kinetics (.kin)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/move.html">Kinematics (.move)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/physio.html">Physiology (.physio)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/plots.html">Plotting (.plots)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../chapters/API/utils.html">Utilities (.utils)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../chapters/developer.html">Developers</a></li>
+
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/com.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/rickdkk/worklab"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
       
-      <li>
-        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2F_modules/worklab/com.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
+    </div>
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
 </div>
+</div>
+              
+              
 
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
     </div>
 </div>
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1></h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <h1>Source code for worklab.com</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">copy</span>
-<span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span><span class="p">,</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">unpack</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">listdir</span><span class="p">,</span> <span class="n">path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">struct</span><span class="w"> </span><span class="kn">import</span> <span class="n">unpack</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">pick_file</span><span class="p">,</span> <span class="n">pd_dt_to_s</span><span class="p">,</span> <span class="n">merge_chars</span><span class="p">,</span> <span class="n">metamax_to_s</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">pick_file</span><span class="p">,</span> <span class="n">pd_dt_to_s</span><span class="p">,</span> <span class="n">merge_chars</span><span class="p">,</span> <span class="n">metamax_to_s</span>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="load">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attempt to load a common data format.</span>
 
@@ -471,13 +454,16 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="load_spiro"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spiro">[docs]</a><span class="k">def</span> <span class="nf">load_spiro</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_spiro">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spiro">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_spiro</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads COSMED spirometer data from Excel file.</span>
 
 <span class="sd">    Loads spirometer data to a pandas DataFrame, converts time to seconds (not datetime), computes energy expenditure,</span>
 <span class="sd">    computes weights from the time difference between samples, if no heart rate data is available it fills</span>
-<span class="sd">    the column with np.NaNs. Returns a DataFrame with:</span>
+<span class="sd">    the column with nans. Returns a DataFrame with:</span>
 
 <span class="sd">    +------------+----------------------------+-----------+</span>
 <span class="sd">    | Column     | Data                       | Unit      |</span>
@@ -529,7 +515,7 @@ title="Open an issue"
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span>  <span class="c1"># to l/min</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VCO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VCO2&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span>  <span class="c1"># to l/min</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;RER&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VCO2&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span> <span class="k">if</span> <span class="s2">&quot;HR&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span>  <span class="c1"># missing when sensor is not detected</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="s2">&quot;HR&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span>  <span class="c1"># missing when sensor is not detected</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;O2pulse&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VE/VO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VE&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VE/VCO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VE&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VCO2&quot;</span><span class="p">]</span>
@@ -555,7 +541,10 @@ title="Open an issue"
     <span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="load_spiro_metamax"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spiro_metamax">[docs]</a><span class="k">def</span> <span class="nf">load_spiro_metamax</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_spiro_metamax">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spiro_metamax">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_spiro_metamax</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads metamax 3B spirometer data from Excel file.</span>
 
@@ -599,6 +588,8 @@ title="Open an issue"
 <span class="sd">    ----------</span>
 <span class="sd">    filename : str</span>
 <span class="sd">        full file path or file in existing path from metamax 3B spirometer</span>
+<span class="sd">    sheet_name : str or int</span>
+<span class="sd">        sheet name, default = 0</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -607,11 +598,19 @@ title="Open an issue"
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">124</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+    <span class="n">excel_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelFile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="c1"># Loop through rows to find the one containing &#39;t&#39; in the first row</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">excel_data</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="s1">&#39;t&#39;</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+            <span class="n">skip_until</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="k">break</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">skiprows</span><span class="o">=</span><span class="p">[</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">skip_until</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">)</span>
     <span class="c1"># units = data.iloc[0, :]</span>
     <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;V&#39;O2&quot;</span><span class="p">:</span> <span class="s2">&quot;VO2&quot;</span><span class="p">,</span> <span class="s2">&quot;V&#39;E&quot;</span><span class="p">:</span> <span class="s2">&quot;VE&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VCO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;V&#39;E/V&#39;CO2&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;VE&quot;</span><span class="p">])</span>
@@ -623,7 +622,7 @@ title="Open an issue"
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;EE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="mf">4.94</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;RER&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mf">16.04</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">60</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;weights&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># used for calculating weighted average</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">NaN</span> <span class="k">if</span> <span class="s2">&quot;HR&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># missing when sensor is not detected</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="s2">&quot;HR&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span> <span class="k">else</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>  <span class="c1"># missing when sensor is not detected</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;O2pulse&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;HR&quot;</span><span class="p">]</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VCO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;VO2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -635,7 +634,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;HR&quot;</span><span class="p">,</span> <span class="s2">&quot;EE&quot;</span><span class="p">,</span> <span class="s2">&quot;RER&quot;</span><span class="p">,</span> <span class="s2">&quot;VO2&quot;</span><span class="p">,</span> <span class="s2">&quot;VCO2&quot;</span><span class="p">,</span> <span class="s2">&quot;VE&quot;</span><span class="p">,</span> <span class="s2">&quot;VE/VO2&quot;</span><span class="p">,</span> <span class="s2">&quot;VE/VCO2&quot;</span><span class="p">,</span> <span class="s2">&quot;O2pulse&quot;</span><span class="p">,</span> <span class="s2">&quot;VT&quot;</span><span class="p">,</span> <span class="s2">&quot;weights&quot;</span><span class="p">]]</span></div>
 
 
-<div class="viewcode-block" id="load_opti"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_opti">[docs]</a><span class="k">def</span> <span class="nf">load_opti</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_opti">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_opti">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_opti</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">rotate</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads Optipush data from .data file.</span>
 
@@ -695,7 +697,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">opti_df</span></div>
 
 
-<div class="viewcode-block" id="load_sw"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_sw">[docs]</a><span class="k">def</span> <span class="nf">load_sw</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_sw">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_sw">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_sw</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads SMARTwheel data from .txt file.</span>
 
@@ -749,7 +754,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">sw_df</span></div>
 
 
-<div class="viewcode-block" id="load_hsb"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_hsb">[docs]</a><span class="k">def</span> <span class="nf">load_hsb</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_hsb">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_hsb">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_hsb</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads HSB ergometer data from HSB datafile.</span>
 
@@ -800,7 +808,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="load_esseda"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_esseda">[docs]</a><span class="k">def</span> <span class="nf">load_esseda</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_esseda">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_esseda">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_esseda</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads HSB ergometer data from LEM datafile.</span>
 
@@ -845,7 +856,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="load_wheelchair"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_wheelchair">[docs]</a><span class="k">def</span> <span class="nf">load_wheelchair</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_wheelchair">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_wheelchair">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_wheelchair</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads wheelchair from LEM datafile.</span>
 
@@ -888,7 +902,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">wheelchair</span></div>
 
 
-<div class="viewcode-block" id="load_bike"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_bike">[docs]</a><span class="k">def</span> <span class="nf">load_bike</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_bike">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_bike">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_bike</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load bicycle ergometer data from LEM datafile.</span>
 
@@ -908,7 +925,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;load&quot;</span><span class="p">,</span> <span class="s2">&quot;rpm&quot;</span><span class="p">,</span> <span class="s2">&quot;HR&quot;</span><span class="p">])</span>  <span class="c1"># 5 Hz data</span></div>
 
 
-<div class="viewcode-block" id="load_spline"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spline">[docs]</a><span class="k">def</span> <span class="nf">load_spline</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_spline">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_spline">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_spline</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load wheelchair ergometer calibration spline from LEM datafile.</span>
 
@@ -940,7 +960,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="load_n3d"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_n3d">[docs]</a><span class="k">def</span> <span class="nf">load_n3d</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_n3d">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_n3d">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_n3d</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reads NDI-Optotrak data files</span>
 
@@ -988,7 +1011,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">optodata</span></div>
 
 
-<div class="viewcode-block" id="load_imu"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_imu">[docs]</a><span class="k">def</span> <span class="nf">load_imu</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_imu">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_imu">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_imu</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Import NGIMU session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</span>
 
@@ -1070,7 +1096,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">sessiondata</span></div>
 
 
-<div class="viewcode-block" id="load_drag_test"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_drag_test">[docs]</a><span class="k">def</span> <span class="nf">load_drag_test</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_drag_test">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_drag_test">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_drag_test</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads a drag test file.</span>
 
@@ -1096,7 +1125,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dragtest</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="load_optitrack"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_optitrack">[docs]</a><span class="k">def</span> <span class="nf">load_optitrack</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">include_header</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_optitrack">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_optitrack">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_optitrack</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">include_header</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads Optitrack marker data.</span>
 
@@ -1149,7 +1181,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="p">(</span><span class="n">marker_data</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="k">if</span> <span class="n">include_header</span> <span class="k">else</span> <span class="n">marker_data</span></div>
 
 
-<div class="viewcode-block" id="load_opti_offset"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_opti_offset">[docs]</a><span class="k">def</span> <span class="nf">load_opti_offset</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_opti_offset">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_opti_offset">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_opti_offset</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads Offset Optipush data from .xls file.</span>
 
@@ -1195,7 +1230,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">opti_offset_df</span></div>
 
 
-<div class="viewcode-block" id="load_movesense"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_movesense">[docs]</a><span class="k">def</span> <span class="nf">load_movesense</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_movesense">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_movesense">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_movesense</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Imports MoveSense data in nested dictionary with all sensors.</span>
 
@@ -1277,7 +1315,10 @@ title="Open an issue"
     <span class="k">return</span> <span class="n">sessiondata</span><span class="p">,</span> <span class="n">sfreq</span></div>
 
 
-<div class="viewcode-block" id="load_ximu3"><a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_ximu3">[docs]</a><span class="k">def</span> <span class="nf">load_ximu3</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+
+<div class="viewcode-block" id="load_ximu3">
+<a class="viewcode-back" href="../../chapters/API/com.html#worklab.com.load_ximu3">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_ximu3</span><span class="p">(</span><span class="n">root_dir</span><span class="p">,</span> <span class="n">filenames</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Imports X-IMU3 session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.</span>
 
@@ -1336,26 +1377,39 @@ title="Open an issue"
 
     <span class="k">if</span> <span class="s1">&#39;right&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No right sensor imported&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;frame&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;frame&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No frame sensor imported&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;left&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No left sensor imported&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s1">&#39;trunk&#39;</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;Inertial&quot;</span><span class="p">]</span>
-        <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s2">&quot;trunk&quot;</span><span class="p">][</span><span class="s2">&quot;timestamp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No trunk sensor imported&#39;</span><span class="p">)</span>
 
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                         <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+    <span class="n">stop_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                        <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+
     <span class="k">for</span> <span class="n">sensor</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="p">:</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">start_time</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">stop_time</span><span class="p">]</span>
+
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
+                         <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()])</span>
+    <span class="n">stop_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;frame&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span>
+                        <span class="n">sessiondata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()])</span>
+
+    <span class="k">for</span> <span class="n">sensor</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="p">:</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">start_time</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">stop_time</span><span class="p">]</span>
+        <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;timestamp&#39;</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;us&#39;</span><span class="p">)</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessiondata</span><span class="p">[</span><span class="n">sensor</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
@@ -1363,38 +1417,73 @@ title="Open an issue"
     <span class="n">sessiondata</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">:</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">sessiondata</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">b</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">sessiondata</span></div>
+
 </pre></div>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Sophie de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

@@ -1,480 +1,493 @@
 
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="../../" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Kinematics (.move)</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystyles.css?v=37144241" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="shortcut icon" href="../../_static/favicon.svg"/>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/API/move';</script>
+    <link rel="icon" href="../../_static/favicon.svg"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Physiology (.physio)" href="physio.html" />
     <link rel="prev" title="Kinetics (.kin)" href="kin.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
-    
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../README.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../../_static/accessibility_icon_boost.svg" class="logo" alt="logo">
-      
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
+    
+    
+    <img src="../../_static/accessibility_icon_boost.svg" class="logo__image only-light" alt=" - Home"/>
+    <script>document.write(`<img src="../../_static/accessibility_icon_boost.svg" class="logo__image only-dark" alt=" - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../setup.html">
-   Quick Start Guide
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../overground.html">
-   Overground testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../treadmill.html">
-   Treadmill testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../ergometer.html">
-   Ergometer testing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise_testing.html">
-   Exercise testing
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../overground.html">Overground testing</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../treadmill.html">Treadmill testing</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../ergometer.html">Ergometer testing</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../exercise_testing.html">Exercise testing</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Examples
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples.html">
-   Minimal examples
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_kinetics_ergo.html">
-   Working with ergometer data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_kinetics_mw.html">
-   Working with measurement wheel data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_move_imu.html">
-   Working with NGIMU data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_physio_spiro.html">
-   Working with spirometer data
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_data_analysis_isometric_force_test.html">
-   Analysis of a Wingate test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_data_analysis_wingate_test.html">
-   Analysis of a Wingate test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_data_analysis_sprint_test.html">
-   Analysis of a sprint test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_data_analysis_submaximal_test.html">
-   Analysis of a submaximal test
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../examples/ex_data_analysis_maximal_exercise_test.html">
-   Analysis of a maximal exercise test
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Minimal examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_kinetics_ergo.html">Working with ergometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_kinetics_mw.html">Working with measurement wheel data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_move_imu.html">Working with NGIMU data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_physio_spiro.html">Working with spirometer data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_data_analysis_isometric_force_test.html">Analysis of a Wingate test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_data_analysis_wingate_test.html">Analysis of a Wingate test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_data_analysis_sprint_test.html">Analysis of a sprint test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_data_analysis_submaximal_test.html">Analysis of a submaximal test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/ex_data_analysis_maximal_exercise_test.html">Analysis of a maximal exercise test</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Documentation
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Documentation</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../package.html">
-   Package documentation
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="ana.html">
-     Analyses (.ana)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="com.html">
-     Communication (.com)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="imu.html">
-     IMU (.imu)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="kin.html">
-     Kinetics (.kin)
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Kinematics (.move)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="physio.html">
-     Physiology (.physio)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="plots.html">
-     Plotting (.plots)
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="utils.html">
-     Utilities (.utils)
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../developer.html">
-   Developers
-  </a>
- </li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../package.html">Package documentation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ana.html">Analyses (.ana)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="com.html">Communication (.com)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="imu.html">IMU (.imu)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kin.html">Kinetics (.kin)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Kinematics (.move)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="physio.html">Physiology (.physio)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plots.html">Plotting (.plots)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities (.utils)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer.html">Developers</a></li>
+
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab/edit/main/docs/chapters/API/move.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/sophiedkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/API/move.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/API/move.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/rickdkk/worklab"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/rickdkk/worklab/issues/new?title=Issue%20on%20page%20%2Fchapters/API/move.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/rickdkk/worklab/edit/main/docs/chapters/API/move.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Edit this page"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-pencil-alt"></i>
-  </span>
-<span class="headerbtn__text-container">suggest edit</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../../_sources/chapters/API/move.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </button>
-
-      </li>
+</div></div>
       
-    </ul>
-  </div>
-</div>
-
     </div>
+  
 </div>
+</div>
+              
+              
 
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Kinematics (.move)</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Kinematics (.move)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.acs_to_car_ang"><code class="docutils literal notranslate"><span class="pre">acs_to_car_ang()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.distance"><code class="docutils literal notranslate"><span class="pre">distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.find_gh_regression"><code class="docutils literal notranslate"><span class="pre">find_gh_regression()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.flexext_prosup"><code class="docutils literal notranslate"><span class="pre">flexext_prosup()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_local_coordinate"><code class="docutils literal notranslate"><span class="pre">get_local_coordinate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_orthonormal_frame"><code class="docutils literal notranslate"><span class="pre">get_orthonormal_frame()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_perp_vector"><code class="docutils literal notranslate"><span class="pre">get_perp_vector()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_rotation_matrix"><code class="docutils literal notranslate"><span class="pre">get_rotation_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.is_unit_length"><code class="docutils literal notranslate"><span class="pre">is_unit_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.magnitude"><code class="docutils literal notranslate"><span class="pre">magnitude()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_cl"><code class="docutils literal notranslate"><span class="pre">make_acs_cl()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_fa"><code class="docutils literal notranslate"><span class="pre">make_acs_fa()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_hand"><code class="docutils literal notranslate"><span class="pre">make_acs_hand()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_hu"><code class="docutils literal notranslate"><span class="pre">make_acs_hu()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_sc"><code class="docutils literal notranslate"><span class="pre">make_acs_sc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_th"><code class="docutils literal notranslate"><span class="pre">make_acs_th()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_marker_dict"><code class="docutils literal notranslate"><span class="pre">make_marker_dict()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.marker_angles"><code class="docutils literal notranslate"><span class="pre">marker_angles()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.mirror"><code class="docutils literal notranslate"><span class="pre">mirror()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.rotate_matrix"><code class="docutils literal notranslate"><span class="pre">rotate_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="kinematics-move">
-<h1>Kinematics (.move)<a class="headerlink" href="#kinematics-move" title="Permalink to this headline">#</a></h1>
+<h1>Kinematics (.move)<a class="headerlink" href="#kinematics-move" title="Link to this heading">#</a></h1>
 <p>Basic functions for movement related data from optical tracking systems.
 If I have the time I will make a vector3d class. Most functions assume
 an [n, 3] or [1, 3] array or dataframe.</p>
-<span class="target" id="module-worklab.move"></span><dl class="py function">
+<dl class="py function" id="module-worklab.move">
 <dt class="sig sig-object py" id="worklab.move.acs_to_car_ang">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">acs_to_car_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order=&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#acs_to_car_ang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.acs_to_car_ang" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">acs_to_car_ang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">acs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order=&lt;class</span> <span class="pre">'list'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#acs_to_car_ang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.acs_to_car_ang" title="Link to this definition">#</a></dt>
 <dd><p>Anatomical coordinate system to cardanic angles</p>
 <p>Note: Only works if used in the DSEM coordinate system
 Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system</p></li>
 <li><p><strong>order</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – list of integers 0=’x’, 1=’y’, 2=’z’</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>angles</strong> – cardanic angles</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -482,19 +495,19 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.distance">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.distance" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.distance" title="Link to this definition">#</a></dt>
 <dd><p>Compute Euclidean distance between two points, this is the distance if you were to draw a straight line.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point1</strong> (<em>np.array</em>) – a [1, 3] or [n, 3] array with point coordinates</p></li>
 <li><p><strong>point2</strong> (<em>np.array</em>) – a [1, 3] or [n, 3] array with point coordinates</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>distance</strong> – distance from point1 to point2 in a [1, 3] or [n, 3] array</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -502,18 +515,18 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.find_gh_regression">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">find_gh_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#find_gh_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.find_gh_regression" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">find_gh_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#find_gh_regression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.find_gh_regression" title="Link to this definition">#</a></dt>
 <dd><p>Get the location of the glenohumeral joint in the global coordinate system of DSEM
 In vivo estimation of the glenohumeral joint rotation center from scapular bony landmarks by linear regression
 C.G.M. Meskers, F.C.T. van der Helm, L.A. Rozendaal, P.M. Rozing</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>markers</strong> (<em>np.array</em>) – data points of upper-limb kinematics</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>GH</strong> – Glenohumeral rotation center in the global coordinate system</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -521,11 +534,11 @@ C.G.M. Meskers, F.C.T. van der Helm, L.A. Rozendaal, P.M. Rozing</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.flexext_prosup">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">flexext_prosup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">US</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#flexext_prosup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.flexext_prosup" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">flexext_prosup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">US</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#flexext_prosup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.flexext_prosup" title="Link to this definition">#</a></dt>
 <dd><p>Flexion/extension as well as pro/supination in the DSEM reference frame
 Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>GH</strong> (<em>np.array</em>) – data points of the glenohumeral rotation centre</p></li>
 <li><p><strong>EL</strong> (<em>np.array</em>) – data points of the epicondylus lateral</p></li>
@@ -534,10 +547,10 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 <li><p><strong>RS</strong> (<em>np.array</em>) – data points of the radial styloid</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>angles</strong> – angles for flexion/extention, as well as pro/supination</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -545,20 +558,20 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.get_local_coordinate">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_local_coordinate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_local_coordinate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_local_coordinate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_local_coordinate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">marker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">acs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_local_coordinate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_local_coordinate" title="Link to this definition">#</a></dt>
 <dd><p>Make the local coordinate system from the anatomical coordinate system</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>marker</strong> (<em>np.array</em>) – marker points</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system</p></li>
 <li><p><strong>origin</strong> (<em>np.array</em>) – origin for the local coordinate system</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>local_marker</strong> – local coordinate system</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict[np.array]</p>
 </dd>
 </dl>
@@ -566,11 +579,11 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.get_orthonormal_frame">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_orthonormal_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_orthonormal_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_orthonormal_frame" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_orthonormal_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_orthonormal_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_orthonormal_frame" title="Link to this definition">#</a></dt>
 <dd><p>Returns an orthonormal frame from three reference points. For example, a local coordinate system from three
 marker points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point1</strong> (<em>np.array</em>) – first marker point, used as origin if mean=False</p></li>
 <li><p><strong>point2</strong> (<em>np.array</em>) – second marker point, used as x-axis</p></li>
@@ -578,7 +591,7 @@ marker points.</p>
 <li><p><strong>mean</strong> (<em>bool</em>) – using the mean as the origin, default is False</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>origin</strong> (<em>np.array</em>) – xyz column vector with coordinates of the origin which is point1 or the mean of all points</p></li>
 <li><p><strong>orthonormal</strong> (<em>np.array</em>) – 3x3 array with orthonormal coordinates [x, y, z] of the new axis system</p></li>
@@ -590,20 +603,20 @@ marker points.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.get_perp_vector">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_perp_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector2d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clockwise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_perp_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_perp_vector" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_perp_vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector2d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clockwise</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalized</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_perp_vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_perp_vector" title="Link to this definition">#</a></dt>
 <dd><p>Get the vector perpendicular to the input vector. Only works in 2D as 3D has infinite solutions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vector2d</strong> (<em>np.array</em>) – [n, 3] vector data, only uses x and y</p></li>
 <li><p><strong>clockwise</strong> (<em>bool</em>) – clockwise or counterclockwise rotation</p></li>
 <li><p><strong>normalized</strong> (<em>bool</em>) – normalising the result, default is True</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>perp_vector2d</strong> – rotated vector</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy array</p>
 </dd>
 </dl>
@@ -611,19 +624,19 @@ marker points.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.get_rotation_matrix">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_rotation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_to_world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_rotation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_rotation_matrix" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">get_rotation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_to_world</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#get_rotation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.get_rotation_matrix" title="Link to this definition">#</a></dt>
 <dd><p>Get the rotation matrix between a new reference frame and the global reference frame or the other way around.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>new_frame</strong> (<em>np.array</em>) – [3, 3] array specifying the new reference frame</p></li>
 <li><p><strong>local_to_world</strong> (<em>bool</em>) – global to local or local to global</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rotation_matrix</strong> – rotation matrix that can be used to rotate marker data, e.g.: rotation_matrix &#64; marker</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -631,22 +644,22 @@ marker points.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.is_unit_length">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">is_unit_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#is_unit_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.is_unit_length" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">is_unit_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#is_unit_length"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.is_unit_length" title="Link to this definition">#</a></dt>
 <dd><p>Checks whether an array ([1, 3] or [n, 3]) is equal to unit length given a tolerance</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.magnitude">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">magnitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.magnitude" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">magnitude</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.magnitude" title="Link to this definition">#</a></dt>
 <dd><p>Calculates the vector magnitude using a l2 norm. Works with [1, 3] or [n, 3] vectors.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>vector3d</strong> (<em>np.array</em>) – a [1, 3] or [n, 3] vector</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vector3d</strong> – scalar value or column vector</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -654,13 +667,13 @@ marker points.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_cl">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_cl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IJ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_cl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_cl" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_cl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AC</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">IJ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AA</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_cl"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_cl" title="Link to this definition">#</a></dt>
 <dd><p>Make the anatomical coordinate system of the clavicle based on ISB recommendations</p>
 <p>Y is pointing upwards
 X is pointing to the front
 Z is pointing laterally to the right</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>SC</strong> (<em>np.array</em>) – data points of the sternoclaviculare joint</p></li>
 <li><p><strong>AC</strong> (<em>np.array</em>) – data points of the dorsal acromioclaviculare joint</p></li>
@@ -673,7 +686,7 @@ Z is pointing laterally to the right</p>
 Y pointing upward, X pointing laterally to the right and Z point backwards</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the clavicle</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the clavicle</p></li>
@@ -686,13 +699,13 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_fa">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_fa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">US</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_fa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_fa" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_fa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">US</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_fa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_fa" title="Link to this definition">#</a></dt>
 <dd><p>Make the anatomical coordinate system of the forearm based on ISB recommendations</p>
 <p>Y is pointing upwards
 X is pointing to the front
 Z is pointing laterally to the right</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>US</strong> (<em>np.array</em>) – data points of the ulna styloid</p></li>
 <li><p><strong>RS</strong> (<em>np.array</em>) – data points of the radial styloid</p></li>
@@ -702,7 +715,7 @@ Z is pointing laterally to the right</p>
 Y pointing upward, X pointing laterally to the right and Z point backwards</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the forearm</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the forearm</p></li>
@@ -715,13 +728,13 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_hand">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_hand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">US</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_hand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_hand" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_hand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">M2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">US</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_hand"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_hand" title="Link to this definition">#</a></dt>
 <dd><p>Make the anatomical coordinate system of the hand in DSEM</p>
 <p>Y is pointing upwards
 X is pointing laterally to the right
 Z is pointing backwards</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>M2</strong> (<em>np.array</em>) – data points of metacarpal 2</p></li>
 <li><p><strong>M5</strong> (<em>np.array</em>) – data points of metacarpal 5</p></li>
@@ -729,7 +742,7 @@ Z is pointing backwards</p>
 <li><p><strong>RS</strong> (<em>np.array</em>) – data points of the radial styloid</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the hand</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the hand</p></li>
@@ -742,13 +755,13 @@ Z is pointing backwards</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_hu">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_hu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_hu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_hu" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_hu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">GH</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EM</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_hu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_hu" title="Link to this definition">#</a></dt>
 <dd><p>Make the anatomical coordinate system of the humerus based on ISB recommendations</p>
 <p>Y is pointing upwards
 X is pointing to the front
 Z is pointing laterally to the right</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>GH</strong> (<em>np.array</em>) – data points of the glenohumeral rotation centre</p></li>
 <li><p><strong>EL</strong> (<em>np.array</em>) – data points of the epicondylus lateral</p></li>
@@ -757,7 +770,7 @@ Z is pointing laterally to the right</p>
 Y pointing upward, X pointing laterally to the right and Z point backwards</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the humerus</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the humerus</p></li>
@@ -770,13 +783,13 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_sc">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_sc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_sc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_sc" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_sc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">AA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">TS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_sc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_sc" title="Link to this definition">#</a></dt>
 <dd><p>Make the anatomical coordinate system of the scapula based on ISB recommendations</p>
 <p>Y is pointing upwards
 X is pointing to the front
 Z is pointing laterally to the right</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>AA</strong> (<em>np.array</em>) – data points of the angulus acromialis</p></li>
 <li><p><strong>TS</strong> (<em>np.array</em>) – data points of the trigonum spinae</p></li>
@@ -785,7 +798,7 @@ Z is pointing laterally to the right</p>
 Y pointing upward, X pointing laterally to the right and Z point backwards</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the scapula</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the scapula</p></li>
@@ -798,13 +811,13 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_acs_th">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_th</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IJ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_th"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_th" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_acs_th</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">IJ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PX</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DSEM</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_acs_th"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_acs_th" title="Link to this definition">#</a></dt>
 <dd><p>Make the anatomical coordinate system of the thorax based on ISB recommendations</p>
 <p>Y is pointing upwards
 X is pointing to the front
 Z is pointing laterally to the right</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>IJ</strong> (<em>np.array</em>) – data points of the incisura jugularis</p></li>
 <li><p><strong>PX</strong> (<em>np.array</em>) – data points of the processus xiphoideus</p></li>
@@ -814,7 +827,7 @@ Z is pointing laterally to the right</p>
 Y pointing upward, X pointing laterally to the right and Z point backwards</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>local</strong> (<em>dict[np.array]</em>) – local coordinate system of the thorax</p></li>
 <li><p><strong>acs</strong> (<em>np.array</em>) – anatomical coordinate system of the thorax</p></li>
@@ -827,19 +840,19 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.make_marker_dict">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_marker_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_marker_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_marker_dict" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">make_marker_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">marker_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#make_marker_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.make_marker_dict" title="Link to this definition">#</a></dt>
 <dd><p>Create a dictionary of nx3 arrays with name samples</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>markers</strong> (<em>np.array</em>) – marker points</p></li>
 <li><p><strong>marker_names</strong> (<em>list</em><em>[</em><em>strings</em><em>]</em>) – list of marker names</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>marker_dict</strong> – dictionary of nx3 markers with names</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>dict[np.array]</p>
 </dd>
 </dl>
@@ -847,20 +860,20 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.marker_angles">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">marker_angles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#marker_angles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.marker_angles" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">marker_angles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#marker_angles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.marker_angles" title="Link to this definition">#</a></dt>
 <dd><p>Calculates n angles between two [n, 3] markers, two [1, 3] markers, or one [n, 3] and one [1, 3] marker.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>v_1</strong> (<em>np.array</em>) – [n, 3] array or DataFrame for marker 1</p></li>
 <li><p><strong>v_2</strong> (<em>np.array</em>) – [n, 3] array or DataFrame for marker 2</p></li>
 <li><p><strong>deg</strong> (<em>bool</em>) – return radians or degrees, default is radians</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>x</strong> – returns [n, 1] array with the angle for each sample or scalar value</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -868,19 +881,19 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.mirror">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">mirror</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xyz'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#mirror"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.mirror" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">mirror</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'xyz'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#mirror"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.mirror" title="Link to this definition">#</a></dt>
 <dd><p>Simply mirror one or multiple axes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vector3d</strong> (<em>np.array</em>) – vector to be mirrored, also works on dataframes</p></li>
 <li><p><strong>axis</strong> (<em>str</em>) – string with axes to be mirrored</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vector3d</strong> – mirrored vector</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -888,16 +901,16 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.normalize">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.normalize" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.normalize" title="Link to this definition">#</a></dt>
 <dd><p>Normalizes [n, 3] marker data using a l2 norm. Works with [1, 3] and [n, 3] vectors, both arrays and dataframes.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>vector3d</strong> (<em>np.array</em>) – marker data to be normalized</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vector3d</strong> – normalized marker data</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -905,10 +918,10 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.rotate">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.rotate" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.rotate" title="Link to this definition">#</a></dt>
 <dd><p>Rotate a vector around a single given axis, specify rotation angle in radians or degrees.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vector3d</strong> (<em>np.array</em>) – vector to be rotated, also works on dataframes, assumes [n, xyz] data</p></li>
 <li><p><strong>angle</strong> (<em>float</em>) – angle to rotate over</p></li>
@@ -916,10 +929,10 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 <li><p><strong>axis</strong> (<em>str</em>) – axis to rotate over, default = “z”</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vector3d</strong> – rotated vector</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -927,19 +940,19 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.rotate_matrix">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">rotate_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#rotate_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.rotate_matrix" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">rotate_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ang</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'z'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#rotate_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.rotate_matrix" title="Link to this definition">#</a></dt>
 <dd><p>Create a rotation matrix to rotate around x, y or z-axis</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ang</strong> (<em>int</em>) – angle of rotation</p></li>
 <li><p><strong>axis</strong> (<em>string</em><em> (</em><em>default = 'z'</em><em>)</em>) – axis of rotation, ‘x’, ‘y’ or ‘z’</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>rotate</strong> – rotation matrix</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -947,10 +960,10 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 
 <dl class="py function">
 <dt class="sig sig-object py" id="worklab.move.scale">
-<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.scale" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">worklab.move.</span></span><span class="sig-name descname"><span class="pre">scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/worklab/move.html#scale"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#worklab.move.scale" title="Link to this definition">#</a></dt>
 <dd><p>Scale a vector in different directions.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vector3d</strong> (<em>np.array</em>) – array to be scaled, also works on dataframes, assumes [n, xyz] data</p></li>
 <li><p><strong>x</strong> (<em>float</em>) – x-axis scaling</p></li>
@@ -958,10 +971,10 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
 <li><p><strong>z</strong> (<em>float</em>) – z-axis scaling</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>vector3d</strong> – scaled array</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>np.array</p>
 </dd>
 </dl>
@@ -981,7 +994,7 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./chapters/API"
         },
         predefinedOutput: true
@@ -989,50 +1002,125 @@ Y pointing upward, X pointing laterally to the right and Z point backwards</p></
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="kin.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Kinetics (.kin)</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kin.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Kinetics (.kin)</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="physio.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="physio.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Physiology (.physio)</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.acs_to_car_ang"><code class="docutils literal notranslate"><span class="pre">acs_to_car_ang()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.distance"><code class="docutils literal notranslate"><span class="pre">distance()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.find_gh_regression"><code class="docutils literal notranslate"><span class="pre">find_gh_regression()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.flexext_prosup"><code class="docutils literal notranslate"><span class="pre">flexext_prosup()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_local_coordinate"><code class="docutils literal notranslate"><span class="pre">get_local_coordinate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_orthonormal_frame"><code class="docutils literal notranslate"><span class="pre">get_orthonormal_frame()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_perp_vector"><code class="docutils literal notranslate"><span class="pre">get_perp_vector()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.get_rotation_matrix"><code class="docutils literal notranslate"><span class="pre">get_rotation_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.is_unit_length"><code class="docutils literal notranslate"><span class="pre">is_unit_length()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.magnitude"><code class="docutils literal notranslate"><span class="pre">magnitude()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_cl"><code class="docutils literal notranslate"><span class="pre">make_acs_cl()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_fa"><code class="docutils literal notranslate"><span class="pre">make_acs_fa()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_hand"><code class="docutils literal notranslate"><span class="pre">make_acs_hand()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_hu"><code class="docutils literal notranslate"><span class="pre">make_acs_hu()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_sc"><code class="docutils literal notranslate"><span class="pre">make_acs_sc()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_acs_th"><code class="docutils literal notranslate"><span class="pre">make_acs_th()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.make_marker_dict"><code class="docutils literal notranslate"><span class="pre">make_marker_dict()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.marker_angles"><code class="docutils literal notranslate"><span class="pre">marker_angles()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.mirror"><code class="docutils literal notranslate"><span class="pre">mirror()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.normalize"><code class="docutils literal notranslate"><span class="pre">normalize()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.rotate_matrix"><code class="docutils literal notranslate"><span class="pre">rotate_matrix()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#worklab.move.scale"><code class="docutils literal notranslate"><span class="pre">scale()</span></code></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By Rick de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma<br/>
-  
-      &copy; Copyright 2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By Sophie de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
