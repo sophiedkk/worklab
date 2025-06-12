@@ -24,7 +24,8 @@ dependencies = [
   "pandas",
   "matplotlib",
   "xlrd",
-  "scikit-learn"
+  "scikit-learn",
+  "seaborn"
 ]
 
 [project.optional-dependencies]
