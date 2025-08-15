@@ -1,10 +1,9 @@
 import copy
 from warnings import warn
-
 import numpy as np
 from scipy.integrate import cumulative_trapezoid
 from scipy.signal import periodogram, find_peaks, savgol_filter
-
+from scipy import signal
 from .utils import lowpass_butter, pd_interp
 
 
@@ -52,7 +51,7 @@ def resample_imu(sessiondata, sfreq=400.0):
 
 def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type='ngimu', inplace=False):
     """
-    Calculate wheelchair kinematic variables based on NGIMU data
+    Calculate wheelchair kinematic variables for IMU data
 
     Parameters
     ----------
@@ -321,12 +320,12 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=Fal
     ----------
     sessiondata : dict
         resampled sessiondata structure
-    right_wheel: boolean
+    right_wheel: bool
         if set to True, right wheel is used, if set to False, left wheel is used
     n_sensors: float
         number of sensors used, 2: right wheel and frame,
         3: right, left wheel and frame
-    gyro_offset: boolean
+    gyro_offset: bool
         if set to True, an additional gyroscope offset will be used
 
     Returns
@@ -372,5 +371,47 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=Fal
             sessiondata['frame']['gyroscope_z']) * np.sqrt(sessiondata['frame']['gyroscope_x']**2
                                                            + sessiondata['frame']['gyroscope_y']**2
                                                            + sessiondata['frame']['gyroscope_z']**2)
+
+    return sessiondata
+
+
+def imu_synch(sessiondata, right_wheel=True, inplace=False):
+    """
+    Synchronise wheel and frame sensor IMUs
+
+    Parameters
+    ----------
+    sessiondata : dict
+        original sessiondata structure
+    right_wheel: boolean
+        if set to True, right wheel is used, if set to False, left wheel is used
+    inplace : bool
+        perform operation inplace
+
+    Returns
+    -------
+    sessiondata : dict
+        sessiondata with reoriented gyroscope data
+
+    """
+    if not inplace:
+        sessiondata = copy.deepcopy(sessiondata)
+
+    x = sessiondata['frame']['gyroscope_x']
+    if right_wheel is True:
+        y = sessiondata['right']['gyroscope_x']
+    else:
+        y = sessiondata['left']['gyroscope_x']
+
+    correlation = signal.correlate(x - np.mean(x), y - np.mean(y), mode="full")
+    lags = signal.correlation_lags(len(x), len(y), mode="full")
+    lag = lags[np.argmax(abs(correlation))]
+    if lag > 0:
+        sessiondata['frame'] = sessiondata['frame'][lag:].reset_index(drop=True)
+    else:
+        if right_wheel is True:
+            sessiondata['right'] = sessiondata['right'][abs(lag):].reset_index(drop=True)
+        else:
+            sessiondata['left'] = sessiondata['left'][abs(lag):].reset_index(drop=True)
 
     return sessiondata

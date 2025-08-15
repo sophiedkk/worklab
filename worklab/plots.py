@@ -2,6 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axisartist import ParasiteAxes
 from mpl_toolkits.axisartist.parasite_axes import HostAxes
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+import pandas as pd
 
 from .imu import push_imu
 from .utils import lowpass_butter
@@ -593,3 +596,97 @@ def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim
     par2.axis["right2"].label.set_color("y")
 
     return fig, (host, par1, par2)
+
+
+def force_velocity_curve(data_pbp, y_lim=800, var='mean', x_lim=6, n_sprints=6):
+    """
+    Creates force-velocity curves for wheelchair sports
+
+    Parameters
+    ----------
+    data_pbp : pd.Dataframe
+        processed push-by-push ergometer data with all sprints in a dataframe
+    y_lim : int
+        y limit axis, default is 800
+    var : str
+        'mean' force and velocity or 'peak' force and velocity
+    x_lim : int
+        x limit axis, default is 6
+    n_sprints: int
+        number of sprints completed, default is 6
+    Returns
+    -------
+    fig : figure
+        force-velocity plot
+    variables : pd.DataFrame
+        r2, optimal velocity/power, x/y coordinates and coefficient
+
+    """
+    if var == 'max':
+        speed = 'maxspeed'
+        force = 'maxuforce'
+    else:
+        speed = 'meanspeed'
+        force = 'meanuforce'
+    data_pbp = data_pbp[data_pbp.index > 0]
+    x = np.array(data_pbp[speed]).reshape((-1, 1))
+    y = np.array(data_pbp[force])
+    data_pbp['x'] = np.array(data_pbp[speed]).reshape((-1, 1))
+    data_pbp['y'] = np.array(data_pbp[force])
+    model = LinearRegression()
+    model.fit(x, y)
+    model = LinearRegression().fit(x, y)
+    r_sq = model.score(x, y)
+    x1 = np.linspace(0, float(abs(model.intercept_/model.coef_)), 100)
+    xx = np.linspace(x.min(), x.max(), 100)
+
+    pred_y = model.intercept_ + model.coef_*x
+    pred_y1 = model.intercept_ + model.coef_*x1
+    pred_y2 = model.intercept_ + model.coef_*xx
+    power = xx * pred_y2
+    power1 = x1 * pred_y1
+    parabola = pd.DataFrame({'POmax': power1, 'vmax': x1})
+    pomax_pos = parabola['POmax'].idxmax()
+    pomax_opt = parabola['POmax'].max()
+    vmax_opt = parabola['vmax'][pomax_pos]
+
+    variables = pd.DataFrame([])
+    variables['R2'] = [r_sq]
+    variables['opt_vel'] = vmax_opt
+    variables['opt_pow'] = pomax_opt
+    variables['y_cor'] = model.intercept_
+    variables['x_cor'] = x1[-1]
+    variables['coef'] = model.coef_
+    variables = round(variables, 2)
+
+    sns.set_style('darkgrid')
+    col_pal = sns.color_palette("dark:#5A9_r", n_sprints)
+    sns.set_palette(col_pal)
+    fig, ax = plt.subplots(1, 1, figsize=(14, 8))
+    ax.set_ylabel('Force [N]', fontsize=20)
+    ax.set_ylim(0, y_lim)
+    ax.set_xlabel('Velocity [ms]', fontsize=18)
+    ax.set_xlim(0, x_lim)
+    ax.tick_params(axis='both', labelsize=18)
+    ax = sns.scatterplot(data=data_pbp, x='x', y='y', hue='Resistance')
+    handles, labels = ax.get_legend_handles_labels()
+    ax.legend(handles=handles, fontsize=18)
+    ax.plot(x1, pred_y1, color='k', linestyle='--')
+    ax.plot(x, pred_y, color='k')
+    ax.annotate('$R^{2}$ = ' + str(round(r_sq, 2)), xy=(0.02, 0.88), xycoords='axes fraction', fontsize=18)
+    ax.annotate('y = ' + str(round(model.intercept_, 1)) + ' ' + str(round(model.coef_[0], 1)) + ' * x',
+                xy=(0.02, 0.81), xycoords='axes fraction', fontsize=18)
+
+    ax1 = ax.twinx()
+    ax1.grid(False)
+    ax1.plot(x1, power1, color='grey', linestyle='--')
+    ax1.plot(xx, power, color='grey')
+    ax1.set_ylim(0, y_lim)
+    ax1.set_ylabel('Power [W]', color='grey', fontsize=18)
+    ax1.yaxis.label.set_color('grey')
+    ax1.spines['right'].set_color('grey')
+    ax1.tick_params(axis='y', colors='grey')
+    ax1.tick_params(axis='both', labelsize=20)
+    ax1.annotate('Optimal velocity (' + str(round(vmax_opt, 1)) + ' ms)', xy=(0.02, 0.95), xycoords='axes fraction', fontsize=18)
+
+    return fig, variables

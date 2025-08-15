@@ -282,7 +282,7 @@ def load_opti(filename, rotate=True):
     | angle      | unwrapped wheel angle| rad       |
     +------------+----------------------+-----------+
 
-    .. note:: Optipush uses a local coordinate system, option to rotate Fx and Fy available in >1.6
+    note:: Optipush uses a local coordinate system, option to rotate Fx and Fy available in >1.6
 
     Parameters
     ----------
@@ -341,7 +341,7 @@ def load_sw(filename, sfreq=200):
     | angle      | unwrapped wheel angle | rad       |
     +------------+-----------------------+-----------+
 
-    .. note:: SMARTwheel uses a global coordinate system
+    note:: SMARTwheel uses a global coordinate system
 
     Parameters
     ----------
@@ -899,7 +899,7 @@ def load_movesense(root_dir, right=None, frame=None, left=None):
 
 def load_ximu3(root_dir, filenames=None, inplace=False):
     """
-    Imports X-IMU3 session in nested dictionary with all devices with all sensors. Translated from xio-Technologies.
+    Imports X-IMU3 session in nested dictionary with all devices with all sensors.
 
     Parameters
     ----------
@@ -924,6 +924,8 @@ def load_ximu3(root_dir, filenames=None, inplace=False):
         raise Exception("No contents in directory")
     directories = glob(f"{root_dir}/*/")  # folders of all devices
     sessiondata = dict()
+    timestamp_min = []
+    timestamp_max = []
     if not filenames:
         filenames = ["Inertial"]
 
@@ -936,7 +938,6 @@ def load_ximu3(root_dir, filenames=None, inplace=False):
         device_name = "trunk" if "trunk" in device_name.lower() else device_name
 
         sessiondata[device_name] = dict()
-
         for sensor_file in sensor_files:  # loop through all csv files
             sensor_name = path.split(sensor_file)[-1].split(".csv")[0]  # sensor without path or extension
 
@@ -971,19 +972,21 @@ def load_ximu3(root_dir, filenames=None, inplace=False):
     else:
         print('No trunk sensor imported')
 
-    start_time = np.max([sessiondata['frame']['timestamp'].min(), sessiondata['left']['timestamp'].min(),
-                         sessiondata['right']['timestamp'].min()])
-    stop_time = np.min([sessiondata['frame']['timestamp'].max(), sessiondata['left']['timestamp'].max(),
-                        sessiondata['right']['timestamp'].max()])
+    for sensor in sessiondata:
+        timestamp_min.append(sessiondata[sensor]['timestamp'].min().item())
+        timestamp_max.append(sessiondata[sensor]['timestamp'].max().item())
+    start_time = max(timestamp_min)
+    stop_time = min(timestamp_max)
 
     for sensor in sessiondata:
         sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] >= start_time]
         sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] <= stop_time]
 
-    start_time = np.max([sessiondata['frame']['timestamp'].min(), sessiondata['left']['timestamp'].min(),
-                         sessiondata['right']['timestamp'].min()])
-    stop_time = np.min([sessiondata['frame']['timestamp'].max(), sessiondata['left']['timestamp'].max(),
-                        sessiondata['right']['timestamp'].max()])
+    for sensor in sessiondata:
+        timestamp_min.append(sessiondata[sensor]['timestamp'].min().item())
+        timestamp_max.append(sessiondata[sensor]['timestamp'].max().item())
+    start_time = max(timestamp_min)
+    stop_time = min(timestamp_max)
 
     for sensor in sessiondata:
         sessiondata[sensor] = sessiondata[sensor][sessiondata[sensor]['timestamp'] >= start_time]
