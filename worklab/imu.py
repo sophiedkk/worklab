@@ -636,9 +636,9 @@ def push_imu(acceleration, sfreq=400.0):
     return push_idx, acc_filt, n_pushes, cycle_time, push_freq
 
 
-def movesense_offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=False):
+def offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=False):
     """
-    Remove offset MoveSense sensors
+    Remove potential offset in IMU data
 
     Parameters
     ----------
@@ -650,7 +650,7 @@ def movesense_offset(sessiondata, n_sensors=2, right_wheel=True, gyro_offset=Fal
         number of sensors used, 2: right wheel and frame,
         3: right, left wheel and frame
     gyro_offset: bool
-        if set to True, an additional gyroscope offset will be used
+        if set to True, an additional gyroscope_z frame offset correction will be used
 
     Returns
     -------
