@@ -467,11 +467,17 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         right["vel_wheel"] = np.deg2rad(right["gyro_cor"]) * wsize  # angular velocity to linear velocity
         right["vel_wheel"] = lowpass_butter(right["vel_wheel"], sfreq=sfreq, cutoff=10)
         right["vel"] = right['vel_wheel']
+        right["acc_wheel"] = lowpass_butter(np.gradient(right["vel"]) * sfreq, sfreq=sfreq,
+                                            cutoff=10)  # mean acceleration from velocity
+        right['acc'] = right['acc_wheel']
         right["dist"] = cumulative_trapezoid(right["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
     if side == 'left' or n_sensors == 3:
         left["vel_wheel"] = np.deg2rad(left["gyro_cor"]) * wsize  # angular velocity to linear velocity
         left["vel_wheel"] = lowpass_butter(left["vel_wheel"], sfreq=sfreq, cutoff=10)
         left["vel"] = left['vel_wheel']
+        left["acc_wheel"] = lowpass_butter(np.gradient(left["vel"]) * sfreq, sfreq=sfreq,
+                                            cutoff=10)  # mean acceleration from velocity
+        left['acc'] = left['acc_wheel']
         left["dist"] = cumulative_trapezoid(left["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
 
     if n_sensors > 1:
