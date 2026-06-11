@@ -404,7 +404,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
                         sessiondata['right'][column] = np.pad(sessiondata['right'][column], (0, -lag_right))[
                             -lag_right:len(sessiondata['frame']) - lag_right]
         else:
-            left["gyro_cor"] = left["gyroscope_y"] + np.tan(np.deg2rad(camber)) * (
+            left["gyro_cor"] = left["gyroscope_y"] - np.tan(np.deg2rad(camber)) * (
                     frame["rot_vel"] * np.cos(np.deg2rad(camber)))
             sessiondata = frame_rot(sessiondata, side='left')
             if alignment_correction:
@@ -435,7 +435,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
             if method == 'klimstra':
                 left['gyro_cor'] = left['gyroscope_y']
             elif method == 'ahrs':
-                left["gyro_cor"] = left["gyroscope_y"] + np.tan(np.deg2rad(camber)) * (
+                left["gyro_cor"] = left["gyroscope_y"] - np.tan(np.deg2rad(camber)) * (
                         left["rot_vel"] * np.cos(np.deg2rad(camber)))
 
     if n_sensors == 3:
@@ -453,7 +453,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
                         -lag_left:len(sessiondata['frame']) - lag_left]
 
         left['gyroscope_y'] = lowpass_butter(left['gyroscope_y'], sfreq=sfreq, cutoff=10)
-        left["gyro_cor"] = left["gyroscope_y"] + np.tan(np.deg2rad(camber)) * (
+        left["gyro_cor"] = left["gyroscope_y"] - np.tan(np.deg2rad(camber)) * (
                 frame["rot_vel"] * np.cos(np.deg2rad(camber)))
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     elif n_sensors == 2:
@@ -505,7 +505,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         if side == 'left' or n_sensors == 3:
             frame["vel_left"] = left["vel_wheel"]  # Calculate frame centre distance
             frame['vel_wheel'] = frame['vel_left']
-            left["vel"] -= np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
+            left["vel"] += np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
             frame["vel"] = left["vel"]
 
         frame["dist"] = cumulative_trapezoid(frame["vel"], initial=0.0) / sfreq  # Combined distance
@@ -514,7 +514,6 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors.
     Procedia Engineering, 112, 207-212."""
     if n_sensors == 3:
-        left["vel"] -= np.tan(np.deg2rad(frame["rot_vel"] / sfreq)) * wbase / 2 * sfreq
         r_ratio0 = np.abs(right["vel_wheel"]) / (
                     np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"]))  # Ratio left and right
         l_ratio0 = np.abs(left["vel_wheel"]) / (np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"]))
