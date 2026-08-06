@@ -126,10 +126,10 @@ def bland_altman_plot(data1, data2, ax=None, condition=None):
     with plt.style.context("seaborn-v0_8-white"):
         ax.scatter(mean, diff)
         ax.axhline(0, color="dimgray", linestyle="-")
-        ax.axhline(md, color="darkgray", linestyle="--")
-        ax.axhline(md + 1.96 * sd, color="lightcoral", linestyle="--")
-        ax.axhline(md - 1.96 * sd, color="lightcoral", linestyle="--")
-        ax.set_ylim([md - 3 * sd, md + 3 * sd])
+        ax.axhline(float(md), color="darkgray", linestyle="--")
+        ax.axhline(float(md) + 1.96 * sd, color="lightcoral", linestyle="--")
+        ax.axhline(float(md) - 1.96 * sd, color="lightcoral", linestyle="--")
+        ax.set_ylim((float(md) - 3 * sd, float(md) + 3 * sd))
         if condition:
             ax.set_xlabel(f"Mean of {condition}")
             ax.set_ylabel(f"Difference between {condition}")
@@ -467,14 +467,14 @@ def imu_push_plot(sessiondata, acc_frame=True, name='', dec=False):
         sessiondata = sessiondata["frame"]
     sfreq = int(1 / sessiondata['time'].diff().mean())
 
-    if acc_frame is True:
+    if acc_frame:
         acc = sessiondata['accelerometer_x']
     else:
         acc = lowpass_butter(np.gradient(sessiondata['vel']) * sfreq,
                              sfreq=sfreq, cutoff=10)
 
     # Changes signal if the main deceleration values should be found
-    if dec is True:
+    if dec:
         acc -= 1
 
     push_idx, acc_filt, n_pushes, cycle_time, push_freq = push_imu(acc, sfreq)
@@ -598,7 +598,8 @@ def plot_power_speed_dist(data, title="", ylim_power=None, ylim_speed=None, ylim
     return fig, (host, par1, par2)
 
 
-def force_velocity_curve(data_pbp, y_lim=800, var='mean', x_lim=6, n_sprints=6):
+def force_velocity_curve(data_pbp, y_lim=800, var='mean',
+                         push_cutoff=1, x_lim=6, n_sprints=6):
     """
     Creates force-velocity curves for wheelchair sports
 
@@ -610,6 +611,8 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean', x_lim=6, n_sprints=6):
         y limit axis, default is 800
     var : str
         'mean' force and velocity or 'peak' force and velocity
+    push_cutoff: int
+        numbers of pushes to cut off at the start, default is 1
     x_lim : int
         x limit axis, default is 6
     n_sprints: int
@@ -625,10 +628,13 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean', x_lim=6, n_sprints=6):
     if var == 'max':
         speed = 'maxspeed'
         force = 'maxuforce'
+    elif var == 'adj_mean':
+        speed = 'meanspeed'
+        force = 'adj_force'
     else:
         speed = 'meanspeed'
         force = 'meanuforce'
-    data_pbp = data_pbp[data_pbp.index > 0]
+    data_pbp = data_pbp[data_pbp.index > push_cutoff-1].copy()
     x = np.array(data_pbp[speed]).reshape((-1, 1))
     y = np.array(data_pbp[force])
     data_pbp['x'] = np.array(data_pbp[speed]).reshape((-1, 1))

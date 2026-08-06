@@ -6,7 +6,7 @@ from scipy.signal import periodogram, find_peaks, savgol_filter, correlate
 from scipy import signal
 from .utils import lowpass_butter, pd_interp
 import imufusion
-
+import pandas as pd
 
 def resample_imu(sessiondata, sfreq=400.0):
     """
@@ -335,6 +335,86 @@ def frame_rot(sessiondata, ca=20, ws=0.34, side='right', method='ahrs'):
     return sessiondata
 
 
+def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=15, anchor_alpha=0.01,
+                        turn_smooth_window=7):
+    """
+    Compute wheelchair odometry from IMU + skid velocity.
+
+    Parameters
+    ----------
+    sessiondata : pandas.DataFrame
+        Input dataframe containing at least:
+        - 'timestamp'   : integer timestamps
+        - 'rot_vel'     : rotational velocity (deg/s)
+        - 'vel'    : forward velocity (m/s)
+
+    rot_window : int, optional
+        Rolling window size for smoothing rotational velocity.
+        Larger = smoother heading, but slower response.
+
+    vel_window : int, optional
+        Rolling window size for smoothing velocity.
+        Larger = smoother velocity, but may flatten peaks.
+
+    turn_threshold : float, optional
+        Threshold (deg/s) above which a sample is considered part of a turn.
+        Controls where anchoring and turn‑smoothing are applied.
+
+    anchor_alpha : float, optional
+        Strength of turn‑anchored heading correction.
+        Higher = more correction during turns.
+
+    turn_smooth_window : int, optional
+        Window size for smoothing heading *inside* detected turns.
+        Larger = smoother turns, but may distort sharp manoeuvres.
+
+    Returns
+    -------
+    df : pandas.DataFrame
+        Same dataframe with added columns:
+        - 'dist_x' : integrated x‑position
+        - 'dist_y' : integrated y‑position
+    """
+
+    sfreq = 1 / sessiondata["time"].diff().mean()
+    dt = 1.0 / sfreq
+
+    sessiondata = sessiondata.sort_values("timestamp").copy()
+    sessiondata["timestamp"] = sessiondata["timestamp"].astype("int64")
+
+    rot = np.nan_to_num(pd.Series(sessiondata["rot_vel"]).rolling(rot_window, center=True).mean())
+    v   = np.nan_to_num(pd.Series(sessiondata["vel"]).rolling(vel_window, center=True).mean())
+
+    theta = cumulative_trapezoid(np.deg2rad(rot), dx=dt, initial=0.0)
+
+    turn_mask = (np.abs(rot) > turn_threshold).astype(int)
+    seg = pd.Series(turn_mask).diff().fillna(0)
+    s_idx = np.where(seg == 1)[0]
+    e_idx = np.where(seg == -1)[0]
+    if len(e_idx) < len(s_idx): e_idx = np.append(e_idx, len(rot)-1)
+
+    anchors = np.zeros_like(theta)
+    for s, e in zip(s_idx, e_idx):
+        anchors[s:e] = cumulative_trapezoid(np.deg2rad(rot[s:e]), dx=dt, initial=0.0)
+    theta += anchor_alpha * anchors
+
+    ts = theta.copy()
+    for i in range(len(theta)):
+        if turn_mask[i]:
+            w = turn_smooth_window
+            a = max(0, i - w//2)
+            b = min(len(theta), i + w//2)
+            ts[i] = ts[a:b].mean()
+    theta = ts
+
+    vx = np.nan_to_num(v * np.cos(theta))
+    vy = np.nan_to_num(v * np.sin(theta))
+
+    sessiondata["dist_x"] = cumulative_trapezoid(vx, dx=dt, initial=0.0)
+    sessiondata["dist_y"] = cumulative_trapezoid(vy, dx=dt, initial=0.0)
+
+    return sessiondata
+
 def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type='ximu3', side='right',
                 inplace=False, method='ahrs', alignment_correction=False):
     """
@@ -531,35 +611,20 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         frame['vel_wheel'] = (frame["vel_right"] + frame["vel_left"]) / 2
         frame['dist'] = cumulative_trapezoid(frame["skid_vel"], initial=0.0) / sfreq
     if n_sensors > 1:
+        # distance in the x and y direction and acc from wheel
         frame["acc_wheel"] = lowpass_butter(np.gradient(frame["vel"]) * sfreq, sfreq=sfreq,
                                             cutoff=10)  # mean acceleration from velocity
-        # distance in the x and y direction
-        frame["dist_y"] = cumulative_trapezoid(
-            frame['vel'] / sfreq * np.sin(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
-            initial=0.0)
-        frame["dist_x"] = cumulative_trapezoid(
-            frame['vel'] / sfreq * np.cos(np.deg2rad(cumulative_trapezoid(frame["rot_vel"] / sfreq, initial=0.0))),
-            initial=0.0)
+        sessiondata['frame'] = wheelchair_odometry(frame)
     else:
         if side == 'right':
-            right["dist_y"] = cumulative_trapezoid(
-                right['vel'] / sfreq * np.sin(np.deg2rad(cumulative_trapezoid(right["rot_vel"] / sfreq, initial=0.0))),
-                initial=0.0)
-            right["dist_x"] = cumulative_trapezoid(
-                right['vel'] / sfreq * np.cos(np.deg2rad(cumulative_trapezoid(right["rot_vel"] / sfreq, initial=0.0))),
-                initial=0.0)
             right["acc_wheel"] = lowpass_butter(np.gradient(right["vel"]) * sfreq, sfreq=sfreq,
                                                 cutoff=10)  # mean acceleration from velocity
+            sessiondata['right'] = wheelchair_odometry(right)
             sessiondata['frame'] = sessiondata['right']
         else:
-            left["dist_y"] = cumulative_trapezoid(
-                left['vel'] / sfreq * np.sin(np.deg2rad(cumulative_trapezoid(left["rot_vel"] / sfreq, initial=0.0))),
-                initial=0.0)
-            left["dist_x"] = cumulative_trapezoid(
-                left['vel'] / sfreq * np.cos(np.deg2rad(cumulative_trapezoid(left["rot_vel"] / sfreq, initial=0.0))),
-                initial=0.0)
             left["acc_wheel"] = lowpass_butter(np.gradient(left["vel"]) * sfreq, sfreq=sfreq,
                                                cutoff=10)  # mean acceleration from velocity
+            sessiondata['left'] = wheelchair_odometry(left)
             sessiondata['frame'] = sessiondata['left']
 
     return sessiondata

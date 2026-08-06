@@ -5,12 +5,15 @@ import math
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import sklearn
+import os
+from glob import glob
+import warnings
 import seaborn as sns
 
-from .plots import plot_power_speed_dist
+from .plots import plot_power_speed_dist, force_velocity_curve, plot_pushes_ergo
 from .physio import calc_weighted_average
-
+from .com import load_esseda, load_wheelchair
+from .kin import filter_ergo, process_ergo, push_by_push_ergo
 
 def mean_data(data):
     """
@@ -54,7 +57,7 @@ def cut_data(data, start, end, distance=True):
     Returns
     -------
     data : dict
-        data cutted to time of interest
+        data cut to time of interest
 
     """
     for side in data:
@@ -223,7 +226,7 @@ def wingate(data, title=None, box=False, ylim=5):
     Parameters
     ----------
     data : dict
-        processed and cutted ergometer data dictionary with dataframes
+        processed and cut ergometer data dictionary with dataframes
     title : str
         title of figure
     box : bool
@@ -401,7 +404,7 @@ def maximal1min(data, dur, title=None):
     Parameters
     ----------
     data : dict
-        processed and cutted ergometer data dictionary with dataframes
+        processed and cut ergometer data dictionary with dataframes
     dur : int
         duration of max test in seconds
     title : str, optional
@@ -494,9 +497,9 @@ def ana_sprint(data, data_pbp, half=5, title=None):
     Parameters
     ----------
     data : dict
-        processed and cutted ergometer data dictionary with dataframes
+        processed and cut ergometer data dictionary with dataframes
     data_pbp : dict
-        processed and cutted push_by_push ergometer data dictionary with dataframes
+        processed and cut push_by_push ergometer data dictionary with dataframes
     half : float, optional
         half-time of the sprint, default is 5 s
     title : str, optional
@@ -557,11 +560,11 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
     Parameters
     ----------
     data_ergo : pd.DataFrame
-        processed and cutted ergometer data
+        processed and cut ergometer data
     data_pbp : pd.DataFrame
-        processed and cutted ergometer data
+        processed and cut ergometer data
     data_spiro : pd.DataFrame
-        processed and cutted spirometer data
+        processed and cut spirometer data
 
     Returns
     -------
@@ -597,91 +600,233 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
     return outcomes
 
 
-def force_velocity_curve(data_pbp, upper_lim=800, var='max'):
+def force_vel_profiling(filename, athlete='PP01', classification='LP',
+                        sport='WR', duration=10, var='mean', push_cutoff=1,
+                        minpeak=None, unit='ms', n_sprints=7,
+                        res_names=None):
     """
-    Creates force-velocity curves for wheelchair sports
+    Force velocity profiling (individualised) on the LODE wheelchair ergometer.
+
 
     Parameters
     ----------
-    data_pbp : pd.DataFrame
-        processed push-by-push ergometer dataframe with output for all 6 sprints
-    upper_lim : int
-        upper limit recommendations for LP (800) and HP (1400)
+    filename : str
+        main path name which contain all athlete data, with all sprints
+        as separate Excel files within each athlete folder (e.g., 0, 1, 2, 3, 4, 5, 6)
+    athlete : str, default 'PP01'
+        The alphanumeric identifier or acronym assigned to the participant
+        (e.g., 'AS', 'PP01'). Determines the target data folder name.
+    classification : str, default 'LP'
+        The sport-specific physical impairment classification tier.
+        Accepts 'HP' (High Point) or 'LP' (Low Point)
+    sport : str, default 'WR'
+        The sport, e.g., WR = Wheelchair Rugby
+    duration : int, default 10
+        The length of sprints in seconds
     var : str
-        'max' force and velocity or 'mean' force and velocity
+        'mean' force and velocity or 'peak' force and velocity
+    push_cutoff: int
+        numbers of pushes to cut off at the start, default is 1
+    minpeak : int
+        Minimum peak detection on the torque signal
+        default is None, which will automatically detect peaks based on mean
+    unit : str
+        unit of measured 'speed' column; ms, kmh or mph, default is ms
+    n_sprints : int
+        Total number of sprints, default is 7
+    res_names :
+        list of sprint names, default ['Low', 'Standard', '25%', '50%', '75%', '100%', '125%']
+
 
     Returns
     -------
-    fig : figure
-        force-velocity plot
-    variables : pd.DataFrame
-        r2, optimal velocity/power, x/y coordinates and coefficient
-
+    var_fvc : pd.DataFrame()
+        Containing the force-velocity outcomes (R2, optimal vel/power, coordinates)
+    outcomes_mean_all: pd.DataFrame()
+        Mean outcome variables of the sprints (mean, right, left)
+    data_pbp_all: pd.DataFrame()
+        Push-by-push outcomes for all sprints (mean, right, left)
     """
-    if var == 'max':
-        speed = 'maxspeed'
-        force = 'maxuforce'
+    warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
+
+    outcomes_mean_all, outcomes_right_all, outcomes_left_all = (pd.DataFrame() for _ in range(3))
+
+    upper_lim = 1400 if classification == 'HP' else 800
+    if res_names is None:
+        res_names = ['Low', 'Standard', '25%', '50%', '75%', '100%', '125%']
+    # Reading files and creating resistance names
+    if os.path.basename(filename) != athlete:
+        filenames = filename + '\\' + athlete + "\\*.xlsx*"
     else:
-        speed = 'meanspeed'
-        force = 'meanuforce'
+        filenames = filename + '\\*.xlsx*'
+    save_loc = filename + "\\Outcomes"
+    fig_loc = save_loc + '\\' + athlete
 
-    data_pbp = data_pbp[data_pbp.index > 0]
-    x = np.array(data_pbp[speed]).reshape((-1, 1))
-    y = np.array(data_pbp[force])
-    data_pbp['x'] = np.array(data_pbp[speed]).reshape((-1, 1))
-    data_pbp['y'] = np.array(data_pbp[force])
-    model = sklearn.LinearRegression()
-    model.fit(x, y)
-    model = sklearn.LinearRegression().fit(x, y)
-    r_sq = model.score(x, y)
-    x1 = np.linspace(0, float(abs(model.intercept_ / model.coef_)), 100)
-    xx = np.linspace(x.min(), x.max(), 100)
+    if not os.path.exists(save_loc):
+        os.makedirs(save_loc)
+    if not os.path.exists(fig_loc):
+        os.makedirs(fig_loc)
 
-    pred_y = model.intercept_ + model.coef_ * x
-    pred_y1 = model.intercept_ + model.coef_ * x1
-    pred_y2 = model.intercept_ + model.coef_ * xx
-    power = xx * pred_y2
-    power1 = x1 * pred_y1
-    parabola = pd.DataFrame({'POmax': power1, 'vmax': x1})
-    pomax_pos = parabola['POmax'].idxmax()
-    pomax_opt = parabola['POmax'].max()
-    vmax_opt = parabola['vmax'][pomax_pos]
+    folder = sorted(glob(filenames))
+    if not folder:
+        # Prints a single, clean text line and stops the function immediately
+        print(f"Could not find any sprint data files for athlete '{athlete}' at location: {filename}\\{athlete}\\")
+        return None
 
-    variables = pd.DataFrame([])
-    variables['R2'] = [r_sq]
-    variables['opt_vel'] = vmax_opt
-    variables['opt_pow'] = pomax_opt
-    variables['y_cor'] = model.intercept_
-    variables['x_cor'] = x1[-1]
-    variables['coef'] = model.coef_
-    variables = round(variables, 2)
-
-    sns.set_style('darkgrid')
-    col_pal = sns.color_palette("dark:#5A9_r")
+    if len(res_names) != n_sprints:
+        print(
+            f"The number of sprints defined in n_sprints '{n_sprints}' and the list of resistance names defined in res_names '{res_names}' do not match")
+        return None
+    data_pbp_all, data_pbp_right, data_pbp_left = pd.DataFrame([]), pd.DataFrame([]), pd.DataFrame([])
+    col_pal = sns.color_palette("dark:#5A9_r", 7)
     sns.set_palette(col_pal)
-    fig, ax = plt.subplots(1, 1, figsize=(14, 8))
-    ax.set_ylabel('Force [N]', fontsize=14)
-    ax.set_ylim(0, upper_lim)
-    ax.set_xlabel('Velocity [ms]', fontsize=14)
-    ax.set_xlim(0, 6)
-    ax.tick_params(axis='both', labelsize=12)
-    ax = sns.scatterplot(data=data_pbp, x='x', y='y', hue='Resistance')
-    ax.plot(x1, pred_y1, color='k', linestyle='--')
-    ax.plot(x, pred_y, color='k')
-    ax.annotate('R2 = ' + str(round(r_sq, 2)), xy=(0.75, 0.90), xycoords='axes fraction')
-    ax.annotate('y = ' + str(round(model.intercept_, 1)) + ' ' + str(round(model.coef_[0], 1)) + ' * x',
-                xy=(0.75, 0.85), xycoords='axes fraction')
+    sns.set_style('darkgrid')
+    var_names = ['dist', 'max_speed', 'mean_power', 'mean_force', 'mean_speed', 'max_power_push', 'max_force_push',
+                 'max_speed_push', 'mean_power_push', 'mean_force_push', 'mean_speed_push',
+                 'work_push', 'ptime', 'negwork_push', 'slope', 'smoothness', 'push_freq', 'tot_work', 'mu']
+    for sprint in folder:
+        wheelchair = load_wheelchair(sprint)
+        data = load_esseda(sprint)
+        data = filter_ergo(data)
+        data = process_ergo(data, wheelsize=wheelchair['wheelsize'], rimsize=wheelchair['rimsize'], unit=unit)
+        data = mean_data(data)
+        res_data = pd.read_excel(sprint, sheet_name=4)
+        res_data = res_data[res_data['Time'] > 10]
+        mu = np.mean((res_data['Resistance left'] + res_data['Resistance right']) / 2)
+        m = int(len(data['mean']["speed"]) - (0.5 * 100))
+        start = None
+        for st in range(1, m):
+            if data['mean']["speed"][st] > 0.1:
+                if data['mean']["speed"][int(st + (1.0 * 100))] > 0.5:
+                    start = st
+                    break
+        if start is None:
+            print('Can not determine start point!')
+            return None
+        data = cut_data(data, start / 100, start / 100 + duration)
+        if minpeak is None:
+            minpeak = (((np.mean(data['left']['torque']) + np.mean(data['right']['torque'])) / 2) + 4)
+        data_pbp = push_by_push_ergo(data, variable='torque', cutoff=1.0,
+                                            minpeak=minpeak)
 
-    ax1 = ax.twinx()
-    ax1.grid(False)
-    ax1.plot(x1, power1, color='grey', linestyle='--')
-    ax1.plot(xx, power, color='grey')
-    ax1.set_ylim(0, upper_lim)
-    ax1.set_ylabel('Power [W]', color='grey', fontsize=14)
-    ax1.yaxis.label.set_color('grey')
-    ax1.spines['right'].set_color('grey')
-    ax1.tick_params(axis='y', colors='grey')
-    ax1.tick_params(axis='both', labelsize=12)
-    ax1.annotate('Optimal velocity (' + str(round(vmax_opt, 1)) + ' ms)', xy=(0.75, 0.95), xycoords='axes fraction')
+        idx_str = os.path.basename(sprint)[0]
 
-    return fig, variables
+        if idx_str.isdigit() and int(idx_str) < len(res_names):
+            idx = int(idx_str)
+            res_label = res_names[idx]
+
+            title_suffix = "resistance" if idx <= 1 else "Wingate resistance"
+            sprint_title = f"Sprint at {res_label} {title_suffix}"
+
+            fig, outcomes = ana_sprint(data, data_pbp, half=5)
+            fig[0].suptitle(sprint_title)
+            fig[1][1].set_ylabel("Velocity [m/s]")
+            fig[1][0].set_ylim(0, upper_lim)  # Uses upper_lim automatically (800 or 1400)
+            fig[1][1].set_ylim(0, 5)
+            fig[0].savefig(f"{fig_loc}\\Sprint_{res_label}.png", dpi=600)
+            plt.close(fig[0])
+
+            plot_pushes_ergo(data, data_pbp, var="torque", start=True, stop=True, peak=True)
+            plt.savefig(f"{fig_loc}\\Sprint_{res_label}_pbp.png", dpi=600)
+            plt.close('all')
+
+            for mode in ['mean', 'right', 'left']:
+                data_pbp[mode]['Resistance'] = res_label
+
+        max_cols = ['dist', 'speed']
+        mean_cols = ['power', 'uforce', 'speed']
+        pbp_cols = ['maxpower', 'maxuforce', 'maxspeed', 'meanpower', 'meanuforce',
+                    'meanspeed', 'work', 'ptime', 'negwork', 'slope', 'smoothness']
+
+        processed_outcomes = {}
+
+        for side in ['mean', 'right', 'left']:
+            data_pbp[side] = data_pbp[side].round(2)
+
+            stats = [
+                data[side][max_cols].max(),
+                data[side][mean_cols].mean(),
+                data_pbp[side][pbp_cols].mean()
+            ]
+            outcome_series = pd.concat(stats)
+            outcome_series['push_freq'] = len(data_pbp[side]) / duration
+            outcome_series['tot_work'] = np.trapezoid(data[side]['work'])
+            outcome_series['mu'] = mu
+
+            processed_outcomes[side] = outcome_series
+
+        outcomes_mean = processed_outcomes['mean']
+        outcomes_right = processed_outcomes['right']
+        outcomes_left = processed_outcomes['left']
+
+        if outcomes_right_all.empty:
+            outcomes_right_all = outcomes_right
+            outcomes_left_all = outcomes_left
+            outcomes_mean_all = outcomes_mean
+        else:
+            outcomes_right_all = pd.concat([outcomes_right_all, outcomes_right], axis=1)
+            outcomes_left_all = pd.concat([outcomes_left_all, outcomes_left], axis=1)
+            outcomes_mean_all = pd.concat([outcomes_mean_all, outcomes_mean], axis=1)
+
+        if data_pbp_all.empty:
+            data_pbp_all = data_pbp['mean']
+            data_pbp_right = data_pbp['right']
+            data_pbp_left = data_pbp['left']
+        else:
+            data_pbp_all = pd.concat([data_pbp_all, data_pbp['mean']])
+            data_pbp_right = pd.concat([data_pbp_right, data_pbp['right']])
+            data_pbp_left = pd.concat([data_pbp_left, data_pbp['left']])
+
+    with pd.ExcelWriter(fig_loc + r'\pbp_outcomes.xlsx') as writer:
+        data_pbp_all.to_excel(writer, sheet_name='mean')
+        data_pbp_right.to_excel(writer, sheet_name='right')
+        data_pbp_left.to_excel(writer, sheet_name='left')
+
+    dfs = {'mean': outcomes_mean_all, 'right': outcomes_right_all, 'left': outcomes_left_all}
+
+    for side, df in dfs.items():
+        df_new = df.T.reset_index(drop=True)
+        df_new.columns = var_names
+        df_new['athlete'], df_new['side'], df_new['sport'] = athlete, side, sport
+        dfs[side] = df_new
+
+    outcomes_mean_all, outcomes_right_all, outcomes_left_all = dfs.values()
+
+    with pd.ExcelWriter(fig_loc + r'\pbp_outcomes_mean.xlsx') as writer:
+        outcomes_mean_all.to_excel(writer, sheet_name='mean')
+        outcomes_right_all.to_excel(writer, sheet_name='right')
+        outcomes_left_all.to_excel(writer, sheet_name='left')
+
+    # Create force_velocity curves for mean/right/left
+    fig_fvc_right, var_fvc_right = force_velocity_curve(data_pbp_right, upper_lim,
+                                                        push_cutoff=push_cutoff,
+                                                        n_sprints=n_sprints,
+                                                        var=var)
+    var_fvc_right.index = [athlete]
+    var_fvc_right['side'] = 'right'
+    plt.savefig(fig_loc + r'\Force_velocity_curve_right.png', dpi=600)
+    plt.close('all')
+
+    fig_fvc_left, var_fvc_left = force_velocity_curve(data_pbp_left, upper_lim,
+                                                      push_cutoff=push_cutoff,
+                                                      n_sprints=n_sprints,
+                                                      var=var)
+    var_fvc_left.index = [athlete]
+    var_fvc_left['side'] = 'left'
+    plt.savefig(fig_loc + r'\Force_velocity_curve_left.png', dpi=600)
+    plt.close('all')
+
+    fig_fvc, var_fvc = force_velocity_curve(data_pbp_all, upper_lim,
+                                            push_cutoff=push_cutoff,
+                                            n_sprints=n_sprints,
+                                            var=var)
+    var_fvc.index = [athlete]
+    var_fvc['side'] = 'mean'
+    plt.savefig(fig_loc + r'\Force_velocity_curve.png', dpi=600)
+
+    with pd.ExcelWriter(fig_loc + r'\force_vel_outcomes.xlsx') as writer:
+        var_fvc.to_excel(writer, sheet_name='mean')
+        var_fvc_right.to_excel(writer, sheet_name='right')
+        var_fvc_left.to_excel(writer, sheet_name='left')
+
+    return var_fvc, outcomes_mean_all, data_pbp_all
