@@ -379,9 +379,6 @@ def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=
     sfreq = 1 / sessiondata["time"].diff().mean()
     dt = 1.0 / sfreq
 
-    sessiondata = sessiondata.sort_values("timestamp").copy()
-    sessiondata["timestamp"] = sessiondata["timestamp"].astype("int64")
-
     rot = np.nan_to_num(pd.Series(sessiondata["rot_vel"]).rolling(rot_window, center=True).mean())
     v   = np.nan_to_num(pd.Series(sessiondata["vel"]).rolling(vel_window, center=True).mean())
 
