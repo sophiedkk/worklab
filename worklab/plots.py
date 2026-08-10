@@ -639,11 +639,11 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean',
     y = np.array(data_pbp[force])
     data_pbp['x'] = np.array(data_pbp[speed]).reshape((-1, 1))
     data_pbp['y'] = np.array(data_pbp[force])
-    model = LinearRegression()
-    model.fit(x, y)
     model = LinearRegression().fit(x, y)
     r_sq = model.score(x, y)
-    x1 = np.linspace(0, float(abs(model.intercept_/model.coef_)), 100)
+    intercept = float(model.intercept_)
+    coef = float(model.coef_[0])
+    x1 = np.linspace(0, abs(intercept/coef), 100)
     xx = np.linspace(x.min(), x.max(), 100)
 
     pred_y = model.intercept_ + model.coef_*x
