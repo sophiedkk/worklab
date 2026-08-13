@@ -603,7 +603,7 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
 def force_vel_profiling(filename, athlete='PP01', classification='LP',
                         sport='WR', duration=10, var='mean', push_cutoff=1,
                         minpeak=None, unit='ms', n_sprints=7,
-                        res_names=None):
+                        res_names=None, x_lim=6, y_lim=None):
     """
     Force velocity profiling (individualised) on the LODE wheelchair ergometer.
 
@@ -624,7 +624,7 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
     duration : int, default 10
         The length of sprints in seconds
     var : str
-        'mean' force and velocity or 'peak' force and velocity
+        'mean' force and velocity, 'peak' force and velocity, or 'impulse' and velocity
     push_cutoff: int
         numbers of pushes to cut off at the start, default is 1
     minpeak : int
@@ -636,8 +636,10 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
         Total number of sprints, default is 7
     res_names :
         list of sprint names, default ['Low', 'Standard', '25%', '50%', '75%', '100%', '125%']
-
-
+    x_lim : int
+        x limit axis, default is 6
+    y_lim : int
+        y limit axis, default is 800
     Returns
     -------
     var_fvc : pd.DataFrame()
@@ -652,6 +654,9 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
     outcomes_mean_all, outcomes_right_all, outcomes_left_all = (pd.DataFrame() for _ in range(3))
 
     upper_lim = 1400 if classification == 'HP' else 800
+    upper_lim = y_lim if y_lim is not None else upper_lim
+    low_lim = 6
+    low_lim = x_lim if x_lim is not None else low_lim
     if res_names is None:
         res_names = ['Low', 'Standard', '25%', '50%', '75%', '100%', '125%']
     # Reading files and creating resistance names
@@ -684,7 +689,7 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
     var_names = ['dist', 'max_speed', 'mean_power', 'mean_force', 'mean_speed', 'max_power_push', 'max_force_push',
                  'max_speed_push', 'mean_power_push', 'mean_force_push', 'mean_speed_push',
                  'work_push', 'ptime', 'negwork_push', 'slope', 'smoothness', 'push_freq', 'tot_work', 'mu']
-    for sprint in folder:
+    for sprint, res_name in zip(folder, res_names):
         wheelchair = load_wheelchair(sprint)
         data = load_esseda(sprint)
         data = filter_ergo(data)
@@ -709,35 +714,29 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
         data_pbp = push_by_push_ergo(data, variable='torque', cutoff=1.0,
                                             minpeak=minpeak)
 
-        idx_str = os.path.basename(sprint)[0]
+        res_label = res_name
 
-        if idx_str.isdigit() and int(idx_str) < len(res_names):
-            idx = int(idx_str)
-            res_label = res_names[idx]
+        title_suffix = "resistance"
+        sprint_title = f"Sprint at {res_label} {title_suffix}"
 
-            title_suffix = "resistance" if idx <= 1 else "Wingate resistance"
-            sprint_title = f"Sprint at {res_label} {title_suffix}"
+        fig, outcomes = ana_sprint(data, data_pbp, half=5)
+        fig[0].suptitle(sprint_title)
+        fig[1][1].set_ylabel("Velocity [m/s]")
+        fig[1][0].set_ylim(0, upper_lim)  # Uses upper_lim automatically (800 or 1400)
+        fig[1][1].set_ylim(0, 5)
+        fig[0].savefig(f"{fig_loc}\\Sprint_{res_label}.png", dpi=600)
+        plt.close(fig[0])
 
-            fig, outcomes = ana_sprint(data, data_pbp, half=5)
-            fig[0].suptitle(sprint_title)
-            fig[1][1].set_ylabel("Velocity [m/s]")
-            fig[1][0].set_ylim(0, upper_lim)  # Uses upper_lim automatically (800 or 1400)
-            fig[1][1].set_ylim(0, 5)
-            fig[0].savefig(f"{fig_loc}\\Sprint_{res_label}.png", dpi=600)
-            plt.close(fig[0])
-
-            plot_pushes_ergo(data, data_pbp, var="torque", start=True, stop=True, peak=True)
-            plt.savefig(f"{fig_loc}\\Sprint_{res_label}_pbp.png", dpi=600)
-            plt.close('all')
-
-            for mode in ['mean', 'right', 'left']:
-                data_pbp[mode]['Resistance'] = res_label
+        plot_pushes_ergo(data, data_pbp, var="torque", start=True, stop=True, peak=True)
+        plt.savefig(f"{fig_loc}\\Sprint_{res_label}_pbp.png", dpi=600)
+        plt.close('all')
 
         max_cols = ['dist', 'speed']
         mean_cols = ['power', 'uforce', 'speed']
         pbp_cols = ['maxpower', 'maxuforce', 'maxspeed', 'meanpower', 'meanuforce',
                     'meanspeed', 'work', 'ptime', 'negwork', 'slope', 'smoothness']
-
+        for mode in ['mean', 'right', 'left']:
+            data_pbp[mode]['Resistance'] = res_label
         processed_outcomes = {}
 
         for side in ['mean', 'right', 'left']:
@@ -798,28 +797,28 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
         outcomes_left_all.to_excel(writer, sheet_name='left')
 
     # Create force_velocity curves for mean/right/left
-    fig_fvc_right, var_fvc_right = force_velocity_curve(data_pbp_right, upper_lim,
+    fig_fvc_right, var_fvc_right = force_velocity_curve(data_pbp_right, y_lim=upper_lim,
                                                         push_cutoff=push_cutoff,
                                                         n_sprints=n_sprints,
-                                                        var=var)
+                                                        var=var, x_lim=low_lim)
     var_fvc_right.index = [athlete]
     var_fvc_right['side'] = 'right'
     plt.savefig(fig_loc + r'\Force_velocity_curve_right.png', dpi=600)
     plt.close('all')
 
-    fig_fvc_left, var_fvc_left = force_velocity_curve(data_pbp_left, upper_lim,
+    fig_fvc_left, var_fvc_left = force_velocity_curve(data_pbp_left, y_lim=upper_lim,
                                                       push_cutoff=push_cutoff,
                                                       n_sprints=n_sprints,
-                                                      var=var)
+                                                      var=var, x_lim=low_lim)
     var_fvc_left.index = [athlete]
     var_fvc_left['side'] = 'left'
     plt.savefig(fig_loc + r'\Force_velocity_curve_left.png', dpi=600)
     plt.close('all')
 
-    fig_fvc, var_fvc = force_velocity_curve(data_pbp_all, upper_lim,
+    fig_fvc, var_fvc = force_velocity_curve(data_pbp_all, y_lim=upper_lim,
                                             push_cutoff=push_cutoff,
                                             n_sprints=n_sprints,
-                                            var=var)
+                                            var=var, x_lim=low_lim)
     var_fvc.index = [athlete]
     var_fvc['side'] = 'mean'
     plt.savefig(fig_loc + r'\Force_velocity_curve.png', dpi=600)

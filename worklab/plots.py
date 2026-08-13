@@ -628,9 +628,9 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean',
     if var == 'max':
         speed = 'maxspeed'
         force = 'maxuforce'
-    elif var == 'adj_mean':
+    elif var == 'impulse':
         speed = 'meanspeed'
-        force = 'adj_force'
+        force = 'impulse'
     else:
         speed = 'meanspeed'
         force = 'meanuforce'

@@ -1,6 +1,6 @@
 [project]
 name = "worklab"
-version = "2.2.7"
+version = "2.2.8"
 description = "Basic scripts for worklab devices"
 readme = "README.md"
 requires-python = ">=3.7"
