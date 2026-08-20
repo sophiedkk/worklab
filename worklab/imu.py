@@ -343,10 +343,7 @@ def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=
     Parameters
     ----------
     sessiondata : pandas.DataFrame
-        Input dataframe containing at least:
-        - 'timestamp'   : integer timestamps
-        - 'rot_vel'     : rotational velocity (deg/s)
-        - 'vel'    : forward velocity (m/s)
+        original sessiondata structure
 
     rot_window : int, optional
         Rolling window size for smoothing rotational velocity.
@@ -606,7 +603,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         frame["skid_vel"] = (right['vel_wheel'] * comb_ratio) + (left["vel_wheel"] * (1 - comb_ratio))
         frame["vel"] = (right["vel"] + left["vel"]) / 2
         frame['vel_wheel'] = (frame["vel_right"] + frame["vel_left"]) / 2
-        frame['dist'] = cumulative_trapezoid(frame["skid_vel"], initial=0.0) / sfreq
+        frame['dist'] = cumulative_trapezoid(frame["vel"], initial=0.0) / sfreq
     if n_sensors > 1:
         # distance in the x and y direction and acc from wheel
         frame["acc_wheel"] = lowpass_butter(np.gradient(frame["vel"]) * sfreq, sfreq=sfreq,
