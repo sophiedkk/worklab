@@ -50,7 +50,7 @@ def resample_imu(sessiondata, sfreq=400.0):
     return sessiondata
 
 
-def cut_imu(sessiondata, slice_1=1, slice_2=5, side='right'):
+def cut_imu(sessiondata, slice_1=1, slice_2=5):
     """
     Align IMU signals based on correlation of sensors
 
@@ -62,8 +62,6 @@ def cut_imu(sessiondata, slice_1=1, slice_2=5, side='right'):
         starting time to cut data (s)
     slice_2: np.int
         stopping time to cut data (s), if input is 'end' (string), it will cut till the end
-    side: string
-        location of wheel sensor
 
     Returns
     -------
@@ -71,17 +69,24 @@ def cut_imu(sessiondata, slice_1=1, slice_2=5, side='right'):
         cut sessiondata
 
     """
-    sfreq = 1 / sessiondata[side]["time"].diff().mean()
+    sfreq = 1 / sessiondata['frame']["time"].diff().mean()
     slice_1 *= sfreq
 
     if type(slice_2) is str:
-       slice_2 = sessiondata[side]['time'].iloc[-1]
+        slice_2 = sessiondata['frame']['time'].iloc[-1]
     slice_2 *= sfreq
 
-    for sensor in sessiondata:
-        sessiondata[sensor] = sessiondata[sensor].iloc[slice_1.astype('int64'):slice_2.astype('int64'), :]
-        sessiondata[sensor] = sessiondata[sensor].reset_index(drop=True)
-        sessiondata[sensor]['time'] -= sessiondata[sensor]['time'][0]
+    if slice_1 > len(sessiondata['frame']):
+        print('Unable to slice dataframe, starting point out of bounds')
+    else:
+        if slice_2 > len(sessiondata['frame']):
+            print('Unable to slice dataframe properly, end point out of bounds')
+            slice_2 = sessiondata['frame']['time'].iloc[-1]
+            slice_2 *= sfreq
+        for sensor in sessiondata:
+            sessiondata[sensor] = sessiondata[sensor].iloc[slice_1.astype('int64'):slice_2.astype('int64'), :]
+            sessiondata[sensor] = sessiondata[sensor].reset_index(drop=True)
+            sessiondata[sensor]['time'] -= sessiondata[sensor]['time'][0]
 
     return sessiondata
 
