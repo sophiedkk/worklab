@@ -8,6 +8,7 @@ from .utils import lowpass_butter, pd_interp
 import imufusion
 import pandas as pd
 
+
 def resample_imu(sessiondata, sfreq=400.0):
     """
     Resample all devices and sensors to new sample frequency.
@@ -274,10 +275,10 @@ def frame_rot(sessiondata, ca=20, ws=0.34, side='right', method='ahrs'):
         gyro_z_corr = sessiondata[side].gyroscope_z
         if side == 'right':
             frame_rot_euler2 = (-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr + (
-                        (euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr
+                                (euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr
         else:
             frame_rot_euler2 = (-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr + (
-                        (-euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr
+                                (-euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr
 
         frame_rot_euler2_filt = lowpass_butter(frame_rot_euler2, sfreq, cutoff=10)
         sessiondata[side]['rot_vel'] = frame_rot_euler2_filt
@@ -329,7 +330,8 @@ def frame_rot(sessiondata, ca=20, ws=0.34, side='right', method='ahrs'):
 
         # # --- Savgol filter
         wl = int(0.25 * sfreq)
-        if wl % 2 == 0: wl += 1
+        if wl % 2 == 0:
+            wl += 1
         # frame_rot_filtered = savgol_filter(frame_rot, wl, polyorder=3)
         frame_rot_filtered = lowpass_butter(frame_rot_klim, sfreq, cutoff=6)
         for axis in ['gyroscope_x', 'gyroscope_y', 'gyroscope_z']:
@@ -382,7 +384,7 @@ def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=
     dt = 1.0 / sfreq
 
     rot = np.nan_to_num(pd.Series(sessiondata["rot_vel"]).rolling(rot_window, center=True).mean())
-    v   = np.nan_to_num(pd.Series(sessiondata["vel"]).rolling(vel_window, center=True).mean())
+    v = np.nan_to_num(pd.Series(sessiondata["vel"]).rolling(vel_window, center=True).mean())
 
     theta = cumulative_trapezoid(np.deg2rad(rot), dx=dt, initial=0.0)
 
@@ -390,7 +392,8 @@ def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=
     seg = pd.Series(turn_mask).diff().fillna(0)
     s_idx = np.where(seg == 1)[0]
     e_idx = np.where(seg == -1)[0]
-    if len(e_idx) < len(s_idx): e_idx = np.append(e_idx, len(rot)-1)
+    if len(e_idx) < len(s_idx):
+        e_idx = np.append(e_idx, len(rot) - 1)
 
     anchors = np.zeros_like(theta)
     for s, e in zip(s_idx, e_idx):
@@ -401,8 +404,8 @@ def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=
     for i in range(len(theta)):
         if turn_mask[i]:
             w = turn_smooth_window
-            a = max(0, i - w//2)
-            b = min(len(theta), i + w//2)
+            a = max(0, i - w // 2)
+            b = min(len(theta), i + w // 2)
             ts[i] = ts[a:b].mean()
     theta = ts
 
@@ -413,6 +416,7 @@ def wheelchair_odometry(sessiondata, rot_window=5, vel_window=5, turn_threshold=
     sessiondata["dist_y"] = cumulative_trapezoid(vy, dx=dt, initial=0.0)
 
     return sessiondata
+
 
 def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sensor_type='ximu3', side='right',
                 inplace=False, method='ahrs', alignment_correction=False):
@@ -470,7 +474,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         # Wheelchair camber correction
         if side == 'right':
             right["gyro_cor"] = right["gyroscope_y"] + np.tan(np.deg2rad(camber)) * (
-                    frame["rot_vel"] * np.cos(np.deg2rad(camber)))
+                frame["rot_vel"] * np.cos(np.deg2rad(camber))
+            )
             sessiondata = frame_rot(sessiondata, side='right')
             if alignment_correction:
                 sessiondata['right']['rot_vel'], lag_right = align_signals(sessiondata['frame']['rot_vel'],
@@ -484,7 +489,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
                             -lag_right:len(sessiondata['frame']) - lag_right]
         else:
             left["gyro_cor"] = left["gyroscope_y"] - np.tan(np.deg2rad(camber)) * (
-                    frame["rot_vel"] * np.cos(np.deg2rad(camber)))
+                frame["rot_vel"] * np.cos(np.deg2rad(camber))
+            )
             sessiondata = frame_rot(sessiondata, side='left')
             if alignment_correction:
                 sessiondata['left']['rot_vel'], lag_left = align_signals(sessiondata['frame']['rot_vel'],
@@ -506,7 +512,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
                 right['gyro_cor'] = right['gyroscope_y']
             elif method == 'ahrs':
                 right["gyro_cor"] = right["gyroscope_y"] + np.tan(np.deg2rad(camber)) * (
-                        right["rot_vel"] * np.cos(np.deg2rad(camber)))
+                    right["rot_vel"] * np.cos(np.deg2rad(camber))
+                )
 
         else:
             sessiondata = frame_rot(sessiondata, side='left')
@@ -515,7 +522,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
                 left['gyro_cor'] = left['gyroscope_y']
             elif method == 'ahrs':
                 left["gyro_cor"] = left["gyroscope_y"] - np.tan(np.deg2rad(camber)) * (
-                        left["rot_vel"] * np.cos(np.deg2rad(camber)))
+                    left["rot_vel"] * np.cos(np.deg2rad(camber))
+                )
 
     if n_sensors == 3:
         left = sessiondata["left"]
@@ -533,7 +541,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
 
         left['gyroscope_y'] = lowpass_butter(left['gyroscope_y'], sfreq=sfreq, cutoff=10)
         left["gyro_cor"] = left["gyroscope_y"] - np.tan(np.deg2rad(camber)) * (
-                frame["rot_vel"] * np.cos(np.deg2rad(camber)))
+            frame["rot_vel"] * np.cos(np.deg2rad(camber))
+        )
         frame["gyro_cor"] = (right["gyro_cor"] + left["gyro_cor"]) / 2
     elif n_sensors == 2:
         if side == 'right':
@@ -546,16 +555,14 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         right["vel_wheel"] = np.deg2rad(right["gyro_cor"]) * wsize  # angular velocity to linear velocity
         right["vel_wheel"] = lowpass_butter(right["vel_wheel"], sfreq=sfreq, cutoff=10)
         right["vel"] = right['vel_wheel']
-        right["acc_wheel"] = lowpass_butter(np.gradient(right["vel"]) * sfreq, sfreq=sfreq,
-                                            cutoff=10)  # mean acceleration from velocity
+        right["acc_wheel"] = lowpass_butter(np.gradient(right["vel"]) * sfreq, sfreq=sfreq,cutoff=10)
         right['acc'] = right['acc_wheel']
         right["dist"] = cumulative_trapezoid(right["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
     if side == 'left' or n_sensors == 3:
         left["vel_wheel"] = np.deg2rad(left["gyro_cor"]) * wsize  # angular velocity to linear velocity
         left["vel_wheel"] = lowpass_butter(left["vel_wheel"], sfreq=sfreq, cutoff=10)
         left["vel"] = left['vel_wheel']
-        left["acc_wheel"] = lowpass_butter(np.gradient(left["vel"]) * sfreq, sfreq=sfreq,
-                                            cutoff=10)  # mean acceleration from velocity
+        left["acc_wheel"] = lowpass_butter(np.gradient(left["vel"]) * sfreq, sfreq=sfreq, cutoff=10)
         left['acc'] = left['acc_wheel']
         left["dist"] = cumulative_trapezoid(left["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
 
@@ -594,7 +601,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     Procedia Engineering, 112, 207-212."""
     if n_sensors == 3:
         r_ratio0 = np.abs(right["vel_wheel"]) / (
-                    np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"]))  # Ratio left and right
+                    np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"])
+        )
         l_ratio0 = np.abs(left["vel_wheel"]) / (np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"]))
         r_ratio1 = np.abs(np.gradient(left["vel_wheel"])) / (np.abs(np.gradient(right["vel_wheel"]))
                                                              + np.abs(np.gradient(left["vel_wheel"])))

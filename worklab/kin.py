@@ -585,7 +585,7 @@ def push_by_push_ergo(data, variable="power", cutoff=0.0, minpeak=50.0, mindist=
         pbp["slope"] = pbp["maxtorque"] / (pbp["tpeak"] - pbp["tstart"])
         pbp["smoothness"] = pbp["meanforce"] / pbp["maxforce"]
         pbp["work"] = push_group["work"].sum()[1::2].reset_index(drop=True)
-        pbp['impulse'] = pbp['meanuforce']*pbp['ptime']
+        pbp['impulse'] = pbp['meanuforce'] * pbp['ptime']
 
         cycle_bins = np.digitize(data[side].index, pbp["start"].values)
         pbp["cwork"] = data[side][["work"]].groupby(cycle_bins).sum()[1:].reset_index(drop=True)

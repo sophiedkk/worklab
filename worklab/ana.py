@@ -15,6 +15,7 @@ from .physio import calc_weighted_average
 from .com import load_esseda, load_wheelchair
 from .kin import filter_ergo, process_ergo, push_by_push_ergo
 
+
 def mean_data(data):
     """
     Combined data of left and right module
@@ -680,7 +681,8 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
 
     if len(res_names) != n_sprints:
         print(
-            f"The number of sprints defined in n_sprints '{n_sprints}' and the list of resistance names defined in res_names '{res_names}' do not match")
+            f"The number of sprints defined in n_sprints '{n_sprints}' and the list of resistance "
+            f"names defined in res_names '{res_names}' do not match")
         return None
     data_pbp_all, data_pbp_right, data_pbp_left = pd.DataFrame([]), pd.DataFrame([]), pd.DataFrame([])
     col_pal = sns.color_palette("dark:#5A9_r", 7)
@@ -710,7 +712,8 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
             return None
         data = cut_data(data, start / 100, start / 100 + duration)
         if minpeak is None:
-            minpeak = (((np.mean(data['left']['torque']) + np.mean(data['right']['torque'])) / 2) + 4)
+            minpeak = (((np.mean(data['left']['torque']) + np.mean(data['right']['torque'])) / 2)
+                       + 4)
         data_pbp = push_by_push_ergo(data, variable='torque', cutoff=1.0,
                                             minpeak=minpeak)
 

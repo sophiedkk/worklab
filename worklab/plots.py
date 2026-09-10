@@ -634,7 +634,7 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean',
     else:
         speed = 'meanspeed'
         force = 'meanuforce'
-    data_pbp = data_pbp[data_pbp.index > push_cutoff-1].copy()
+    data_pbp = data_pbp[data_pbp.index > push_cutoff - 1].copy()
     x = np.array(data_pbp[speed]).reshape((-1, 1))
     y = np.array(data_pbp[force])
     data_pbp['x'] = np.array(data_pbp[speed]).reshape((-1, 1))
@@ -643,12 +643,12 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean',
     r_sq = model.score(x, y)
     intercept = float(model.intercept_)
     coef = float(model.coef_[0])
-    x1 = np.linspace(0, abs(intercept/coef), 100)
+    x1 = np.linspace(0, abs(intercept / coef), 100)
     xx = np.linspace(x.min(), x.max(), 100)
 
-    pred_y = model.intercept_ + model.coef_*x
-    pred_y1 = model.intercept_ + model.coef_*x1
-    pred_y2 = model.intercept_ + model.coef_*xx
+    pred_y = model.intercept_ + model.coef_ * x
+    pred_y1 = model.intercept_ + model.coef_ * x1
+    pred_y2 = model.intercept_ + model.coef_ * xx
     power = xx * pred_y2
     power1 = x1 * pred_y1
     parabola = pd.DataFrame({'POmax': power1, 'vmax': x1})
@@ -693,6 +693,7 @@ def force_velocity_curve(data_pbp, y_lim=800, var='mean',
     ax1.spines['right'].set_color('grey')
     ax1.tick_params(axis='y', colors='grey')
     ax1.tick_params(axis='both', labelsize=20)
-    ax1.annotate('Optimal velocity (' + str(round(vmax_opt, 1)) + ' ms)', xy=(0.02, 0.95), xycoords='axes fraction', fontsize=18)
+    ax1.annotate('Optimal velocity (' + str(round(vmax_opt, 1)) + ' ms)',
+                 xy=(0.02, 0.95), xycoords='axes fraction', fontsize=18)
 
     return fig, variables
