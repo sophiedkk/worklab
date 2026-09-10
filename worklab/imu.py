@@ -275,10 +275,10 @@ def frame_rot(sessiondata, ca=20, ws=0.34, side='right', method='ahrs'):
         gyro_z_corr = sessiondata[side].gyroscope_z
         if side == 'right':
             frame_rot_euler2 = ((-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr
-                + ((euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr)
+                                + ((euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr)
         else:
             frame_rot_euler2 = ((-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr
-                + ((-euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr)
+                                + ((-euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr)
 
         frame_rot_euler2_filt = lowpass_butter(frame_rot_euler2, sfreq, cutoff=10)
         sessiondata[side]['rot_vel'] = frame_rot_euler2_filt
