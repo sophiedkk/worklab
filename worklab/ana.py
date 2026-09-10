@@ -715,7 +715,7 @@ def force_vel_profiling(filename, athlete='PP01', classification='LP',
             minpeak = (((np.mean(data['left']['torque']) + np.mean(data['right']['torque'])) / 2)
                        + 4)
         data_pbp = push_by_push_ergo(data, variable='torque', cutoff=1.0,
-                                            minpeak=minpeak)
+                                     minpeak=minpeak)
 
         res_label = res_name
 

@@ -274,11 +274,11 @@ def frame_rot(sessiondata, ca=20, ws=0.34, side='right', method='ahrs'):
         gyro_x_corr = sessiondata[side].gyroscope_x
         gyro_z_corr = sessiondata[side].gyroscope_z
         if side == 'right':
-            frame_rot_euler2 = (-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr + (
-                                (euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr
+            frame_rot_euler2 = ((-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr +
+                ((euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr)
         else:
-            frame_rot_euler2 = (-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr + (
-                                (-euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr
+            frame_rot_euler2 = ((-euler2[:, 1] / np.deg2rad(90 - ca)) * gyro_x_corr +
+                ((-euler2[:, 0] + np.deg2rad(90)) / np.deg2rad(90 - ca)) * gyro_z_corr)
 
         frame_rot_euler2_filt = lowpass_butter(frame_rot_euler2, sfreq, cutoff=10)
         sessiondata[side]['rot_vel'] = frame_rot_euler2_filt
@@ -555,7 +555,7 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
         right["vel_wheel"] = np.deg2rad(right["gyro_cor"]) * wsize  # angular velocity to linear velocity
         right["vel_wheel"] = lowpass_butter(right["vel_wheel"], sfreq=sfreq, cutoff=10)
         right["vel"] = right['vel_wheel']
-        right["acc_wheel"] = lowpass_butter(np.gradient(right["vel"]) * sfreq, sfreq=sfreq,cutoff=10)
+        right["acc_wheel"] = lowpass_butter(np.gradient(right["vel"]) * sfreq, sfreq=sfreq, cutoff=10)
         right['acc'] = right['acc_wheel']
         right["dist"] = cumulative_trapezoid(right["vel"] / sfreq, initial=0.0)  # integral of velocity gives distance
     if side == 'left' or n_sensors == 3:
@@ -600,9 +600,8 @@ def process_imu(sessiondata, camber=18, wsize=0.32, wbase=0.80, n_sensors=3, sen
     Wheel skid correction is a prerequisite to reliably measure wheelchair sports kinematics based on inertial sensors.
     Procedia Engineering, 112, 207-212."""
     if n_sensors == 3:
-        r_ratio0 = np.abs(right["vel_wheel"]) / (
-                    np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"])
-        )
+        r_ratio0 = (np.abs(right["vel_wheel"]) /
+            (np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"])))
         l_ratio0 = np.abs(left["vel_wheel"]) / (np.abs(right["vel_wheel"]) + np.abs(left["vel_wheel"]))
         r_ratio1 = np.abs(np.gradient(left["vel_wheel"])) / (np.abs(np.gradient(right["vel_wheel"]))
                                                              + np.abs(np.gradient(left["vel_wheel"])))
