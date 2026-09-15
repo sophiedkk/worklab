@@ -52,20 +52,9 @@ jobs:
         build 
         docs
 
-    # Push the book's HTML to github-pages (Node‑24 compatible)
-    - name: Upload docs artifact
-      uses: actions/upload-pages-artifact@v3
+    - name: Push HTML to gh-pages
+      uses: peaceiris/actions-gh-pages@v3.6.1
       with:
-        path: docs/_build/html
-
-  deploy:
-    needs: build-n-publish
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    steps:
-    - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/_build/html
+        publish_branch: gh-pages
