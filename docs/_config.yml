@@ -9,6 +9,7 @@ title                       : ""  # The title of the book. Will be placed in the
 author                      : Sophie de Klerk, Thomas Rietveld, Rowie Janssen, Jelmer Braaksma  # The author of the book
 copyright                   : "2024"  # Copyright year to be placed in the footer
 logo                        : "accessibility_icon_boost.svg"  # A path to the book logo
+builder                     : html
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 exclude_patterns            : [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
 # Auto-exclude files not in the toc

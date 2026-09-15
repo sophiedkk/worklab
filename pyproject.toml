@@ -1,6 +1,6 @@
 [project]
 name = "worklab"
-version = "2.3.5"
+version = "2.3.6"
 description = "Basic scripts for worklab devices"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -35,7 +35,7 @@ dev = [
     "pytest",
     "Flake8-pyproject",
     "black",
-    "jupyter-book",
+    "jupyter-book==0.15.1",
     "build"
 ]
 
