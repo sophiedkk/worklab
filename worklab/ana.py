@@ -554,7 +554,7 @@ def ana_sprint(data, data_pbp, half=5, title=None):
     return fig, outcomes
 
 
-def ana_submax(data_ergo, data_pbp, data_spiro):
+def ana_submax(data_ergo, data_pbp, data_spiro=None):
     """
     Sub maximal test analyse. Saves important outcomes
 
@@ -572,8 +572,6 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
     outcomes : pd.DataFrame
 
     """
-    mean_spiro = calc_weighted_average(data_spiro[["RER", "EE", "HR", "VO2"]], data_spiro["weights"])
-    mean_spiro = pd.DataFrame(mean_spiro).T
 
     mean_ergo = [
         {
@@ -581,8 +579,10 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
             "meanpower": data_ergo["mean"]["power"].mean(),
             "ptime_l": data_pbp["left"]["ptime"].mean(),
             "ptime_r": data_pbp["right"]["ptime"].mean(),
+            "ptime": data_pbp['mean']['ptime'].mean(),
             "ctime_l": data_pbp["left"]["ctime"].mean(),
             "ctime_r": data_pbp["right"]["ctime"].mean(),
+            "ctime": data_pbp['mean']['ctime'].mean(),
             "ca_l": data_pbp["left"]["cangle_deg"].mean(),
             "ca_r": data_pbp["right"]["cangle_deg"].mean(),
             "meanpowerperpush": data_pbp["mean"]["meanpower"].mean(),
@@ -591,13 +591,22 @@ def ana_submax(data_ergo, data_pbp, data_spiro):
             "slope": data_pbp["mean"]["slope"].mean(),
             "smoothness": data_pbp["mean"]["smoothness"].mean(),
             "freq": 1 / data_pbp["mean"]["ctime"].mean(),
+            "pushes": len(data_pbp["mean"]),
         }
     ]
 
     mean_ergo = pd.DataFrame(mean_ergo)
 
-    outcomes = pd.concat([mean_ergo, mean_spiro], axis=1)
-    outcomes["me"] = (outcomes["meanpower"] / outcomes["EE"]) * 100
+    if data_spiro is not None:
+        if data_spiro["HR"].isna().all():
+            mean_spiro = calc_weighted_average(data_spiro[["RER", "EE", "VO2"]], data_spiro["weights"])
+        else:
+            mean_spiro = calc_weighted_average(data_spiro[["RER", "EE", "HR", "VO2"]], data_spiro["weights"])
+        mean_spiro = pd.DataFrame(mean_spiro).T
+        outcomes = pd.concat([mean_ergo, mean_spiro], axis=1)
+        outcomes["me"] = (outcomes["meanpower"] / outcomes["EE"]) * 100
+    else:
+        outcomes = mean_ergo
     return outcomes
 
 

@@ -243,7 +243,10 @@ def load_spiro_metamax(filename, sheet_name=0):
     data["VO2"] = data["VO2"].astype(float)
     data["EE"] = ((4.94 * data["RER"] + 16.04) * (1000 * data["VO2"])) / 60
     data["weights"] = np.insert(np.diff(data["time"]), 0, 0)  # used for calculating weighted average
-    data["HR"] = (np.nan if "HR" not in data else data["HR"]).astype(int)  # missing when sensor is not detected
+    if "HR" not in data or data["HR"].isna().all():
+        data["HR"] = np.nan
+    else:
+        data["HR"] = data["HR"].astype(float)
     data["O2pulse"] = data["VO2"] / data["HR"]
     data["VCO2"].replace(0, 0.01, inplace=True)
     data["VO2"].replace(0, 0.01, inplace=True)
@@ -999,3 +1002,4 @@ def load_ximu3(root_dir, filenames=None, inplace=False):
     sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
 
     return sessiondata
+
