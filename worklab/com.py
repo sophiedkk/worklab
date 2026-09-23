@@ -1002,4 +1002,3 @@ def load_ximu3(root_dir, filenames=None, inplace=False):
     sessiondata = {a: b for a, b in sessiondata.items() if b is not None}
 
     return sessiondata
-
