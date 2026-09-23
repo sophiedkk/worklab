@@ -919,7 +919,7 @@ document.write(`
     <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">outcomes</span></div>
 
 
-<div class="viewcode-block" id="ana_submax"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.ana_submax">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">ana_submax</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">data_spiro</span><span class="p">):</span>
+<div class="viewcode-block" id="ana_submax"><a class="viewcode-back" href="../../chapters/API/ana.html#worklab.ana.ana_submax">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">ana_submax</span><span class="p">(</span><span class="n">data_ergo</span><span class="p">,</span> <span class="n">data_pbp</span><span class="p">,</span> <span class="n">data_spiro</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Sub maximal test analyse. Saves important outcomes</span>
 
@@ -937,8 +937,6 @@ document.write(`
 <span class="sd">    outcomes : pd.DataFrame</span>
 
 <span class="sd">    """</span>
-    <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">calc_weighted_average</span><span class="p">(</span><span class="n">data_spiro</span><span class="p">[[</span><span class="s2">"RER"</span><span class="p">,</span> <span class="s2">"EE"</span><span class="p">,</span> <span class="s2">"HR"</span><span class="p">,</span> <span class="s2">"VO2"</span><span class="p">]],</span> <span class="n">data_spiro</span><span class="p">[</span><span class="s2">"weights"</span><span class="p">])</span>
-    <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_spiro</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 
     <span class="n">mean_ergo</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -946,8 +944,10 @@ document.write(`
             <span class="s2">"meanpower"</span><span class="p">:</span> <span class="n">data_ergo</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">][</span><span class="s2">"power"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"ptime_l"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"left"</span><span class="p">][</span><span class="s2">"ptime"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"ptime_r"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"right"</span><span class="p">][</span><span class="s2">"ptime"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">"ptime"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s1">'mean'</span><span class="p">][</span><span class="s1">'ptime'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"ctime_l"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"left"</span><span class="p">][</span><span class="s2">"ctime"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"ctime_r"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"right"</span><span class="p">][</span><span class="s2">"ctime"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">"ctime"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s1">'mean'</span><span class="p">][</span><span class="s1">'ctime'</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"ca_l"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"left"</span><span class="p">][</span><span class="s2">"cangle_deg"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"ca_r"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"right"</span><span class="p">][</span><span class="s2">"cangle_deg"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"meanpowerperpush"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">][</span><span class="s2">"meanpower"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
@@ -956,13 +956,22 @@ document.write(`
             <span class="s2">"slope"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">][</span><span class="s2">"slope"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"smoothness"</span><span class="p">:</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">][</span><span class="s2">"smoothness"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
             <span class="s2">"freq"</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">data_pbp</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">][</span><span class="s2">"ctime"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">"pushes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_pbp</span><span class="p">[</span><span class="s2">"mean"</span><span class="p">]),</span>
         <span class="p">}</span>
     <span class="p">]</span>
 
     <span class="n">mean_ergo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_ergo</span><span class="p">)</span>
 
-    <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mean_ergo</span><span class="p">,</span> <span class="n">mean_spiro</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">outcomes</span><span class="p">[</span><span class="s2">"me"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">outcomes</span><span class="p">[</span><span class="s2">"meanpower"</span><span class="p">]</span> <span class="o">/</span> <span class="n">outcomes</span><span class="p">[</span><span class="s2">"EE"</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">if</span> <span class="n">data_spiro</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">data_spiro</span><span class="p">[</span><span class="s2">"HR"</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">calc_weighted_average</span><span class="p">(</span><span class="n">data_spiro</span><span class="p">[[</span><span class="s2">"RER"</span><span class="p">,</span> <span class="s2">"EE"</span><span class="p">,</span> <span class="s2">"VO2"</span><span class="p">]],</span> <span class="n">data_spiro</span><span class="p">[</span><span class="s2">"weights"</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">calc_weighted_average</span><span class="p">(</span><span class="n">data_spiro</span><span class="p">[[</span><span class="s2">"RER"</span><span class="p">,</span> <span class="s2">"EE"</span><span class="p">,</span> <span class="s2">"HR"</span><span class="p">,</span> <span class="s2">"VO2"</span><span class="p">]],</span> <span class="n">data_spiro</span><span class="p">[</span><span class="s2">"weights"</span><span class="p">])</span>
+        <span class="n">mean_spiro</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">mean_spiro</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">outcomes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mean_ergo</span><span class="p">,</span> <span class="n">mean_spiro</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">outcomes</span><span class="p">[</span><span class="s2">"me"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">outcomes</span><span class="p">[</span><span class="s2">"meanpower"</span><span class="p">]</span> <span class="o">/</span> <span class="n">outcomes</span><span class="p">[</span><span class="s2">"EE"</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">outcomes</span> <span class="o">=</span> <span class="n">mean_ergo</span>
     <span class="k">return</span> <span class="n">outcomes</span></div>
 
 
